@@ -1,0 +1,134 @@
+﻿# ============================================
+# .gitignore — ERP_CORE (Django + Frontend) — 2025
+# ============================================
+
+# ==== Python / Django ====
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.pyo
+*.pdb
+*.so
+*.dylib
+
+# قاعدة بيانات تطوير محلية
+db.sqlite3
+db.sqlite3-journal
+
+# سجلات ورسائل ترجمة مجمعة
+*.log
+*.mo
+*.pot
+
+# ملفات ميديا مرفوعة من المستخدمين
+media/
+uploads/
+
+# ملفات Static المجمعة (collectstatic)
+staticfiles/
+static_root/
+**/staticfiles.json
+
+# لا نتجاهل مجلد static/ المصدري
+
+# ==== البيئات الافتراضية ====
+.env
+.venv
+env/
+venv/
+ENV/
+**/.env
+**/.venv
+**/env/
+**/venv/
+
+# ==== التوزيع والحزم ====
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==== الاختبارات والتغطية ====
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.cache/
+
+# ==== الفحص والثابتات ====
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ==== دفاتر Jupyter ====
+.ipynb_checkpoints/
+
+# ==== إعدادات محلية/سرية ====
+local_settings.py
+settings_local.py
+secrets.*
+*.env.local
+*.env.development
+*.env.production
+*.env.test
+*.env.*
+!.env.example
+!.env.sample
+
+# ==== سجلات ووقت التشغيل ====
+logs/
+*.log*
+*.pid
+celerybeat-schedule
+celerybeat.pid
+gunicorn.pid
+
+# ==== Frontend / Node ====
+node_modules/
+.pnpm-store/
+.npm/
+bower_components/
+
+# آثار البناء من المجمعات
+.tmp/
+temp/
+tmp/
+.cache-loader/
+.parcel-cache/
+.next/
+.nuxt/
+out/
+coverage/
+webpack-stats.json
+*.tsbuildinfo
+
+# ==== المحررات ====
+.vscode/
+.idea/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+# ==== نظام التشغيل ====
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==== الحاويات ====
+.docker/
+docker-data/
+.envrc
+.direnv/
