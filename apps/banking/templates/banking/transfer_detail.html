@@ -1,0 +1,12 @@
+<!-- apps/banking/templates/banking/transfer_detail.html -->
+<h1>Transfer: {{ transfer.reference }}</h1>
+<ul>
+  <li>Provider: {{ transfer.provider.name }}</li>
+  <li>From: {{ transfer.source_account.name }}</li>
+  <li>To: {{ transfer.destination_account.name }}</li>
+  <li>Amount: {{ transfer.amount }} {{ transfer.currency }}</li>
+  <li>Status: {{ transfer.status }}</li>
+</ul>
+<p>
+  <a href="{% url 'banking:transfer_list' %}">Back</a>
+</p>

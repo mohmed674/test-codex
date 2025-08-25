@@ -1,0 +1,17 @@
+<ul class="divide-y divide-gray-200 rtl text-right">
+    {% for notification in notifications %}
+    <li class="py-2 flex justify-between items-center {% if not notification.read %}bg-yellow-50{% endif %}">
+        <div>
+            <p class="font-semibold">{{ notification.message }}</p>
+            <small class="text-gray-500">{{ notification.created_at|date:"Y-m-d H:i" }}</small>
+        </div>
+        {% if not notification.read %}
+        <button hx-post="{% url 'notifications:mark_as_read' notification.pk %}" hx-swap="none" class="btn btn-sm btn-success">
+            تم القراءة
+        </button>
+        {% endif %}
+    </li>
+    {% empty %}
+    <li>لا توجد إشعارات</li>
+    {% endfor %}
+</ul>

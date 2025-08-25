@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>لوحة تحكم المزامنة دون اتصال</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>تاريخ المزامنة</th>
+            <th>موجز البيانات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.synced_at }}</td>
+            <td>{{ log.data_summary|default:"لا توجد بيانات" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">لا توجد سجلات مزامنة</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

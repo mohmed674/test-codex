@@ -1,0 +1,30 @@
+{# suppliers/templates/suppliers/dashboard.html #}
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}لوحة تحكم الموردين{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">{% trans "لوحة تحكم الموردين" %}</h2>
+
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">إجمالي الموردين</h5>
+                    <p class="card-text fs-4">{{ total_suppliers }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">محافظات مختلفة</h5>
+                    <p class="card-text fs-4">{{ unique_governorates }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4" dir="rtl">
+    <h2 class="mb-4">📊 لوحة تحكم واتساب</h2>
+
+    <div class="row text-center mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-right">
+                <div class="card-body">
+                    <h5 class="card-title">📦 إجمالي الطلبات</h5>
+                    <h2 class="text-primary">{{ total_orders }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-right">
+                <div class="card-body">
+                    <h5 class="card-title">🗓️ طلبات اليوم</h5>
+                    <h2 class="text-success">{{ new_orders_today }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">📅 طلبات آخر 7 أيام</h5>
+                    <h2 class="text-warning">{{ new_orders_week }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">🏆 أفضل 5 عملاء حسب عدد الطلبات</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped m-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">رقم العميل</th>
+                        <th scope="col">عدد الطلبات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for client in top_clients %}
+                        <tr>
+                            <td>{{ client.customer_phone }}</td>
+                            <td>{{ client.total_orders }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="2" class="text-center">لا يوجد بيانات</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "الإشعارات" %}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h3 class="mb-3">{% trans "الإشعارات" %}</h3>
+  {% if notifications %}
+    <ul class="list-group">
+      {% for n in notifications %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ n.message }} — <small class="text-muted">{{ n.created_at }}</small></span>
+          <a class="btn btn-sm btn-primary" href="{% url 'notifications:mark_as_read' n.id %}">{% trans "تعليم كمقروء" %}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-info mb-0">{% trans "لا توجد إشعارات" %}</div>
+  {% endif %}
+</div>
+{% endblock %}

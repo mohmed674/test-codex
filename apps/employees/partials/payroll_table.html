@@ -1,0 +1,58 @@
+<!-- ✅ جدول المرتب الشهري -->
+<h5 class="mt-3">المرتب الشهري</h5>
+<table class="table table-bordered table-striped text-center align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>الشهر</th>
+      <th>أيام العمل</th>
+      <th>أيام الغياب</th>
+      <th>طريقة الحساب</th>
+      <th>المرتب</th>
+      <th>ملاحظات</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for salary in employee.salary_set.all|dictsortreversed:"month" %}
+      <tr>
+        <td>{{ salary.month }}</td>
+        <td>{{ salary.working_days }}</td>
+        <td>{{ salary.absent_days }}</td>
+        <td>
+          {% if salary.method == 'attendance' %}زمني{% endif %}
+          {% if salary.method == 'production' %}إنتاج{% endif %}
+        </td>
+        <td>{{ salary.amount }} ج.م</td>
+        <td>{{ salary.notes|default:"-" }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6">لا يوجد بيانات مرتبات.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- ✅ جدول السلف -->
+<h5 class="mt-4">السلف</h5>
+<table class="table table-bordered table-hover text-center align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>التاريخ</th>
+      <th>القيمة</th>
+      <th>نوع السلفة</th>
+      <th>تم الخصم؟</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for advance in employee.advance_set.all|dictsortreversed:"date" %}
+      <tr>
+        <td>{{ advance.date }}</td>
+        <td>{{ advance.amount }} ج.م</td>
+        <td>{{ advance.get_type_display }}</td>
+        <td>
+          {% if advance.deducted %}✅{% else %}❌{% endif %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4">لا يوجد سلف مسجلة.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

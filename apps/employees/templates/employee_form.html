@@ -1,0 +1,134 @@
+{% extends "core/base.html" %}
+{% load static i18n form_filters %}
+{% block content %}
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">👷‍♂️ إضافة / تعديل بيانات الموظف</h2>
+
+  <form method="post" class="border p-4 rounded bg-light shadow-sm" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="row">
+      {% if form.name %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.name.id_for_label }}">الاسم</label>
+        {{ form.name|add_class:"form-control" }}
+        {{ form.name.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.job_title %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.job_title.id_for_label }}">المسمى الوظيفي</label>
+        {{ form.job_title|add_class:"form-control" }}
+        {{ form.job_title.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.gender %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.gender.id_for_label }}">النوع</label>
+        {{ form.gender|add_class:"form-control" }}
+        {{ form.gender.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.department %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.department.id_for_label }}">القسم</label>
+        {{ form.department|add_class:"form-control" }}
+        {{ form.department.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.national_id %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.national_id.id_for_label }}">الرقم القومي</label>
+        {{ form.national_id|add_class:"form-control" }}
+        <small class="form-text text-muted">📄 أدخل الرقم القومي بدقة (14 رقمًا).</small>
+        {{ form.national_id.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.phone %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.phone.id_for_label }}">رقم الهاتف</label>
+        {{ form.phone|add_class:"form-control" }}
+        {{ form.phone.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.hire_date %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.hire_date.id_for_label }}">تاريخ التعيين</label>
+        {{ form.hire_date|add_class:"form-control" }}
+        {{ form.hire_date.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.active %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.active.id_for_label }}">نشط؟</label>
+        {{ form.active|add_class:"form-control" }}
+        {{ form.active.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.total_rewards %}
+      <div class="col-md-4 mb-3">
+        <label for="{{ form.total_rewards.id_for_label }}">إجمالي المكافآت</label>
+        {{ form.total_rewards|add_class:"form-control" }}
+        {{ form.total_rewards.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.total_deductions %}
+      <div class="col-md-4 mb-3">
+        <label for="{{ form.total_deductions.id_for_label }}">إجمالي الخصومات</label>
+        {{ form.total_deductions|add_class:"form-control" }}
+        {{ form.total_deductions.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.total_warnings %}
+      <div class="col-md-4 mb-3">
+        <label for="{{ form.total_warnings.id_for_label }}">عدد الإنذارات</label>
+        {{ form.total_warnings|add_class:"form-control" }}
+        {{ form.total_warnings.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.total_evaluations %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.total_evaluations.id_for_label }}">عدد التقييمات</label>
+        {{ form.total_evaluations|add_class:"form-control" }}
+        {{ form.total_evaluations.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.evaluation_score %}
+      <div class="col-md-6 mb-3">
+        <label for="{{ form.evaluation_score.id_for_label }}">متوسط التقييم</label>
+        {{ form.evaluation_score|add_class:"form-control" }}
+        {{ form.evaluation_score.errors }}
+      </div>
+      {% endif %}
+
+      {% if form.behavior_status %}
+      <div class="col-md-12 mb-3">
+        <label for="{{ form.behavior_status.id_for_label }}">الحالة السلوكية</label>
+        {{ form.behavior_status|add_class:"form-control" }}
+        {{ form.behavior_status.errors }}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="text-center mt-3">
+      <button type="submit" class="btn btn-success px-4">💾 حفظ البيانات</button>
+      <a href="{% url 'employees:employee_list' %}" class="btn btn-secondary px-4 ms-2">🔙 العودة للقائمة</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

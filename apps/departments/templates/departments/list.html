@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">📋 قائمة الأقسام</h2>
+
+    <a href="{% url 'department_create' %}" class="btn btn-success mb-3">➕ إضافة قسم جديد</a>
+
+    {% if headers and rows %}
+        <table class="table table-bordered text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    {% for head in headers %}
+                        <th>{{ head }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        {% for cell in row %}
+                            <td>
+                                {% if cell.edit_url or cell.delete_url %}
+                                    {% if cell.edit_url %}
+                                        <a href="{{ cell.edit_url }}" class="btn btn-primary btn-sm">✏️ تعديل</a>
+                                    {% endif %}
+                                    {% if cell.delete_url %}
+                                        <a href="{{ cell.delete_url }}" class="btn btn-danger btn-sm">🗑️ حذف</a>
+                                    {% endif %}
+                                {% else %}
+                                    {{ cell }}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="{{ headers|length }}">لا توجد أقسام حاليًا.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <table class="table table-bordered text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>الاسم</th>
+                    <th>الوصف</th>
+                    <th>إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dept in departments %}
+                <tr>
+                    <td>{{ dept.name }}</td>
+                    <td>{{ dept.description|default:"—" }}</td>
+                    <td>
+                        <a href="{% url 'department_edit' dept.id %}" class="btn btn-primary btn-sm">✏️ تعديل</a>
+                        <a href="{% url 'department_delete' dept.id %}" class="btn btn-danger btn-sm">🗑️ حذف</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">لا توجد أقسام حاليًا.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

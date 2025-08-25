@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>📦 إدارة المخزون</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
+<body class="bg-light p-4">
+
+<div class="container bg-white rounded shadow-sm p-4">
+
+    <h3 class="text-center mb-4">📦 إدارة عناصر المخزون</h3>
+
+    <!-- ✅ رسائل التنبيه -->
+    {% if messages %}
+      <div class="mt-2">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm text-right" role="alert" dir="rtl">
+            <strong>📢</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="إغلاق"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- 🔎 نموذج الفلترة -->
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <input type="text" name="q" value="{{ query }}" placeholder="بحث بالاسم أو الكود" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <select name="location" class="form-select">
+                <option value="">-- اختر الموقع --</option>
+                {% for loc in locations %}
+                    <option value="{{ loc.id }}" {% if filters.location == loc.id|stringformat:"s" %}selected{% endif %}>{{ loc.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100">🔍 بحث</button>
+        </div>
+        <div class="col-md-3 text-end">
+            <a href="{% url 'inventory:add_inventory_item' %}" class="btn btn-success">➕ إضافة عنصر</a>
+        </div>
+    </form>
+
+    <!-- 📤 أدوات التصدير -->
+    <div class="text-center mb-3">
+        <a href="?{{ request.GET.urlencode }}&download_pdf=1" class="btn btn-outline-warning btn-sm me-2">📄 تصدير PDF</a>
+        <a href="?{{ request.GET.urlencode }}&export=1" class="btn btn-outline-success btn-sm">📊 تصدير Excel</a>
+        <a href="{% url 'inventory:create_inventory_audit' %}" class="btn btn-outline-primary btn-sm ms-3">🧾 بدء جرد فعلي</a>
+    </div>
+
+    <!-- 🧾 جدول العناصر -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>الاسم</th>
+                    <th>الكود</th>
+                    <th>الكمية</th>
+                    <th>الوحدة</th>
+                    <th>الموقع</th>
+                    <th>الحالة</th>
+                    <th>آخر تعديل</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.sku }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.get_unit_display }}</td>
+                        <td>{{ item.location.name|default:"—" }}</td>
+                        <td>
+                            {% if item.quantity <= item.min_threshold %}
+                                <span class="badge bg-danger">🔻 منخفض</span>
+                            {% elif item.quantity <= item.min_threshold|add:10 %}
+                                <span class="badge bg-warning text-dark">⚠️ متوسط</span>
+                            {% else %}
+                                <span class="badge bg-success">✅ جيد</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ item.last_updated|date:"Y-m-d" }}</td>
+                        <td>
+                            <a href="{% url 'inventory:edit_inventory_item' item.id %}" class="btn btn-sm btn-outline-info">✏️</a>
+                            <a href="{% url 'inventory:delete_inventory_item' item.id %}" class="btn btn-sm btn-outline-danger">🗑️</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9">⚠️ لا توجد عناصر حالياً.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- ✅ Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

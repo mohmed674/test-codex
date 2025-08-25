@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>تفاصيل القضية: {{ case.title }}</h2>
+<p><strong>الحالة:</strong> {{ case.get_status_display }}</p>
+<p><strong>المحكمة:</strong> {{ case.court_name|default:"غير محدد" }}</p>
+<p><strong>تاريخ الجلسة:</strong> {{ case.session_date|default:"غير محدد" }}</p>
+<p><strong>المسؤول:</strong> {{ case.lawyer|default:"غير محدد" }}</p>
+
+{% if case.related_client %}
+<p><strong>العميل المرتبط:</strong> {{ case.related_client }}</p>
+{% endif %}
+{% if case.related_supplier %}
+<p><strong>المورد المرتبط:</strong> {{ case.related_supplier }}</p>
+{% endif %}
+{% if case.related_employee %}
+<p><strong>الموظف المرتبط:</strong> {{ case.related_employee }}</p>
+{% endif %}
+
+<p><strong>ملاحظات:</strong><br>{{ case.notes }}</p>
+
+{% if case.attachment %}
+<hr>
+<h5>الملف المرفق:</h5>
+<a href="{{ case.attachment.url }}" class="btn btn-secondary" target="_blank">عرض الملف</a>
+{% endif %}
+{% endblock %}

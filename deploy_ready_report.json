@@ -1,0 +1,12 @@
+[
+  "ℹ️ DEBUG معطّل بالفعل.",
+  "❌ ALLOWED_HOSTS يسمح بالجميع! عدّله قبل النشر.",
+  "✅ تم إنشاء ملف .env",
+  "📁 static موجود: False",
+  "📁 media موجود: False",
+  "🚀 أوامر النشر المقترحة:",
+  "  python manage.py collectstatic --noinput",
+  "  python manage.py makemigrations && migrate",
+  "  python manage.py createsuperuser",
+  "  gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+]

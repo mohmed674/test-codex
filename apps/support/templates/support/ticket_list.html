@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>قائمة طلبات الدعم</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>رقم</th>
+      <th>العنوان</th>
+      <th>العميل</th>
+      <th>الأولوية</th>
+      <th>الحالة</th>
+      <th>المسؤول</th>
+      <th>تفاصيل</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ticket in tickets %}
+    <tr>
+      <td>{{ ticket.id }}</td>
+      <td>{{ ticket.title }}</td>
+      <td>{{ ticket.client }}</td>
+      <td>{{ ticket.get_priority_display }}</td>
+      <td>{{ ticket.get_status_display }}</td>
+      <td>{{ ticket.assigned_to }}</td>
+      <td><a href="{% url 'support:ticket_detail' ticket.id %}" class="btn btn-sm btn-info">عرض</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'support:create_ticket' %}" class="btn btn-success">طلب دعم جديد</a>
+{% endblock %}

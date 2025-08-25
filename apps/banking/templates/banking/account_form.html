@@ -1,0 +1,20 @@
+<!-- apps/banking/templates/banking/account_form.html -->
+<h1>{% if account %}Edit Account{% else %}Create Account{% endif %}</h1>
+<form method="post">
+  {% csrf_token %}
+  {% if not account %}
+  <label>Provider</label>
+  <select name="provider">
+    {% for p in providers %}
+      <option value="{{ p.pk }}">{{ p.name }}</option>
+    {% endfor %}
+  </select>
+  {% endif %}
+  <label>Name</label>
+  <input type="text" name="name" value="{{ account.name|default_if_none:'' }}">
+  <label>Account Number</label>
+  <input type="text" name="account_number" value="{{ account.account_number|default_if_none:'' }}">
+  <label>Currency</label>
+  <input type="text" name="currency" value="{{ account.currency|default_if_none:'EGP' }}">
+  <button type="submit">Save</button>
+</form>

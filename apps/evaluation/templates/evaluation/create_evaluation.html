@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>إضافة تقييم جديد</title>
+</head>
+<body>
+    <h1>📋 إضافة تقييم جديد</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">💾 حفظ التقييم</button>
+    </form>
+
+    <br>
+    <a href="{% url 'evaluation_list' %}">🔙 الرجوع إلى القائمة</a>
+</body>
+</html>

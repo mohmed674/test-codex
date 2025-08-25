@@ -1,0 +1,57 @@
+<!-- ERP_CORE/purchases/templates/purchases/report_pdf.html -->
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير طلبات الشراء</title>
+    <style>
+        body {
+            font-family: "Cairo", sans-serif;
+            font-size: 13px;
+            direction: rtl;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h2>📋 تقرير طلبات الشراء</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>رقم الطلب</th>
+            <th>القسم</th>
+            <th>الموظف</th>
+            <th>الحالة</th>
+            <th>التاريخ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in requests %}
+        <tr>
+            <td>{{ r.id }}</td>
+            <td>{{ r.department.name }}</td>
+            <td>{{ r.requested_by.name }}</td>
+            <td>{{ r.get_status_display }}</td>
+            <td>{{ r.created_at|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

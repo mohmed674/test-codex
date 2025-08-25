@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4" id="printableArea">
+  <h2>{% trans "تفاصيل الطلب" %} #{{ order.id }}</h2>
+
+  <p><strong>{% trans "التاريخ" %}:</strong> {{ order.created_at }}</p>
+  <p><strong>{% trans "المجموع" %}:</strong> {{ order.total_amount }}</p>
+
+  <h5 class="mt-4">{% trans "المنتجات" %}:</h5>
+  <ul class="list-group">
+    {% for item in order.items.all %}
+      <li class="list-group-item">
+        {{ item.product.name }} - {{ item.quantity }} × {{ item.unit_price }}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'pos:new_order' %}" class="btn btn-secondary mt-3">{% trans "طلب جديد" %}</a>
+  <button onclick="printDiv()" class="btn btn-outline-primary mt-3">{% trans "طباعة الفاتورة" %}</button>
+</div>
+
+<script>
+function printDiv() {
+  var printContents = document.getElementById('printableArea').innerHTML;
+  var originalContents = document.body.innerHTML;
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
+}
+</script>
+{% endblock %}

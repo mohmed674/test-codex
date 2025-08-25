@@ -1,0 +1,100 @@
+﻿{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as BIDI %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE|default:'ar' }}" dir="{% if BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#121212">
+  <title>{% trans "أنت غير متصل" %}</title>
+
+  <!-- الإبقاء على الروابط الأصلية + إضافة فافيكون موحَّد -->
+  <link rel="stylesheet" href="{% static 'css/erp.css' %}">
+  <link rel="icon" href="{% static 'icons/icon-192x192.png' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">
+  <link rel="apple-touch-icon" href="{% static 'icons/icon-192x192.png' %}">
+  <link rel="manifest" href="{% url 'manifest_json' %}">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <style>
+    /* Fallback بسيط في حال لم تُخزَّن erp.css بعد */
+    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:#0f1115;color:#eaeaea;margin:0}
+    .wrap{max-width:720px;margin:10vh auto;padding:2rem}
+    .btn{display:inline-block;padding:.75rem 1rem;background:#0d6efd;color:#fff;border-radius:.5rem;text-decoration:none;border:0;cursor:pointer}
+    .muted{color:#9aa0a6}
+    /* توسعة طفيفة لعرض قائمة صفحات مخبأة */
+    #erp-cached{margin-top:1rem;display:none}
+    #erp-cached-list{padding-inline-start:1rem;margin:.5rem 0 0}
+    #erp-sw-version{margin-top:.75rem}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>⚠️ {% trans "أنت غير متصل بالإنترنت" %}</h1>
+    <p class="muted">{% trans "حاول مجدداً عند توفر الاتصال." %}</p>
+    <p>
+      <a class="btn" href="/">{% trans "العودة للرئيسية" %}</a>
+      <button class="btn" style="margin-inline-start:.5rem" onclick="location.reload()">{% trans "إعادة المحاولة" %}</button>
+    </p>
+
+    <!-- قسم معلومات إضافية دون المساس بالهيكل الأصلي -->
+    <section id="erp-offline-info" class="muted">
+      <div id="erp-sw-version"></div>
+      <div id="erp-cached">
+        <strong>{% trans "صفحات متاحة من الذاكرة المؤقتة" %}</strong>
+        <ul id="erp-cached-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // إعادة التحميل تلقائياً عند عودة الاتصال
+    addEventListener('online', () => location.reload());
+
+    // استعلام نسخة الـ Service Worker إن وُجد
+    (function(){
+      try{
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller){
+          navigator.serviceWorker.addEventListener('message', function(ev){
+            if (ev.data && ev.data.type === 'SW_VERSION'){
+              var el = document.getElementById('erp-sw-version');
+              el.textContent = 'SW: ' + ev.data.value;
+            }
+          });
+          navigator.serviceWorker.controller.postMessage({type:'GET_VERSION'});
+        }
+      }catch(e){}
+    })();
+
+    // سرد بعض الملفات المتاحة من الكاش (إن وُجد)
+    (async function(){
+      if (!('caches' in window)) return;
+      try{
+        const keys = await caches.keys();
+        const urls = new Set();
+        for (const k of keys){
+          const c = await caches.open(k);
+          const reqs = await c.keys();
+          reqs.forEach(r => {
+            try{
+              const u = new URL(r.url);
+              if (u.origin === location.origin && !u.pathname.endsWith('/sw.js')){
+                urls.add(u.pathname);
+              }
+            }catch(_){}
+          });
+        }
+        const list = Array.from(urls).slice(0, 15);
+        if (list.length){
+          document.getElementById('erp-cached').style.display = '';
+          const ul = document.getElementById('erp-cached-list');
+          ul.innerHTML = list.map(u => `<li><a href="${u}">${u}</a></li>`).join('');
+        }
+      }catch(_){}
+    })();
+  </script>
+</body>
+</html>

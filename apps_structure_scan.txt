@@ -1,0 +1,594 @@
+
+≡ا¤ ┘╪ص╪╡ ╪د┘╪ز╪╖╪ذ┘è┘é╪د╪ز ╪»╪د╪«┘: apps
+
+≡اôخ [accounting]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/accounting/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [ai_decision]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/ai_decision/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [api_gateway]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/api_gateway/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [asset_lifecycle]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/asset_lifecycle/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [attendance]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/attendance/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [audit_out]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/audit_out/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [backup_center]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظ£à
+   - templates/backup_center/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [bi]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/bi/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [campaigns]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/campaigns/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [client_portal]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/client_portal/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [clients]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/clients/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [communication]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/communication/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [contracts]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/contracts/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [crm]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/crm/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [dark_mode]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/dark_mode/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [dashboard_center]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/dashboard_center/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [demand_forecasting]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/demand_forecasting/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [departments]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/departments/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [discipline]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/discipline/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [docs]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/docs/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [document_center]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/document_center/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [employee_monitoring]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/employee_monitoring/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [employees]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/employees/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [evaluation]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/evaluation/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [expenses]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/expenses/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [internal_bot]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/internal_bot/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [internal_monitoring]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/internal_monitoring/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [inventory]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/inventory/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [knowledge_center]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/knowledge_center/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [legal]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/legal/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [maintenance]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/maintenance/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [media]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/media/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [mobile]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/mobile/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [monitoring]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/monitoring/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [mrp]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/mrp/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [notifications]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظ£à
+   - templates/notifications/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [offline_sync]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظ£à
+   - templates/offline_sync/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [pattern]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/pattern/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [payroll]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/payroll/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [plm]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظ£à
+   - templates/plm/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [pos]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/pos/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [production]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/production/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [products]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/products/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [projects]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/projects/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [purchases]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/purchases/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [qms]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظ£à
+   - templates/qms/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [recruitment]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/recruitment/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [rfq]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/rfq/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [risk_management]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/risk_management/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [sales]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/sales/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [shipping]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/shipping/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [site]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/site/ ظ£à
+     ظزي╕ index ظإî
+
+≡اôخ [suppliers]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/suppliers/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [support]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/support/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [survey]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/survey/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [templates]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/templates/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [theme_manager]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/theme_manager/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [themes]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/themes/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [tracking]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/tracking/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [vendor_portal]
+   - models.py    ظإî
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظإî
+   - templates/vendor_portal/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [voice_commands]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/voice_commands/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [warehouse_map]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/warehouse_map/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [whatsapp_bot]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/whatsapp_bot/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [work_regulations]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظإî
+   - admin.py     ظ£à
+   - templates/work_regulations/ ظ£à
+     ظزي╕ index ظ£à
+
+≡اôخ [workflow]
+   - models.py    ظ£à
+   - views.py     ظ£à
+   - urls.py      ظ£à
+   - forms.py     ظ£à
+   - admin.py     ظ£à
+   - templates/workflow/ ظ£à
+     ظزي╕ index ظ£à
+
+============================================================
+≡اôè ┘à┘╪«╪╡
+============================================================
+╪ح╪ش┘à╪د┘┘è ╪د┘╪ز╪╖╪ذ┘è┘é╪د╪ز: 65
+╪ز╪╖╪ذ┘è┘é╪د╪ز ┘à┘â╪ز┘à┘╪ر (┘à┘┘╪د╪ز ╪ث╪│╪د╪│┘è╪ر + ┘é┘ê╪د┘╪ذ): 47/65
+============================================================

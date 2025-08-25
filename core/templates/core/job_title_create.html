@@ -1,0 +1,8 @@
+{% extends 'core/base.html' %}
+{% load form_filters %}
+{% block content %}
+<div class="container">
+  <h4 class="mt-4">إضافة وظيفة جديدة</h4>
+  {% include 'core/_form_create.html' with form=form back_url=back_url %}
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!-- apps/banking/templates/banking/account_detail.html -->
+<h1>Account: {{ account.name }}</h1>
+<ul>
+  <li>Provider: {{ account.provider.name }}</li>
+  <li>Number: {{ account.account_number }}</li>
+  <li>Currency: {{ account.currency }}</li>
+</ul>
+<p>
+  <a href="{% url 'banking:account_update' account.pk %}">Edit</a> |
+  <a href="{% url 'banking:account_delete' account.pk %}">Delete</a> |
+  <a href="{% url 'banking:account_statement' account.pk %}">Statement</a> |
+  <a href="{% url 'banking:account_list' %}">Back</a>
+</p>

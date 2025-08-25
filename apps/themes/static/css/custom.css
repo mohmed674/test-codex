@@ -1,0 +1,10 @@
+/* themes/static/css/custom.css */
+:root {
+    --primary-color: #5e72e4;
+    --secondary-color: #f4f5f7;
+}
+
+.sidebar {
+    background-color: var(--primary-color);
+    color: #fff;
+}

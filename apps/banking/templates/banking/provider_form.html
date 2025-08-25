@@ -1,0 +1,10 @@
+<!-- apps/banking/templates/banking/provider_form.html -->
+<h1>{% if provider %}Edit Provider{% else %}Create Provider{% endif %}</h1>
+<form method="post">
+  {% csrf_token %}
+  <label>Name</label>
+  <input type="text" name="name" value="{{ provider.name|default_if_none:'' }}">
+  <label>Code</label>
+  <input type="text" name="code" value="{{ provider.code|default_if_none:'' }}">
+  <button type="submit">Save</button>
+</form>

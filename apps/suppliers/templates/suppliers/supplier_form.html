@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto rtl">
+  <h1 class="text-2xl mb-4">{% if form.instance.pk %}تعديل مورد{% else %}إضافة مورد{% endif %}</h1>
+  <form method="post">{% csrf_token %}
+    <div class="grid grid-cols-2 gap-4">
+      {{ form|crispy }}
+    </div>
+    <button type="submit" class="btn btn-success mt-4">حفظ</button>
+  </form>
+</div>
+{% endblock %}

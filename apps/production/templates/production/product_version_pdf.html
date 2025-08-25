@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير إصدارات المنتجات</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 30px;
+            background-color: #fff;
+            font-size: 14px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+        }
+        .table-header {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<h2>📦 تقرير إصدارات المنتج</h2>
+
+<table>
+    <thead class="table-header">
+        <tr>
+            <th>🆔</th>
+            <th>المنتج</th>
+            <th>رقم الإصدار</th>
+            <th>الوصف</th>
+            <th>التاريخ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for version in versions %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ version.product.name }}</td>
+            <td>{{ version.version_number }}</td>
+            <td>{{ version.description|default:"-" }}</td>
+            <td>{{ version.created_at|date:"Y-m-d" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">لا توجد إصدارات حالياً.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

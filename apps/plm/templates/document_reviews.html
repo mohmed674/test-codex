@@ -1,0 +1,41 @@
+{% extends "plm/base.html" %}
+{% block title %}Document Reviews - PLM{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Document Reviews</h1>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Document Info</h5>
+        <p><strong>Name:</strong> {{ document.name }}</p>
+        <p><strong>Version:</strong> {{ document.version }}</p>
+        <p><strong>Created At:</strong> {{ document.created_at|date:"Y-m-d H:i" }}</p>
+    </div>
+</div>
+
+<h5 class="mt-4">Reviews</h5>
+<table class="table table-bordered table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th>Reviewer</th>
+            <th>Comments</th>
+            <th>Approved</th>
+            <th>Reviewed At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for review in reviews %}
+        <tr>
+            <td>{{ review.reviewer }}</td>
+            <td>{{ review.comments|default:"-" }}</td>
+            <td>{% if review.approved %}✔{% else %}✘{% endif %}</td>
+            <td>{{ review.reviewed_at|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">No reviews available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

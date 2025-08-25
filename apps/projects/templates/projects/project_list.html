@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>قائمة المشاريع</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>الاسم</th>
+      <th>الحالة</th>
+      <th>تاريخ البدء</th>
+      <th>تاريخ الانتهاء</th>
+      <th>المدير</th>
+      <th>تفاصيل</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for project in projects %}
+    <tr>
+      <td>{{ project.name }}</td>
+      <td>{{ project.get_status_display }}</td>
+      <td>{{ project.start_date }}</td>
+      <td>{{ project.end_date }}</td>
+      <td>{{ project.manager }}</td>
+      <td><a href="{% url 'projects:project_detail' project.id %}" class="btn btn-sm btn-info">عرض</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'projects:create_project' %}" class="btn btn-success">مشروع جديد</a>
+{% endblock %}

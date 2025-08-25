@@ -1,0 +1,119 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "حذف منتج" %}{% endblock %}
+{% block header_title %}🗑️ {% trans "تأكيد حذف المنتج" %}{% endblock %}
+{% block breadcrumbs %}
+  <a href="{% url 'core:launcher' %}">{% trans "التطبيقات" %}</a> /
+  <a href="{% url 'products:product_list' %}">{% trans "المنتجات" %}</a> /
+  {% trans "حذف" %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 pb-4">
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+    <div>
+      <strong>{% trans "تحذير:" %}</strong>
+      {% trans "سيتم حذف هذا المنتج نهائيًا ولا يمكن التراجع عن العملية." %}
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row g-3 align-items-start">
+        <div class="col-auto">
+          <div class="border rounded-3 p-2 bg-white">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" alt="" style="width:96px;height:96px;object-fit:contain">
+            {% else %}
+              <img src="{% static 'icons/icon-192x192.png' %}" alt="" style="width:96px;height:96px;object-fit:contain;opacity:.75">
+            {% endif %}
+          </div>
+        </div>
+        <div class="col">
+          <h2 class="h5 mb-1">{{ product.name }}</h2>
+          <div class="text-muted small">
+            <span class="me-3"><i class="fa-solid fa-barcode"></i> {{ product.product_code }}</span>
+            <span class="me-3"><i class="fa-solid fa-boxes-stacked"></i> {{ product.quantity }}</span>
+            {% if product.quality_status %}
+              <span class="badge
+                {% if product.quality_status == 'good' %} bg-success
+                {% elif product.quality_status == 'average' %} bg-warning text-dark
+                {% elif product.quality_status == 'rejected' %} bg-danger
+                {% else %} bg-secondary {% endif %}">
+                {{ product.get_quality_status_display|default:product.quality_status }}
+              </span>
+            {% endif %}
+          </div>
+
+          <div class="row mt-3 g-2">
+            <div class="col-6 col-md-3">
+              <div class="small text-muted">{% trans "تاريخ الإنتاج" %}</div>
+              <div class="fw-semibold">{{ product.date_produced|date:"Y-m-d" }}</div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="small text-muted">{% trans "تاريخ الانتهاء" %}</div>
+              <div class="fw-semibold">
+                {% with exp=product.expiration_date|default:product.expiry_date %}
+                  {% if exp %}{{ exp|date:"Y-m-d" }}{% else %}-{% endif %}
+                {% endwith %}
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="small text-muted">{% trans "أُنشئ في" %}</div>
+              <div class="fw-semibold">{{ product.created_at|default:"—" }}</div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="small text-muted">{% trans "آخر تحديث" %}</div>
+              <div class="fw-semibold">{{ product.updated_at|default:"—" }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <div class="border rounded-3 p-2 bg-white">
+            {% if product.qr_code %}
+              <img src="{{ product.qr_code.url }}" alt="QR" style="width:96px;height:96px;object-fit:contain">
+            {% else %}
+              <div class="d-flex align-items-center justify-content-center" style="width:96px;height:96px;opacity:.5">
+                <i class="fa-solid fa-qrcode fa-2x"></i>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form method="post" class="d-flex flex-wrap gap-2">
+    {% csrf_token %}
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="1" id="confirmChk" required>
+      <label class="form-check-label" for="confirmChk">
+        {% trans "أقرّ بأنني أفهم أن الحذف نهائي ولا يمكن التراجع عنه." %}
+      </label>
+    </div>
+    <div class="w-100"></div>
+    <button type="submit" class="btn btn-danger">
+      <i class="fa-solid fa-trash-can"></i> {% trans "حذف نهائي" %}
+    </button>
+    <a href="{% url 'products:product_list' %}" class="btn btn-secondary">
+      <i class="fa-solid fa-arrow-rotate-left"></i> {% trans "رجوع" %}
+    </a>
+  </form>
+</div>
+
+<script>
+  // تأكيد بسيط قبل الإرسال
+  (function(){
+    const form = document.currentScript && document.currentScript.previousElementSibling;
+    if (!form || form.tagName !== 'FORM') return;
+    form.addEventListener('submit', function(e){
+      if (!confirm("{% filter escapejs %}{% trans 'هل أنت متأكد من الحذف النهائي؟' %}{% endfilter %}")){
+        e.preventDefault();
+      }
+    });
+  })();
+</script>
+{% endblock %}

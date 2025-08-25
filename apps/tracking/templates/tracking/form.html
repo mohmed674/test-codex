@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow rounded-4 p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="mb-0">📦 تسجيل شحنة جديدة</h4>
+      <a href="{% url 'tracking:tracking_dashboard' %}" class="btn btn-outline-secondary">↩️ العودة</a>
+    </div>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <label for="{{ form.product_name.id_for_label }}" class="form-label">اسم المنتج</label>
+          {{ form.product_name }}
+        </div>
+
+        <div class="col-md-6">
+          <label for="{{ form.tracking_code.id_for_label }}" class="form-label">كود التتبع</label>
+          {{ form.tracking_code }}
+        </div>
+
+        <div class="col-md-6">
+          <label for="{{ form.customer_name.id_for_label }}" class="form-label">اسم العميل</label>
+          {{ form.customer_name }}
+        </div>
+
+        <div class="col-md-6">
+          <label for="{{ form.payment_method.id_for_label }}" class="form-label">طريقة الدفع</label>
+          {{ form.payment_method }}
+        </div>
+
+        <div class="col-md-6">
+          <label for="{{ form.status.id_for_label }}" class="form-label">حالة الشحنة</label>
+          {{ form.status }}
+        </div>
+
+        <div class="col-md-6">
+          <label for="{{ form.shipping_company.id_for_label }}" class="form-label">شركة الشحن</label>
+          {{ form.shipping_company }}
+        </div>
+
+        <div class="col-md-6">
+          <label for="{{ form.shipment_date.id_for_label }}" class="form-label">تاريخ الشحن</label>
+          {{ form.shipment_date }}
+        </div>
+
+        <div class="col-md-6">
+          <label for="{{ form.delivery_date.id_for_label }}" class="form-label">تاريخ التسليم</label>
+          {{ form.delivery_date }}
+        </div>
+
+        <div class="col-12">
+          <label for="{{ form.notes.id_for_label }}" class="form-label">ملاحظات</label>
+          {{ form.notes }}
+        </div>
+
+      </div>
+
+      {% if form.errors %}
+        <div class="alert alert-danger mt-3">
+          <strong>حدثت أخطاء أثناء الحفظ:</strong>
+          <ul>
+            {% for field in form %}
+              {% for error in field.errors %}
+                <li>{{ field.label }}: {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <div class="mt-4 d-flex justify-content-between">
+        <button type="submit" class="btn btn-success btn-lg px-4">💾 حفظ الشحنة</button>
+        <button type="reset" class="btn btn-outline-warning px-4">🔄 إعادة تعيين</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

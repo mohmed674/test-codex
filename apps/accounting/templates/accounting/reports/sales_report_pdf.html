@@ -1,0 +1,45 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\reports\sales_report_pdf.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير فواتير المبيعات</title>
+    <style>
+        body { font-family: 'Cairo', sans-serif; font-size: 14px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
+        th { background-color: #f0f0f0; }
+        h2 { text-align: center; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h2>تقرير فواتير المبيعات</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>رقم الفاتورة</th>
+                <th>اسم العميل</th>
+                <th>التاريخ</th>
+                <th>القيمة</th>
+                <th>طريقة الدفع</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.number }}</td>
+                    <td>{{ invoice.customer.name }}</td>
+                    <td>{{ invoice.date_issued }}</td>
+                    <td>{{ invoice.total_amount }} ج.م</td>
+                    <td>{{ invoice.get_payment_method_display }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">لا توجد فواتير ضمن الفترة المحددة.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

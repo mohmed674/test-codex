@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>📊 تقرير تحليل القرار</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <style>
+        .low-score { background-color: #f8d7da; }     /* أحمر فاتح */
+        .medium-score { background-color: #fff3cd; }  /* أصفر فاتح */
+        .high-score { background-color: #d4edda; }    /* أخضر فاتح */
+        th, td { text-align: center; vertical-align: middle; }
+    </style>
+</head>
+<body class="container mt-4">
+
+    <div class="card shadow p-4 rounded-4">
+        <h2 class="mb-4 text-center">📄 تقرير تحليل القرار</h2>
+
+        <div class="d-flex justify-content-end gap-2 mb-3">
+            <a href="{% url 'ai_report_pdf' %}" class="btn btn-danger">📥 تصدير PDF</a>
+            <a href="{% url 'ai_report_excel' %}" class="btn btn-success">📊 تصدير Excel</a>
+        </div>
+
+        <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>الموظف</th>
+                    <th>نوع القرار</th>
+                    <th>إنتاجية</th>
+                    <th>سلوك</th>
+                    <th>أثر مالي</th>
+                    <th>الاقتراح النهائي</th>
+                    <th>التاريخ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in decisions %}
+                <tr>
+                    <td>{{ d.employee }}</td>
+                    <td>{{ d.decision_type }}</td>
+
+                    <td class="{% if d.production_score < 50 %}low-score{% elif d.production_score < 80 %}medium-score{% else %}high-score{% endif %}">
+                        {{ d.production_score }}٪
+                    </td>
+
+                    <td class="{% if d.behavior_score < 50 %}low-score{% elif d.behavior_score < 80 %}medium-score{% else %}high-score{% endif %}">
+                        {{ d.behavior_score }}٪
+                    </td>
+
+                    <td class="{% if d.financial_impact < 0 %}low-score{% elif d.financial_impact < 1000 %}medium-score{% else %}high-score{% endif %}">
+                        {{ d.financial_impact|floatformat:2 }} ج.م
+                    </td>
+
+                    <td>{{ d.final_suggestion }}</td>
+                    <td>{{ d.created_at|date:"Y-m-d" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7">🚫 لا توجد بيانات تحليل بعد.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- زر الطباعة -->
+        <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+
+    </div>
+
+</body>
+</html>

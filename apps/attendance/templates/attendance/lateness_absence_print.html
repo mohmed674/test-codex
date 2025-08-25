@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>طباعة التأخير والغياب</title>
+    <style>
+        body { font-family: Arial, sans-serif; direction: rtl; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 10px; text-align: center; }
+        .status-late { color: orange; font-weight: bold; }
+        .status-absent { color: red; font-weight: bold; }
+        .status-leave { color: green; font-weight: bold; }
+        @media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">📄 تقرير التأخير والغياب</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>اسم الموظف</th>
+            <th>التاريخ</th>
+            <th>الحالة</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.evaluation.employee.name }}</td>
+            <td>{{ entry.date }}</td>
+            <td>
+                {% if entry.status == "متأخر" %}
+                    <span class="status-late">متأخر</span>
+                {% elif entry.status == "غائب" %}
+                    <span class="status-absent">غائب</span>
+                {% elif entry.status == "إجازة" %}
+                    <span class="status-leave">إجازة</span>
+                {% else %}
+                    {{ entry.status }}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="no-print" style="text-align:center; margin-top:20px;">
+    <button onclick="window.print()">🖨️ طباعة</button>
+</div>
+
+</body>
+</html>

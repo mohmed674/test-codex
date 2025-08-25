@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-3">{% trans "إضافة مورد" %}</h3>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">{% trans "اسم المورد" %}</label>
+        <input type="text" name="name" class="form-control" required>
+      </div>
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary px-4">{% trans "حفظ" %}</button>
+        <a href="{% url 'accounting:supplier_list' %}" class="btn btn-light">{% trans "رجوع" %}</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

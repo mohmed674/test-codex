@@ -1,0 +1,20 @@
+<!-- apps/banking/templates/banking/payment_form.html -->
+<h1>Create Payment</h1>
+<form method="post">
+  {% csrf_token %}
+  <label>Provider ID</label>
+  <input type="number" name="provider">
+  <label>Account ID</label>
+  <input type="number" name="account">
+  <label>Direction</label>
+  <input type="text" name="direction" value="in">
+  <label>Method</label>
+  <input type="text" name="method" value="bank_transfer">
+  <label>Amount</label>
+  <input type="number" step="0.01" name="amount">
+  <label>Currency</label>
+  <input type="text" name="currency" value="EGP">
+  <label>Reference</label>
+  <input type="text" name="reference">
+  <button type="submit">Save</button>
+</form>

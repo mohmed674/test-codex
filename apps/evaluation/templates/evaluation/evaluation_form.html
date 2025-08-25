@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card p-4 shadow rounded-4">
+    <h3 class="mb-3">➕ إضافة تقييم</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">💾 حفظ</button>
+      <a href="{% url 'evaluation:list' %}" class="btn btn-secondary">🔙 رجوع</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

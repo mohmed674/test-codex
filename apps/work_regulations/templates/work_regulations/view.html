@@ -1,0 +1,55 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Official Work Regulation" %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-3">
+
+  {% if regulation %}
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="mb-2">{{ regulation.title }}</h4>
+
+        <div class="mb-3">
+          {{ regulation.content_html|safe }}
+        </div>
+
+        {% if regulation.pdf_file %}
+          <p class="mb-3">
+            <a href="{{ regulation.pdf_file.url }}" class="btn btn-outline-dark btn-sm" download>
+              📄 {% trans "Download PDF version" %}
+            </a>
+          </p>
+        {% endif %}
+
+        {% if can_sign %}
+          <form method="post" action="{% url 'work_regulations:agree_to_regulation' regulation.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">
+              ✅ {% trans "I Agree to the Regulation" %}
+            </button>
+          </form>
+        {% elif already_signed %}
+          <p class="text-success mt-2">
+            ✔️ <strong>{% trans "You have already agreed to this regulation." %}</strong>
+          </p>
+        {% else %}
+          <p class="text-muted mt-2">
+            {% trans "You cannot sign this regulation at the moment." %}
+          </p>
+        {% endif %}
+
+        <div class="mt-3">
+          <a href="{% url 'employees:employee_list' %}" class="btn btn-light btn-sm">🔙 {% trans "Back to Employees" %}</a>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-warning">
+      {% trans "No regulation is available right now." %}
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+<h2>{{ risk.title }}</h2>
+<p><strong>النوع:</strong> {{ risk.get_risk_type_display }}</p>
+<p><strong>الخطورة:</strong> {{ risk.get_severity_display }}</p>
+<p><strong>الاحتمالية:</strong> {{ risk.probability }}%</p>
+<p><strong>الوصف:</strong> {{ risk.description }}</p>
+<p><strong>الخطة:</strong> {{ risk.mitigation_plan }}</p>
+<p><strong>تم التبليغ بواسطة:</strong> {{ risk.reported_by }}</p>

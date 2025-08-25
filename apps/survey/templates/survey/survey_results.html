@@ -1,0 +1,40 @@
+<!-- templates/survey/survey_results.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نتائج الاستبيان - {{ survey.title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
+<body class="container py-4">
+
+    <h3 class="text-center mb-4">📊 نتائج الاستبيان: {{ survey.title }}</h3>
+
+    <div class="mb-4 text-center">
+        <a href="{% url 'survey:export_pdf' survey.id %}" class="btn btn-danger">📄 تصدير PDF</a>
+        <a href="{% url 'survey:export_excel' survey.id %}" class="btn btn-success">📊 تصدير Excel</a>
+        <a href="{% url 'survey:take' survey.id %}" class="btn btn-secondary">📝 تعبئة الاستبيان</a>
+    </div>
+
+    {% for question, answers in results_by_question.items %}
+        <div class="mb-4 border p-3 rounded bg-light">
+            <h5 class="mb-2">❓ {{ question.question_text }}</h5>
+            <ul class="list-group">
+                {% for answer in answers %}
+                    <li class="list-group-item">
+                        {% if question.question_type == 'text' %}
+                            📝 {{ answer.answer_text|default:"-" }}
+                        {% elif question.question_type == 'multiple_choice' %}
+                            ✅ {{ answer.selected_choice.choice_text }}
+                        {% endif %}
+                        <small class="text-muted float-end">{{ answer.response.submitted_at|date:"Y-m-d H:i" }}</small>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item text-muted">لا توجد إجابات بعد.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+</body>
+</html>

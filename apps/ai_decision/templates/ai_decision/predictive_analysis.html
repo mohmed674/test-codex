@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تحليل تنبؤي للقرارات السابقة</title>
+    
+</head>
+<body class="container mt-4">
+
+    <h2 class="text-center mb-4">🔮 التحليل التنبؤي للقرارات</h2>
+
+    {% if predictions %}
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>📌 القرار</th>
+                    <th>نوعه</th>
+                    <th>احتمال التكرار</th>
+                    <th>الموظف</th>
+                    <th>التاريخ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in predictions %}
+                <tr>
+                    <td>{{ p.decision_text }}</td>
+                    <td>{{ p.category }}</td>
+                    <td>{{ p.recurrence_probability|floatformat:2 }}%</td>
+                    <td>{{ p.employee.name }}</td>
+                    <td>{{ p.created_at|date:"Y-m-d H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center text-muted">لا توجد بيانات تحليلية متاحة حاليًا.</p>
+    {% endif %}
+
+    <!-- زر الطباعة -->
+    <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+
+</body>
+</html>

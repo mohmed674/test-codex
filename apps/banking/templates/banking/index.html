@@ -1,0 +1,14 @@
+<!-- apps/banking/templates/banking/index.html -->
+<h1>🏦 Banking & Payments</h1>
+<nav>
+  <ul>
+    <li><a href="{% url 'banking:dashboard' %}">Dashboard</a></li>
+    <li><a href="{% url 'banking:provider_list' %}">Providers</a></li>
+    <li><a href="{% url 'banking:account_list' %}">Accounts</a></li>
+    <li><a href="{% url 'banking:payment_list' %}">Payments</a></li>
+    <li><a href="{% url 'banking:transfer_list' %}">Transfers</a></li>
+    <li><a href="{% url 'banking:transaction_list' %}">Transactions</a></li>
+    <li><a href="{% url 'banking:recon_list' %}">Reconciliation</a></li>
+  </ul>
+</nav>
+<p>Banking module is ready ✅</p>

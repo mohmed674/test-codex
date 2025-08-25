@@ -1,0 +1,62 @@
+{% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body table-responsive">
+    <table class="table table-bordered text-center align-middle table-hover">
+      <thead class="table-light">
+        <tr class="text-nowrap">
+          {% for head in headers %}
+            <th>{{ head }}</th>
+          {% endfor %}
+          <th>{% if LANGUAGE_BIDI %}الإجراءات{% else %}Actions{% endif %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in objects %}
+          <tr>
+            {% for cell in row %}
+              <td>{{ cell|default:"—" }}</td>
+            {% endfor %}
+            <td>
+              <div class="d-flex justify-content-center gap-1">
+                {% if row.edit_url %}
+                  <a href="{{ row.edit_url }}" class="btn btn-sm btn-primary">
+                    <i class="fa-solid fa-pen-to-square"></i> {% if LANGUAGE_BIDI %}تعديل{% else %}Edit{% endif %}
+                  </a>
+                {% endif %}
+                {% if row.delete_url %}
+                  <form action="{{ row.delete_url }}" method="post" class="d-inline-block"
+                        onsubmit="return confirm('{% if LANGUAGE_BIDI %}تأكيد الحذف؟{% else %}Confirm delete?{% endif %}')">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-danger">
+                      <i class="fa-solid fa-trash-can"></i> {% if LANGUAGE_BIDI %}حذف{% else %}Delete{% endif %}
+                    </button>
+                  </form>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="{{ headers|length|add:'1' }}" class="text-muted">
+              {% if LANGUAGE_BIDI %}لا توجد بيانات.{% else %}No records found.{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end gap-2 mt-2">
+      <button onclick="window.print()" class="btn btn-outline-dark">
+        <i class="fa-solid fa-print"></i> {% if LANGUAGE_BIDI %}طباعة{% else %}Print{% endif %}
+      </button>
+      <a href="?export=pdf" class="btn btn-outline-danger">
+        <i class="fa-solid fa-file-pdf"></i> {% if LANGUAGE_BIDI %}تصدير PDF{% else %}Export PDF{% endif %}
+      </a>
+      <a href="?export=excel" class="btn btn-outline-success">
+        <i class="fa-solid fa-file-excel"></i> {% if LANGUAGE_BIDI %}تصدير Excel{% else %}Export Excel{% endif %}
+      </a>
+    </div>
+  </div>
+</div>

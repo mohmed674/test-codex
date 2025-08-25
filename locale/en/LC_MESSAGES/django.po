@@ -1,0 +1,405 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ERP Smart System\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-13 15:20+0300\n"
+"PO-Revision-Date: 2025-08-13 16:15+0300\n"
+"Last-Translator: Mohamed Assistant <noreply@example.com>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ====== Settings / Language names ======
+msgid "العربية"
+msgstr "Arabic"
+
+msgid "English"
+msgstr "English"
+
+msgid "ERP Smart System"
+msgstr "ERP Smart System"
+
+# ====== Base layout ======
+msgid "نظام ERP الذكي"
+msgstr "Smart ERP System"
+
+msgid "هذه الواجهة تتطلب تفعيل JavaScript."
+msgstr "This interface requires JavaScript to be enabled."
+
+msgid "الشريط الجانبي"
+msgstr "Sidebar"
+
+msgid "لوحة التحكم"
+msgstr "Dashboard"
+
+msgid "الوظائف"
+msgstr "Job Titles"
+
+msgid "الوحدات"
+msgstr "Units"
+
+msgid "معايير التقييم"
+msgstr "Evaluation Criteria"
+
+msgid "مراحل الإنتاج"
+msgstr "Production Stages"
+
+msgid "حدود الخطورة"
+msgstr "Risk Thresholds"
+
+msgid "أدوار الأقسام"
+msgstr "Department Roles"
+
+msgid "نظام إدارة موارد المصنع"
+msgstr "Factory Resource Management System"
+
+msgid "تبديل اللغة"
+msgstr "Switch Language"
+
+msgid "اختر اللغة"
+msgstr "Choose language"
+
+msgid "تبديل الوضع الليلي"
+msgstr "Toggle dark mode"
+
+msgid "الوضع الليلي"
+msgstr "Dark mode"
+
+msgid "لوحة المدير"
+msgstr "Admin Panel"
+
+msgid "تسجيل الخروج"
+msgstr "Logout"
+
+# ====== Dashboard / Overview / Launcher ======
+msgid "لوحة التطبيقات"
+msgstr "Apps Launcher"
+
+msgid "اختر تطبيقاتك"
+msgstr "Choose your apps"
+
+msgid "الوصول السريع"
+msgstr "Quick Access"
+
+msgid "لوحة التحكم الرئيسية"
+msgstr "Main Dashboard"
+
+msgid "ابحث عن تطبيق…"
+msgstr "Search for an app…"
+
+msgid "بحث عن تطبيق"
+msgstr "Find app"
+
+msgid "لا توجد تطبيقات متاحة حاليًا."
+msgstr "No apps are currently available."
+
+msgid "لا توجد تطبيقات لعرضها حاليًا."
+msgstr "There are no apps to display at the moment."
+
+# ====== Views (apps names shown in tiles/menus) ======
+msgid "الموارد البشرية"
+msgstr "HR"
+
+msgid "المخزون"
+msgstr "Inventory"
+
+msgid "المبيعات"
+msgstr "Sales"
+
+msgid "المشتريات"
+msgstr "Purchases"
+
+msgid "المحاسبة"
+msgstr "Accounting"
+
+msgid "المنتجات"
+msgstr "Products"
+
+msgid "الحضور والانصراف"
+msgstr "Attendance"
+
+msgid "الرواتب"
+msgstr "Payroll"
+
+msgid "الإنتاج"
+msgstr "Production"
+
+msgid "التسويق"
+msgstr "Marketing"
+
+msgid "الذكاء الاصطناعي"
+msgstr "AI"
+
+msgid "الصيانة"
+msgstr "Maintenance"
+
+msgid "الموردين"
+msgstr "Suppliers"
+
+msgid "العقود"
+msgstr "Contracts"
+
+msgid "لوحة المراقبة"
+msgstr "Monitoring Dashboard"
+
+msgid "العملاء"
+msgstr "Customers"
+
+# ====== Common list screens / buttons ======
+msgid "قائمة البيانات"
+msgstr "Data List"
+
+msgid "قائمة العناصر"
+msgstr "Items List"
+
+msgid "الرقم"
+msgstr "ID"
+
+msgid "الاسم"
+msgstr "Name"
+
+msgid "النوع"
+msgstr "Type"
+
+msgid "الوزن"
+msgstr "Weight"
+
+msgid "نشط؟"
+msgstr "Active?"
+
+msgid "إضافة معيار"
+msgstr "Add Criterion"
+
+msgid "إضافة دور قسم"
+msgstr "Add Department Role"
+
+msgid "إضافة مرحلة جديدة"
+msgstr "Add New Stage"
+
+msgid "حفظ المرحلة"
+msgstr "Save Stage"
+
+msgid "إضافة مرحلة"
+msgstr "Add Stage"
+
+msgid "الترتيب"
+msgstr "Order"
+
+msgid "المدة التقديرية"
+msgstr "Estimated Duration"
+
+msgid "تتطلب ماكينة؟"
+msgstr "Requires Machine?"
+
+msgid "لا توجد مراحل"
+msgstr "No stages found"
+
+msgid "قائمة الوحدات"
+msgstr "Units List"
+
+msgid "إضافة وحدة"
+msgstr "Add Unit"
+
+msgid "اسم الوحدة"
+msgstr "Unit Name"
+
+msgid "الاختصار"
+msgstr "Abbreviation"
+
+msgid "نوع الوحدة"
+msgstr "Unit Type"
+
+msgid "فعالة؟"
+msgstr "Active?"
+
+msgid "وحدة مجمعة؟"
+msgstr "Bulk Unit?"
+
+msgid "خيارات"
+msgstr "Options"
+
+msgid "لا توجد وحدات مسجلة"
+msgstr "No units recorded"
+
+msgid "لا توجد بيانات"
+msgstr "No data available"
+
+# ====== Tabs template ======
+msgid "تفاصيل العنصر"
+msgstr "Item Details"
+
+msgid "تفاصيل المنتج / الموظف"
+msgstr "Product / Employee Details"
+
+msgid "تعديل"
+msgstr "Edit"
+
+msgid "طباعة"
+msgstr "Print"
+
+msgid "تصدير"
+msgstr "Export"
+
+msgid "البيانات العامة"
+msgstr "General Data"
+
+msgid "البيانات المالية"
+msgstr "Financial Data"
+
+msgid "المستندات"
+msgstr "Documents"
+
+msgid "معلومات أساسية"
+msgstr "Basic Info"
+
+msgid "ملاحظات"
+msgstr "Notes"
+
+msgid "لا توجد ملاحظات"
+msgstr "No notes available"
+
+msgid "البند"
+msgstr "Item"
+
+msgid "القيمة"
+msgstr "Value"
+
+msgid "العملة"
+msgstr "Currency"
+
+msgid "لا توجد بيانات مالية"
+msgstr "No financial data"
+
+msgid "عرض"
+msgstr "View"
+
+msgid "تحميل"
+msgstr "Download"
+
+msgid "لا توجد مستندات"
+msgstr "No documents"
+
+# ====== Auth ======
+msgid "تسجيل الدخول"
+msgstr "Sign in"
+
+msgid "ادخل بيانات حسابك للمتابعة."
+msgstr "Enter your account details to continue."
+
+msgid "اسم المستخدم أو البريد الإلكتروني"
+msgstr "Username or email"
+
+msgid "كلمة المرور"
+msgstr "Password"
+
+msgid "إظهار/إخفاء"
+msgstr "Show/Hide"
+
+msgid "تذكرني"
+msgstr "Remember me"
+
+msgid "نسيت كلمة المرور؟"
+msgstr "Forgot password?"
+
+msgid "لا تملك حسابًا؟"
+msgstr "Don’t have an account?"
+
+msgid "إنشاء حساب جديد"
+msgstr "Create a new account"
+
+msgid "إنشاء حساب"
+msgstr "Create account"
+
+msgid "تسجيل مستخدم جديد"
+msgstr "Register a new user"
+
+msgid "املأ البيانات التالية لإتمام إنشاء الحساب."
+msgstr "Fill in the following details to create your account."
+
+msgid "إنشاء الحساب"
+msgstr "Create Account"
+
+msgid "العودة لتسجيل الدخول"
+msgstr "Back to sign in"
+
+# ====== BI / Numbers / Currencies ======
+msgid "لوحة القيادة - ذكاء الأعمال"
+msgstr "BI Dashboard"
+
+msgid "تحليلات المبيعات"
+msgstr "Sales Analytics"
+
+msgid "تحليلات العملاء"
+msgstr "Customer Analytics"
+
+msgid "تحليلات مالية"
+msgstr "Financial Analytics"
+
+msgid "إجمالي المبيعات (آخر 30 يوم)"
+msgstr "Total Sales (last 30 days)"
+
+msgid "جنيه"
+msgstr "EGP"
+
+msgid "ج.م"
+msgstr "EGP"
+
+# ====== POS basics ======
+msgid "طلب جديد"
+msgstr "New Order"
+
+msgid "إتمام الطلب"
+msgstr "Checkout"
+
+msgid "فتح جلسة بيع"
+msgstr "Open POS Session"
+
+msgid "الموظف"
+msgstr "Employee"
+
+msgid "الرصيد الافتتاحي"
+msgstr "Opening balance"
+
+msgid "بدء الجلسة"
+msgstr "Start Session"
+
+msgid "تفاصيل الطلب"
+msgstr "Order Details"
+
+msgid "التاريخ"
+msgstr "Date"
+
+msgid "المجموع"
+msgstr "Total"
+
+msgid "طباعة الفاتورة"
+msgstr "Print Invoice"
+
+# ====== Months (charts) ======
+msgid "يناير"
+msgstr "January"
+msgid "فبراير"
+msgstr "February"
+msgid "مارس"
+msgstr "March"
+msgid "أبريل"
+msgstr "April"
+msgid "مايو"
+msgstr "May"
+msgid "يونيو"
+msgstr "June"
+msgid "يوليو"
+msgstr "July"
+msgid "أغسطس"
+msgstr "August"
+msgid "سبتمبر"
+msgstr "September"
+msgid "أكتوبر"
+msgstr "October"
+msgid "نوفمبر"
+msgstr "November"
+msgid "ديسمبر"
+msgstr "December"

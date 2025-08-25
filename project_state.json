@@ -1,0 +1,251 @@
+{
+  "project": "ERP Smart System",
+  "state_version": "1.2.0",
+  "updated_at": "2025-08-25",
+  "work_charter": [
+    "لا تنفيذ قبل إرسال ملف موجود أو تأكيد غيابه لعمل بديل نهائي",
+    "لا كود/ملفات/اقتراحات قبل الطلب الصريح",
+    "لا شرح إلا عند قولك: «اشرح»",
+    "كل تعديل مرة واحدة نهائي واحترافي (لا Patch لاحق)",
+    "لا إعادة تنفيذ لما أُنجز",
+    "خطوة واحدة في كل دفعة",
+    "أعيد الملف المعدّل فقط ثم أكتب: “أرسل الملف التالي حسب الخطة”",
+    "لا ملفات مؤقتة/وهمية؛ كل المخرجات نهائية قابلة للتوسّع",
+    "دمج آمن وبدون تخريب",
+    "جودة Odoo/SAP 2025+",
+    "أي موديل جديد يُسجَّل تلقائيًا في Admin إن أمكن",
+    "لا أخطاء Django بسبب نقص ملفات",
+    "فحص قبل/بعد كل خطوة",
+    "لا تغييرات يدوية؛ كل شيء عبر ملفات قابلة للتكرار"
+  ],
+  "summary": {
+    "apps_total": 65,
+    "apps_min_complete": 47,
+    "apps_partial": 18,
+    "security_hardening": "done_basic",
+    "global_expansion": "enabled",
+    "banking": "implemented",
+    "marketing_automation": "pending",
+    "qa_test_harness": "ready",
+    "coverage_report": "htmlcov/index.html"
+  },
+  "milestones": {
+    "sprint_1": {
+      "name": "المواجهة + الأمان + الأساسيات",
+      "status": "in_progress",
+      "steps": [
+        {
+          "id": "security_p1",
+          "title": "قفل الأمان الأساسي",
+          "done": true,
+          "notes": [
+            "تقييد ALLOWED_HOSTS عبر env",
+            "نقل الأسرار إلى .env",
+            "STATIC/MEDIA مضبوط وإنشاء مجلدات تلقائيًا",
+            "CSRF_TRUSTED_ORIGINS من env",
+            "تنظيف eval/exec: مؤجل"
+          ],
+          "files_touched": ["config/settings.py"]
+        },
+        {
+          "id": "routing_p1",
+          "title": "توحيد المسارات وإصلاح NoReverseMatch",
+          "done": false,
+          "completed_apps": [
+            "clients",
+            "suppliers",
+            "warehouse_map",
+            "workflow",
+            "work_regulations",
+            "ai_decision",
+            "demand_forecasting"
+          ],
+          "pending_apps": ["vendor_portal"]
+        },
+        {
+          "id": "admin_p1",
+          "title": "تسجيل النماذج الناقصة في لوحة الإدارة",
+          "done": true,
+          "details": ["inventory.Inventory مسجّل"],
+          "files_touched": ["apps/inventory/admin.py"]
+        },
+        {
+          "id": "site_p1",
+          "title": "إضافة index وربطه بالواجهة",
+          "done": true,
+          "files_touched": [
+            "apps/site/urls.py",
+            "apps/site/templates/site/index.html",
+            "config/urls.py",
+            "config/settings.py"
+          ]
+        },
+        {
+          "id": "qa_pytest_setup",
+          "title": "تهيئة اختبارات PyTest + Coverage وعزل نطاق الاختبارات",
+          "done": true,
+          "notes": [
+            "تشغيل pytest-django مع --ds=config.pytest_settings",
+            "عزل التجميع إلى ERP_CORE/tests",
+            "تقرير تغطية HTML عبر pytest-cov"
+          ],
+          "files_touched": [
+            "ERP_CORE/tests/test_integrity.py",
+            "apps/media/models.py",
+            "apps/media/forms.py",
+            "apps/media/admin.py",
+            "apps/media/migrations/0002_mediafile_extras.py",
+            "tools/clean_caches.bat",
+            "tools/run_tests.bat"
+          ]
+        }
+      ]
+    },
+    "sprint_2": {
+      "name": "الدعم/المعرفة + الجودة + المشاريع + المستندات",
+      "status": "completed",
+      "steps": [
+        {
+          "id": "helpdesk_knowledge",
+          "done": true,
+          "apps": ["client_portal", "support", "knowledge_center"],
+          "files_touched": [
+            "apps/client_portal/urls.py",
+            "apps/client_portal/templates/client_portal/index.html",
+            "apps/support/urls.py",
+            "apps/support/templates/support/index.html",
+            "apps/knowledge_center/urls.py",
+            "apps/knowledge_center/templates/knowledge_center/index.html"
+          ]
+        },
+        {
+          "id": "qms_capa_audit_complaints",
+          "done": true,
+          "files_touched": ["apps/qms/urls.py", "apps/qms/templates/qms/index.html"]
+        },
+        {
+          "id": "ppm_projects",
+          "done": true,
+          "files_touched": ["apps/projects/urls.py", "apps/projects/templates/projects/index.html"]
+        },
+        {
+          "id": "dms_workflow",
+          "done": true,
+          "files_touched": ["apps/document_center/urls.py", "apps/document_center/templates/document_center/index.html"]
+        }
+      ]
+    },
+    "sprint_3": {
+      "name": "التكاملات والتوسّع العالمي",
+      "status": "in_progress",
+      "steps": [
+        {
+          "id": "marketing_automation",
+          "title": "Marketing Automation متعدد القنوات",
+          "done": false,
+          "progress": "urls+index موجودة فقط",
+          "pending": ["models", "admin", "flows (Email/SMS/WhatsApp)", "integrations", "reports"],
+          "files_touched": ["apps/campaigns/urls.py", "apps/campaigns/templates/campaigns/index.html"]
+        },
+        {
+          "id": "banking_integration",
+          "done": true,
+          "files_touched": [
+            "apps/banking/models.py",
+            "apps/banking/admin.py",
+            "apps/banking/urls.py",
+            "apps/banking/views.py",
+            "apps/banking/templates/banking/*.html",
+            "config/urls.py",
+            "config/settings.py"
+          ]
+        },
+        {
+          "id": "mobile_pwa_rest",
+          "done": false,
+          "progress": "urls+index جاهزة",
+          "pending": [
+            "تنفيذ views: api_session/api_menu/api_offline_sync/api_notifications",
+            "PWA assets (sw.js/manifest.json)"
+          ],
+          "files_touched": ["apps/mobile/urls.py", "apps/mobile/templates/mobile/index.html"]
+        },
+        {
+          "id": "global_expansion",
+          "done": true,
+          "files_touched": [
+            "core/settings_global.py",
+            "core/middleware/global_context.py",
+            "config/settings.py (import + middleware + context_processor)"
+          ]
+        }
+      ]
+    }
+  },
+  "issues": {
+    "routing_broken": {
+      "pending_apps": ["vendor_portal"],
+      "symptom": "NoReverseMatch محتمل بسبب اختلاف أسماء الروابط",
+      "action": "توحيد namespace وأسماء list/create/detail/update/delete"
+    },
+    "security": {
+      "allowed_hosts": "مقيد",
+      "secrets": "env",
+      "eval_exec_cleanup": "pending"
+    },
+    "gaps": [
+      "Marketing Automation: نماذج/تكاملات وتقارير غير منفذة",
+      "Mobile PWA: REST views وملفات PWA غير مكتملة"
+    ],
+    "media_migrations_missing": {
+      "symptom": "CommandError: App 'media' does not have migrations عند migrate media",
+      "likely_causes": [
+        "apps.media غير مُسجلة في INSTALLED_APPS داخل config/settings.py",
+        "مسار الميجريشن غير مكتشف أو ينقصه ملفات 000*.py",
+        "لم يتم تشغيل makemigrations media لإنشاء الميجريشن فعليًا"
+      ],
+      "required_action": [
+        "تأكيد وجود 'apps.media' في INSTALLED_APPS",
+        "تشغيل: python manage.py makemigrations media",
+        "ثم: python manage.py migrate media"
+      ],
+      "status": "blocking_tests"
+    }
+  },
+  "history": [
+    { "at": "sprint_1.security_p1", "result": "completed", "files_touched": ["config/settings.py"] },
+    { "at": "sprint_1.routing_p1", "app": "clients", "files_touched": ["apps/clients/urls.py", "apps/clients/templates/clients/index.html"] },
+    { "at": "sprint_1.routing_p1", "app": "suppliers", "files_touched": ["apps/suppliers/urls.py", "apps/suppliers/templates/suppliers/index.html"] },
+    { "at": "sprint_1.routing_p1", "app": "warehouse_map", "files_touched": ["apps/warehouse_map/urls.py", "apps/warehouse_map/templates/warehouse_map/index.html"] },
+    { "at": "sprint_1.routing_p1", "app": "workflow", "files_touched": ["apps/workflow/urls.py", "apps/workflow/templates/workflow/index.html"] },
+    { "at": "sprint_1.routing_p1", "app": "work_regulations", "files_touched": ["apps/work_regulations/urls.py", "apps/work_regulations/templates/work_regulations/index.html"] },
+    { "at": "sprint_1.routing_p1", "app": "ai_decision", "files_touched": ["apps/ai_decision/urls.py", "apps/ai_decision/templates/ai_decision/index.html"] },
+    { "at": "sprint_1.routing_p1", "app": "demand_forecasting", "files_touched": ["apps/demand_forecasting/urls.py", "apps/demand_forecasting/templates/demand_forecasting/index.html"] },
+    { "at": "sprint_1.admin_p1", "result": "completed", "files_touched": ["apps/inventory/admin.py"] },
+    { "at": "sprint_1.site_p1", "result": "completed", "files_touched": ["apps/site/urls.py", "apps/site/templates/site/index.html", "config/urls.py", "config/settings.py"] },
+    { "at": "sprint_1.qa_pytest_setup", "result": "completed", "files_touched": ["ERP_CORE/tests/test_integrity.py", "tools/clean_caches.bat", "tools/run_tests.bat"] },
+    { "at": "media.update_models", "result": "updated", "files_touched": ["apps/media/models.py", "apps/media/forms.py", "apps/media/admin.py", "apps/media/migrations/0002_mediafile_extras.py"] }
+  ],
+  "testing_stack": {
+    "pytest": "enabled",
+    "pytest_django": "enabled",
+    "pytest_cov": "enabled",
+    "isolation": "ERP_CORE/tests via --ds=config.pytest_settings",
+    "commands": [
+      "pytest ERP_CORE/tests --ds=config.pytest_settings --create-db -q",
+      "pytest ERP_CORE/tests --ds=config.pytest_settings --cov=apps --cov=config --cov-report=term-missing --cov-report=html",
+      ".\\tools\\clean_caches.bat"
+    ]
+  },
+  "next_request": {
+    "step": "qa_fix_media_migrations",
+    "need_files": ["config/settings.py"],
+    "reason": "Django لا يرى ميجريشن media؛ يجب تأكيد INSTALLED_APPS ثم توليد/تطبيق الميجريشن قبل استكمال خطة الاختبارات والتغطية"
+  },
+  "deferred_recommendations": [
+    "QA Scan شامل + اختبارات وحدات وتكامُل",
+    "Docker/Docker Compose للنشر والتجربة",
+    "تكملة Marketing Automation (نماذج + تكاملات + تقارير)",
+    "إكمال Mobile PWA (views + manifest + sw.js)"
+  ]
+}

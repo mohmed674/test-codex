@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>تقييم السلوك</title>
+</head>
+<body>
+    <h2>تقييم السلوك</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">حفظ التقييم</button>
+    </form>
+</body>
+</html>

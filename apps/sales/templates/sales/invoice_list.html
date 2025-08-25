@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4>📄 قائمة الفواتير</h4>
+      <a href="{% url 'sales:invoice_create' %}" class="btn btn-primary">➕ إضافة فاتورة</a>
+    </div>
+
+    <table class="table table-bordered table-striped text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>رقم الفاتورة</th>
+          <th>العميل</th>
+          <th>المجموع</th>
+          <th>التاريخ</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for invoice in invoices %}
+        <tr>
+          <td>{{ invoice.number }}</td>
+          <td>{{ invoice.customer.name }}</td>
+          <td>{{ invoice.total }} جنيه</td>
+          <td>{{ invoice.date }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="text-danger">لا توجد فواتير.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

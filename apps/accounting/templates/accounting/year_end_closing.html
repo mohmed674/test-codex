@@ -1,0 +1,58 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\year_end_closing.html -->
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-3">📅 تدوير السنة المالية</h3>
+    <p>السنة الحالية: <strong>{{ current_year }}</strong></p>
+    <p>سيتم ترحيل الأرصدة للسنة الجديدة: <strong>{{ next_year }}</strong></p>
+
+    <hr>
+    <h5>📊 ملخص الحسابات:</h5>
+    <div class="row">
+      <div class="col-md-6">
+        <h6>📈 الإيرادات</h6>
+        <ul class="list-group mb-3">
+          {% for account, amount in revenues %}
+            <li class="list-group-item d-flex justify-content-between">
+              {{ account|default:"-" }} <span>{{ amount|floatformat:2 }} ج.م</span>
+            </li>
+          {% empty %}
+            <li class="list-group-item">لا توجد إيرادات.</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h6>📉 المصروفات</h6>
+        <ul class="list-group mb-3">
+          {% for account, amount in expenses %}
+            <li class="list-group-item d-flex justify-content-between">
+              {{ account|default:"-" }} <span>{{ amount|floatformat:2 }} ج.م</span>
+            </li>
+          {% empty %}
+            <li class="list-group-item">لا توجد مصروفات.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <h5 class="text-end mt-3">💰 صافي: 
+      <strong class="{% if net_profit >= 0 %}text-success{% else %}text-danger{% endif %}">
+        {{ net_profit|floatformat:2 }} ج.م
+      </strong>
+    </h5>
+
+    <form method="POST" onsubmit="return confirm('هل أنت متأكد من تدوير الحسابات؟ هذه العملية لا يمكن التراجع عنها.')">
+      {% csrf_token %}
+      <div class="text-end">
+        <button type="submit" class="btn btn-danger px-4 mt-3">⏭️ تنفيذ التدوير للسنة الجديدة</button>
+      </div>
+    </form>
+
+    <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+  </div>
+</div>
+{% endblock %}
+

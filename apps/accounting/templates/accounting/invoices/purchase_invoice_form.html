@@ -1,0 +1,63 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\purchase\purchase_invoice_form.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-3">📥 إدخال فاتورة مشتريات جديدة</h3>
+    <hr>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">المورد</label>
+          {{ form.supplier|add_class:"form-select" }}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">تاريخ الفاتورة</label>
+          {{ form.date_issued|add_class:"form-control" }}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">طريقة الدفع</label>
+          {{ form.payment_method|add_class:"form-select" }}
+        </div>
+      </div>
+
+      <hr>
+      <h5 class="mt-3">📦 تفاصيل المشتريات</h5>
+
+      <table class="table table-bordered align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th>المنتج</th>
+            <th>الكمية</th>
+            <th>سعر الشراء</th>
+            <th>حذف</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ formset.management_form }}
+          {% for form in formset %}
+            <tr>
+              <td>{{ form.product_name|add_class:"form-control" }}</td>
+              <td>{{ form.quantity|add_class:"form-control" }}</td>
+              <td>{{ form.unit_price|add_class:"form-control" }}</td>
+              <td>{{ form.DELETE }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary px-4">💾 حفظ الفاتورة</button>
+      </div>
+    </form>
+
+    <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+  </div>
+</div>
+{% endblock %}

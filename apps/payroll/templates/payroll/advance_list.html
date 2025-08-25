@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>قائمة السلف</title>
+    <style>
+        body { font-family: Arial; direction: rtl; background-color: #f9f9f9; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #eee; }
+        .weekly { background-color: #d9edf7; }
+        .monthly { background-color: #fcf8e3; }
+        .btn { padding: 8px 12px; text-decoration: none; background-color: #28a745; color: white; border-radius: 4px; }
+        .filters { margin: 15px 0; }
+        .filters input, .filters select { padding: 6px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h2>قائمة السلف</h2>
+    <div class="filters">
+        <form method="get">
+            <input type="text" name="name" placeholder="اسم الموظف" value="{{ request.GET.name }}">
+            <input type="date" name="date_from" value="{{ request.GET.date_from }}">
+            <input type="date" name="date_to" value="{{ request.GET.date_to }}">
+            <select name="type">
+                <option value="">كل الأنواع</option>
+                <option value="weekly" {% if request.GET.type == 'weekly' %}selected{% endif %}>أسبوعية</option>
+                <option value="monthly" {% if request.GET.type == 'monthly' %}selected{% endif %}>شهرية</option>
+            </select>
+            <button type="submit">فلترة</button>
+            <a href="?export=1" class="btn">تصدير Excel</a>
+            <a href="?download_pdf=1" class="btn" style="background:#007bff;">تحميل PDF</a>
+            <a href="{% url 'add_advance' %}" class="btn" style="background:#17a2b8;">إضافة سلفة</a>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>اسم الموظف</th>
+                <th>المبلغ</th>
+                <th>النوع</th>
+                <th>التاريخ</th>
+                <th>ملاحظة</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for advance in advances %}
+            <tr class="{{ advance.type }}">
+                <td>{{ advance.employee.name }}</td>
+                <td>{{ advance.amount }}</td>
+                <td>{% if advance.type == 'weekly' %}أسبوعية{% elif advance.type == 'monthly' %}شهرية{% endif %}</td>
+                <td>{{ advance.date }}</td>
+                <td>{{ advance.note }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">لا توجد بيانات</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

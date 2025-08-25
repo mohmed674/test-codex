@@ -1,0 +1,34 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\invoice_list.html -->
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-4 text-center">🧾 قائمة الفواتير مع QR</h3>
+
+    {% if invoices %}
+      <ul class="list-group">
+        {% for invoice in invoices %}
+          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <div>
+              <strong>رقم: {{ invoice.invoice_number }}</strong><br>
+              العميل: {{ invoice.customer_name|default:"-" }}<br>
+              {% if invoice.date_issued %}
+                <small class="text-muted">تاريخ الإصدار: {{ invoice.date_issued }}</small><br>
+              {% endif %}
+              <span class="text-muted">المبلغ: {{ invoice.total_amount|floatformat:2 }} ج.م</span>
+            </div>
+            {% if invoice.qr_code %}
+              <img src="{{ invoice.qr_code.url }}" width="100" height="100" alt="رمز الاستجابة السريعة لفاتورة {{ invoice.invoice_number }}" class="border rounded-2" title="رمز QR">
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted text-center">لا توجد فواتير حالياً.</p>
+    {% endif %}
+
+    <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+  </div>
+</div>
+{% endblock %}
+

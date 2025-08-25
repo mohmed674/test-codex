@@ -1,0 +1,284 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+{% get_current_language_bidi as BIDI %}
+
+{% block title %}{% trans "نظام إدارة الجودة (QMS)" %}{% endblock %}
+{% block header_title %}🧪 {% trans "نظام إدارة الجودة (QMS)" %}{% endblock %}
+{% block breadcrumbs %}
+  <a href="{% url 'core:launcher' %}">{% trans "التطبيقات" %}</a> / {% trans "إدارة الجودة" %}
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .qms-hero{
+    background: linear-gradient(135deg, rgba(16,185,129,.10), rgba(59,130,246,.08));
+    border:1px solid var(--erp-bd);
+    border-radius:16px; padding:20px 16px; margin:16px;
+  }
+  .qms-hero h2{ font-weight:700; margin:0 0 6px; }
+  .qms-hero p{ margin:0; color:var(--erp-muted); }
+  .qms-card{
+    background:var(--erp-card); border:1px solid var(--erp-bd);
+    border-radius:16px; height:100%;
+  }
+  .qms-card .card-header{
+    background:transparent; border-bottom:1px solid var(--erp-bd);
+    font-weight:600;
+  }
+  .qms-kpi{
+    display:flex; align-items:center; gap:12px; padding:12px;
+    border:1px solid var(--erp-bd); border-radius:12px; background:var(--erp-card);
+  }
+  .qms-kpi .icon{
+    width:42px;height:42px;border-radius:10px;display:grid;place-items:center;
+    background:rgba(59,130,246,.12);
+  }
+  .qms-kpi b{ font-size:1.05rem }
+  .qms-actions .btn{ min-width:160px }
+  .table > :not(caption) > * > * { vertical-align: middle; }
+  .status-pill{ padding:.25rem .5rem; border-radius:999px; font-weight:600; font-size:.8rem; }
+  .st-open{ background:#fef9c3; border:1px solid #eab308; color:#854d0e; }
+  .st-inprog{ background:#e0e7ff; border:1px solid #6366f1; color:#3730a3; }
+  .st-impl{ background:#dcfce7; border:1px solid #16a34a; color:#166534; }
+  .st-ver{ background:#cffafe; border:1px solid #0891b2; color:#075985; }
+  .st-ineff{ background:#fee2e2; border:1px solid #ef4444; color:#7f1d1d; }
+  .st-closed{ background:#e5e7eb; border:1px solid #9ca3af; color:#374151; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 pb-4">
+
+  <!-- Hero -->
+  <section class="qms-hero">
+    <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+      <div>
+        <h2>{% if BIDI %}نظام إدارة الجودة (QMS){% else %}Quality Management System (QMS){% endif %}</h2>
+        <p>
+          {% if BIDI %}
+            منصة موحّدة لفحص AQL، وضبط العمليات الإحصائي SPC، وإدارة CAPA وفق أفضل ممارسات Odoo/SAP حتى 2025.
+          {% else %}
+            Unified AQL inspection, SPC process control, and CAPA management aligned with Odoo/SAP best practices (through 2025).
+          {% endif %}
+        </p>
+      </div>
+      <form class="d-flex" role="search" method="get" action="{% url 'qms:aql_lot_list' %}">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input class="form-control" type="search" name="q" placeholder="{% if BIDI %}ابحث في دفعات الفحص والسجلات…{% else %}Search lots & records…{% endif %}" aria-label="{% trans 'بحث' %}">
+          <button class="btn btn-primary" type="submit">{% trans "بحث" %}</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="mb-3">
+    <div class="row g-3">
+      <div class="col-12 col-md-3">
+        <div class="qms-kpi">
+          <div class="icon"><i class="fa-solid fa-clipboard-check"></i></div>
+          <div>
+            <div class="text-muted small">{% trans "خطط AQL" %}</div>
+            <b>{{ kpi.plans|default:0 }}</b>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="qms-kpi">
+          <div class="icon" style="background:rgba(16,185,129,.12)"><i class="fa-solid fa-boxes-packing"></i></div>
+          <div>
+            <div class="text-muted small">{% trans "دفعات فحص" %}</div>
+            <b>{{ kpi.lots|default:0 }}</b>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="qms-kpi">
+          <div class="icon" style="background:rgba(234,179,8,.12)"><i class="fa-solid fa-chart-line"></i></div>
+          <div>
+            <div class="text-muted small">{% trans "عمليات SPC نشطة" %}</div>
+            <b>{{ kpi.spc_processes|default:0 }}</b>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="qms-kpi">
+          <div class="icon" style="background:rgba(244,63,94,.12)"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div>
+            <div class="text-muted small">{% trans "سجلات CAPA مفتوحة" %}</div>
+            <b>{{ kpi.capa_open|default:0 }}</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shortcut Actions -->
+  <section class="qms-actions mb-4">
+    <div class="row g-3">
+      <div class="col-12 col-lg-4">
+        <div class="qms-card">
+          <div class="card-header d-flex align-items-center gap-2">
+            <i class="fa-solid fa-clipboard-check"></i> <span>{% trans "AQL Inspection" %}</span>
+          </div>
+          <div class="card-body">
+            <p class="text-muted mb-3">{% trans "إدارة خطط AQL وتنفيذ دفعات الفحص وفق مستويات الفحص والقبول/الرفض." %}</p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="{% url 'qms:aql_plan_list' %}" class="btn btn-outline-primary">
+                <i class="fa-solid fa-table-list"></i> {% trans "خطط AQL" %}
+              </a>
+              <a href="{% url 'qms:aql_lot_list' %}" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-boxes-stacked"></i> {% trans "دفعات الفحص" %}
+              </a>
+              <a href="{% url 'qms:aql_lot_create' %}" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> {% trans "دفعة فحص جديدة" %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="qms-card">
+          <div class="card-header d-flex align-items-center gap-2">
+            <i class="fa-solid fa-chart-line"></i> <span>{% trans "SPC — Statistical Process Control" %}</span>
+          </div>
+          <div class="card-body">
+            <p class="text-muted mb-3">{% trans "تتبع استقرار العملية وجودتها عبر مخططات الضبط ومجموعات البيانات." %}</p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="{% url 'qms:spc_process_list' %}" class="btn btn-outline-primary">
+                <i class="fa-solid fa-industry"></i> {% trans "عمليات SPC" %}
+              </a>
+              <a href="{% url 'qms:spc_chart_list' %}" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-chart-simple"></i> {% trans "مخططات SPC" %}
+              </a>
+              <a href="{% url 'qms:spc_process_create' %}" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> {% trans "عملية جديدة" %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="qms-card">
+          <div class="card-header d-flex align-items-center gap-2">
+            <i class="fa-solid fa-screwdriver-wrench"></i> <span>{% trans "CAPA — Corrective & Preventive Actions" %}</span>
+          </div>
+          <div class="card-body">
+            <p class="text-muted mb-3">{% trans "سجّل الإجراءات التصحيحية والوقائية وتتبع حالتها والتحقق من فاعليتها." %}</p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="{% url 'qms:capa_record_list' %}" class="btn btn-outline-primary">
+                <i class="fa-solid fa-clipboard-list"></i> {% trans "سجلات CAPA" %}
+              </a>
+              <a href="{% url 'qms:capa_record_create' %}" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> {% trans "سجل CAPA جديد" %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Recent Activity -->
+  <section class="mb-4">
+    <div class="row g-3">
+      <div class="col-12 col-lg-7">
+        <div class="qms-card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="fa-solid fa-boxes-stacked me-1"></i> {% trans "أحدث دفعات الفحص (AQL)" %}</span>
+            <a href="{% url 'qms:aql_lot_list' %}" class="btn btn-sm btn-light">{% trans "عرض الكل" %}</a>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>{% trans "الكود" %}</th>
+                    <th>{% trans "المنتج/الصنف" %}</th>
+                    <th>{% trans "الحجم" %}</th>
+                    <th>{% trans "القرار" %}</th>
+                    <th>{% trans "التاريخ" %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for lot in recent_lots %}
+                  <tr>
+                    <td class="fw-semibold">
+                      <a href="{% url 'qms:aql_lot_detail' lot.id %}">{{ lot.code }}</a>
+                    </td>
+                    <td>
+                      {% if lot.product %}{{ lot.product.name }}
+                      {% elif lot.inventory_item %}{{ lot.inventory_item }}
+                      {% else %}—{% endif %}
+                    </td>
+                    <td>{{ lot.lot_size|default:"—" }}</td>
+                    <td>
+                      {% if lot.decision %}
+                        <span class="status-pill {% if lot.decision == 'accept' %}st-impl{% elif lot.decision == 'reject' %}st-ineff{% elif lot.decision == 'rework' %}st-inprog{% else %}st-open{% endif %}">
+                          {{ lot.get_decision_display }}
+                        </span>
+                      {% else %}—{% endif %}
+                    </td>
+                    <td>{{ lot.started_at|date:"Y-m-d H:i" }}</td>
+                  </tr>
+                {% empty %}
+                  <tr><td colspan="5" class="text-center text-muted py-4">{% trans "لا توجد بيانات" %}</td></tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-5">
+        <div class="qms-card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="fa-solid fa-clipboard-list me-1"></i> {% trans "أحدث سجلات CAPA" %}</span>
+            <a href="{% url 'qms:capa_record_list' %}" class="btn btn-sm btn-light">{% trans "عرض الكل" %}</a>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>{% trans "الكود" %}</th>
+                    <th>{% trans "العنوان" %}</th>
+                    <th>{% trans "الحالة" %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for r in recent_capa %}
+                  <tr>
+                    <td class="fw-semibold"><a href="{% url 'qms:capa_record_detail' r.id %}">{{ r.code }}</a></td>
+                    <td class="text-truncate" style="max-width:200px">{{ r.title }}</td>
+                    <td>
+                      {% with s=r.status %}
+                        <span class="status-pill
+                          {% if s == 'open' %}st-open{% elif s == 'in_progress' %}st-inprog
+                          {% elif s == 'implemented' %}st-impl{% elif s == 'verified' %}st-ver
+                          {% elif s == 'ineffective' %}st-ineff{% else %}st-closed{% endif %}">
+                          {{ r.get_status_display }}
+                        </span>
+                      {% endwith %}
+                    </td>
+                  </tr>
+                {% empty %}
+                  <tr><td colspan="3" class="text-center text-muted py-4">{% trans "لا توجد بيانات" %}</td></tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+{% endblock %}

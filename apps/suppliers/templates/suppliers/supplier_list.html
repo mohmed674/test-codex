@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto rtl">
+  <h1 class="text-2xl font-bold mb-4">الموردين</h1>
+  <a href="{% url 'suppliers:create' %}" class="btn btn-primary mb-2">إضافة مورد</a>
+  <table class="table-auto w-full">
+    <thead class="bg-gray-200">
+      <tr><th>#</th><th>الاسم</th><th>الهاتف</th><th>الحالة</th><th>خيارات</th></tr>
+    </thead>
+    <tbody>
+      {% for s in suppliers %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.phone }}</td>
+        <td>{{ s.get_status_display }}</td>
+        <td>
+          <a href="{% url 'suppliers:edit' s.pk %}" class="btn btn-sm btn-info">تعديل</a>
+          <a href="{% url 'suppliers:pdf' s.pk %}" class="btn btn-sm btn-outline">PDF</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

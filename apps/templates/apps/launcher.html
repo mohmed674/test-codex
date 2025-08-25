@@ -1,0 +1,28 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{% get_current_language %}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "تطبيقات النظام" %} | Apps Center</title>
+    <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6">{% trans "تطبيقات النظام" %}</h1>
+        <div class="mb-4 flex flex-wrap gap-3">
+            <form method="get" action="{% url 'apps_pdf_export' %}">
+                <button type="submit" class="btn border px-4 py-2 rounded bg-green-600 text-white">{% trans "تصدير PDF" %}</button>
+            </form>
+            <form method="get" action="{% url 'apps_excel_export' %}">
+                <button type="submit" class="btn border px-4 py-2 rounded bg-blue-600 text-white">{% trans "تصدير Excel" %}</button>
+            </form>
+            <button onclick="window.print()" class="btn border px-4 py-2 rounded bg-gray-700 text-white">{% trans "طباعة" %}</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for app in apps %}
+                {% include 'apps/icon_card.html' with app=app %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

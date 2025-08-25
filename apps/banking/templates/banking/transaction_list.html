@@ -1,0 +1,20 @@
+<!-- apps/banking/templates/banking/transaction_list.html -->
+<h1>📜 Bank Transactions</h1>
+<p><a href="{% url 'banking:transaction_import' %}">Import CSV</a></p>
+<table>
+  <thead><tr><th>Account</th><th>Type</th><th>Amount</th><th>Currency</th><th>Booked</th><th>Description</th></tr></thead>
+  <tbody>
+  {% for x in transactions %}
+    <tr>
+      <td>{{ x.account.name }}</td>
+      <td>{{ x.type }}</td>
+      <td>{{ x.amount }}</td>
+      <td>{{ x.currency }}</td>
+      <td>{{ x.booked_at|date:"Y-m-d H:i" }}</td>
+      <td>{{ x.description }}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="6">No transactions.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>

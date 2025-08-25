@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>تفاصيل المشروع: {{ project.name }}</h2>
+<p><strong>الوصف:</strong> {{ project.description }}</p>
+<p><strong>المدير:</strong> {{ project.manager }}</p>
+<p><strong>الحالة:</strong> {{ project.get_status_display }}</p>
+<p><strong>من:</strong> {{ project.start_date }} إلى {{ project.end_date }}</p>
+
+<hr>
+<h4>المهام المرتبطة</h4>
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>المهمة</th>
+      <th>المكلف بها</th>
+      <th>تاريخ التسليم</th>
+      <th>الحالة</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <td>{{ task.title }}</td>
+      <td>{{ task.assigned_to }}</td>
+      <td>{{ task.due_date }}</td>
+      <td>{{ task.get_status_display }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h5 class="mt-4">إضافة مهمة جديدة</h5>
+<form method="post" action="{% url 'projects:project_detail' project.id %}">
+  {% csrf_token %}
+  {{ task_form.as_p }}
+  <button type="submit" class="btn btn-success">إضافة</button>
+</form>
+{% endblock %}

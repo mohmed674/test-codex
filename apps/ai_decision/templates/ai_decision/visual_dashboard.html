@@ -1,0 +1,76 @@
+{% load static %}
+{% load json_script %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة البيانات الرسومية</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="container mt-5">
+
+    <h2 class="text-center mb-4">📊 لوحة التحكم الرسومية للذكاء الاصطناعي</h2>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <canvas id="alertsChart"></canvas>
+        </div>
+        <div class="col-md-6 mb-4">
+            <canvas id="decisionsChart"></canvas>
+        </div>
+    </div>
+
+    <!-- 🔒 تضمين البيانات بأمان -->
+    {{ alerts_labels|json_script:"alertsLabels" }}
+    {{ alerts_data|json_script:"alertsData" }}
+    {{ decisions_labels|json_script:"decisionsLabels" }}
+    {{ decisions_data|json_script:"decisionsData" }}
+
+    <script>
+        const alertsChart = new Chart(document.getElementById('alertsChart'), {
+            type: 'doughnut',
+            data: {
+                labels: JSON.parse(document.getElementById('alertsLabels').textContent),
+                datasets: [{
+                    label: "عدد التنبيهات",
+                    data: JSON.parse(document.getElementById('alertsData').textContent),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(255, 159, 64, 0.5)',
+                        'rgba(255, 205, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        const decisionsChart = new Chart(document.getElementById('decisionsChart'), {
+            type: 'bar',
+            data: {
+                labels: JSON.parse(document.getElementById('decisionsLabels').textContent),
+                datasets: [{
+                    label: "عدد القرارات",
+                    data: JSON.parse(document.getElementById('decisionsData').textContent),
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- زر الطباعة -->
+    <div class="text-center mt-4">
+        <button onclick="window.print()" class="btn btn-secondary">🖨 طباعة</button>
+    </div>
+
+</body>
+</html>

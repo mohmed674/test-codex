@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      direction: rtl;
+      padding: 40px;
+      background: #fff;
+      font-size: 15px;
+    }
+    .header {
+      background-color: #eee;
+      padding: 12px;
+      text-align: center;
+      font-size: 20px;
+      border: 1px solid #ccc;
+    }
+    .section {
+      margin: 30px 0 20px;
+    }
+    .section strong {
+      display: inline-block;
+      width: 180px;
+    }
+    p {
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    🧾 تقرير بيانات العميل
+  </div>
+
+  <div class="section">
+    <strong>الاسم:</strong> {{ client.name|default:"—" }}<br>
+    <strong>الهاتف:</strong> {{ client.phone|default:"—" }}<br>
+    <strong>البريد:</strong> {{ client.email|default:"—" }}<br>
+    <strong>النقاط:</strong> {{ client.points }}<br>
+    <strong>إجمالي المشتريات:</strong> {{ client.total_purchases }}<br>
+    <strong>تاريخ آخر عملية شراء:</strong> {{ client.last_purchase_date|date:"Y-m-d"|default:"—" }}<br>
+  </div>
+
+  <div class="section">
+    <strong>ملاحظات العميل:</strong>
+    <p>{{ client.notes|default:"لا توجد ملاحظات." }}</p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4" dir="rtl">
+  <div class="card">
+    <div class="card-header bg-info text-white">
+      🤖 تحليل ذكاء اصطناعي للعميل: <strong>{{ client.name }}</strong>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">💡 التوصية:</h5>
+      <p class="card-text fs-5">{{ insight }}</p>
+      <a href="{% url 'client_list' %}" class="btn btn-secondary">⬅️ العودة للقائمة</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

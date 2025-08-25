@@ -1,0 +1,154 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\sales\sales_invoice_form.html -->
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}إنشاء فاتورة مبيعات{% endblock %}
+{% block header_title %}إنشاء فاتورة مبيعات جديدة{% endblock %}
+
+{% block extra_head %}
+<style>
+  .card-odoo{border:none;border-radius:1rem;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+  .btn-odoo{background:linear-gradient(135deg,#875A7B,#A46A91);color:#fff;border:none}
+  .btn-odoo:hover{filter:brightness(1.05)}
+  .table thead th{background:#f8f9fa}
+  .form-error{color:#b91c1c;font-size:.9rem;margin-top:.25rem}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4" dir="rtl">
+  <div class="card card-odoo p-4 rounded-4">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h3 class="m-0">🧾 إنشاء فاتورة مبيعات</h3>
+      <div>
+        <a href="{% url 'accounting:index' %}" class="btn btn-light">رجوع</a>
+      </div>
+    </div>
+    <hr>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} mb-3">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    {% if form.errors or formset.non_form_errors or formset.errors %}
+      <div class="alert alert-danger">
+        تأكد من الحقول التالية:
+        {{ form.non_field_errors }}
+        {{ formset.non_form_errors }}
+      </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">العميل</label>
+          {{ form.customer }}
+          {% if form.customer.errors %}<div class="form-error">{{ form.customer.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">رقم الفاتورة</label>
+          {{ form.number }}
+          {% if form.number.errors %}<div class="form-error">{{ form.number.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">تاريخ الفاتورة</label>
+          {{ form.date_issued }}
+          {% if form.date_issued.errors %}<div class="form-error">{{ form.date_issued.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">تاريخ الاستحقاق</label>
+          {{ form.due_date }}
+          {% if form.due_date.errors %}<div class="form-error">{{ form.due_date.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">الحالة</label>
+          {{ form.status }}
+          {% if form.status.errors %}<div class="form-error">{{ form.status.errors|striptags }}</div>{% endif %}
+        </div>
+        <div class="col-md-8">
+          <label class="form-label">ملاحظات</label>
+          {{ form.notes }}
+          {% if form.notes.errors %}<div class="form-error">{{ form.notes.errors|striptags }}</div>{% endif %}
+        </div>
+      </div>
+
+      <hr class="my-4">
+      <h5 class="mb-3">🧮 بنود الفاتورة</h5>
+
+      {{ formset.management_form }}
+
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle text-center">
+          <thead>
+            <tr>
+              <th style="min-width:220px">اسم المنتج</th>
+              <th style="min-width:120px">الكمية</th>
+              <th style="min-width:140px">سعر الوحدة</th>
+              <th style="min-width:220px">ملاحظات</th>
+              <th style="min-width:90px">حذف</th>
+            </tr>
+          </thead>
+          <tbody id="items-body">
+            {% for f in formset.forms %}
+              <tr class="item-row">
+                <td>{{ f.product_name }}</td>
+                <td>{{ f.quantity }}</td>
+                <td>{{ f.unit_price }}</td>
+                <td>{{ f.notes }}</td>
+                <td>{{ f.DELETE }}</td>
+              </tr>
+              {% if f.errors %}
+                <tr><td colspan="5" class="text-start">
+                  <div class="form-error">{{ f.errors|striptags }}</div>
+                </td></tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button type="button" id="add-row" class="btn btn-outline-secondary">➕ إضافة سطر</button>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-odoo px-4">💾 حفظ الفاتورة</button>
+          <button type="button" class="btn btn-outline-dark" onclick="window.print()">🖨 طباعة</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function(){
+  const addBtn = document.getElementById('add-row');
+  const tbody = document.getElementById('items-body');
+  if(!addBtn || !tbody) return;
+
+  function cloneLastRow(){
+    const last = tbody.querySelector('tr.item-row:last-of-type');
+    if(!last){ return; }
+    const totalForms = document.querySelector('[name$="-TOTAL_FORMS"]');
+    let count = parseInt(totalForms.value, 10);
+
+    const clone = last.cloneNode(true);
+    Array.from(clone.querySelectorAll('input, textarea, select')).forEach(inp=>{
+      if(inp.name){ inp.name = inp.name.replace(/-(\d+)-/g, `-${count}-`); }
+      if(inp.id){ inp.id = inp.id.replace(/_(\d+)_/g, `_${count}_`).replace(/-(\d+)-/g, `-${count}-`); }
+      if(inp.type === 'checkbox'){ inp.checked = false; }
+      else { inp.value = ''; }
+    });
+
+    tbody.appendChild(clone);
+    totalForms.value = count + 1;
+  }
+
+  addBtn.addEventListener('click', cloneLastRow);
+})();
+</script>
+{% endblock %}

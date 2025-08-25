@@ -1,0 +1,19 @@
+<!-- apps/banking/templates/banking/transfer_list.html -->
+<h1>🔁 Transfers</h1>
+<p><a href="{% url 'banking:transfer_create' %}">+ New Transfer</a></p>
+<table>
+  <thead><tr><th>Ref</th><th>Amount</th><th>Currency</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  {% for t in transfers %}
+    <tr>
+      <td>{{ t.reference }}</td>
+      <td>{{ t.amount }}</td>
+      <td>{{ t.currency }}</td>
+      <td>{{ t.status }}</td>
+      <td><a href="{% url 'banking:transfer_detail' t.pk %}">View</a></td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="5">No transfers.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>

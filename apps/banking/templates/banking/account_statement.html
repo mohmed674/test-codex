@@ -1,0 +1,23 @@
+<!-- apps/banking/templates/banking/account_statement.html -->
+<h1>Statement — {{ account.name }}</h1>
+<table>
+  <thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Currency</th><th>Description</th></tr></thead>
+  <tbody>
+  {% for t in transactions %}
+    <tr>
+      <td>{{ t.booked_at|date:"Y-m-d H:i" }}</td>
+      <td>{{ t.type }}</td>
+      <td>{{ t.amount }}</td>
+      <td>{{ t.currency }}</td>
+      <td>{{ t.description }}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="5">No transactions.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+<p>
+  {% if transactions.has_previous %}<a href="?page={{ transactions.previous_page_number }}">Prev</a>{% endif %}
+  Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}
+  {% if transactions.has_next %}<a href="?page={{ transactions.next_page_number }}">Next</a>{% endif %}
+</p>

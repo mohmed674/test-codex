@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">لوحة تحكم الباترونات</h2>
+    <div class="row mt-5 text-center">
+        <div class="col-md-4">
+            <div class="card shadow p-3">
+                <h5>عدد التصاميم</h5>
+                <h2>{{ total_designs }}</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow p-3">
+                <h5>مرات التنفيذ</h5>
+                <h2>{{ total_executions }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

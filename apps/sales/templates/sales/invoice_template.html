@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>فاتورة بيع</title>
+    <style>
+        body { font-family: 'Cairo', sans-serif; direction: rtl; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>فاتورة بيع</h2>
+    <p><strong>رقم الفاتورة:</strong> {{ invoice.id }}</p>
+    <p><strong>العميل:</strong> {{ invoice.customer.name }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>المنتج</th>
+                <th>الكمية</th>
+                <th>السعر</th>
+                <th>الإجمالي</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in invoice.items.all %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>الإجمالي الكلي: {{ invoice.total_amount }}</h3>
+</body>
+</html>

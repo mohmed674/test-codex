@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>تحليلات مصادر العملاء</h2>
+<table class="table table-bordered mt-4">
+  <thead>
+    <tr>
+      <th>المصدر</th>
+      <th>عدد العملاء</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in data %}
+    <tr>
+      <td>{{ row.source|default:"غير معروف" }}</td>
+      <td>{{ row.count }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

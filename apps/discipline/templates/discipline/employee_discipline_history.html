@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>سجل الانضباط – {{ employee.name }}</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f9f9f9;
+            padding: 20px;
+            direction: rtl;
+        }
+        .card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        .filters {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .filters input {
+            padding: 5px;
+            margin: 0 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-print { background-color: #28a745; }
+        .btn-excel { background-color: #17a2b8; }
+        .btn-pdf { background-color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>سجل الانضباط للموظف: {{ employee.name }}</h2>
+
+        <div class="filters">
+            <form method="get">
+                من: <input type="date" name="date_from" value="{{ request.GET.date_from }}">
+                إلى: <input type="date" name="date_to" value="{{ request.GET.date_to }}">
+                <button type="submit" class="btn">فلترة</button>
+                <a href="?date_from={{ request.GET.date_from }}&date_to={{ request.GET.date_to }}&export=1" class="btn btn-excel">تصدير Excel</a>
+                <a href="?date_from={{ request.GET.date_from }}&date_to={{ request.GET.date_to }}&download_pdf=1" class="btn btn-pdf">طباعة PDF</a>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>نوع الإجراء</th>
+                    <th>القيمة</th>
+                    <th>السبب</th>
+                    <th>أنشئ بواسطة</th>
+                    <th>التاريخ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in records %}
+                <tr>
+                    <td>{{ r.type }}</td>
+                    <td>{{ r.value }}</td>
+                    <td>{{ r.reason }}</td>
+                    <td>{{ r.created_by }}</td>
+                    <td>{{ r.date }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5">لا توجد بيانات انضباط مسجلة لهذا الموظف.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

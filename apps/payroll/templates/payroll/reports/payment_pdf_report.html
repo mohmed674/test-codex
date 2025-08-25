@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير PDF لصرف المرتبات</title>
+    <style>
+        body { font-family: 'Arial'; direction: rtl; font-size: 14px; padding: 30px; background-color: white; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        .footer { margin-top: 40px; text-align: center; font-size: 12px; color: #555; }
+    </style>
+</head>
+<body>
+    <h2>تقرير صرف المرتبات</h2>
+    <p style="text-align:center;">الفترة من: {{ date_from }} إلى: {{ date_to }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>اسم الموظف</th>
+                <th>القيمة</th>
+                <th>تاريخ الصرف</th>
+                <th>البيان</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in payments %}
+            <tr>
+                <td>{{ p.employee.name }}</td>
+                <td>{{ p.amount }}</td>
+                <td>{{ p.date }}</td>
+                <td>{{ p.note }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">لا توجد بيانات</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        تم توليد التقرير تلقائيًا بواسطة نظام إدارة المرتبات.
+    </div>
+</body>
+</html>

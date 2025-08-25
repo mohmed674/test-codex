@@ -1,0 +1,37 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\financial_analysis.html -->
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-4">📊 التحليل المالي الشهري</h3>
+
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>📅 الشهر</th>
+          <th>💰 الإيرادات</th>
+          <th>💸 المصروفات</th>
+          <th>📈 صافي الربح</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in analysis %}
+        <tr>
+          <td>{{ row.month }}</td>
+          <td class="text-success">{{ row.income|floatformat:2 }} ج.م</td>
+          <td class="text-danger">{{ row.expense|floatformat:2 }} ج.م</td>
+          <td class="fw-bold text-primary">{{ row.profit|floatformat:2 }} ج.م</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="text-center text-muted">لا توجد بيانات.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+  </div>
+</div>
+{% endblock %}
+

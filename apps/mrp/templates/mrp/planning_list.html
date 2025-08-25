@@ -1,0 +1,13 @@
+<h4>قائمة خطط المواد</h4>
+<a href="{% url 'mrp:planning_add' %}" class="btn btn-success mb-3">➕ إضافة خطة جديدة</a>
+<table class="table table-bordered">
+<tr><th>المنتج</th><th>الكمية</th><th>التاريخ</th><th>تفاصيل</th></tr>
+{% for p in plans %}
+<tr>
+<td>{{ p.product }}</td>
+<td>{{ p.planned_quantity }}</td>
+<td>{{ p.required_date }}</td>
+<td><a href="{% url 'mrp:planning_detail' p.pk %}">عرض</a></td>
+</tr>
+{% endfor %}
+</table>

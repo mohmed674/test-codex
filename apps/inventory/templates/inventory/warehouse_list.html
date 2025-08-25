@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>📦 قائمة المخازن</h2>
+<a href="{% url 'inventory:add_inventory_location' %}" class="btn btn-primary mb-3">➕ إضافة مخزن جديد</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>الموقع</th>
+            <th>المسؤول</th>
+            <th>ملاحظات</th>
+            <th>الإجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for loc in locations %}
+        <tr>
+            <td>{{ loc.name }}</td>
+            <td>{{ loc.location }}</td>
+            <td>{{ loc.manager }}</td>
+            <td>{{ loc.note|default:"—" }}</td>
+            <td>
+                <a href="{% url 'inventory:edit_inventory_location' loc.pk %}" class="btn btn-sm btn-warning">تعديل</a>
+                <a href="{% url 'inventory:delete_inventory_location' loc.pk %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">لا توجد مخازن.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

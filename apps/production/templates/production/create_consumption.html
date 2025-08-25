@@ -1,0 +1,22 @@
+<!-- ERP_CORE/production/templates/production/create_consumption.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل استهلاك خام</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
+<body class="p-4 bg-light">
+<div class="container bg-white p-4 rounded shadow-sm">
+    <h3 class="text-center mb-4">➕ تسجيل استهلاك خام</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">💾 حفظ</button>
+            <a href="{% url 'production:consumption_list' %}" class="btn btn-secondary">↩️ رجوع</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

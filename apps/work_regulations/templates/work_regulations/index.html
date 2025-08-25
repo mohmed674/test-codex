@@ -1,0 +1,14 @@
+<!-- apps/work_regulations/templates/work_regulations/index.html — Normalized (Sprint 1 / Routing P1) -->
+
+<h1>📑 Work Regulations Module</h1>
+
+<nav>
+  <ul>
+    <li><a href="{% url 'work_regulations:list' %}">View Regulations</a></li>
+    <li><a href="{% url 'work_regulations:agree' regulation_id=1 %}">Agree to Regulation #1</a></li>
+  </ul>
+</nav>
+
+<section>
+  <p>Work Regulations Module is working ✅</p>
+</section>

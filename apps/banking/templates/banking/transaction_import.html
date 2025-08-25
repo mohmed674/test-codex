@@ -1,0 +1,11 @@
+<!-- apps/banking/templates/banking/transaction_import.html -->
+<h1>Import Transactions (CSV)</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label>Account ID</label>
+  <input type="number" name="account" required>
+  <label>CSV File</label>
+  <input type="file" name="file" accept=".csv" required>
+  <p>Expected headers: type,amount,currency,description</p>
+  <button type="submit">Upload</button>
+</form>

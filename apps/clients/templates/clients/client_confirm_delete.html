@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4" dir="rtl">
+  <h3 class="mb-3 text-danger">❗ تأكيد حذف العميل</h3>
+  <p>هل أنت متأكد أنك تريد حذف العميل <strong>{{ client.name }}</strong>؟</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-danger">🗑️ حذف نهائي</button>
+      <a href="{% url 'client_list' %}" class="btn btn-secondary">إلغاء</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

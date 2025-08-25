@@ -1,0 +1,86 @@
+{% load static i18n json_script %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>{% block title %}ERP Mobile{% endblock %}</title>
+
+  <!-- ✅ PWA Icons & Meta (إضافة دون حذف القائم) -->
+  <link rel="icon" href="{% static 'icons/favicon.ico' %}">
+  <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}">
+  <link rel="apple-touch-icon" href="{% static 'icons/icon-192x192.png' %}">
+  <meta name="theme-color" content="#0d6efd">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- ✅ Bootstrap & Fonts -->
+  {% if LANGUAGE_CODE == 'ar' %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+  {% else %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  {% endif %}
+
+  <style>
+    body { background-color: #f8f9fa; }
+    .erp-icon { width: 48px; height: 48px; }
+  </style>
+
+  <!-- ✅ PWA Manifest -->
+  <link rel="manifest" href="{% static 'manifest.json' %}">
+  <!-- تلميح لمسار SW لموحدة التسجيل عبر الواجهات -->
+  <link rel="serviceworker" href="/sw.js">
+
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body id="erpBody">
+  <main class="container mt-3">
+    {% block content %}
+    <div class="text-center mt-5">
+      <img src="{% static 'icons/icon-192x192.png' %}" class="erp-icon mb-3" alt="ERP Logo">
+      <h3>{% trans "Welcome to ERP Mobile Interface" %}</h3>
+    </div>
+    {% endblock %}
+  </main>
+
+  <!-- ✅ تضمين LANGUAGE_CODE بأمان -->
+  {{ LANGUAGE_CODE|json_script:"langCode" }}
+
+  <!-- ✅ JavaScript: ضبط الخط حسب اللغة + تسجيل SW بمرونة -->
+  <script>
+    (function () {
+      const lang = JSON.parse(document.getElementById("langCode").textContent);
+      const body = document.getElementById("erpBody");
+      body.style.fontFamily = (lang === 'ar') ? "'Cairo', sans-serif" : "'Roboto', sans-serif";
+
+      try{
+        if ('serviceWorker' in navigator) {
+          const swLink = document.querySelector('link[rel="serviceworker"]');
+          const primary = (swLink && swLink.getAttribute('href')) || '/sw.js';
+          const fallback = "{% static 'sw.js' %}";
+
+          function registerAt(url){
+            return navigator.serviceWorker.register(url).then(function(reg){
+              // إبقاء التسجيل الحالي وإضافة تحسينات فقط
+              console.log("✅ ServiceWorker registered:", reg.scope);
+              if (reg.waiting) { reg.waiting.postMessage({type:'SKIP_WAITING'}); }
+              return reg;
+            });
+          }
+
+          registerAt(primary).catch(function(){
+            if (primary !== fallback) { return registerAt(fallback); }
+          });
+        }
+      }catch(e){}
+    })();
+  </script>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h4 class="mb-3">➕ إنشاء فاتورة جديدة</h4>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-success">💾 حفظ الفاتورة</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

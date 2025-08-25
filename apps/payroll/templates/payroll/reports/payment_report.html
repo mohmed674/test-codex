@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير سجل الدفع</title>
+    <style>
+        body { font-family: 'Arial'; direction: rtl; background-color: #f9f9f9; padding: 20px; }
+        h2 { text-align: center; }
+        .filters { margin: 20px 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        .filters input { padding: 6px; }
+        .btn { padding: 8px 12px; background-color: #28a745; color: white; border-radius: 4px; text-decoration: none; }
+        .btn-blue { background-color: #007bff; }
+        .btn-print { background-color: #6c757d; }
+        table { width: 100%; border-collapse: collapse; background-color: #fff; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #eee; }
+    </style>
+    <script>
+        function printReport() {
+            window.print();
+        }
+    </script>
+</head>
+<body>
+    <h2>سجل صرف المرتبات</h2>
+
+    <form method="get" class="filters">
+        <input type="text" name="name" placeholder="اسم الموظف" value="{{ name }}">
+        <input type="date" name="date_from" value="{{ date_from }}">
+        <input type="date" name="date_to" value="{{ date_to }}">
+        <button type="submit">فلترة</button>
+        <a href="?name={{ name }}&date_from={{ date_from }}&date_to={{ date_to }}&export=1" class="btn">تصدير Excel</a>
+        <a href="?name={{ name }}&date_from={{ date_from }}&date_to={{ date_to }}&download_pdf=1" class="btn btn-blue">تحميل PDF</a>
+        <a href="javascript:void(0);" onclick="printReport();" class="btn btn-print">🖨️ طباعة</a>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>اسم الموظف</th>
+                <th>القيمة</th>
+                <th>تاريخ الصرف</th>
+                <th>البيان</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in payments %}
+            <tr>
+                <td>{{ p.employee.name }}</td>
+                <td>{{ p.amount }}</td>
+                <td>{{ p.date }}</td>
+                <td>{{ p.note }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">لا توجد بيانات</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

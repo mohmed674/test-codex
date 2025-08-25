@@ -1,0 +1,60 @@
+<!-- templates/survey/survey_results_pdf.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقرير نتائج الاستبيان</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            direction: rtl;
+            padding: 30px;
+            font-size: 14px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        h4 {
+            margin-top: 25px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+        }
+        ul {
+            list-style: none;
+            padding-right: 0;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        .meta {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>📊 تقرير نتائج الاستبيان: {{ survey.title }}</h2>
+
+    {% for question, answers in results_by_question.items %}
+        <h4>❓ {{ question.question_text }}</h4>
+        <ul>
+            {% for answer in answers %}
+                <li>
+                    {% if question.question_type == 'text' %}
+                        📝 {{ answer.answer_text|default:"-" }}
+                    {% elif question.question_type == 'multiple_choice' %}
+                        ✅ {{ answer.selected_choice.choice_text }}
+                    {% endif %}
+                    <span class="meta">— {{ answer.response.submitted_at|date:"Y-m-d H:i" }}</span>
+                </li>
+            {% empty %}
+                <li><em>لا توجد إجابات بعد.</em></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+</body>
+</html>

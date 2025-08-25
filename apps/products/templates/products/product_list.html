@@ -1,0 +1,168 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "قائمة المنتجات" %}{% endblock %}
+{% block header_title %}📦 {% trans "المنتجات النهائية" %}{% endblock %}
+{% block breadcrumbs %}<a href="{% url 'core:launcher' %}">{% trans "التطبيقات" %}</a> / {% trans "المنتجات" %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 pb-4">
+
+  <!-- فلاتر وبحث -->
+  <form method="get" class="card mb-3">
+    <div class="card-body row g-2 align-items-end">
+      <div class="col-sm-4 col-md-4">
+        <label class="form-label">{% trans "بحث" %}</label>
+        <input type="search" name="q" value="{{ filters.q }}" class="form-control" placeholder="{% trans 'ابحث بالاسم أو كود المنتج…' %}" data-slash-focus>
+      </div>
+      <div class="col-sm-3 col-md-2">
+        <label class="form-label">{% trans "من تاريخ إنتاج" %}</label>
+        <input type="date" name="date_from" value="{{ filters.date_from }}" class="form-control">
+      </div>
+      <div class="col-sm-3 col-md-2">
+        <label class="form-label">{% trans "إلى تاريخ إنتاج" %}</label>
+        <input type="date" name="date_to" value="{{ filters.date_to }}" class="form-control">
+      </div>
+      <div class="col-sm-3 col-md-2">
+        <label class="form-label">{% trans "ترتيب" %}</label>
+        <select name="ordering" class="form-select">
+          <option value="">{% trans "افتراضي" %}</option>
+          <option value="product_code" {% if filters.ordering == 'product_code' %}selected{% endif %}>{% trans "الكود تصاعدي" %}</option>
+          <option value="-product_code" {% if filters.ordering == '-product_code' %}selected{% endif %}>{% trans "الكود تنازلي" %}</option>
+          <option value="name" {% if filters.ordering == 'name' %}selected{% endif %}>{% trans "الاسم تصاعدي" %}</option>
+          <option value="-name" {% if filters.ordering == '-name' %}selected{% endif %}>{% trans "الاسم تنازلي" %}</option>
+          <option value="date_produced" {% if filters.ordering == 'date_produced' %}selected{% endif %}>{% trans "تاريخ الإنتاج تصاعدي" %}</option>
+          <option value="-date_produced" {% if filters.ordering == '-date_produced' %}selected{% endif %}>{% trans "تاريخ الإنتاج تنازلي" %}</option>
+          <option value="expiry_date" {% if filters.ordering == 'expiry_date' %}selected{% endif %}>{% trans "تاريخ الانتهاء تصاعدي" %}</option>
+          <option value="-expiry_date" {% if filters.ordering == '-expiry_date' %}selected{% endif %}>{% trans "تاريخ الانتهاء تنازلي" %}</option>
+        </select>
+      </div>
+      <div class="col-sm-12 col-md-2 d-flex gap-2">
+        <button class="btn btn-primary flex-grow-1" type="submit"><i class="fa-solid fa-magnifying-glass me-1"></i> {% trans "تطبيق" %}</button>
+        <a class="btn btn-light" href="?"><i class="fa-solid fa-rotate-left me-1"></i> {% trans "تفريغ" %}</a>
+      </div>
+    </div>
+  </form>
+
+  <!-- شريط أدوات -->
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <a href="{% url 'products:product_create' %}" class="btn btn-success">
+      <i class="fa-solid fa-plus"></i> {% trans "إضافة منتج" %}
+    </a>
+
+    {% with qs=request.GET.urlencode %}
+      <a class="btn btn-outline-secondary" href="?{% if qs %}{{ qs }}&{% endif %}download_pdf=1">
+        <i class="fa-solid fa-file-pdf"></i> PDF
+      </a>
+      <a class="btn btn-outline-secondary" href="?{% if qs %}{{ qs }}&{% endif %}export=excel">
+        <i class="fa-solid fa-file-excel"></i> Excel
+      </a>
+      <a class="btn btn-outline-secondary" href="?{% if qs %}{{ qs }}&{% endif %}export=csv">
+        <i class="fa-solid fa-file-csv"></i> CSV
+      </a>
+      <a class="btn btn-outline-secondary" href="?{% if qs %}{{ qs }}&{% endif %}export=json" target="_blank" rel="noopener">
+        <i class="fa-solid fa-code"></i> JSON
+      </a>
+    {% endwith %}
+  </div>
+
+  <!-- الجدول -->
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>{% trans "الكود" %}</th>
+          <th>{% trans "الاسم" %}</th>
+          <th class="text-center">{% trans "الكمية" %}</th>
+          <th>{% trans "الحالة" %}</th>
+          <th>{% trans "تاريخ الإنتاج" %}</th>
+          <th>{% trans "تاريخ الانتهاء" %}</th>
+          <th>{% trans "باركود/QR" %}</th>
+          <th class="text-center">{% trans "الإجراءات" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for product in products %}
+        <tr>
+          <td class="fw-semibold">{{ product.product_code }}</td>
+          <td>{{ product.name }}</td>
+          <td class="text-center">{{ product.quantity }}</td>
+          <td>
+            {% with s=product.get_quality_status_display|default:product.get_status_display %}
+            {% with key=product.quality_status|default:product.status %}
+              <span class="badge
+                {% if key == 'good' %} bg-success
+                {% elif key == 'average' %} bg-warning text-dark
+                {% elif key == 'rejected' %} bg-danger
+                {% else %}
+                  {% if 'جيد' in s or 'Good' in s or 'صالح' in s %} bg-success
+                  {% elif 'مقبول' in s or 'Accept' in s or 'متوسط' in s %} bg-warning text-dark
+                  {% elif 'مرفوض' in s or 'Rejected' in s or 'سيء' in s %} bg-danger
+                  {% else %} bg-secondary {% endif %}
+                {% endif %}">
+                {{ s }}
+              </span>
+            {% endwith %}
+            {% endwith %}
+          </td>
+          <td>{{ product.date_produced|date:"Y-m-d" }}</td>
+          <td>
+            {% with exp=product.expiration_date|default:product.expiry_date %}
+              {% if exp %}{{ exp|date:"Y-m-d" }}{% else %}-{% endif %}
+            {% endwith %}
+          </td>
+          <td>
+            {% if product.qr_code %}
+              <img src="{{ product.qr_code.url }}" alt="QR" width="44" height="44" class="rounded border">
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td class="text-center">
+            <div class="btn-group btn-group-sm">
+              <a href="{% url 'products:product_edit' product.id %}" class="btn btn-outline-primary">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+              <a href="{% url 'products:product_delete' product.id %}" class="btn btn-outline-danger" data-confirm="{% trans 'هل أنت متأكد من الحذف؟' %}">
+                <i class="fa-solid fa-trash-can"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="8" class="text-center text-muted py-4">{% trans "لا توجد منتجات." %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ترقيم الصفحات -->
+  {% if page_obj.has_other_pages %}
+  {% with qs=request.GET.urlencode %}
+  <nav aria-label="pages">
+    <ul class="pagination justify-content-center">
+      <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if qs %}&{{ qs }}{% endif %}" aria-label="{% trans 'السابق' %}">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+          <a class="page-link" href="?page={{ num }}{% if qs %}&{{ qs }}{% endif %}">{{ num }}</a>
+        </li>
+      {% endfor %}
+      <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if qs %}&{{ qs }}{% endif %}" aria-label="{% trans 'التالي' %}">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  {% endwith %}
+  {% endif %}
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h4 class="mb-4">✍️ تسجيل حركة شحنة جديدة</h4>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="id_tracking" class="form-label">🔍 كود التتبع</label>
+          {{ form.tracking }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="id_location" class="form-label">📍 الموقع الحالي</label>
+          {{ form.location }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="id_status" class="form-label">📦 الحالة</label>
+          {{ form.status }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="id_timestamp" class="form-label">⏰ وقت الحركة</label>
+          {{ form.timestamp }}
+        </div>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-success">
+          💾 حفظ
+        </button>
+        <a href="{% url 'tracking:tracking_movement_dashboard' %}" class="btn btn-secondary">
+          ↩️ رجوع إلى اللوحة
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

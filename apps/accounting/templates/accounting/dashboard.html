@@ -1,0 +1,35 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\dashboard.html -->
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-4">📊 لوحة تحكم شهر {{ month|date:"F Y" }}</h3>
+
+    <div class="row text-center">
+      <div class="col-md-4 mb-3">
+        <div class="border p-3 rounded bg-light">
+          <h5>💰 إجمالي الإيرادات</h5>
+          <h4 class="text-success">{{ total_income|floatformat:2 }} ج.م</h4>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <div class="border p-3 rounded bg-light">
+          <h5>💸 إجمالي المصروفات</h5>
+          <h4 class="text-danger">{{ total_expense|floatformat:2 }} ج.م</h4>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <div class="border p-3 rounded bg-light">
+          <h5>📈 صافي الربح</h5>
+          <h4 class="text-primary">{{ net_profit|floatformat:2 }} ج.م</h4>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>قائمة الشحنات</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>الرقم التتبعي</th>
+      <th>العميل</th>
+      <th>الشركة</th>
+      <th>الحالة</th>
+      <th>تاريخ الشحن</th>
+      <th>تاريخ التسليم</th>
+      <th>الإجراء</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for shipment in shipments %}
+    <tr>
+      <td>{{ shipment.tracking_number }}</td>
+      <td>{{ shipment.client }}</td>
+      <td>{{ shipment.company }}</td>
+      <td>{{ shipment.get_status_display }}</td>
+      <td>{{ shipment.shipping_date }}</td>
+      <td>{{ shipment.delivery_date }}</td>
+      <td>
+        <a href="{% url 'shipping:update_shipment' shipment.id %}" class="btn btn-sm btn-primary">تعديل</a>
+        <a href="{% url 'shipping:track_shipment' shipment.tracking_number %}" class="btn btn-sm btn-info">تتبع</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'shipping:create_shipment' %}" class="btn btn-success">إضافة شحنة</a>
+{% endblock %}

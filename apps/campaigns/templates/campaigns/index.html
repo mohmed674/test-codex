@@ -1,0 +1,17 @@
+<!-- apps/campaigns/templates/campaigns/index.html — Normalized (Sprint 3 / Marketing Automation) -->
+
+<h1>📢 Campaigns Module</h1>
+
+<nav>
+  <ul>
+    <li><a href="{% url 'campaigns:list' %}">All Campaigns</a></li>
+    <li><a href="{% url 'campaigns:create' %}">Create Campaign</a></li>
+    <li><a href="{% url 'campaigns:send_email' %}">Send Email Campaign</a></li>
+    <li><a href="{% url 'campaigns:send_sms' %}">Send SMS Campaign</a></li>
+    <li><a href="{% url 'campaigns:send_whatsapp' %}">Send WhatsApp Campaign</a></li>
+  </ul>
+</nav>
+
+<section>
+  <p>Campaigns Module is working ✅ — Multi-channel Marketing ready (Email / SMS / WhatsApp).</p>
+</section>

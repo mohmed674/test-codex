@@ -1,0 +1,22 @@
+{% load i18n %}
+<h2>{% trans "Backup Center" %}</h2>
+
+<form method="post">{% csrf_token %}
+    <button name="db_backup" type="submit">{% trans "Create Database Backup" %}</button>
+    <button name="media_backup" type="submit">{% trans "Create Media Backup" %}</button>
+</form>
+
+<table>
+    <tr>
+        <th>{% trans "Type" %}</th>
+        <th>{% trans "Created At" %}</th>
+        <th>{% trans "File" %}</th>
+    </tr>
+    {% for backup in records %}
+    <tr>
+        <td>{{ backup.file_type }}</td>
+        <td>{{ backup.created_at }}</td>
+        <td><a href="{{ backup.file_path|cut:BASE_DIR }}">{{ backup.file_path }}</a></td>
+    </tr>
+    {% endfor %}
+</table>

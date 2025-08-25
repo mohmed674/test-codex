@@ -1,0 +1,5 @@
+<h4>📝 إنشاء RFQ جديد</h4>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">إرسال</button>
+</form>

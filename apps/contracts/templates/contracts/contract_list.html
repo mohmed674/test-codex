@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>قائمة العقود</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>العنوان</th>
+      <th>النوع</th>
+      <th>من</th>
+      <th>إلى</th>
+      <th>القيمة</th>
+      <th>تفاصيل</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for contract in contracts %}
+    <tr>
+      <td>{{ contract.title }}</td>
+      <td>{{ contract.get_contract_type_display }}</td>
+      <td>{{ contract.start_date }}</td>
+      <td>{{ contract.end_date }}</td>
+      <td>{{ contract.value }} جنيه</td>
+      <td><a href="{% url 'contracts:contract_detail' contract.id %}" class="btn btn-sm btn-info">عرض</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'contracts:create_contract' %}" class="btn btn-success">إضافة عقد جديد</a>
+{% endblock %}

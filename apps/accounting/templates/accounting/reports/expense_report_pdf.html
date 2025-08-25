@@ -1,0 +1,45 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\expense_report_pdf.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير المصروفات</title>
+    <style>
+        body { font-family: 'Cairo', sans-serif; font-size: 14px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
+        th { background-color: #f0f0f0; }
+        h2 { text-align: center; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h2>تقرير المصروفات</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>التاريخ</th>
+                <th>الفئة</th>
+                <th>الوصف</th>
+                <th>القيمة</th>
+                <th>طريقة الدفع</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exp in expenses %}
+                <tr>
+                    <td>{{ exp.date }}</td>
+                    <td>{{ exp.get_category_display }}</td>
+                    <td>{{ exp.description|default:"-" }}</td>
+                    <td>{{ exp.amount|floatformat:2 }} ج.م</td>
+                    <td>{{ exp.get_payment_method_display }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">لا توجد مصروفات في الفترة المحددة.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

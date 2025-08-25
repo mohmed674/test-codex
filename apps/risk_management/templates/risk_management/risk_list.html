@@ -1,0 +1,16 @@
+<h2>سجل المخاطر</h2>
+<a href="{% url 'risk_management:risk_add' %}" class="btn btn-primary">➕ إضافة خطر جديد</a>
+<table class="table">
+<thead><tr><th>العنوان</th><th>النوع</th><th>الخطورة</th><th>الاحتمالية</th><th>تمت المعالجة؟</th></tr></thead>
+<tbody>
+{% for risk in risks %}
+<tr>
+<td><a href="{% url 'risk_management:risk_detail' risk.pk %}">{{ risk.title }}</a></td>
+<td>{{ risk.get_risk_type_display }}</td>
+<td>{{ risk.get_severity_display }}</td>
+<td>{{ risk.probability }}%</td>
+<td>{{ risk.is_resolved|yesno:"✅,❌" }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>

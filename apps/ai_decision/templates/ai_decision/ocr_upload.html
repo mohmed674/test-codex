@@ -1,0 +1,25 @@
+<!-- templates/ai_decision/ocr_upload.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>استخراج بيانات الفواتير OCR</title>
+  <link rel="stylesheet" href="{% static 'css/copilot.css' %}">
+</head>
+<body>
+  <div class="copilot-container">
+    <h2>🧾 استخراج بيانات الفواتير باستخدام OCR</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">رفع الملف</button>
+    </form>
+
+    {% if text_result %}
+      <h3>📄 النص المستخرج من الفاتورة:</h3>
+      <div class="response-box">{{ text_result }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>

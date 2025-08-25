@@ -1,0 +1,7 @@
+<div class="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center hover:shadow-xl transition group">
+    <img src="{% if app.icon %}{{ app.icon }}{% else %}{% static 'images/app_default.svg' %}{% endif %}" 
+         class="w-16 h-16 mb-3 group-hover:scale-105 transition" alt="{{ app.name }}">
+    <h2 class="text-xl font-semibold mb-1">{% trans app.name %}</h2>
+    <p class="text-gray-600 mb-4 text-center">{% trans app.description %}</p>
+    <a href="{{ app.url }}" class="w-full btn bg-primary text-white rounded-xl py-2 font-bold mt-auto hover:bg-primary/90 transition">{% trans "دخول" %}</a>
+</div>

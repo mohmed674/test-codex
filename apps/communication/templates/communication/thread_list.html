@@ -1,0 +1,12 @@
+<h4>💬 المحادثات</h4>
+<ul class="list-group">
+{% for t in threads %}
+  <li class="list-group-item">
+    <a href="{% url 'communication:thread_chat' t.id %}">محادثة مع: 
+    {% for u in t.participants.all %}
+      {% if not u == request.user %} {{ u.username }} {% endif %}
+    {% endfor %}
+    </a>
+  </li>
+{% endfor %}
+</ul>

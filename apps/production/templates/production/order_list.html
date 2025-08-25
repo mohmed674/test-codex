@@ -1,0 +1,39 @@
+<!-- ERP_CORE/production/templates/production/order_list.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>أوامر الإنتاج</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
+<body class="p-4 bg-light">
+<div class="container bg-white p-4 rounded shadow-sm">
+    <h3 class="mb-4 text-center">📋 أوامر الإنتاج</h3>
+    <a href="{% url 'production:create_order' %}" class="btn btn-success mb-3">➕ إضافة أمر جديد</a>
+    <table class="table table-bordered text-center align-middle table-striped">
+        <thead class="table-light">
+            <tr>
+                <th>رقم</th>
+                <th>اسم المنتج</th>
+                <th>الكمية</th>
+                <th>تاريخ البداية</th>
+                <th>الحالة</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ order.product_name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.start_date }}</td>
+                <td>{{ order.status }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">لا توجد أوامر حالياً.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

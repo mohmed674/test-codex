@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{% trans "فتح جلسة بيع" %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="cashier" class="form-label">{% trans "الموظف" %}</label>
+      {{ form.cashier }}
+    </div>
+    <div class="mb-3">
+      <label for="initial_balance" class="form-label">{% trans "الرصيد الافتتاحي" %}</label>
+      {{ form.initial_balance }}
+    </div>
+    <button type="submit" class="btn btn-primary">{% trans "بدء الجلسة" %}</button>
+  </form>
+</div>
+{% endblock %}

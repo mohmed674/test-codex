@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>🧾 طباعة سجل الحضور</title>
+    <style>
+        body {
+            font-family: "Cairo", sans-serif;
+            direction: rtl;
+            padding: 40px;
+            background: #fff;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .status-hadir {
+            color: green;
+            font-weight: bold;
+        }
+        .status-absent {
+            color: red;
+            font-weight: bold;
+        }
+        .status-leave {
+            color: orange;
+            font-weight: bold;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>📋 تقرير الحضور</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>اسم الموظف</th>
+                <th>التاريخ</th>
+                <th>الحالة</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.evaluation.employee.name }}</td>
+                <td>{{ record.date }}</td>
+                <td>
+                    {% if record.status == "حاضر" %}
+                        <span class="status-hadir">حاضر</span>
+                    {% elif record.status == "غائب" %}
+                        <span class="status-absent">غائب</span>
+                    {% elif record.status == "إجازة" %}
+                        <span class="status-leave">إجازة</span>
+                    {% else %}
+                        {{ record.status }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="no-print" style="text-align:center; margin-top: 20px;">
+        <button onclick="window.print()" class="btn btn-dark">🖨️ طباعة مباشرة</button>
+    </div>
+
+</body>
+</html>

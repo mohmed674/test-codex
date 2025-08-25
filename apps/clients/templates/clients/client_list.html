@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4" dir="rtl">
+  <h3 class="mb-3">📋 قائمة العملاء</h3>
+
+  <!-- ✅ رسائل التنبيه التفاعلية -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-end" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close float-start" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="mb-3 text-end">
+    <a href="{% url 'client_create' %}" class="btn btn-success">➕ عميل جديد</a>
+  </div>
+
+  <table class="table table-bordered table-striped text-end">
+    <thead class="table-light">
+      <tr>
+        <th>الاسم</th>
+        <th>الهاتف</th>
+        <th>البريد</th>
+        <th>النقاط</th>
+        <th>الحالة</th>
+        <th>خيارات</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for client in clients %}
+      <tr>
+        <td>{{ client.name }}</td>
+        <td>{{ client.phone }}</td>
+        <td>{{ client.email|default:"—" }}</td>
+        <td>{{ client.points }}</td>
+        <td>{{ client.status }}</td>  {# أو client.status() إن كانت method #}
+        <td>
+          <a href="{% url 'client_update' client.pk %}" class="btn btn-sm btn-warning">✏️</a>
+          <a href="{% url 'client_delete' client.pk %}" class="btn btn-sm btn-danger">🗑️</a>
+          <a href="{% url 'client_ai_insight' client.pk %}" class="btn btn-sm btn-info">🤖 AI</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

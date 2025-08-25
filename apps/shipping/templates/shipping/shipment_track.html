@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>تتبع الشحنة رقم: {{ shipment.tracking_number }}</h2>
+<p><strong>العميل:</strong> {{ shipment.client }}</p>
+<p><strong>الشركة:</strong> {{ shipment.company }}</p>
+<p><strong>الحالة:</strong> {{ shipment.get_status_display }}</p>
+<p><strong>تاريخ الشحن:</strong> {{ shipment.shipping_date }}</p>
+<p><strong>تاريخ التسليم:</strong> {{ shipment.delivery_date }}</p>
+<p><strong>التكلفة:</strong> {{ shipment.cost }}</p>
+{% endblock %}

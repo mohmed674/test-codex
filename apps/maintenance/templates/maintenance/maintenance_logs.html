@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>سجلات الصيانة</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
+<body class="bg-light p-4">
+
+<div class="container">
+    <h3 class="text-center mb-4">🛠️ سجلات الصيانة</h3>
+
+    <!-- 🔎 نموذج الفلترة -->
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <input type="text" name="machine" placeholder="اسم الماكينة" value="{{ filters.machine }}" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <input type="date" name="from" class="form-control" value="{{ filters.from }}">
+        </div>
+        <div class="col-md-3">
+            <input type="date" name="to" class="form-control" value="{{ filters.to }}">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">🔍 بحث</button>
+        </div>
+    </form>
+
+    <!-- ⚠️ تنبيهات -->
+    {% if alerts %}
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                {% for alert in alerts %}
+                    <li>{{ alert }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- 📊 الأعطال المتكررة -->
+    {% if frequent_issues %}
+        <div class="alert alert-warning">
+            <strong>📌 ملاحظة:</strong> هذه الماكينات لديها أكثر من 3 أعطال مسجلة:
+            <ul class="mb-0">
+                {% for item in frequent_issues %}
+                    <li>{{ item.machine__name }} (عدد الأعطال: {{ item.total }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- 🗂️ جدول السجلات -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>🆔</th>
+                    <th>الماكينة</th>
+                    <th>العطل</th>
+                    <th>الإجراء</th>
+                    <th>تاريخ الصيانة</th>
+                    <th>الصيانة القادمة</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ log.machine.name }}</td>
+                        <td>{{ log.issue|default:"-" }}</td>
+                        <td>{{ log.action_taken|default:"-" }}</td>
+                        <td>{{ log.maintenance_date|date:"Y-m-d" }}</td>
+                        <td>{{ log.next_maintenance|date:"Y-m-d"|default:"-" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="6">لا توجد سجلات حالياً.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 📤 أدوات التصدير -->
+    <div class="text-center mt-4">
+        <a href="{% url 'maintenance:maintenance_logs' %}?{{ request.GET.urlencode }}&download_pdf=1" class="btn btn-warning">📄 تصدير PDF</a>
+        <a href="{% url 'maintenance:maintenance_logs' %}?{{ request.GET.urlencode }}&export=1" class="btn btn-success">📊 تصدير Excel</a>
+        <a href="{% url 'maintenance:log_maintenance' %}" class="btn btn-secondary">➕ تسجيل صيانة جديدة</a>
+    </div>
+</div>
+
+</body>
+</html>

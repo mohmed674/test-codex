@@ -1,0 +1,61 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+{% url 'products:product_list' as PRODUCT_LIST_URL %}
+
+{% block title %}{% trans "قائمة المنتجات" %}{% endblock %}
+{% block header_title %}📦 {% trans "المنتجات النهائية" %}{% endblock %}
+{% block breadcrumbs %}<a href="{% url 'core:launcher' %}">{% trans "التطبيقات" %}</a> / {% trans "المنتجات" %}{% endblock %}
+
+{% block extra_head %}
+  {# التحويل الفوري إلى صفحة المنتجات القياسية #}
+  <meta http-equiv="refresh" content="0; url={{ PRODUCT_LIST_URL }}">
+
+  {# تحسينات دون حذف القائم #}
+  {% if PRODUCT_LIST_URL %}
+    <link rel="canonical" href="{{ PRODUCT_LIST_URL }}">
+    <link rel="prefetch" href="{{ PRODUCT_LIST_URL }}">
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 py-4">
+  <div class="alert alert-info d-flex justify-content-between align-items-center">
+    <span>{% trans "يتم الآن تحويلك إلى صفحة المنتجات القياسية." %}</span>
+    <a class="btn btn-primary" href="{{ PRODUCT_LIST_URL }}">{% trans "الانتقال الآن" %}</a>
+  </div>
+
+  <div class="d-flex align-items-center gap-2 text-muted" aria-live="polite">
+    <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
+    <small>{% trans "جاري التحويل…" %}</small>
+  </div>
+
+  {% if not PRODUCT_LIST_URL %}
+    <div class="alert alert-warning mt-3">
+      <div class="fw-bold">{% trans "تعذّر تحديد مسار قائمة المنتجات." %}</div>
+      <div class="mt-2">
+        <a class="btn btn-outline-primary btn-sm" href="/products/">{% trans "محاولة عبر /products/" %}</a>
+      </div>
+    </div>
+  {% endif %}
+
+  <noscript>
+    <div class="alert alert-secondary mt-3">
+      {% trans "المتصفح لا يدعم الجافاسكريبت—استخدم الرابط أعلاه للانتقال." %}
+    </div>
+  </noscript>
+</div>
+
+<script>
+(function(){
+  var target = "{{ PRODUCT_LIST_URL }}";
+  if (!target) return;
+  try {
+    var qs = location.search || "";
+    if (qs) target += (target.indexOf('?') === -1 ? qs : '&' + qs.slice(1));
+    window.location.replace(target);
+  } catch (e) {
+    location.href = target;
+  }
+})();
+</script>
+{% endblock %}

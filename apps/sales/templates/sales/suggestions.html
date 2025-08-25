@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h4>🤖 توصيات المبيعات الذكية</h4>
+    {% for suggestion in suggestions %}
+      <div class="alert alert-info mt-3">
+        <strong>🔍 {{ suggestion.title }}:</strong> {{ suggestion.message }}
+      </div>
+    {% empty %}
+      <div class="alert alert-secondary">لا توجد توصيات حالياً.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

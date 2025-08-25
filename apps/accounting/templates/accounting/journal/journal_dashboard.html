@@ -1,0 +1,29 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\journal\journal_dashboard.html -->
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">دفتر اليومية</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>التاريخ</th>
+                <th>الوصف</th>
+                <th>الحساب</th>
+                <th>مدين</th>
+                <th>دائن</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry.date }}</td>
+                <td>{{ entry.description }}</td>
+                <td>{{ entry.account.name }}</td>
+                <td>{{ entry.debit }}</td>
+                <td>{{ entry.credit }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

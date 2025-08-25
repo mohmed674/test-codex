@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>🧠 تحليل قرار المدير</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 40px;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .card {
+            max-width: 600px;
+            margin: auto;
+            border-radius: 20px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+        }
+
+        button {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card shadow p-4">
+        <h3 class="mb-4 text-center">🧠 تحليل قرار المدير</h3>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">
+                    🔍 تنفيذ التحليل
+                </button>
+            </div>
+        </form>
+
+        <!-- زر الطباعة -->
+        <button onclick="window.print()" class="btn btn-secondary mt-3 w-100">🖨 طباعة</button>
+    </div>
+
+</body>
+</html>

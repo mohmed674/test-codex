@@ -1,0 +1,12 @@
+<h4>📚 مركز المعرفة</h4>
+<a href="{% url 'knowledge_center:article_create' %}" class="btn btn-primary mb-3">➕ مقال جديد</a>
+<table class="table table-bordered">
+<tr><th>العنوان</th><th>التصنيف</th><th>تاريخ النشر</th></tr>
+{% for a in articles %}
+<tr>
+  <td>{{ a.title }}</td>
+  <td>{{ a.category.name }}</td>
+  <td>{{ a.created_at|date:"Y-m-d" }}</td>
+</tr>
+{% endfor %}
+</table>

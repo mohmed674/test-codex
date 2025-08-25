@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>تحليلات المبيعات الشهرية</h2>
+<table class="table table-striped mt-4">
+  <thead>
+    <tr>
+      <th>الشهر</th>
+      <th>إجمالي المبيعات</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in data %}
+    <tr>
+      <td>{{ row.date__month }}</td>
+      <td>{{ row.total_sales }} جنيه</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

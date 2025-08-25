@@ -1,0 +1,12 @@
+/* LTR base tweaks — lightweight & safe */
+html[dir="ltr"] body {
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+[dir="ltr"] .text-start { text-align: left !important; }
+[dir="ltr"] .text-end   { text-align: right !important; }
+[dir="ltr"] input, [dir="ltr"] textarea, [dir="ltr"] select { direction:ltr; text-align:left; }
+[dir="ltr"] .sidebar-odoo { border-right:1px solid var(--border); border-left:0; }
+[dir="ltr"] .pagination { direction:ltr; }
+[dir="ltr"] .dropdown-menu { inset-inline-start:0 !important; inset-inline-end:auto !important; }
+[dir="ltr"] td[data-type="number"], [dir="ltr"] .text-numeric { direction:ltr; text-align:right; }
+[dir="ltr"] .flip-rtl { transform:none; }

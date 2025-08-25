@@ -1,0 +1,313 @@
+{
+  "project_root": "D:\\ERP_CORE",
+  "settings_module": "config.settings",
+  "apps": {
+    "plm": [
+      "PLMDocument",
+      "ProductTemplate",
+      "ProductVersion",
+      "LifecycleStage",
+      "ProductLifecycle",
+      "Bom",
+      "BomLine",
+      "ChangeRequest",
+      "ChangeRequestItem"
+    ],
+    "core": [
+      "DepartmentRole",
+      "Role",
+      "RoleRequest",
+      "AccessLog",
+      "PermissionMatrix",
+      "TemporaryAccessOverride",
+      "JobTitle",
+      "Unit",
+      "EvaluationCriteria",
+      "ProductionStageType",
+      "RiskThreshold",
+      "Department",
+      "Employee",
+      "Client",
+      "SmartAccountTemplate"
+    ],
+    "employees": [
+      "Department",
+      "Employee",
+      "AttendanceRecord",
+      "MonthlyIncentive"
+    ],
+    "attendance": [
+      "Attendance"
+    ],
+    "evaluation": [
+      "Evaluation",
+      "LatenessAbsence"
+    ],
+    "payroll": [
+      "Salary",
+      "Advance",
+      "PaymentRecord",
+      "HistoricalPayment",
+      "AttendanceRecord",
+      "MonthlyIncentive",
+      "PolicySetting"
+    ],
+    "departments": [
+      "Department"
+    ],
+    "discipline": [
+      "DisciplineRecord"
+    ],
+    "employee_monitoring": [
+      "MonitoringRecord",
+      "Evaluation"
+    ],
+    "production": [
+      "ProductionOrder",
+      "ProductionStage",
+      "MaterialConsumption",
+      "FinalProductOutput",
+      "ProductionScanQR",
+      "BillOfMaterials",
+      "QualityCheck",
+      "ProductVersion",
+      "ProductionLog"
+    ],
+    "products": [
+      "Product",
+      "FinishedProduct"
+    ],
+    "inventory": [
+      "RawMaterial",
+      "Warehouse",
+      "InventoryItem",
+      "InventoryMovement",
+      "InventoryAudit",
+      "InventoryAuditItem",
+      "InventoryDiscrepancyInvestigation",
+      "Inventory"
+    ],
+    "survey": [
+      "Survey",
+      "SurveyQuestion",
+      "SurveyChoice",
+      "SurveyResponse",
+      "Answer"
+    ],
+    "tracking": [
+      "ProductTracking",
+      "ProductTrackingMovement"
+    ],
+    "media": [
+      "MediaFile"
+    ],
+    "maintenance": [
+      "Machine",
+      "MaintenanceLog",
+      "MaintenanceRequest"
+    ],
+    "monitoring": [
+      "Client",
+      "DistributionOrder",
+      "Shipment"
+    ],
+    "internal_monitoring": [
+      "InventoryDiscrepancy",
+      "SuspiciousActivity",
+      "RiskIncident",
+      "ReportLog",
+      "DisciplinaryAction"
+    ],
+    "pattern": [
+      "PatternDesign",
+      "PatternPiece",
+      "PatternExecution"
+    ],
+    "voice_commands": [
+      "VoiceCommand"
+    ],
+    "clients": [
+      "Partner",
+      "Address",
+      "Customer",
+      "Client"
+    ],
+    "sales": [
+      "SaleInvoice",
+      "SaleItem",
+      "ClientPointsLog",
+      "SalesPerformance",
+      "ProductSalesAnalysis",
+      "ClientActivity",
+      "SmartSalesSuggestion"
+    ],
+    "purchases": [
+      "PurchaseRequest",
+      "PurchaseItem",
+      "PurchaseOrder",
+      "PurchaseInvoice"
+    ],
+    "accounting": [
+      "Supplier",
+      "Customer",
+      "PaymentMethod",
+      "PaymentOrder",
+      "Asset",
+      "Expense",
+      "Invoice",
+      "Payment",
+      "Account",
+      "JournalEntry",
+      "JournalItem",
+      "AccountingSuggestionLog",
+      "BillOfMaterial",
+      "ManufacturingOrder",
+      "SupplierInvoice",
+      "SalesInvoice",
+      "PurchaseInvoice",
+      "InvoiceItem",
+      "CashTransaction"
+    ],
+    "ai_decision": [
+      "AIDecisionAlert",
+      "DecisionAnalysis",
+      "AIDecisionLog"
+    ],
+    "whatsapp_bot": [
+      "WhatsAppOrder"
+    ],
+    "theme_manager": [],
+    "themes": [],
+    "dark_mode": [],
+    "bi": [],
+    "campaigns": [
+      "Campaign",
+      "CampaignTarget"
+    ],
+    "client_portal": [
+      "ClientAccess",
+      "SupportTicket",
+      "SupportResponse"
+    ],
+    "contracts": [
+      "Contract"
+    ],
+    "crm": [
+      "Lead",
+      "Interaction",
+      "Opportunity"
+    ],
+    "legal": [
+      "LegalCase"
+    ],
+    "mobile": [],
+    "notifications": [
+      "Notification"
+    ],
+    "offline_sync": [
+      "OfflineSyncLog"
+    ],
+    "pos": [
+      "POSSession",
+      "POSOrder",
+      "POSOrderItem"
+    ],
+    "projects": [
+      "Project",
+      "Task"
+    ],
+    "risk_management": [
+      "Risk"
+    ],
+    "shipping": [
+      "ShippingCompany",
+      "Shipment"
+    ],
+    "suppliers": [
+      "Supplier"
+    ],
+    "support": [
+      "SupportTicket",
+      "SupportResponse"
+    ],
+    "dashboard_center": [],
+    "api_gateway": [],
+    "asset_lifecycle": [
+      "Asset"
+    ],
+    "backup_center": [
+      "BackupRecord"
+    ],
+    "communication": [
+      "ChatThread",
+      "Message"
+    ],
+    "demand_forecasting": [
+      "Forecast"
+    ],
+    "document_center": [
+      "Document"
+    ],
+    "expenses": [
+      "Expense"
+    ],
+    "internal_bot": [
+      "BotMessage"
+    ],
+    "knowledge_center": [
+      "Category",
+      "Article"
+    ],
+    "mrp": [
+      "MaterialPlanning",
+      "MaterialLine",
+      "ProcurementSuggestion",
+      "PlanningException"
+    ],
+    "recruitment": [
+      "JobPosition",
+      "Application"
+    ],
+    "rfq": [
+      "RFQ",
+      "RFQItem",
+      "RFQResponse",
+      "RFQResponseItem"
+    ],
+    "vendor_portal": [],
+    "warehouse_map": [
+      "Zone",
+      "Location"
+    ],
+    "work_regulations": [
+      "Regulation",
+      "EmployeeAgreement"
+    ],
+    "workflow": [
+      "WorkflowRule"
+    ],
+    "qms": [
+      "QualityCharacteristic",
+      "DefectType",
+      "AQLPlan",
+      "AQLCodeLetter",
+      "AQLSamplingRow",
+      "InspectionLot",
+      "InspectionResult",
+      "Nonconformity",
+      "ControlProcess",
+      "ControlChart",
+      "Subgroup",
+      "DataPoint",
+      "CapabilityStudy",
+      "CAPARecord",
+      "CAPAAction"
+    ],
+    "audit_out": [],
+    "docs": [],
+    "templates": []
+  },
+  "scripts_folder": "D:\\ERP_CORE",
+  "last_script": "inventory_project.py",
+  "scanned_at": "2025-08-23T23:51:18.201981"
+}

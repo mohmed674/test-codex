@@ -1,0 +1,12 @@
+<!-- apps/banking/templates/banking/provider_detail.html -->
+<h1>Provider: {{ provider.name }}</h1>
+<ul>
+  <li>Code: {{ provider.code }}</li>
+  <li>Base URL: {{ provider.base_url }}</li>
+  <li>Active: {{ provider.is_active|yesno:"Yes,No" }}</li>
+</ul>
+<p>
+  <a href="{% url 'banking:provider_update' provider.pk %}">Edit</a> |
+  <a href="{% url 'banking:provider_delete' provider.pk %}">Delete</a> |
+  <a href="{% url 'banking:provider_list' %}">Back</a>
+</p>

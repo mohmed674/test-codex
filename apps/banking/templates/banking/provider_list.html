@@ -1,0 +1,18 @@
+<!-- apps/banking/templates/banking/provider_list.html -->
+<h1>🏦 Providers</h1>
+<p><a href="{% url 'banking:provider_create' %}">+ Add Provider</a></p>
+<table>
+  <thead><tr><th>Name</th><th>Code</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  {% for p in providers %}
+    <tr>
+      <td>{{ p.name }}</td>
+      <td>{{ p.code }}</td>
+      <td>{{ p.is_active|yesno:"Active,Inactive" }}</td>
+      <td><a href="{% url 'banking:provider_detail' p.pk %}">View</a></td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="4">No providers.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>

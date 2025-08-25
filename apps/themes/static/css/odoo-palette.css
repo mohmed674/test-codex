@@ -1,0 +1,129 @@
+/* Odoo 2025 palette + apps grid */
+:root{
+  --odoo-purple-1:#875A7B; --odoo-purple-2:#A46A91;
+  --odoo-teal-1:#00A09D;   --odoo-teal-2:#00B9B6;
+  --odoo-blue-1:#2980B9;   --odoo-blue-2:#3498DB;
+  --odoo-cyan-1:#5D8DA8;   --odoo-cyan-2:#6FAEC8;
+  --odoo-orange-1:#F89C1C; --odoo-orange-2:#FFB347;
+  --odoo-green-1:#27AE60;  --odoo-green-2:#2ECC71;
+  --odoo-violet-1:#8E44AD; --odoo-violet-2:#9B59B6;
+  --odoo-burnt-1:#D35400;  --odoo-burnt-2:#E67E22;
+
+  /* مقاسات بطاقات Odoo */
+  --odoo-tile-height: 64px;
+  --odoo-tile-radius: 12px;
+  --odoo-gap: 16px;
+  --odoo-container: 1100px;
+  --odoo-border: #e5e7eb;
+  --odoo-card-bg: #ffffff;
+  --odoo-text: #111827;
+  --odoo-muted: #6b7280;
+}
+
+/* بطاقات عامة قديمة تبقى صالحة */
+.odoo-card {
+  border:none; border-radius:1rem; background:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,.06); padding:1.2rem;
+}
+
+/* ====== شبكة التطبيقات على طريقة Odoo ====== */
+.odoo-choose-bg{ background:#f3f4f6; } /* لون الخلفية العام للصفحة */
+.odoo-container{ max-width:var(--odoo-container); margin-inline:auto; padding-inline:16px; }
+
+.odoo-section{ margin-block:32px 12px; }
+.odoo-section h3{
+  font-weight:700; font-size:1.125rem; line-height:1.75rem; color:var(--odoo-text);
+  margin:0 0 12px 0;
+}
+
+.odoo-apps-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: var(--odoo-gap);
+}
+
+/* على المقاسات الكبيرة جدًا يمكن 4 أعمدة */
+@media (min-width: 1400px){
+  .odoo-apps-grid{ grid-template-columns: repeat(4, minmax(240px, 1fr)); }
+}
+/* على الأجهزة المتوسطة والصغيرة */
+@media (max-width: 992px){
+  .odoo-apps-grid{ grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+}
+@media (max-width: 640px){
+  .odoo-apps-grid{ grid-template-columns: 1fr; }
+}
+
+/* بطاقة التطبيق (مطابقة لإحساس Odoo) */
+.app-card,
+.odoo-app-tile,
+.odoo-apps-grid a,
+.odoo-apps-grid .btn,
+.odoo-apps-grid .card {
+  background: var(--odoo-card-bg);
+  color: var(--odoo-text);
+  border: 1px solid var(--odoo-border);
+  height: var(--odoo-tile-height);
+  border-radius: var(--odoo-tile-radius);
+  display: flex; align-items: center; justify-content: flex-start;
+  gap: 12px; padding-inline:16px; text-decoration: none;
+  box-shadow: 0 2px 0 rgba(0,0,0,.02);
+  transition: transform .08s ease, box-shadow .12s ease, border-color .12s ease, filter .12s ease;
+  font-weight:600;
+}
+
+.app-card:hover,
+.odoo-app-tile:hover,
+.odoo-apps-grid a:hover,
+.odoo-apps-grid .btn:hover,
+.odoo-apps-grid .card:hover {
+  transform: translateY(-1px);
+  border-color:#d1d5db;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+/* أيقونة دائرية يسار/يمين حسب اتجاه الصفحة */
+.app-icon-circle,
+.odoo-app-icon{
+  width:34px; height:34px; border-radius:50%;
+  display:grid; place-items:center; font-size:18px;
+  background:#f3f4f6; color:#374151; flex:0 0 auto;
+  margin-inline-end:12px;
+}
+.rtl .app-icon-circle, .rtl .odoo-app-icon{ margin-inline-end:0; margin-inline-start:12px; }
+
+/* عنوان التطبيق */
+.app-card h5, .odoo-app-title, .odoo-apps-grid .title{
+  font-size:1rem; line-height:1.5rem; margin:0; font-weight:600;
+  color:var(--odoo-text);
+}
+.app-sub{ font-size:.875rem; color:var(--odoo-muted); margin:0; }
+
+/* إعادة استخدام لوحات الألوان كـ accent على الأيقونة لا البطاقة */
+.app-purple .odoo-app-icon, .app-purple .app-icon-circle { background:linear-gradient(135deg,var(--odoo-purple-1),var(--odoo-purple-2)); color:#fff; }
+.app-teal   .odoo-app-icon, .app-teal   .app-icon-circle { background:linear-gradient(135deg,var(--odoo-teal-1),var(--odoo-teal-2)); color:#fff; }
+.app-blue   .odoo-app-icon, .app-blue   .app-icon-circle { background:linear-gradient(135deg,var(--odoo-blue-1),var(--odoo-blue-2)); color:#fff; }
+.app-cyan   .odoo-app-icon, .app-cyan   .app-icon-circle { background:linear-gradient(135deg,var(--odoo-cyan-1),var(--odoo-cyan-2)); color:#fff; }
+.app-orange .odoo-app-icon, .app-orange .app-icon-circle { background:linear-gradient(135deg,var(--odoo-orange-1),var(--odoo-orange-2)); color:#fff; }
+.app-green  .odoo-app-icon, .app-green  .app-icon-circle { background:linear-gradient(135deg,var(--odoo-green-1),var(--odoo-green-2)); color:#fff; }
+.app-violet .odoo-app-icon, .app-violet .app-icon-circle { background:linear-gradient(135deg,var(--odoo-violet-1),var(--odoo-violet-2)); color:#fff; }
+.app-burnt  .odoo-app-icon, .app-burnt  .app-icon-circle { background:linear-gradient(135deg,var(--odoo-burnt-1),var(--odoo-burnt-2));  color:#fff; }
+
+/* تباين الوضع الداكن */
+[data-theme="dark"] .odoo-apps-grid a,
+[data-theme="dark"] .app-card,
+[data-theme="dark"] .odoo-app-tile{
+  background:#0f141a; color:#e5e7eb; border-color:#1f2937;
+  box-shadow: 0 1px 0 rgba(0,0,0,.2);
+}
+[data-theme="dark"] .app-icon-circle, [data-theme="dark"] .odoo-app-icon{ background:#1f2937; color:#e5e7eb; }
+
+/* تحسينات لمس */
+@media (hover:none){
+  .app-card:hover, .odoo-app-tile:hover, .odoo-apps-grid a:hover{ transform:none; }
+}
+
+/* طباعة (لا حاجة للظل) */
+@media print{
+  .odoo-apps-grid a, .app-card, .odoo-app-tile{ box-shadow:none; border-color:#ccc; }
+}

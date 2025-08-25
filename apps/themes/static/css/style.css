@@ -1,0 +1,159 @@
+/* ERP_CORE — تصميم أساسي احترافي للوضع الفاتح والداكن بأسلوب SAP/Odoo 2025 */
+
+/* ألوان النظام */
+:root {
+  --erp-primary: #4e73df;
+  --erp-secondary: #f4f5f7;
+  --erp-accent: #ffb400;
+  --erp-success: #28a745;
+  --erp-danger: #dc3545;
+  --erp-warning: #ffc107;
+  --erp-info: #17a2b8;
+  --erp-bg: #ffffff;
+  --erp-fg: #1f2937;
+  --erp-card: #ffffff;
+  --erp-border: #e5e7eb;
+  --erp-hover: rgba(0,0,0,0.04);
+  --erp-radius: 0.75rem;
+  --erp-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* الوضع الداكن */
+[data-theme="dark"] {
+  --erp-bg: #0b0f14;
+  --erp-fg: #e5e7eb;
+  --erp-card: #0f141a;
+  --erp-border: #1f2937;
+  --erp-hover: rgba(255,255,255,0.05);
+  --erp-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+/* الخطوط */
+body {
+  font-family: "Cairo", "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  background: var(--erp-bg);
+  color: var(--erp-fg);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* الروابط */
+a {
+  color: var(--erp-primary);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+a:hover {
+  color: #3b5bcc;
+  text-decoration: underline;
+}
+
+/* البطاقات */
+.card {
+  background: var(--erp-card);
+  border: 1px solid var(--erp-border);
+  border-radius: var(--erp-radius);
+  padding: 1rem;
+  box-shadow: var(--erp-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* الأزرار */
+.btn {
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out, transform 0.15s ease;
+}
+.btn:active {
+  transform: scale(0.96);
+}
+.btn-primary {
+  background-color: var(--erp-primary);
+  border-color: var(--erp-primary);
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #3b5bcc;
+  border-color: #3b5bcc;
+}
+.btn-success {
+  background-color: var(--erp-success);
+  border-color: var(--erp-success);
+  color: #fff;
+}
+.btn-danger {
+  background-color: var(--erp-danger);
+  border-color: var(--erp-danger);
+  color: #fff;
+}
+
+/* شارات الحالة */
+.badge-status {
+  border-radius: 9999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* الشريط الجانبي */
+.sidebar-odoo {
+  background: var(--erp-card);
+  border-inline-end: 1px solid var(--erp-border);
+  padding: 0.75rem;
+  min-height: 100vh;
+}
+.sidebar-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--erp-radius);
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease-in-out;
+}
+.sidebar-link:hover {
+  background: var(--erp-hover);
+}
+.sidebar-link.active {
+  background: var(--erp-primary);
+  color: #fff;
+}
+
+/* جداول البيانات */
+.table {
+  border-color: var(--erp-border);
+}
+.table th, .table td {
+  vertical-align: middle;
+}
+
+/* القوائم المنسدلة */
+.dropdown-menu {
+  border-radius: var(--erp-radius);
+  border-color: var(--erp-border);
+  box-shadow: var(--erp-shadow);
+}
+
+/* إشعارات */
+.toast {
+  border-radius: var(--erp-radius);
+  background: var(--erp-card);
+  color: var(--erp-fg);
+  box-shadow: var(--erp-shadow);
+}
+
+/* نماذج الإدخال */
+input, select, textarea {
+  border-radius: var(--erp-radius);
+  border: 1px solid var(--erp-border);
+  padding: 0.5rem 0.75rem;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--erp-primary);
+  box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.2);
+}

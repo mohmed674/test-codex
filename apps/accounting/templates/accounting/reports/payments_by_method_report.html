@@ -1,0 +1,68 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\reports\payments_by_method_report.html -->
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h4 class="mb-4">📋 كشف المدفوعات حسب وسيلة الدفع</h4>
+
+    <form method="get" class="row g-3 mb-4" role="search" aria-label="تصفية كشف المدفوعات">
+      <div class="col-md-3">
+        <label class="form-label" for="method-select">وسيلة الدفع</label>
+        <select id="method-select" name="method" class="form-select" tabindex="1" aria-describedby="methodHelp">
+          <option value="">-- الكل --</option>
+          <option value="cash" {% if method == "cash" %}selected{% endif %}>نقدي</option>
+          <option value="bank" {% if method == "bank" %}selected{% endif %}>تحويل بنكي</option>
+          <option value="vodafone" {% if method == "vodafone" %}selected{% endif %}>فودافون كاش</option>
+          <option value="etisalat" {% if method == "etisalat" %}selected{% endif %}>اتصالات كاش</option>
+          <option value="orange" {% if method == "orange" %}selected{% endif %}>أورنج كاش</option>
+          <option value="instapay" {% if method == "instapay" %}selected{% endif %}>إنستا باي</option>
+          <option value="cheque" {% if method == "cheque" %}selected{% endif %}>شيك</option>
+        </select>
+        <div id="methodHelp" class="form-text">اختر وسيلة الدفع لتصفية النتائج</div>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="date-from">من تاريخ</label>
+        <input type="date" id="date-from" name="from" value="{{ date_from }}" class="form-control" placeholder="yyyy-mm-dd" tabindex="2" aria-label="من تاريخ">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="date-to">إلى تاريخ</label>
+        <input type="date" id="date-to" name="to" value="{{ date_to }}" class="form-control" placeholder="yyyy-mm-dd" tabindex="3" aria-label="إلى تاريخ">
+      </div>
+      <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100" tabindex="4">🔍 عرض التقرير</button>
+      </div>
+    </form>
+
+    {% if data %}
+      <table class="table table-bordered text-center align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>العميل</th>
+            <th>إجمالي المبلغ المدفوع</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+            <tr>
+              <td>{{ row.customer__name }}</td>
+              <td>{{ row.total_paid|floatformat:2 }} ج.م</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="mt-4 d-flex gap-3 justify-content-end">
+        <a href="?{% if method %}method={{ method }}&{% endif %}{% if date_from %}from={{ date_from }}&{% endif %}{% if date_to %}to={{ date_to }}&{% endif %}export=pdf" class="btn btn-danger" role="button" aria-label="تصدير PDF">📄 تصدير PDF</a>
+        <a href="?{% if method %}method={{ method }}&{% endif %}{% if date_from %}from={{ date_from }}&{% endif %}{% if date_to %}to={{ date_to }}&{% endif %}export=excel" class="btn btn-success" role="button" aria-label="تصدير Excel">📊 تصدير Excel</a>
+      </div>
+    {% else %}
+      <div class="alert alert-info mt-3 text-center" role="alert" aria-live="polite" aria-atomic="true">لا توجد نتائج لعرضها في الفترة المحددة.</div>
+      <div class="mt-4 d-flex gap-3 justify-content-end">
+        <button class="btn btn-danger" disabled aria-disabled="true" tabindex="-1">📄 تصدير PDF</button>
+        <button class="btn btn-success" disabled aria-disabled="true" tabindex="-1">📊 تصدير Excel</button>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

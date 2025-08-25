@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>التحليل المالي الشهري</h2>
+
+<h4>الإيرادات</h4>
+<table class="table table-sm table-success">
+  <thead>
+    <tr>
+      <th>الشهر</th>
+      <th>الإيرادات</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in revenues %}
+    <tr>
+      <td>{{ row.date__month }}</td>
+      <td>{{ row.total }} جنيه</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h4>المصروفات</h4>
+<table class="table table-sm table-danger">
+  <thead>
+    <tr>
+      <th>الشهر</th>
+      <th>المصروفات</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in expenses %}
+    <tr>
+      <td>{{ row.date__month }}</td>
+      <td>{{ row.total }} جنيه</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

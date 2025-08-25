@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير السلف</title>
+    <style>
+        body { font-family: Arial; direction: rtl; background-color: #f9f9f9; padding: 20px; }
+        h2 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #eee; }
+        .weekly { background-color: #d9edf7; }
+        .monthly { background-color: #fcf8e3; }
+        .filters { margin: 20px 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        .filters input, .filters select { padding: 6px; }
+        .btn { padding: 8px 12px; background-color: #28a745; color: white; border-radius: 4px; text-decoration: none; }
+        .btn-blue { background-color: #007bff; }
+        .btn-info { background-color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <h2>تقرير السلف</h2>
+    <form method="get" class="filters">
+        <input type="text" name="name" placeholder="اسم الموظف" value="{{ name }}">
+        <input type="date" name="date_from" value="{{ date_from }}">
+        <input type="date" name="date_to" value="{{ date_to }}">
+        <select name="type">
+            <option value="">كل الأنواع</option>
+            <option value="weekly" {% if type == 'weekly' %}selected{% endif %}>أسبوعية</option>
+            <option value="monthly" {% if type == 'monthly' %}selected{% endif %}>شهرية</option>
+        </select>
+        <button type="submit">فلترة</button>
+        <a href="?{% if name %}name={{ name }}&{% endif %}{% if date_from %}date_from={{ date_from }}&{% endif %}{% if date_to %}date_to={{ date_to }}&{% endif %}{% if type %}type={{ type }}&{% endif %}export=1" class="btn">تصدير Excel</a>
+        <a href="?{% if name %}name={{ name }}&{% endif %}{% if date_from %}date_from={{ date_from }}&{% endif %}{% if date_to %}date_to={{ date_to }}&{% endif %}{% if type %}type={{ type }}&{% endif %}download_pdf=1" class="btn btn-blue">تحميل PDF</a>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>اسم الموظف</th>
+                <th>المبلغ</th>
+                <th>النوع</th>
+                <th>التاريخ</th>
+                <th>ملاحظة</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in advances %}
+            <tr class="{{ a.type }}">
+                <td>{{ a.employee.name }}</td>
+                <td>{{ a.amount }}</td>
+                <td>{% if a.type == 'weekly' %}أسبوعية{% elif a.type == 'monthly' %}شهرية{% endif %}</td>
+                <td>{{ a.date }}</td>
+                <td>{{ a.note }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">لا توجد بيانات</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

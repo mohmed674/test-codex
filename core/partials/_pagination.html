@@ -1,0 +1,24 @@
+{% load i18n core_tags %} {# core_tags = الملف اللي فيه qs_replace #}
+{% if page_obj and page_obj.paginator.num_pages > 1 %}
+<nav class="mt-3" aria-label="{% trans 'ترقيم الصفحات' %}">
+  <ul class="pagination mb-0">
+    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+      <a class="page-link" href="?{% qs_replace page=page_obj.previous_page_number %}">{% trans "السابق" %}</a>
+    </li>
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if num == page_obj.number %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% elif num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+        <li class="page-item">
+          <a class="page-link" href="?{% qs_replace page=num %}">{{ num }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+      <a class="page-link" href="?{% qs_replace page=page_obj.next_page_number %}">{% trans "التالي" %}</a>
+    </li>
+  </ul>
+</nav>
+{% endif %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <title>تقرير الإشعارات PDF</title>
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; direction: rtl; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: right; }
+        th { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>تقرير الإشعارات</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>الرسالة</th>
+                <th>النوع</th>
+                <th>التاريخ</th>
+                <th>تمت القراءة</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for n in notifications %}
+            <tr>
+                <td>{{ n.message }}</td>
+                <td>{{ n.type|default:"—" }}</td>
+                <td>{{ n.created_at|date:"Y-m-d H:i" }}</td>
+                <td>{% if n.read %}نعم{% else %}لا{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تنفيذات الإنتاج</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            direction: rtl;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px 10px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>سجل تنفيذات الإنتاج</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>التصميم</th>
+                <th>الكمية المنفذة</th>
+                <th>المرحلة</th>
+                <th>اسم الموظف</th>
+                <th>تاريخ التنفيذ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for execution in executions %}
+            <tr>
+                <td>{{ execution.design.name }}</td>
+                <td>{{ execution.quantity }}</td>
+                <td>{{ execution.stage }}</td>
+                <td>{{ execution.employee.full_name }}</td>
+                <td>{{ execution.date|date:"Y-m-d" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

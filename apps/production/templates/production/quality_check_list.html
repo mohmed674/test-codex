@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-center">سجل فحوصات الجودة</h2>
+
+<div class="mb-3 text-end">
+    <a href="?download_pdf=1" class="btn btn-danger">تحميل PDF</a>
+    <a href="?export=1" class="btn btn-success">تصدير Excel</a>
+    <a href="{% url 'production:quality_check_create' %}" class="btn btn-primary">+ فحص جديد</a>
+</div>
+
+<table class="table table-bordered table-striped text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>المنتج</th>
+            <th>المرحلة</th>
+            <th>أمر التشغيل</th>
+            <th>المفتش</th>
+            <th>الحالة</th>
+            <th>التاريخ</th>
+            <th>ملاحظات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for check in checks %}
+        <tr class="{% if check.status == 'failed' %}table-danger{% elif check.status == 'passed' %}table-success{% endif %}">
+            <td>{{ check.product.name }}</td>
+            <td>{{ check.stage.stage_name }}</td>
+            <td>{{ check.order.order_number }}</td>
+            <td>{{ check.inspector.name }}</td>
+            <td>{{ check.get_status_display }}</td>
+            <td>{{ check.inspected_at|date:"Y-m-d H:i" }}</td>
+            <td>{{ check.notes|default:"-" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7">لا توجد بيانات</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

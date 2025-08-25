@@ -1,0 +1,36 @@
+<table class="table table-hover table-bordered mt-3 text-center align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>التاريخ</th>
+      <th>الحالة</th>
+      <th>وقت الدخول</th>
+      <th>وقت الخروج</th>
+      <th>ملاحظات</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for record in employee.attendance_set.all|dictsortreversed:"date" %}
+      <tr
+        {% if record.status == 'present' %}
+          class="table-success"
+        {% elif record.status == 'late' %}
+          class="table-warning"
+        {% elif record.status == 'absent' %}
+          class="table-danger"
+        {% endif %}
+      >
+        <td>{{ record.date }}</td>
+        <td>
+          {% if record.status == 'present' %}✅ حاضر{% endif %}
+          {% if record.status == 'late' %}🟠 تأخير{% endif %}
+          {% if record.status == 'absent' %}❌ غياب{% endif %}
+        </td>
+        <td>{{ record.entry_time|default:"-" }}</td>
+        <td>{{ record.exit_time|default:"-" }}</td>
+        <td>{{ record.notes|default:"-" }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">لا يوجد سجلات حضور حتى الآن.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

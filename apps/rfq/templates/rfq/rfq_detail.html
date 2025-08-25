@@ -1,0 +1,12 @@
+<h4>📋 تفاصيل RFQ: {{ rfq.title }}</h4>
+<p><strong>تاريخ الإصدار:</strong> {{ rfq.created_at }}</p>
+<p><strong>المهلة:</strong> {{ rfq.deadline }}</p>
+
+<h5>📨 الردود:</h5>
+<ul class="list-group">
+{% for res in responses %}
+  <li class="list-group-item">{{ res.supplier.name }} – تم الرد: {{ res.submitted_at }}</li>
+{% empty %}
+  <li class="list-group-item">لا يوجد ردود حتى الآن</li>
+{% endfor %}
+</ul>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>تفاصيل العقد: {{ contract.title }}</h2>
+<p><strong>النوع:</strong> {{ contract.get_contract_type_display }}</p>
+<p><strong>الفترة:</strong> {{ contract.start_date }} → {{ contract.end_date }}</p>
+<p><strong>القيمة:</strong> {{ contract.value }} جنيه</p>
+
+{% if contract.related_client %}
+<p><strong>العميل:</strong> {{ contract.related_client }}</p>
+{% endif %}
+{% if contract.related_supplier %}
+<p><strong>المورد:</strong> {{ contract.related_supplier }}</p>
+{% endif %}
+{% if contract.related_employee %}
+<p><strong>الموظف:</strong> {{ contract.related_employee }}</p>
+{% endif %}
+
+<p><strong>ملاحظات:</strong><br>{{ contract.notes }}</p>
+
+{% if contract.attachment %}
+<hr>
+<h5>الملف المرفق:</h5>
+<a href="{{ contract.attachment.url }}" class="btn btn-secondary" target="_blank">تحميل العقد</a>
+{% endif %}
+{% endblock %}

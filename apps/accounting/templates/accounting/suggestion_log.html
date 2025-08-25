@@ -1,0 +1,43 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\suggestion_log.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h3 class="text-right mb-3">سجل تنبيهات الذكاء الاصطناعي المحاسبي</h3>
+    <table class="table table-striped table-bordered mt-3 text-right">
+        <thead class="thead-dark">
+            <tr>
+                <th>الوقت</th>
+                <th>النوع</th>
+                <th>الوصف</th>
+                <th>المستوى</th>
+                <th>تم الحل؟</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in suggestions %}
+            <tr>
+                <td>{{ s.timestamp|date:"Y-m-d H:i" }}</td>
+                <td>{{ s.suggestion_type }}</td>
+                <td>{{ s.description }}</td>
+                <td>
+                    {% if s.risk_level == "High" %}
+                        <span class="text-danger">🔴 مرتفع</span>
+                    {% elif s.risk_level == "Medium" %}
+                        <span class="text-warning">🟠 متوسط</span>
+                    {% else %}
+                        <span class="text-success">🟢 منخفض</span>
+                    {% endif %}
+                </td>
+                <td>{% if s.resolved %}<span class="text-success">✅</span>{% else %}<span class="text-danger">❌</span>{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center text-muted">لا توجد تنبيهات حالياً.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+</div>
+{% endblock %}

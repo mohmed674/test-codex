@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تقرير المدير العام - PDF</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      margin: 40px;
+      direction: rtl;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 8px 12px;
+      text-align: center;
+    }
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h2>📊 تقرير المدير العام - ERP</h2>
+  <p>تاريخ الطباعة: {{ now|default:today|date:"Y-m-d" }}</p>
+</div>
+
+<div class="section">
+  <h3>ملخص العمليات</h3>
+  <table>
+    <tr>
+      <th>عدد الطلبات</th>
+      <th>إجمالي الإيرادات</th>
+      <th>إجمالي المصروفات</th>
+      <th>عدد مرتبات الموظفين</th>
+    </tr>
+    <tr>
+      <td>{{ total_sales }}</td>
+      <td>{{ total_revenue }} ج.م</td>
+      <td>{{ total_expense }} ج.م</td>
+      <td>{{ total_payslips }}</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section">
+  <h3>إحصائيات إضافية</h3>
+  <table>
+    <tr>
+      <th>تقييمات الموظفين</th>
+      <th>تنبيهات الذكاء الاصطناعي</th>
+      <th>اختلافات في الجرد</th>
+      <th>أنشطة مشبوهة (أسبوع)</th>
+      <th>إجراءات وقائية غير مغلقة</th>
+    </tr>
+    <tr>
+      <td>{{ employee_evaluations }}</td>
+      <td>{{ ai_alerts }}</td>
+      <td>{{ monitoring_data.discrepancies_count }}</td>
+      <td>{{ monitoring_data.recent_suspicious_count }}</td>
+      <td>{{ monitoring_data.preventive_actions_count }}</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section">
+  <h3>مستويات الخطورة للأنشطة المشبوهة</h3>
+  <table>
+    <tr>
+      <th>عالية</th>
+      <th>متوسطة</th>
+      <th>منخفضة</th>
+    </tr>
+    <tr>
+      <td>{{ risk_data.high }}</td>
+      <td>{{ risk_data.medium }}</td>
+      <td>{{ risk_data.low }}</td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+{% extends "core/base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "إنشاء حساب" %}{% endblock %}
+
+{% block content %}
+<div class="odoo-choose-bg py-5">
+  <div class="odoo-container">
+    <div class="row justify-content-center">
+      <div class="col-md-7 col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+            <h4 class="fw-bold mb-1">{% trans "تسجيل مستخدم جديد" %}</h4>
+            <p class="text-muted mb-4">{% trans "املأ البيانات التالية لإتمام إنشاء الحساب." %}</p>
+
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger" role="alert">
+                {{ form.non_field_errors }}
+              </div>
+            {% endif %}
+
+            <form method="post" novalidate>
+              {% csrf_token %}
+
+              {% for field in form %}
+                <div class="mb-3">
+                  <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  {% if field.errors %}
+                    <div class="text-danger small mb-1">{{ field.errors|striptags }}</div>
+                  {% endif %}
+                  {% if field.name == 'password1' or field.name == 'password2' %}
+                    <div class="input-group">
+                      {{ field|add_class:"form-control"|attr:"autocomplete=new-password" }}
+                      <button type="button" class="btn btn-outline-secondary toggle-pass" data-target="{{ field.id_for_label }}" aria-label="{% trans 'إظهار/إخفاء' %}">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </div>
+                  {% else %}
+                    {{ field|add_class:"form-control" }}
+                  {% endif %}
+                  {% if field.help_text %}
+                    <div class="form-text">{{ field.help_text|safe }}</div>
+                  {% endif %}
+                </div>
+              {% endfor %}
+
+              <button type="submit" class="btn btn-success w-100">{% trans "إنشاء الحساب" %}</button>
+            </form>
+
+            <div class="text-center mt-3">
+              <a href="{% url 'login' %}">🔙 {% trans "العودة لتسجيل الدخول" %}</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  (function(){
+    document.querySelectorAll('.toggle-pass').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = this.getAttribute('data-target');
+        var input = document.getElementById(id);
+        if(!input) return;
+        var type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', type);
+        this.firstElementChild.className = type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+      });
+    });
+  })();
+</script>
+{% endblock %}

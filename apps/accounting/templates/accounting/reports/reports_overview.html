@@ -1,0 +1,32 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\reports\reports_overview.html -->
+{% extends "core/base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-4">📊 مركز التقارير المحاسبية</h3>
+
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        🧾 تصدير اليومية العامة PDF
+        <a href="{% url 'accounting:export_accounting_pdf' %}" class="btn btn-outline-primary btn-sm" target="_blank">طباعة PDF</a>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        📥 تصدير اليومية العامة Excel
+        <a href="{% url 'accounting:export_accounting_excel' %}" class="btn btn-outline-success btn-sm">تحميل Excel</a>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        📄 تصدير اليومية العامة CSV
+        <a href="{% url 'accounting:export_accounting_csv' %}" class="btn btn-outline-dark btn-sm">تحميل CSV</a>
+      </li>
+      <li class="list-group-item d-flex justify-content_between align-items-center">
+        📈 التحليل المالي الشهري
+        <a href="{% url 'accounting:financial_analysis' %}" class="btn btn-outline-secondary btn-sm">عرض التحليل</a>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        💰 كشف المدفوعات حسب وسيلة الدفع
+        <a href="{% url 'accounting:payments_by_method_report' %}" class="btn btn-outline-info btn-sm">عرض التقرير</a>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

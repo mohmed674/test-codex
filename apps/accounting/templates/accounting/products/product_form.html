@@ -1,0 +1,65 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+{% url 'products:product_create' as REDIRECT_URL %}
+
+{% block title %}{% trans "إضافة منتج" %}{% endblock %}
+{% block header_title %}📝 {% trans "نموذج إضافة المنتج" %}{% endblock %}
+{% block breadcrumbs %}<a href="{% url 'core:launcher' %}">{% trans "التطبيقات" %}</a> / {% trans "المنتجات" %}{% endblock %}
+
+{% block extra_head %}
+  {# الإبقاء على التحويل الفوري كما هو #}
+  <meta http-equiv="refresh" content="0; url={{ REDIRECT_URL }}">
+  <script>try{location.replace("{{ REDIRECT_URL|escapejs }}");}catch(e){location.href="{{ REDIRECT_URL|escapejs }}";}</script>
+
+  {# تحسينات دون حذف أي منطق قائم #}
+  {% if REDIRECT_URL %}
+    <link rel="canonical" href="{{ REDIRECT_URL }}">
+    <link rel="prefetch" href="{{ REDIRECT_URL }}">
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 py-4">
+  {# الإبقاء على التنبيه الأصلي #}
+  <div class="alert alert-info d-flex justify-content-between align-items-center">
+    <span>{% trans "يتم الآن تحويلك إلى نموذج إضافة المنتج القياسي." %}</span>
+    <a class="btn btn-primary" href="{{ REDIRECT_URL }}">{% trans "الانتقال الآن" %}</a>
+  </div>
+
+  {# مؤشر بسيط أثناء التحويل + توافق بدون جافاسكريبت #}
+  <div class="d-flex align-items-center gap-2 text-muted" aria-live="polite">
+    <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
+    <small>{% trans "جاري التحويل…" %}</small>
+  </div>
+
+  {% if not REDIRECT_URL %}
+    <div class="alert alert-warning mt-3">
+      <div class="fw-bold">{% trans "تعذّر تحديد مسار نموذج الإضافة." %}</div>
+      <div class="mt-2">
+        <a class="btn btn-outline-primary btn-sm" href="/products/create/">{% trans "محاولة عبر /products/create/" %}</a>
+      </div>
+    </div>
+  {% endif %}
+
+  <noscript>
+    <div class="alert alert-secondary mt-3">
+      {% trans "المتصفح لا يدعم الجافاسكريبت—استخدم الزر أعلاه للانتقال." %}
+    </div>
+  </noscript>
+</div>
+
+{# تحويل يحافظ على بارامترات الاستعلام إن وُجدت #}
+<script>
+(function(){
+  var target = "{{ REDIRECT_URL }}";
+  if (!target) return;
+  try {
+    var qs = location.search || "";
+    if (qs) target += (target.indexOf('?') === -1 ? qs : '&' + qs.slice(1));
+    window.location.replace(target);
+  } catch (e) {
+    location.href = target;
+  }
+})();
+</script>
+{% endblock %}

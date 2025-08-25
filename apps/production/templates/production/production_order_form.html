@@ -1,0 +1,11 @@
+<div class="form-group">
+  <label for="product">اسم المنتج</label>
+  <select name="product" class="form-control" required>
+    {% for product in products %}
+      <option value="{{ product.id }}">{{ product.name }}</option>
+    {% endfor %}
+  </select>
+  <small class="form-text text-muted">
+    📦 اختر المنتج من القائمة – سيتم ربطه تلقائيًا بالمخزون وتحديث أوامر التشغيل.
+  </small>
+</div>

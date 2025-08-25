@@ -1,0 +1,110 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if LANGUAGE_BIDI %}الموظفون{% else %}Employees{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-3">
+
+  <!-- Header + search + add -->
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <h2 class="m-0 fw-bold">{% if LANGUAGE_BIDI %}الموظفون{% else %}Employees{% endif %}</h2>
+    <form class="ms-auto d-inline-block" role="search" method="get">
+      <div class="input-group input-group-sm">
+        <input type="search" class="form-control" name="q"
+               value="{{ request.GET.q|default:request.GET.search }}"
+               placeholder="{% if LANGUAGE_BIDI %}ابحث بالاسم…{% else %}Search by name…{% endif %}">
+        <button class="btn btn-outline-secondary" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </form>
+    <a href="{% url 'employees:employee_add' %}" class="btn btn-primary btn-sm">
+      ➕ {% if LANGUAGE_BIDI %}إضافة موظف{% else %}Add Employee{% endif %}
+    </a>
+  </div>
+
+  {% if employees %}
+    <div class="row g-2">
+      {% for employee in employees %}
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="card shadow-sm {% if not employee.active %}border-0 bg-light{% endif %}">
+            <div class="card-body d-flex flex-column gap-2">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="odoo-app-icon appc-blue" aria-hidden="true" style="width:40px;height:40px;border-radius:8px;">
+                    <i class="fa-solid fa-user"></i>
+                  </span>
+                  <div>
+                    <div class="fw-bold">
+                      {{ employee.name|default:employee.full_name|default:employee.display_name|default:employee.username|default:("#"|add:employee.id) }}
+                    </div>
+                    <div class="text-muted small">
+                      {{ employee.job_title|default:_("بدون مسمى") }}
+                      • {{ employee.department|default:_("بدون قسم") }}
+                    </div>
+                  </div>
+                </div>
+                <span class="badge {% if employee.active %}bg-success{% else %}bg-secondary{% endif %}">
+                  {% if employee.active %}{% if LANGUAGE_BIDI %}نشط{% else %}Active{% endif %}{% else %}{% if LANGUAGE_BIDI %}غير نشط{% else %}Inactive{% endif %}{% endif %}
+                </span>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2 text-muted small">
+                <span>⭐ {{ employee.evaluation_score|default:"-" }}</span>
+                <span>⚠️ {{ employee.total_warnings|default:"0" }}</span>
+                <span>🎯 {{ employee.total_rewards|default:"0" }}</span>
+                <span>💸 {{ employee.total_deductions|default:"0" }}</span>
+              </div>
+
+              <div class="d-flex gap-2 mt-1">
+                <a href="{% url 'employees:employee_profile' employee.pk %}" class="btn btn-success btn-sm">
+                  👁️ {% if LANGUAGE_BIDI %}عرض{% else %}View{% endif %}
+                </a>
+                <a href="{% url 'employees:employee_edit' employee.pk %}" class="btn btn-warning btn-sm text-dark">
+                  ✏️ {% if LANGUAGE_BIDI %}تعديل{% else %}Edit{% endif %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+      <nav class="mt-3">
+        <ul class="pagination pagination-sm">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?q={{ request.GET.q|urlencode }}&page={{ page_obj.previous_page_number }}">&laquo;</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+              <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+              <li class="page-item"><a class="page-link" href="?q={{ request.GET.q|urlencode }}&page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?q={{ request.GET.q|urlencode }}&page={{ page_obj.next_page_number }}">&raquo;</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+  {% else %}
+    <div class="alert alert-light border text-center">
+      {% if LANGUAGE_BIDI %}لا يوجد موظفون حتى الآن.{% else %}No employees yet.{% endif %}
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

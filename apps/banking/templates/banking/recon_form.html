@@ -1,0 +1,14 @@
+<!-- apps/banking/templates/banking/recon_form.html -->
+<h1>Create Reconciliation Batch</h1>
+<form method="post">
+  {% csrf_token %}
+  <label>Provider ID</label>
+  <input type="number" name="provider" required>
+  <label>Account ID</label>
+  <input type="number" name="account" required>
+  <label>Period Start</label>
+  <input type="datetime-local" name="period_start" required>
+  <label>Period End</label>
+  <input type="datetime-local" name="period_end" required>
+  <button type="submit">Create</button>
+</form>

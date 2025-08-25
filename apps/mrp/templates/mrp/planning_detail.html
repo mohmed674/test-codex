@@ -1,0 +1,16 @@
+<h4>تفاصيل خطة التخطيط: {{ plan.product }}</h4>
+<p><strong>الكمية:</strong> {{ plan.planned_quantity }}</p>
+<p><strong>التاريخ:</strong> {{ plan.required_date }}</p>
+
+<h5>تفاصيل المواد:</h5>
+<table class="table table-sm table-bordered">
+<tr><th>المادة</th><th>الكمية المطلوبة</th><th>المتوفر</th><th>العجز</th></tr>
+{% for l in plan.lines.all %}
+<tr>
+<td>{{ l.material }}</td>
+<td>{{ l.required_qty }}</td>
+<td>{{ l.available_qty }}</td>
+<td>{{ l.shortage_qty }}</td>
+</tr>
+{% endfor %}
+</table>

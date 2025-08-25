@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>سجل التقييم</title>
+</head>
+<body>
+    <h2>سجل تقييمات الأداء</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>الموظف</th>
+                <th>التاريخ</th>
+                <th>الدرجة</th>
+                <th>الملاحظات</th>
+                <th>تم بواسطة</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rec in records %}
+            <tr>
+                <td>{{ rec.employee.name }}</td>
+                <td>{{ rec.date }}</td>
+                <td>{{ rec.score }}</td>
+                <td>{{ rec.notes }}</td>
+                <td>{{ rec.created_by }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

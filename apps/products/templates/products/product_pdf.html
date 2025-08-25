@@ -1,0 +1,107 @@
+{% load i18n l10n static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as BIDI %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'ar' }}" dir="{% if BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+  <meta charset="UTF-8">
+  <title>{% trans "تقرير المنتجات" %}</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 12mm;
+      @bottom-right {
+        content: "Page " counter(page) " / " counter(pages);
+        font-size: 10px; color: #666;
+      }
+    }
+
+    /* الأساسيات */
+    body {
+      font-family: "DejaVu Sans","Noto Sans Arabic","Tahoma","Arial",sans-serif;
+      font-size: 12px; color:#111;
+      padding: 0; margin: 0;
+    }
+    /* اتجاه النص حسب سمة dir في عنصر html */
+    html[dir="rtl"] body { direction: rtl; }
+    html[dir="ltr"] body { direction: ltr; }
+
+    h3 { text-align:center; margin: 0 0 10px; }
+    .meta { margin: 0 0 12px; font-size: 11px; color:#555; display:flex; justify-content:space-between; gap:8px; }
+    .meta .right, .meta .left { white-space: nowrap; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #888; padding: 6px; text-align: center; }
+    th { background-color: #eee; }
+    .nowrap { white-space: nowrap; }
+
+    /* تحسين القراءة */
+    tbody tr:nth-child(even) { background: #fafafa; }
+    .badge { padding: 2px 6px; border-radius: 4px; }
+    .bg-success { background:#d1fae5; border:1px solid #059669; color:#065f46; }
+    .bg-warning { background:#fef9c3; border:1px solid #a16207; color:#713f12; }
+    .bg-danger  { background:#fee2e2; border:1px solid #b91c1c; color:#7f1d1d; }
+    .bg-secondary{ background:#e5e7eb; border:1px solid #6b7280; color:#374151; }
+  </style>
+</head>
+<body>
+  <h3>📦 {% trans "تقرير المنتجات النهائية" %}</h3>
+  <p class="meta">
+    <span class="left">
+      {% trans "تاريخ التوليد" %}:
+      {% if generated_at %}{{ generated_at|date:"Y-m-d H:i" }}{% else %}{% now "Y-m-d H:i" %}{% endif %}
+    </span>
+    <span class="right">
+      {% trans "عدد السجلات" %}: {{ products|length }}
+    </span>
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>{% trans "الكود" %}</th>
+        <th>{% trans "الاسم" %}</th>
+        <th>{% trans "الكمية" %}</th>
+        <th>{% trans "الحالة" %}</th>
+        <th>{% trans "تاريخ الإنتاج" %}</th>
+        <th>{% trans "تاريخ الانتهاء" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+        <tr>
+          <td class="nowrap">{{ product.product_code|default:"-" }}</td>
+          <td>{{ product.name|default:"-" }}</td>
+          <td class="nowrap">{{ product.quantity|default:"-" }}</td>
+          <td>
+            {# توحيد مخرجات الحالة بين quality_status/status #}
+            {% with disp=product.get_quality_status_display|default:product.get_status_display|default:product.quality_status|default:product.status|default:"-" %}
+              {% with key=product.quality_status|default:product.status %}
+                <span class="badge
+                  {% if key == 'good' %} bg-success
+                  {% elif key == 'average' %} bg-warning
+                  {% elif key == 'rejected' %} bg-danger
+                  {% else %} bg-secondary {% endif %}">
+                  {{ disp }}
+                </span>
+              {% endwith %}
+            {% endwith %}
+          </td>
+          <td class="nowrap">
+            {% if product.date_produced %}{{ product.date_produced|date:"Y-m-d" }}{% else %}-{% endif %}
+          </td>
+          <td class="nowrap">
+            {% with exp=product.expiration_date|default:product.expiry_date %}
+              {% if exp %}{{ exp|date:"Y-m-d" }}{% else %}-{% endif %}
+            {% endwith %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">{% trans "لا توجد بيانات." %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

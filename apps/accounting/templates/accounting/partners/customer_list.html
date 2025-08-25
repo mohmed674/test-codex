@@ -1,0 +1,27 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\partners\customer_list.html -->
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">قائمة العملاء</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>الاسم</th>
+                <th>رقم الهاتف</th>
+                <th>البريد الإلكتروني</th>
+                <th>العنوان</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.address }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

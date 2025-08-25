@@ -1,0 +1,103 @@
+<!-- templates/ai_decision/copilot_dashboard.html - لوحة القيادة الذكية Copilot 2025 -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة تحكم Copilot</title>
+  <link id="theme-style" rel="stylesheet" href="{% static 'css/copilot.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+  <script src="{% static 'js/copilot_chat.js' %}" defer></script>
+  <script src="{% static 'js/copilot_voice.js' %}" defer></script>
+</head>
+<body>
+  <div class="copilot-container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h2>📊 لوحة تحكم المساعد الذكي</h2>
+      <button onclick="toggleTheme()" style="padding: 8px 16px; border-radius: 8px; background-color: #222; color: #fff; border: none; cursor: pointer;">
+        🌙/☀️ تبديل الوضع
+      </button>
+    </div>
+
+    <!-- بطاقات سريعة -->
+    <div class="kpi-cards">
+      <div class="kpi-card">
+        <h3>مبيعات اليوم</h3>
+        <p>{{ daily_sales|default:"--" }} جنيه</p>
+      </div>
+      <div class="kpi-card">
+        <h3>المنتج الأكثر طلباً</h3>
+        <p>{{ top_product|default:"--" }}</p>
+      </div>
+      <div class="kpi-card">
+        <h3>مورد متأخر اليوم</h3>
+        <p>{{ delayed_supplier|default:"--" }}</p>
+      </div>
+    </div>
+
+    <!-- رسم بياني ديناميكي -->
+    <div class="chart-container">
+      <canvas id="copilotChart"></canvas>
+    </div>
+
+    <!-- وحدة تفاعلية -->
+    <div class="query-form">
+      <input type="text" name="query" placeholder="اسأل Copilot عن أي تقرير...">
+      <button onclick="askCopilot()">تحليل</button>
+    </div>
+
+    <div id="response" class="response-box"></div>
+
+  </div>
+
+  <script>
+    const ctx = document.getElementById('copilotChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
+        datasets: [{
+          label: 'مبيعات الأسبوع',
+          data: [12000, 19000, 3000, 5000, 2000, 30000, 45000],
+          borderColor: '#007bff',
+          tension: 0.3
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'تحليل المبيعات الأسبوعي'
+          }
+        }
+      }
+    });
+
+    function askCopilot() {
+      const query = document.querySelector('input[name="query"]').value;
+      fetch(`/copilot/copilot/query/?query=` + encodeURIComponent(query))
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("response").innerText = data.reply;
+        });
+    }
+
+    function toggleTheme() {
+      const current = localStorage.getItem("copilot-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.getElementById("theme-style").href = next === "light"
+        ? "{% static 'css/copilot.css' %}"
+        : "{% static 'css/copilot-dark.css' %}";
+      localStorage.setItem("copilot-theme", next);
+    }
+
+    window.addEventListener("load", () => {
+      const saved = localStorage.getItem("copilot-theme") || "light";
+      document.getElementById("theme-style").href = saved === "dark"
+        ? "{% static 'css/copilot-dark.css' %}"
+        : "{% static 'css/copilot.css' %}";
+    });
+  </script>
+</body>
+</html>

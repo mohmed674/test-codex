@@ -1,0 +1,13 @@
+<!-- apps/banking/templates/banking/payment_detail.html -->
+<h1>Payment: {{ payment.reference }}</h1>
+<ul>
+  <li>Amount: {{ payment.amount }} {{ payment.currency }}</li>
+  <li>Status: {{ payment.status }}</li>
+  <li>Provider: {{ payment.provider.name }}</li>
+  <li>Account: {{ payment.account.name }}</li>
+</ul>
+<p>
+  <a href="{% url 'banking:payment_capture' payment.pk %}">Capture</a> |
+  <a href="{% url 'banking:payment_refund' payment.pk %}">Refund</a> |
+  <a href="{% url 'banking:payment_list' %}">Back</a>
+</p>

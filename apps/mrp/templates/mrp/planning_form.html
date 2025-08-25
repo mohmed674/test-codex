@@ -1,0 +1,5 @@
+<h4>إضافة خطة إنتاج جديدة</h4>
+<form method="post">{% csrf_token %}
+{{ form.as_p }}
+<button type="submit" class="btn btn-primary">تنفيذ التخطيط</button>
+</form>

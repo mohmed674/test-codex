@@ -1,0 +1,59 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\journal_entry_form.html -->
+{% extends 'core/base.html' %}
+{% load form_filters %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-4 text-center">📜 إضافة قيد محاسبي جديد</h3>
+
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} text-center">{{ message }}</div>
+    {% endfor %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <div class="form-group mb-3">
+        <label for="{{ form.description.id_for_label }}">الوصف</label>
+        {{ form.description|add_class:"form-control" }}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="{{ form.amount.id_for_label }}">المبلغ</label>
+        {{ form.amount|add_class:"form-control" }}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="{{ form.debit_account.id_for_label }}">الحساب المدين</label>
+        {{ form.debit_account|add_class:"form-control" }}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="{{ form.credit_account.id_for_label }}">الحساب الدائن</label>
+        {{ form.credit_account|add_class:"form-control" }}
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="transaction_type">نوع المعاملة (اختياري)</label>
+        <input type="text" name="transaction_type" id="transaction_type" placeholder="مثل: شراء، مرتبات، مصروفات..." class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">📀 حفظ القيد</button>
+    </form>
+
+    {% if suggestion %}
+      <div class="alert alert-success mt-4">
+        <h5>💡 اقتراح AI:</h5>
+        <ul class="mb-0">
+          <li>من حساب <strong>{{ suggestion.debit_account }}</strong></li>
+          <li>إلى حساب <strong>{{ suggestion.credit_account }}</strong></li>
+          <li>بمبلغ <strong>{{ suggestion.amount }}</strong></li>
+        </ul>
+      </div>
+    {% endif %}
+
+    <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+  </div>
+</div>
+{% endblock %}
+

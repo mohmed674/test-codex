@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% block title %}{{ model_name }} - قائمة{% endblock %}
+{% block content %}
+<h2>قائمة {{ model_name }}</h2>
+<table>
+  <thead><tr><th>#</th><th>المعرف</th><th>العرض</th></tr></thead>
+  <tbody>
+    {% for obj in object_list %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ obj.pk }}</td>
+        <td><a class="button" href="javascript:history.back()">رجوع</a></td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="3">لا توجد بيانات</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

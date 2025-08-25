@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}➕ إضافة حركة مخزنية{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <!-- ✅ العنوان -->
+    <h3 class="mb-4 text-center">➕ إضافة حركة مخزنية</h3>
+
+    <!-- ✅ رسائل التنبيه -->
+    {% if messages %}
+      <div class="mt-2">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm text-end" role="alert" dir="rtl">
+            <strong>📢</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="إغلاق"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- ✅ النموذج -->
+    <form method="post" class="shadow p-4 bg-white rounded">
+        {% csrf_token %}
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label class="form-label">الصنف</label>
+                {{ form.item|add_class:"form-select" }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">نوع الحركة</label>
+                {{ form.transaction_type|add_class:"form-select" }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">الكمية</label>
+                {{ form.quantity|add_class:"form-control" }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">ملاحظة</label>
+                {{ form.note|add_class:"form-control" }}
+            </div>
+
+        </div>
+
+        <!-- ✅ الأزرار -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success px-4">💾 حفظ</button>
+            <a href="{% url 'inventory:inventory_transactions' %}" class="btn btn-secondary px-4">🔙 رجوع</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% load static %}
+{% load form_filters %}  {# لتحميل add_class و get_hint إن وجدت #}
+
+<form method="post" class="mt-3">
+  {% csrf_token %}
+  {% for field in form %}
+    <div class="mb-3">
+      <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field|add_class:"form-control" }}
+      
+      {# تلميح ذكي إن وجد (اختياري) #}
+      {% with hint=field.name|get_hint:section %}
+        {% if hint %}
+          <div class="form-text text-info">{{ hint }}</div>
+        {% endif %}
+      {% endwith %}
+      
+      {# النص التوضيحي التقليدي (Django) إن وُجد #}
+      {% if field.help_text %}
+        <div class="form-text text-muted">{{ field.help_text }}</div>
+      {% endif %}
+      
+      {# عرض أخطاء الحقل إن وُجدت #}
+      {% if field.errors %}
+        <div class="text-danger small">
+          {{ field.errors.as_text|linebreaksbr }}
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+  
+  <button type="submit" class="btn btn-success">💾 حفظ</button>
+  <a href="{{ back_url }}" class="btn btn-secondary">↩️ رجوع</a>
+</form>

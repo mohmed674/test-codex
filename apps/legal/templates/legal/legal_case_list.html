@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>قائمة القضايا القانونية</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>العنوان</th>
+      <th>الحالة</th>
+      <th>المحكمة</th>
+      <th>تاريخ الجلسة</th>
+      <th>المسؤول</th>
+      <th>تفاصيل</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for case in cases %}
+    <tr>
+      <td>{{ case.title }}</td>
+      <td>{{ case.get_status_display }}</td>
+      <td>{{ case.court_name|default:"-" }}</td>
+      <td>{{ case.session_date|default:"-" }}</td>
+      <td>{{ case.lawyer|default:"-" }}</td>
+      <td><a href="{% url 'legal:legal_case_detail' case.id %}" class="btn btn-sm btn-info">عرض</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'legal:create_legal_case' %}" class="btn btn-success">إضافة قضية جديدة</a>
+{% endblock %}

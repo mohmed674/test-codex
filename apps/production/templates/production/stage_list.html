@@ -1,0 +1,41 @@
+<!-- ERP_CORE/production/templates/production/stage_list.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مراحل الإنتاج</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
+<body class="p-4 bg-light">
+<div class="container bg-white p-4 rounded shadow-sm">
+    <h3 class="mb-4 text-center">🛠️ مراحل الإنتاج</h3>
+    <a href="{% url 'production:create_stage' %}" class="btn btn-success mb-3">➕ إضافة مرحلة</a>
+    <table class="table table-bordered text-center table-striped">
+        <thead class="table-light">
+            <tr>
+                <th>رقم</th>
+                <th>المنتج</th>
+                <th>اسم المرحلة</th>
+                <th>الموظف المسؤول</th>
+                <th>الوقت</th>
+                <th>الحالة</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stage in stages %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ stage.production_order.product_name }}</td>
+                <td>{{ stage.stage_name }}</td>
+                <td>{{ stage.employee }}</td>
+                <td>{{ stage.duration }} دقيقة</td>
+                <td>{{ stage.status }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">لا توجد مراحل حالياً.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\reports\journal_report_pdf.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير القيود اليومية</title>
+    <style>
+        body { font-family: 'Cairo', sans-serif; font-size: 14px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
+        th { background-color: #f0f0f0; }
+        h2 { text-align: center; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h2>تقرير القيود اليومية</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>التاريخ</th>
+                <th>رقم القيد</th>
+                <th>الحساب المدين</th>
+                <th>الحساب الدائن</th>
+                <th>المبلغ</th>
+                <th>البيان</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+                <tr>
+                    <td>{{ entry.date }}</td>
+                    <td>{{ entry.id }}</td>
+                    <td>
+                        {% with di=entry.items.filter(debit__gt=0).first %}
+                            {% if di %}{{ di.account.name }}{% else %}-{% endif %}
+                        {% endwith %}
+                    </td>
+                    <td>
+                        {% with ci=entry.items.filter(credit__gt=0).first %}
+                            {% if ci %}{{ ci.account.name }}{% else %}-{% endif %}
+                        {% endwith %}
+                    </td>
+                    <td>{{ entry.amount }} ج.م</td>
+                    <td>{{ entry.description|default:"-" }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">لا توجد قيود مسجلة.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

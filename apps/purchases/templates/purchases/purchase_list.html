@@ -1,0 +1,53 @@
+<!-- ERP_CORE/purchases/templates/purchases/purchase_list.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>طلبات الشراء</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h3 class="text-center mb-4">📋 قائمة طلبات الشراء</h3>
+    <div class="mb-3 text-end">
+        <a href="{% url 'purchases:purchase_request_create' %}" class="btn btn-primary">➕ طلب جديد</a>
+    </div>
+    <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>القسم</th>
+                <th>الموظف</th>
+                <th>الغرض</th>
+                <th>الحالة</th>
+                <th>تاريخ الطلب</th>
+                <th>إجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for req in requests %}
+            <tr>
+                <td>{{ req.department.name }}</td>
+                <td>{{ req.requested_by.name }}</td>
+                <td>{{ req.purpose }}</td>
+                <td>{{ req.get_status_display }}</td>
+                <td>{{ req.created_at|date:"Y-m-d H:i" }}</td>
+                <td>
+                    {% if not req.purchaseorder %}
+                        <a href="{% url 'purchases:purchase_order_create' req.id %}" class="btn btn-sm btn-warning">🔄 إصدار أمر</a>
+                    {% else %}
+                        {% if not req.purchaseorder.purchaseinvoice %}
+                            <a href="{% url 'purchases:purchase_invoice_create' req.purchaseorder.id %}" class="btn btn-sm btn-info">💰 تسجيل فاتورة</a>
+                        {% else %}
+                            <span class="text-success">✅ مكتمل</span>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

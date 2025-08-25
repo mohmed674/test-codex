@@ -1,0 +1,54 @@
+{% extends "plm/base.html" %}
+{% block title %}Product Detail - {{ product.name }}{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">{{ product.name }}</h1>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Basic Information</h5>
+        <p><strong>Code:</strong> {{ product.code }}</p>
+        <p><strong>Category:</strong> {{ product.category }}</p>
+        <p><strong>Unit of Measure:</strong> {{ product.uom }}</p>
+        <p><strong>Active:</strong> {% if product.active %}✔{% else %}✘{% endif %}</p>
+        <p><strong>Description:</strong> {{ product.description|default:"-" }}</p>
+        <p><strong>Created At:</strong> {{ product.created_at|date:"Y-m-d H:i" }}</p>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Versions</h5>
+        {% if product.versions.all %}
+        <ul>
+            {% for version in product.versions.all %}
+            <li>
+                {{ version.version_code }} - {{ version.status }} 
+                {% if version.is_active %}(Active){% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No versions available.</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Lifecycle Stages</h5>
+        {% if product.lifecycles.all %}
+        <ul>
+            {% for lc in product.lifecycles.all %}
+            <li>
+                {{ lc.stage.name }} ({{ lc.started_at|date:"Y-m-d" }} → 
+                {% if lc.ended_at %}{{ lc.ended_at|date:"Y-m-d" }}{% else %}ongoing{% endif %})
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No lifecycle records.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

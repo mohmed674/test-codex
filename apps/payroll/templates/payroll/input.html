@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payroll Input</title>
+</head>
+<body>
+    <h1>Payroll Entry</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Payroll Records</h2>
+    <ul>
+        {% for record in payroll_data %}
+            <li>{{ record.employee }} - {{ record.salary }} - {{ record.date }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

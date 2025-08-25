@@ -1,0 +1,134 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "لوحة التحكم" %}{% endblock %}
+
+{% block content %}
+<div class="odoo-choose-bg py-4">
+  <div class="odoo-container">
+
+    <!-- عنوان الصفحة -->
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+      <h2 class="fw-bold m-0">{% trans "لوحة التحكم" %}</h2>
+      <div class="d-flex gap-2">
+        <!-- زر الوضع الليلي -->
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary" aria-label="{% trans 'تبديل الوضع الليلي/النهاري' %}">
+          <i class="fas fa-adjust"></i>
+        </button>
+        <!-- زر تثبيت التطبيق (PWA) -->
+        <button id="installPWA" class="btn btn-sm btn-outline-primary d-none" aria-label="{% trans 'تثبيت التطبيق' %}">
+          <i class="fas fa-download"></i> {% trans "تثبيت" %}
+        </button>
+      </div>
+    </div>
+
+    <!-- مربع البحث السريع -->
+    <div class="mb-4">
+      <input type="search" id="quickSearch" class="form-control" placeholder="{% trans 'بحث عن تطبيق...' %}" aria-label="{% trans 'بحث عن تطبيق' %}">
+    </div>
+
+    <!-- ويدجت الإحصائيات -->
+    {% if widgets %}
+    <div class="row g-3 mb-4">
+      {% for w in widgets %}
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center shadow-sm h-100">
+          <div class="card-body">
+            {% if w.icon %}
+              <div class="mb-2 fs-2 text-primary"><i class="{{ w.icon }}" aria-hidden="true"></i></div>
+            {% endif %}
+            <div class="text-muted small">{{ w.title }}</div>
+            <div class="fs-4 fw-bold">{{ w.value }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- قائمة التطبيقات -->
+    <div class="odoo-section">
+      <h3 class="mb-3">{% trans "الوصول السريع" %}</h3>
+      <div class="odoo-apps-grid" id="appsGrid">
+        {% for app in apps %}
+          <a href="{{ app.url }}" class="odoo-app {% cycle 'app-purple' 'app-teal' 'app-blue' 'app-cyan' 'app-orange' 'app-green' 'app-violet' 'app-burnt' %}" 
+             role="button" aria-label="{{ app.name }}">
+            <span class="odoo-app-icon">
+              {% if app.icon %}
+                <i class="{{ app.icon }}" aria-hidden="true"></i>
+              {% else %}
+                <i class="fas fa-circle" aria-hidden="true"></i>
+              {% endif %}
+            </span>
+            <span class="odoo-app-title">{{ app.name }}</span>
+          </a>
+        {% endfor %}
+
+        <!-- روابط إضافية ثابتة -->
+        <a href="{% url 'employees:list' %}" class="app-purple">
+          <span class="odoo-app-icon"><i class="fas fa-user-tie"></i></span>
+          <span class="odoo-app-title">{% trans "الموارد البشرية" %}</span>
+        </a>
+        <a href="{% url 'attendance:list' %}" class="app-teal">
+          <span class="odoo-app-icon"><i class="fas fa-calendar-check"></i></span>
+          <span class="odoo-app-title">{% trans "الحضور" %}</span>
+        </a>
+        <a href="{% url 'evaluation:list' %}" class="app-blue">
+          <span class="odoo-app-icon"><i class="fas fa-chart-line"></i></span>
+          <span class="odoo-app-title">{% trans "التقييم" %}</span>
+        </a>
+        <a href="{% url 'departments:list' %}" class="app-cyan">
+          <span class="odoo-app-icon"><i class="fas fa-sitemap"></i></span>
+          <span class="odoo-app-title">{% trans "الأقسام" %}</span>
+        </a>
+        <a href="{% url 'payroll:list' %}" class="app-orange">
+          <span class="odoo-app-icon"><i class="fas fa-money-bill-wave"></i></span>
+          <span class="odoo-app-title">{% trans "الرواتب" %}</span>
+        </a>
+        <a href="{% url 'production:list' %}" class="app-green">
+          <span class="odoo-app-icon"><i class="fas fa-industry"></i></span>
+          <span class="odoo-app-title">{% trans "الإنتاج" %}</span>
+        </a>
+        <a href="{% url 'inventory:list' %}" class="app-violet">
+          <span class="odoo-app-icon"><i class="fas fa-warehouse"></i></span>
+          <span class="odoo-app-title">{% trans "المخزون" %}</span>
+        </a>
+        <a href="{% url 'sales:list' %}" class="app-burnt">
+          <span class="odoo-app-icon"><i class="fas fa-shopping-cart"></i></span>
+          <span class="odoo-app-title">{% trans "المبيعات" %}</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- سكريبتات البحث السريع وتثبيت PWA -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('quickSearch');
+  const apps = document.querySelectorAll('#appsGrid a');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      apps.forEach(app => {
+        app.style.display = app.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  }
+
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const installBtn = document.getElementById('installPWA');
+    installBtn.classList.remove('d-none');
+    installBtn.addEventListener('click', () => {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.finally(() => deferredPrompt = null);
+    });
+  });
+});
+</script>
+{% endblock %}

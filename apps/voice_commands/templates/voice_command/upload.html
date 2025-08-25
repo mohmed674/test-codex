@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load form_filters %}  <!-- ✅ تحميل الفلتر الجديد -->
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-4">🔊 رفع أمر صوتي جديد</h3>
+
+    <form method="post" enctype="multipart/form-data" class="row g-3">
+      {% csrf_token %}
+
+      <div class="col-md-6">
+        <label for="user" class="form-label">👤 اسم المستخدم</label>
+        {{ form.user|add_class:"form-control" }}
+      </div>
+
+      <div class="col-md-6">
+        <label for="role" class="form-label">🎓 الدور</label>
+        {{ form.role|add_class:"form-select" }}
+      </div>
+
+      <div class="col-md-12">
+        <label for="audio_file" class="form-label">🎧 ملف صوتي</label>
+        {{ form.audio_file|add_class:"form-control" }}
+      </div>
+
+      <div class="col-12 mt-3">
+        <button type="submit" class="btn btn-primary">📤 رفع الأمر</button>
+        <a href="{% url 'voice_commands:logs' %}" class="btn btn-secondary">↩️ الرجوع للسجل</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

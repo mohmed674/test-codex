@@ -1,0 +1,21 @@
+<h4>📁 مركز الوثائق</h4>
+<a href="{% url 'document_center:document_upload' %}" class="btn btn-primary mb-3">➕ رفع وثيقة</a>
+
+<form method="get" class="mb-3">
+  <input type="text" name="q" placeholder="بحث بالعنوان..." class="form-control" value="{{ request.GET.q }}">
+</form>
+
+<table class="table table-bordered">
+<tr><th>العنوان</th><th>النوع</th><th>القسم</th><th>المرفق</th><th>تاريخ الرفع</th></tr>
+{% for doc in documents %}
+<tr>
+  <td>{{ doc.title }}</td>
+  <td>{{ doc.get_type_display }}</td>
+  <td>{{ doc.department }}</td>
+  <td><a href="{{ doc.file.url }}" target="_blank">تحميل</a></td>
+  <td>{{ doc.uploaded_at }}</td>
+</tr>
+{% empty %}
+<tr><td colspan="5">لا توجد وثائق.</td></tr>
+{% endfor %}
+</table>

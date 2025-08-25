@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>📊 لوحة تقارير الذكاء الاصطناعي</title>
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card-link {
+            border-radius: 12px;
+            transition: 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .card-link:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .alert-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="container mt-5">
+
+    <h2 class="text-center mb-4">📈 لوحة تقارير الذكاء الاصطناعي</h2>
+
+    <!-- ✅ تنبيهات ذكية من النظام -->
+    {% if stale_products or loss_count %}
+    <div class="alert alert-danger shadow-sm">
+        <div class="alert-title">🚨 تنبيهات ذكية:</div>
+        <ul class="mb-2">
+            {% if stale_products %}
+                <li>📉 عدد المنتجات الراكدة: <strong>{{ stale_products }}</strong></li>
+            {% endif %}
+            {% if loss_count %}
+                <li>💸 عدد المنتجات التي تُباع بخسارة: <strong>{{ loss_count }}</strong></li>
+            {% endif %}
+        </ul>
+        {% if recommendation %}
+        <div class="alert alert-warning mt-2">
+            🤖 <strong>توصية ذكية:</strong> {{ recommendation }}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- ✅ روابط التحليل الذكي -->
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <a href="{% url 'sales_analysis_report' %}" class="btn btn-outline-primary w-100 py-3 card-link">
+                🛍 تحليل المبيعات والربحية <br>
+                <small class="text-muted">عرض ذكي للمبيعات اليومية والشهرية</small>
+            </a>
+        </div>
+
+        <div class="col-md-6">
+            <a href="{% url 'ai_dashboard' %}" class="btn btn-outline-success w-100 py-3 card-link">
+                🤖 تنبيهات الأداء والتحليل الذكي<br>
+                <small class="text-muted">تحليل فوري للغياب والإنتاج والصيانة</small>
+            </a>
+        </div>
+
+        <div class="col-md-6">
+            <a href="{% url 'analyze_decision' %}" class="btn btn-outline-dark w-100 py-3 card-link">
+                🧠 تحليل يدوي للقرارات<br>
+                <small class="text-muted">إدخال يدوي لقرارات وتحليلات الإدارة</small>
+            </a>
+        </div>
+
+        <div class="col-md-6">
+            <a href="#" class="btn btn-outline-warning w-100 py-3 card-link disabled">
+                📊 تقارير التدريب والتحسين الآلي<br>
+                <small class="text-muted">(قريبًا)</small>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- زر الطباعة -->
+    <button onclick="window.print()" class="btn btn-secondary mt-4 w-100">🖨 طباعة الصفحة</button>
+
+</body>
+</html>

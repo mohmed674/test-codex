@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير الحوافز الشهرية</title>
+    <style>
+        body { font-family: 'Cairo', sans-serif; direction: rtl; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+        th { background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h2>📊 تقرير الحوافز والخصومات - {{ month|date:"F Y" }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>الموظف</th>
+                <th>القسم</th>
+                <th>المسمى الوظيفي</th>
+                <th>مكافأة الالتزام</th>
+                <th>مكافأة ربع سنوية</th>
+                <th>إجمالي الخصومات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in records %}
+            <tr>
+                <td>{{ row.employee.name }}</td>
+                <td>{{ row.employee.department.name }}</td>
+                <td>{{ row.employee.job_title }}</td>
+                <td>{{ row.commitment_bonus }} ج.م</td>
+                <td>{{ row.quarterly_bonus }} ج.م</td>
+                <td>{{ row.penalty_total }} ج.م</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

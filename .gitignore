@@ -1,38 +1,21 @@
 ﻿# ============================================
-# .gitignore — ERP_CORE (Django + Frontend) — 2025
+# .gitignore — Django ERP (deploy-ready)
 # ============================================
 
-# ==== Python / Django ====
+# ==== Python ====
 __pycache__/
 *.py[cod]
 *$py.class
 *.pyd
 *.pyo
-*.pdb
 *.so
 *.dylib
 
-# قاعدة بيانات تطوير محلية
-db.sqlite3
-db.sqlite3-journal
+# ==== Django (local DB) ====
+*.sqlite3
+*.sqlite3-journal
 
-# سجلات ورسائل ترجمة مجمعة
-*.log
-*.mo
-*.pot
-
-# ملفات ميديا مرفوعة من المستخدمين
-media/
-uploads/
-
-# ملفات Static المجمعة (collectstatic)
-staticfiles/
-static_root/
-**/staticfiles.json
-
-# لا نتجاهل مجلد static/ المصدري
-
-# ==== البيئات الافتراضية ====
+# ==== Environments ====
 .env
 .venv
 env/
@@ -43,41 +26,9 @@ ENV/
 **/env/
 **/venv/
 
-# ==== التوزيع والحزم ====
-build/
-dist/
-downloads/
-eggs/
-.eggs/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# ==== الاختبارات والتغطية ====
-.pytest_cache/
-.tox/
-.nox/
-.coverage
-.coverage.*
-htmlcov/
-.cache/
-
-# ==== الفحص والثابتات ====
-.mypy_cache/
-.pyre/
-.pytype/
-.ruff_cache/
-
-# ==== دفاتر Jupyter ====
-.ipynb_checkpoints/
-
-# ==== إعدادات محلية/سرية ====
+# ==== Secrets / Local settings ====
 local_settings.py
 settings_local.py
-secrets.*
 *.env.local
 *.env.development
 *.env.production
@@ -86,13 +37,44 @@ secrets.*
 !.env.example
 !.env.sample
 
-# ==== سجلات ووقت التشغيل ====
+# ==== Logs / Debug ====
 logs/
-*.log*
+*.log
+*.log.*
 *.pid
 celerybeat-schedule
 celerybeat.pid
 gunicorn.pid
+uwsgi.log
+debug.log
+
+# ==== Static & Media (collectstatic outputs; media optional) ====
+staticfiles/
+static_root/
+**/staticfiles.json
+media/
+
+# ==== Translations (compiled) ====
+*.mo
+*.pot~
+
+# ==== Tests / Coverage ====
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.cache/
+
+# ==== Type checking / Linters ====
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ==== Notebooks ====
+.ipynb_checkpoints/
 
 # ==== Frontend / Node ====
 node_modules/
@@ -100,10 +82,12 @@ node_modules/
 .npm/
 bower_components/
 
-# آثار البناء من المجمعات
-.tmp/
-temp/
+# ==== Build artifacts ====
+build/
+dist/
 tmp/
+temp/
+.tmp/
 .cache-loader/
 .parcel-cache/
 .next/
@@ -113,21 +97,21 @@ coverage/
 webpack-stats.json
 *.tsbuildinfo
 
-# ==== المحررات ====
+# ==== Editors / IDE ====
 .vscode/
 .idea/
 *.code-workspace
 *.sublime-project
 *.sublime-workspace
 
-# ==== نظام التشغيل ====
+# ==== OS files ====
 .DS_Store
 .DS_Store?
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# ==== الحاويات ====
+# ==== Containers / direnv ====
 .docker/
 docker-data/
 .envrc

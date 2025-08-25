@@ -1,0 +1,19 @@
+<!-- apps/document_center/templates/document_center/index.html — Normalized (Sprint 2 / Document Center Expansion) -->
+
+<h1>📂 Document Center</h1>
+
+<nav>
+  <ul>
+    <li><a href="{% url 'document_center:list' %}">All Documents</a></li>
+    <li><a href="{% url 'document_center:create' %}">Upload Document</a></li>
+    <li><a href="{% url 'document_center:approvals' %}">Approvals</a></li>
+    <li><a href="{% url 'document_center:ocr' %}">OCR Processing</a></li>
+    <li><a href="{% url 'document_center:tags' %}">Tagging</a></li>
+    <li><a href="{% url 'document_center:versioning' %}">Versioning</a></li>
+    <li><a href="{% url 'document_center:audit' %}">Audit Trails</a></li>
+  </ul>
+</nav>
+
+<section>
+  <p>Document Center Module is working ✅ — Approvals, OCR, Tagging, Versioning, and Audit Trails ready.</p>
+</section>

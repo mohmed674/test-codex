@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="mb-0">📦 لوحة تتبع الشحنات</h3>
+      <div>
+        <a href="?from={{ filters.from }}&to={{ filters.to }}&tracking_code={{ filters.tracking_code }}&customer_name={{ filters.customer_name }}&phone={{ filters.phone }}&download_pdf=1" class="btn btn-danger btn-sm">🖨️ PDF</a>
+        <a href="?from={{ filters.from }}&to={{ filters.to }}&tracking_code={{ filters.tracking_code }}&customer_name={{ filters.customer_name }}&phone={{ filters.phone }}&export=1" class="btn btn-success btn-sm">📊 Excel</a>
+      </div>
+    </div>
+
+    <!-- 🔍 الفلاتر -->
+    <form method="get" class="row g-2 mb-4">
+      <div class="col-md-3">
+        <input type="text" name="tracking_code" class="form-control" placeholder="كود التتبع" value="{{ filters.tracking_code }}">
+      </div>
+      <div class="col-md-3">
+        <input type="text" name="customer_name" class="form-control" placeholder="اسم العميل" value="{{ filters.customer_name }}">
+      </div>
+      <div class="col-md-3">
+        <input type="text" name="phone" class="form-control" placeholder="رقم الهاتف (ملاحظات)" value="{{ filters.phone }}">
+      </div>
+      <div class="col-md-3">
+        <input type="date" name="from" class="form-control" value="{{ filters.from }}">
+      </div>
+      <div class="col-md-3">
+        <input type="date" name="to" class="form-control" value="{{ filters.to }}">
+      </div>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-dark w-100">🔍 بحث</button>
+      </div>
+      <div class="col-md-3">
+        <a href="{% url 'tracking:tracking_dashboard' %}" class="btn btn-secondary w-100">🔁 إعادة تعيين</a>
+      </div>
+    </form>
+
+    <!-- 📋 الجدول -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped text-center align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>تاريخ الشحن</th>
+            <th>كود التتبع</th>
+            <th>المنتج</th>
+            <th>اسم العميل</th>
+            <th>طريقة الدفع</th>
+            <th>شركة الشحن</th>
+            <th>الحالة</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in records %}
+          <tr>
+            <td>{{ r.shipment_date }}</td>
+            <td>{{ r.tracking_code }}</td>
+            <td>{{ r.product_name }}</td>
+            <td>{{ r.customer_name }}</td>
+            <td>{{ r.get_payment_method_display }}</td>
+            <td>{{ r.shipping_company|default:"-" }}</td>
+            <td>
+              {% if r.status == "delivered" %}
+                <span class="badge bg-success">{{ r.get_status_display }}</span>
+              {% elif r.status == "pending" %}
+                <span class="badge bg-warning text-dark">{{ r.get_status_display }}</span>
+              {% elif r.status == "cancelled" %}
+                <span class="badge bg-danger">{{ r.get_status_display }}</span>
+              {% else %}
+                <span class="badge bg-secondary">{{ r.get_status_display }}</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7" class="text-center text-danger">لا توجد شحنات مسجلة</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

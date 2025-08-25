@@ -1,0 +1,51 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\purchase\purchase_invoice_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3>📥 تفاصيل فاتورة المشتريات رقم: {{ invoice.number }}</h3>
+      <a href="{% url 'accounting:print_invoice_pdf' 'purchase' invoice.id %}" class="btn btn-outline-dark">🖨️ طباعة PDF</a>
+    </div>
+
+    <button onclick="window.print()" class="btn btn-secondary mb-3">🖨 طباعة</button>
+
+    <table class="table table-bordered w-100">
+      <tr><th>المورد</th><td>{{ invoice.supplier.name }}</td></tr>
+      <tr><th>تاريخ الفاتورة</th><td>{{ invoice.date_issued }}</td></tr>
+      <tr><th>طريقة الدفع</th><td>{{ invoice.get_payment_method_display }}</td></tr>
+      <tr><th>تاريخ الاستحقاق</th><td>{{ invoice.due_date }}</td></tr>
+    </table>
+
+    <h5 class="mt-4">📦 المنتجات المشتراة:</h5>
+    <table class="table table-striped text-center align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>المنتج</th>
+          <th>الكمية</th>
+          <th>سعر الوحدة</th>
+          <th>الإجمالي</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in invoice.items.all %}
+        <tr>
+          <td>{{ item.product_name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.unit_price }} ج.م</td>
+          <td>{{ item.subtotal }} ج.م</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">لا توجد بنود في هذه الفاتورة.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h4 class="text-end mt-3">💰 الإجمالي الكلي: <strong>{{ invoice.total_amount }} ج.م</strong></h4>
+  </div>
+</div>
+{% endblock %}

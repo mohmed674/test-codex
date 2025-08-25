@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>قائمة الحملات التسويقية</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>الاسم</th>
+      <th>الوسيلة</th>
+      <th>تاريخ الإرسال</th>
+      <th>الحالة</th>
+      <th>تفاصيل</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for campaign in campaigns %}
+    <tr>
+      <td>{{ campaign.name }}</td>
+      <td>{{ campaign.get_channel_display }}</td>
+      <td>{{ campaign.scheduled_date }}</td>
+      <td>{% if campaign.is_sent %}تم الإرسال{% else %}قيد الإرسال{% endif %}</td>
+      <td><a href="{% url 'campaigns:campaign_detail' campaign.id %}" class="btn btn-sm btn-info">عرض</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'campaigns:create_campaign' %}" class="btn btn-success">إنشاء حملة جديدة</a>
+{% endblock %}

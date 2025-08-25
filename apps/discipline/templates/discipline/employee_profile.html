@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ملف الموظف – {{ employee.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            direction: rtl;
+            margin: 0;
+            padding: 20px;
+        }
+        .profile-card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: auto;
+        }
+        h2, h3 {
+            text-align: center;
+            margin-top: 0;
+        }
+        .profile-info p {
+            margin: 6px 0;
+        }
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .present { background-color: #d4edda; }
+        .absent { background-color: #f8d7da; }
+        .warning { background-color: #fff3cd; }
+        .actions {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .actions a {
+            margin: 0 10px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+        .actions a.export {
+            background-color: #28a745;
+        }
+        .actions a.pdf {
+            background-color: #dc3545;
+        }
+        form.filter-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .filter-form input, .filter-form select {
+            padding: 5px;
+            margin: 0 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <h2>الملف الشخصي للموظف</h2>
+        <div class="profile-info">
+            <p><strong>الاسم:</strong> {{ employee.name }}</p>
+            <p><strong>الوظيفة:</strong> {{ employee.job_title }}</p>
+            <p><strong>القسم:</strong> {{ employee.department.name }}</p>
+            <p><strong>رقم الموظف:</strong> {{ employee.employee_code }}</p>
+            <p><strong>رقم الهاتف:</strong> {{ employee.phone }}</p>
+            <p><strong>تاريخ التعيين:</strong> {{ employee.hire_date }}</p>
+        </div>
+
+        <h3>سجل الانضباط</h3>
+        <form method="get" class="filter-form">
+            <input type="text" name="action_type" placeholder="نوع الإجراء" value="{{ request.GET.action_type }}">
+            <input type="date" name="date_from" value="{{ request.GET.date_from }}">
+            <input type="date" name="date_to" value="{{ request.GET.date_to }}">
+            <button type="submit">فلترة</button>
+        </form>
+
+        <div class="actions">
+            <a class="export" href="?action_type={{ request.GET.action_type }}&date_from={{ request.GET.date_from }}&date_to={{ request.GET.date_to }}&export=1">تصدير Excel</a>
+            <a class="pdf" href="?action_type={{ request.GET.action_type }}&date_from={{ request.GET.date_from }}&date_to={{ request.GET.date_to }}&download_pdf=1">تصدير PDF</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>نوع الإجراء</th>
+                    <th>القيمة</th>
+                    <th>السبب</th>
+                    <th>أنشئ بواسطة</th>
+                    <th>التاريخ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                    <tr class="{% if record.type == 'خصم' %}absent{% elif record.type == 'تحذير' %}warning{% else %}present{% endif %}">
+                        <td>{{ record.type }}</td>
+                        <td>{{ record.value|default:"-" }}</td>
+                        <td>{{ record.reason }}</td>
+                        <td>{{ record.created_by }}</td>
+                        <td>{{ record.date }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="5">لا يوجد بيانات</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>سجل التقييمات</h3>
+        <form method="get" class="filter-form">
+            <input type="text" name="eval_type" placeholder="نوع التقييم" value="{{ request.GET.eval_type }}">
+            <input type="date" name="eval_from" value="{{ request.GET.eval_from }}">
+            <input type="date" name="eval_to" value="{{ request.GET.eval_to }}">
+            <button type="submit">فلترة</button>
+        </form>
+
+        <div class="actions">
+            <a class="export" href="?eval_type={{ request.GET.eval_type }}&eval_from={{ request.GET.eval_from }}&eval_to={{ request.GET.eval_to }}&export_eval=1">تصدير Excel</a>
+            <a class="pdf" href="?eval_type={{ request.GET.eval_type }}&eval_from={{ request.GET.eval_from }}&eval_to={{ request.GET.eval_to }}&download_eval_pdf=1">تصدير PDF</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>نوع التقييم</th>
+                    <th>الدرجة</th>
+                    <th>تعليق المشرف</th>
+                    <th>تاريخ التقييم</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for eval in evaluations %}
+                    <tr>
+                        <td>{{ eval.category }}</td>
+                        <td>{{ eval.score }}</td>
+                        <td>{{ eval.notes }}</td>
+                        <td>{{ eval.date }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="4">لا توجد تقييمات</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h4 class="mb-4">📈 تحليل أداء المبيعات</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <h5>📦 أكثر المنتجات مبيعًا:</h5>
+        <ul>
+          {% for product in top_products %}
+            <li>{{ product.name }} – {{ product.sales_count }} عملية بيع</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h5>👑 أكثر العملاء نشاطًا:</h5>
+        <ul>
+          {% for customer in top_customers %}
+            <li>{{ customer.name }} – {{ customer.orders_count }} طلب</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

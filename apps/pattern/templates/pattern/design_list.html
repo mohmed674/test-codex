@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>قائمة التصاميم</h2>
+    <div class="mb-3">
+        <a href="{% url 'pattern:design_create' %}" class="btn btn-success">تصميم جديد</a>
+        <a href="?download_pdf=1" class="btn btn-outline-danger">PDF</a>
+        <a href="?export=1" class="btn btn-outline-info">Excel</a>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>العنوان</th>
+                <th>التصنيف</th>
+                <th>الوصف</th>
+                <th>التاريخ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for design in designs %}
+            <tr>
+                <td>{{ design.title }}</td>
+                <td>{{ design.category }}</td>
+                <td>{{ design.description }}</td>
+                <td>{{ design.created_at|date:"Y-m-d" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

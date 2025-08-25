@@ -1,0 +1,146 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "لوحة التحكم" %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row g-3 mb-4">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow h-100 border-0 bg-light-kpi">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-muted">{% trans "إجمالي المبيعات" %}</h6>
+            <h3 class="fw-bold text-primary">{{ total_sales|floatformat:2 }} ج.م</h3>
+          </div>
+          <i class="fas fa-chart-line fa-2x text-primary"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow h-100 border-0 bg-light-kpi">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-muted">{% trans "إجمالي المعاملات" %}</h6>
+            <h3 class="fw-bold text-success">{{ total_transactions|floatformat:2 }} ج.م</h3>
+          </div>
+          <i class="fas fa-money-bill-wave fa-2x text-success"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow h-100 border-0 bg-light-kpi">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-muted">{% trans "عدد المنتجات" %}</h6>
+            <h3 class="fw-bold text-info">{{ total_products }}</h3>
+          </div>
+          <i class="fas fa-boxes fa-2x text-info"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow h-100 border-0 bg-light-kpi">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-muted">{% trans "عدد العملاء" %}</h6>
+            <h3 class="fw-bold text-warning">{{ total_clients }}</h3>
+          </div>
+          <i class="fas fa-users fa-2x text-warning"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow h-100 border-0 bg-light-kpi">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-muted">{% trans "عدد الموظفين" %}</h6>
+            <h3 class="fw-bold text-danger">{{ total_employees }}</h3>
+          </div>
+          <i class="fas fa-user-tie fa-2x text-danger"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow h-100 border-0 bg-light-kpi">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-muted">{% trans "نمو الشهر الحالي" %}</h6>
+            <h3 class="fw-bold {% if growth_rate >= 0 %}text-success{% else %}text-danger{% endif %}">
+              {{ growth_rate|floatformat:2 }}%
+            </h3>
+          </div>
+          <i class="fas fa-percent fa-2x {% if growth_rate >= 0 %}text-success{% else %}text-danger{% endif %}"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white fw-bold">
+      {% trans "المبيعات الشهرية" %}
+    </div>
+    <div class="card-body">
+      <canvas id="salesChart" height="120"></canvas>
+    </div>
+  </div>
+</div>
+
+{# نمرّر الداتا كـ JSON جاهز من الڤيو #}
+<script id="monthly-sales-data" type="application/json">{{ sales_by_month_json|safe }}</script>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  (function(){
+    const el = document.getElementById('monthly-sales-data');
+    let rawData = [];
+    try { rawData = JSON.parse(el?.textContent || '[]'); } catch(_) {}
+
+    const locale = '{{ LANGUAGE_CODE|default:"ar-EG" }}';
+    const labels = rawData.map(entry => {
+      try { return new Date(entry.month).toLocaleDateString(locale, { year: 'numeric', month: 'short' }); }
+      catch(_) { return entry.month; }
+    });
+    const values = rawData.map(entry => entry.total || 0);
+
+    const canvas = document.getElementById('salesChart');
+    if (!canvas) return;
+
+    new Chart(canvas.getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: '{{ _("المبيعات الشهرية") }}',
+          data: values,
+          borderRadius: 5,
+          backgroundColor: '#4e73df'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(v){
+                if (typeof v?.toLocaleString === 'function') {
+                  return v.toLocaleString(locale) + ' {{ _("ج.م") }}';
+                }
+                return v + ' {{ _("ج.م") }}';
+              }
+            }
+          }
+        }
+      }
+    });
+  })();
+</script>
+{% endblock %}

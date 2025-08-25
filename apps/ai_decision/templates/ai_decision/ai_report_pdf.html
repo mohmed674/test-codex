@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>📄 تقرير الذكاء الاصطناعي</title>
+    <style>
+        body {
+            font-family: DejaVu Sans, Arial, sans-serif;
+            direction: rtl;
+            text-align: center;
+            padding: 30px;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #eee;
+        }
+
+        .low-score {
+            background-color: #f8d7da;
+        }
+
+        .medium-score {
+            background-color: #fff3cd;
+        }
+
+        .high-score {
+            background-color: #d4edda;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            text-align: right;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        /* زر الطباعة */
+        .print-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #6c757d;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>📊 تقرير الذكاء الاصطناعي - {{ date }}</h2>
+
+    <div class="section-title">🛑 التنبيهات</div>
+    <ul>
+        {% for alert in alerts %}
+            <li>{{ alert }}</li>
+        {% empty %}
+            <li>لا توجد تنبيهات</li>
+        {% endfor %}
+    </ul>
+
+    <div class="section-title">💡 الاقتراحات</div>
+    <ul>
+        {% for suggestion in suggestions %}
+            <li>{{ suggestion }}</li>
+        {% empty %}
+            <li>لا توجد اقتراحات</li>
+        {% endfor %}
+    </ul>
+
+    <button onclick="window.print()" class="print-button">🖨 طباعة التقرير</button>
+
+</body>
+</html>

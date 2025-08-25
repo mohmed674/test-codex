@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">⚙️ إدارة لائحة الخصومات والمكافآت</h2>
+
+    <form method="post" class="shadow p-4 bg-white rounded">
+        {% csrf_token %}
+        {{ formset.management_form }}
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="width: 25%;">المفتاح (Key)</th>
+                    <th style="width: 20%;">القيمة</th>
+                    <th>الوصف</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in formset %}
+                    <tr>
+                        <td>{{ form.key }}</td>
+                        <td>{{ form.value }}</td>
+                        <td>{{ form.description }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-success px-4">💾 حفظ التعديلات</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

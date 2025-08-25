@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>إضافة مرتب</title>
+    <style>
+        body { font-family: Arial; direction: rtl; background: #f0f2f5; padding: 20px; }
+        .container { background: white; padding: 30px; max-width: 600px; margin: auto; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; margin-bottom: 25px; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        label { font-weight: bold; margin-bottom: 5px; }
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #218838; }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .alert {
+            background-color: #ffeeba;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>إضافة مرتب</h2>
+
+    <div id="alertBox" class="alert" style="display: none;"></div>
+
+    <form method="post" id="salaryForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">💾 حفظ المرتب</button>
+    </form>
+
+    <a href="{% url 'salary_list' %}" class="back-link">⬅ العودة إلى قائمة المرتبات</a>
+</div>
+
+<script>
+    document.getElementById('salaryForm').addEventListener('submit', function(e) {
+        let amountInput = document.querySelector('input[name="amount"]');
+        let amount = parseFloat(amountInput.value);
+
+        if (!amount || amount <= 0) {
+            e.preventDefault();
+            showAlert("⚠️ يجب إدخال مبلغ صالح للمرتب.");
+            return;
+        }
+
+        if (amount > 50000) {
+            let confirmHigh = confirm("💰 المبلغ كبير، هل أنت متأكد من حفظ المرتب؟");
+            if (!confirmHigh) {
+                e.preventDefault();
+                return;
+            }
+        }
+
+        let confirmSubmit = confirm("هل تريد حفظ المرتب؟");
+        if (!confirmSubmit) {
+            e.preventDefault();
+        }
+    });
+
+    function showAlert(message) {
+        const alertBox = document.getElementById("alertBox");
+        alertBox.innerText = message;
+        alertBox.style.display = "block";
+        setTimeout(() => { alertBox.style.display = "none"; }, 4000);
+    }
+</script>
+</body>
+</html>

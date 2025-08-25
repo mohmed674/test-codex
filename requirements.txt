@@ -1,0 +1,61 @@
+# ========================
+# ✅ Core Django Packages
+# ========================
+Django==4.2.7
+djangorestframework==3.14.0
+django-filter==23.5
+django-crispy-forms==2.3
+crispy-bootstrap5==2025.6
+django-cors-headers==4.7.0
+
+# ===========================
+# ✅ Database & Celery Tools
+# ===========================
+psycopg2-binary==2.9.9
+celery==5.3.5
+django-celery-beat==2.6.0
+redis==5.0.1
+
+# ========================
+# ✅ Time & Timezones
+# ========================
+pytz==2024.1
+tzdata==2025.2
+python-dateutil==2.9.0.post0
+
+# ===========================
+# ✅ Export & File Handling
+# ===========================
+openpyxl==3.1.2
+xhtml2pdf==0.2.11
+reportlab==3.6.12
+Pillow==10.3.0
+pypandoc==1.13
+
+# ======================
+# ✅ Media & Processing
+# ======================
+ffmpeg-python==0.2.0
+numpy==1.26.4
+scikit-learn==1.4.2
+pydub==0.25.1
+
+# ================================
+# ✅ Extended ERP Functionalities
+# ================================
+qrcode[pil]==7.4.2
+django-import-export==3.3.9
+tablib[html,ods,xls,xlsx,yaml]==3.5.0
+phonenumbers==8.13.34
+jsonfield==3.1.0
+
+# ======================
+# ✅ Dev & Code Quality
+# ======================
+pylint==3.3.1
+pylint-django==2.6.1
+pylint-plugin-utils==0.9.0
+astroid==3.3.4
+pyttsx3==2.90
+PyDrive==1.3.1
+python-dotenv

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>إضافة سلفة</title>
+    <style>
+        body { font-family: Arial; direction: rtl; background-color: #f7f7f7; padding: 20px; }
+        .form-container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 15px; }
+        input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; margin-top: 20px; cursor: pointer; }
+        .back-link { margin-top: 20px; display: inline-block; color: #007bff; text-decoration: none; }
+        .errorlist { color: red; font-size: 14px; margin: 0; padding: 0; list-style: none; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>إضافة سلفة</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <label>{{ field.label_tag }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
+            <button type="submit" class="btn">حفظ</button>
+        </form>
+        <a href="{% url 'advance_list' %}" class="back-link">العودة للقائمة</a>
+    </div>
+</body>
+</html>

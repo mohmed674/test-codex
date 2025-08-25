@@ -1,0 +1,30 @@
+<table class="table table-bordered table-striped text-center align-middle mt-3">
+  <thead class="table-light">
+    <tr>
+      <th>التاريخ</th>
+      <th>المُقيم</th>
+      <th>الدرجة</th>
+      <th>الملاحظات</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for eval in employee.employeeevaluation_set.all|dictsortreversed:"date" %}
+      <tr
+        {% if eval.score >= 90 %}
+          class="table-success"
+        {% elif eval.score >= 70 %}
+          class="table-warning"
+        {% else %}
+          class="table-danger"
+        {% endif %}
+      >
+        <td>{{ eval.date }}</td>
+        <td>{{ eval.evaluator_name }}</td>
+        <td>{{ eval.score }} / 100</td>
+        <td>{{ eval.notes|default:"-" }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4">لا توجد تقييمات مسجلة لهذا الموظف.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

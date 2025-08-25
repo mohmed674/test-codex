@@ -1,0 +1,192 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+{% get_current_language_bidi as BIDI %}
+
+{% block title %}{% trans "خطط AQL" %}{% endblock %}
+{% block header_title %}🧪 {% trans "خطط AQL" %}{% endblock %}
+{% block breadcrumbs %}
+  <a href="{% url 'core:launcher' %}">{% trans "التطبيقات" %}</a> /
+  <a href="{% url 'qms:home' %}">{% trans "إدارة الجودة" %}</a> /
+  {% trans "AQL" %}
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .qms-card{background:var(--erp-card);border:1px solid var(--erp-bd);border-radius:16px}
+  .qms-card .card-header{background:transparent;border-bottom:1px solid var(--erp-bd);font-weight:600}
+  .status-pill{padding:.25rem .55rem;border-radius:999px;font-weight:700;font-size:.8rem}
+  .st-on{background:#dcfce7;border:1px solid #16a34a;color:#166534}
+  .st-off{background:#e5e7eb;border:1px solid #9ca3af;color:#374151}
+  .table > :not(caption) > * > * {vertical-align:middle}
+  .legend .badge{font-weight:600}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 pb-4">
+
+  <!-- Filters -->
+  <form method="get" class="qms-card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span><i class="fa-solid fa-filter me-1"></i> {% trans "تصفية" %}</span>
+      <div class="legend d-none d-md-flex gap-2 align-items-center">
+        <span class="badge bg-light text-dark">{% trans "المستوى" %}: S1 / S2 / S3 / S4 / GI / GII / GIII</span>
+        <span class="badge bg-light text-dark">{% trans "النمط" %}: {% trans "عادي" %} / {% trans "مشدد" %} / {% trans "مخفض" %}</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row g-2 align-items-end">
+        <div class="col-12 col-md-4">
+          <label class="form-label">{% trans "بحث" %}</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="search" name="q" value="{{ request.GET.q }}" class="form-control"
+                   placeholder="{% trans 'ابحث بالاسم/المعيار/AQL…' %}" data-slash-focus>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <label class="form-label">{% trans "مرحلة الفحص" %}</label>
+          <select name="stage" class="form-select">
+            <option value="">{% trans "الكل" %}</option>
+            <option value="incoming" {% if request.GET.stage == 'incoming' %}selected{% endif %}>{% trans "فحص وارد" %}</option>
+            <option value="in_process" {% if request.GET.stage == 'in_process' %}selected{% endif %}>{% trans "فحص أثناء العملية" %}</option>
+            <option value="final" {% if request.GET.stage == 'final' %}selected{% endif %}>{% trans "فحص نهائي" %}</option>
+          </select>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <label class="form-label">{% trans "مستوى الفحص" %}</label>
+          <select name="level" class="form-select">
+            <option value="">{% trans "الكل" %}</option>
+            {% for lvl in "S1,S2,S3,S4,GI,GII,GIII".split(',') %}
+              <option value="{{ lvl }}" {% if request.GET.level == lvl %}selected{% endif %}>{{ lvl }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <label class="form-label">{% trans "نمط السحب" %}</label>
+          <select name="mode" class="form-select">
+            <option value="">{% trans "الكل" %}</option>
+            <option value="normal" {% if request.GET.mode == 'normal' %}selected{% endif %}>{% trans "عادي" %}</option>
+            <option value="tightened" {% if request.GET.mode == 'tightened' %}selected{% endif %}>{% trans "مشدد" %}</option>
+            <option value="reduced" {% if request.GET.mode == 'reduced' %}selected{% endif %}>{% trans "مخفض" %}</option>
+          </select>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <label class="form-label">{% trans "نشط؟" %}</label>
+          <select name="active" class="form-select">
+            <option value="">{% trans "الكل" %}</option>
+            <option value="1" {% if request.GET.active == '1' %}selected{% endif %}>{% trans "نعم" %}</option>
+            <option value="0" {% if request.GET.active == '0' %}selected{% endif %}>{% trans "لا" %}</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-12 d-flex gap-2 mt-2">
+          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass me-1"></i> {% trans "تطبيق" %}</button>
+          <a class="btn btn-light" href="?"><i class="fa-solid fa-rotate-left me-1"></i> {% trans "تفريغ" %}</a>
+
+          <div class="ms-auto{% if BIDI %} me-auto{% endif %}">
+            <a href="{% url 'qms:aql_plan_create' %}" class="btn btn-success">
+              <i class="fa-solid fa-plus"></i> {% trans "إنشاء خطة" %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Plans table -->
+  <div class="qms-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span><i class="fa-solid fa-table-list me-1"></i> {% trans "قائمة خطط AQL" %}</span>
+      <span class="text-muted small">{% trans "الإجمالي" %}: {{ page_obj.paginator.count|default:0 }}</span>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>{% trans "الاسم" %}</th>
+              <th class="text-center">{% trans "AQL" %}</th>
+              <th class="text-center">{% trans "المستوى" %}</th>
+              <th class="text-center">{% trans "النمط" %}</th>
+              <th>{% trans "المعيار" %}</th>
+              <th class="text-center">{% trans "مرحلة الفحص" %}</th>
+              <th class="text-center">{% trans "ساري من" %}</th>
+              <th class="text-center">{% trans "نشط" %}</th>
+              <th class="text-center">{% trans "إجراءات" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for obj in object_list %}
+            <tr>
+              <td class="fw-semibold">
+                <a href="{% url 'qms:aql_plan_detail' obj.id %}">
+                  {{ obj.name }}
+                </a>
+              </td>
+              <td class="text-center">{{ obj.aql }}</td>
+              <td class="text-center">{{ obj.level }}</td>
+              <td class="text-center">{{ obj.get_mode_display }}</td>
+              <td class="text-truncate" style="max-width:220px">{{ obj.standard }}</td>
+              <td class="text-center">{{ obj.get_stage_display }}</td>
+              <td class="text-center">{{ obj.effective_from|date:"Y-m-d" }}</td>
+              <td class="text-center">
+                {% if obj.is_active %}
+                  <span class="status-pill st-on">{% trans "نشط" %}</span>
+                {% else %}
+                  <span class="status-pill st-off">{% trans "غير نشط" %}</span>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                <div class="btn-group btn-group-sm">
+                  <a href="{% url 'qms:aql_plan_update' obj.id %}" class="btn btn-outline-primary" title="{% trans 'تعديل' %}">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <a href="{% url 'qms:aql_plan_detail' obj.id %}" class="btn btn-outline-secondary" title="{% trans 'عرض' %}">
+                    <i class="fa-solid fa-eye"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="9" class="text-center text-muted py-4">{% trans "لا توجد بيانات" %}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {% if page_obj.has_other_pages %}
+      {% with qs=request.GET.urlencode %}
+      <div class="card-footer">
+        <nav aria-label="pages">
+          <ul class="pagination justify-content-center mb-0">
+            <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if qs %}&{{ qs }}{% endif %}" aria-label="{% trans 'السابق' %}">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {% for num in page_obj.paginator.page_range %}
+              <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+                <a class="page-link" href="?page={{ num }}{% if qs %}&{{ qs }}{% endif %}">{{ num }}</a>
+              </li>
+            {% endfor %}
+            <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if qs %}&{{ qs }}{% endif %}" aria-label="{% trans 'التالي' %}">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      {% endwith %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

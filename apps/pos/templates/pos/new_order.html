@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{% trans "طلب جديد" %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">{% trans "إتمام الطلب" %}</button>
+  </form>
+</div>
+{% endblock %}

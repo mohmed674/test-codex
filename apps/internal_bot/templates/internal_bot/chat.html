@@ -1,0 +1,17 @@
+<h4>🤖 المساعد الذكي الداخلي</h4>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">إرسال</button>
+</form>
+
+{% if response %}
+<div class="alert alert-info mt-3">💬 <strong>الرد:</strong> {{ response }}</div>
+{% endif %}
+
+<hr>
+<h5>🗂️ سجل الأسئلة</h5>
+<ul>
+{% for msg in messages %}
+  <li><strong>❓</strong> {{ msg.question }}<br><strong>🤖</strong> {{ msg.answer }}</li>
+{% endfor %}
+</ul>

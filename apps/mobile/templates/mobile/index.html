@@ -1,0 +1,17 @@
+<!-- apps/mobile/templates/mobile/index.html — Normalized (Sprint 3 / Mobile PWA + REST) -->
+
+<h1>📱 Mobile Portal</h1>
+
+<nav>
+  <ul>
+    <li><a href="{% url 'mobile:index' %}">Mobile Dashboard</a></li>
+    <li><a href="{% url 'mobile:api_session' %}">API: Session</a></li>
+    <li><a href="{% url 'mobile:api_menu' %}">API: Menu</a></li>
+    <li><a href="{% url 'mobile:api_offline_sync' %}">API: Offline Sync</a></li>
+    <li><a href="{% url 'mobile:api_notifications' %}">API: Notifications</a></li>
+  </ul>
+</nav>
+
+<section>
+  <p>Mobile Module is working ✅ — PWA + REST endpoints ready.</p>
+</section>

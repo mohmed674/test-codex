@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PLM - إدارة دورة حياة المنتج</title>
+  <link rel="icon" href="{% static 'icons/icon-192x192.png' %}">
+  <link rel="stylesheet" href="{% static 'css/erp.css' %}">
+  <style>
+    body{font-family: system-ui, -apple-system, Segoe UI, Tahoma, Arial; padding:24px}
+    .wrap{max-width:1100px;margin:auto}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{border:1px solid #eee;border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);background:#fff}
+    .title{font-size:20px;margin:0 0 6px}
+    .muted{color:#555;margin:0 0 12px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid #ddd;text-decoration:none}
+    .links a{display:inline-block;margin-inline-end:8px;margin-block-start:8px}
+    code{background:#f6f6f6;padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1 style="margin-bottom:6px">إدارة دورة حياة المنتج (PLM)</h1>
+  <p class="muted">نظرة سريعة:</p>
+  <div class="grid" style="margin-bottom:18px">
+    <div class="card">
+      <h3 class="title">المنتجات</h3>
+      <p class="muted">الإجمالي: <strong>{{ products_count }}</strong></p>
+      <div class="links">
+        <a class="btn" href="{% url 'plm:products_list' %}">قائمة JSON</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="title">المراحل</h3>
+      <p class="muted">الإجمالي: <strong>{{ stages_count }}</strong></p>
+      <div class="links">
+        <a class="btn" href="{% url 'plm:stages_list' %}">قائمة JSON</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="title">المستندات</h3>
+      <p class="muted">الإجمالي: <strong>{{ docs_count }}</strong></p>
+      <div class="links">
+        <a class="btn" href="{% url 'plm:documents_list' %}">قائمة JSON</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="title">روابط سريعة</h3>
+    <div class="links">
+      <a class="btn" href="/plm/products/1/lifecycle/">Lifecycle لمنتج (ID=1)</a>
+      <a class="btn" href="/plm/documents/1/reviews/">مراجعات مستند (ID=1)</a>
+      <a class="btn" href="/">الرجوع للصفحة الرئيسية</a>
+    </div>
+    <p class="muted">للاستهلاك عبر API، استخدم هذه النقاط النهائية:
+      <code>/plm/products/</code>,
+      <code>/plm/stages/</code>,
+      <code>/plm/products/&lt;id&gt;/lifecycle/</code>,
+      <code>/plm/documents/</code>,
+      <code>/plm/documents/&lt;id&gt;/reviews/</code>.
+    </p>
+  </div>
+</div>
+</body>
+</html>

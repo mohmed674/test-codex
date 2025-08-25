@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تحليل مبيعات المنتجات بالذكاء الاصطناعي</title>
+    
+</head>
+<body class="container mt-4">
+
+    <h2 class="text-center mb-4">📊 تقرير تحليل المبيعات الذكي</h2>
+
+    <form method="get" class="mb-3 text-center">
+        <label for="mode">فترة التحليل:</label>
+        <select name="mode" onchange="this.form.submit()" class="form-select d-inline w-auto">
+            <option value="daily" {% if mode == 'daily' %}selected{% endif %}>يومي</option>
+            <option value="weekly" {% if mode == 'weekly' %}selected{% endif %}>أسبوعي</option>
+            <option value="monthly" {% if mode == 'monthly' %}selected{% endif %}>شهري</option>
+        </select>
+    </form>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>📌 النوع</th>
+                <th>الرسالة</th>
+                <th>المستوى</th>
+                <th>الوقت</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alert in alerts %}
+            <tr>
+                <td>{{ alert.alert_type }}</td>
+                <td>{{ alert.message }}</td>
+                <td class="text-center">
+                    {% if alert.level == 'warning' %}
+                        <span class="badge bg-warning text-dark">تحذير</span>
+                    {% elif alert.level == 'danger' %}
+                        <span class="badge bg-danger">خطر</span>
+                    {% else %}
+                        <span class="badge bg-info">معلومة</span>
+                    {% endif %}
+                </td>
+                <td>{{ alert.created_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">لا توجد بيانات لهذه الفترة</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="?mode={{ mode }}&download_pdf=1" class="btn btn-danger">📄 تصدير PDF</a>
+        <a href="?mode={{ mode }}&export=1" class="btn btn-success">📊 تصدير Excel</a>
+    </div>
+
+    <!-- زر الطباعة -->
+    <div class="text-center mt-3">
+        <button onclick="window.print()" class="btn btn-secondary">🖨 طباعة</button>
+    </div>
+
+</body>
+</html>

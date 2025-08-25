@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">✏️ تعديل القسم</h2>
+
+    <form method="post" class="bg-light p-4 rounded shadow-sm border">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="text-danger small">{{ form.name.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div class="text-danger small">{{ form.description.errors }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">💾 تحديث</button>
+        <a href="{% url 'department_list' %}" class="btn btn-secondary">⬅️ رجوع</a>
+    </form>
+</div>
+{% endblock %}

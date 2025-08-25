@@ -1,0 +1,37 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+{% block title %}{{ title|default:_("نموذج") }}{% endblock %}
+{% block page_title %}{{ title|default:_("نموذج") }}{% endblock %}
+{% block content %}
+<div class="container py-3">
+  {% include "core/partials/_messages.html" %}
+  <div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0 fw-bold">{{ title|default:_("نموذج") }}</h5>
+      <a href="{{ back_url|default:'#' }}" class="btn btn-outline-secondary btn-sm">{% trans "رجوع" %}</a>
+    </div>
+    <div class="card-body">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <div class="row g-3">
+          {% for field in form %}
+            <div class="col-md-6">
+              <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+              {% for e in field.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+        <div class="d-flex justify-content-end gap-2 mt-3">
+          <a href="{{ back_url|default:'#' }}" class="btn btn-outline-secondary">{% trans "إلغاء" %}</a>
+          <button class="btn btn-primary" type="submit">{{ submit_label|default:_("حفظ") }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

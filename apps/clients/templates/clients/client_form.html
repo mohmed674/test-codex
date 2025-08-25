@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4" dir="rtl">
+  <h3 class="mb-4">🧾 إضافة / تعديل عميل</h3>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-end" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close float-start" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="mb-3">
+        <label class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger small">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">💾 حفظ</button>
+    <a href="{% url 'client_list' %}" class="btn btn-secondary">🔙 رجوع</a>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const phoneField = document.querySelector('input[name="phone"]');
+    if (phoneField) {
+      phoneField.addEventListener('blur', function () {
+        const value = phoneField.value.trim();
+        if (!/^01[0125][0-9]{8}$/.test(value)) {
+          const warning = document.createElement('div');
+          warning.className = 'alert alert-warning mt-3';
+          warning.innerHTML = '⚠️ رقم الهاتف غير متوافق مع تنسيق مصر. مثال: 01012345678';
+          phoneField.parentNode.appendChild(warning);
+          phoneField.focus();
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

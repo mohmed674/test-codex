@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4" dir="rtl">
+  <h3 class="mb-4">📊 تحليل نشاط العملاء</h3>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="alert alert-success">
+        🟢 عدد العملاء النشطين: <strong>{{ active_clients }}</strong>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="alert alert-danger">
+        🔴 عدد العملاء غير النشطين: <strong>{{ inactive_clients }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped text-end">
+    <thead>
+      <tr>
+        <th>الاسم</th>
+        <th>الهاتف</th>
+        <th>النقاط</th>
+        <th>آخر شراء</th>
+        <th>الحالة</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for client in clients %}
+        <tr class="{% if not client.is_active %}table-danger{% endif %}">
+          <td>{{ client.name }}</td>
+          <td>{{ client.phone }}</td>
+          <td>{{ client.points }}</td>
+          <td>{{ client.last_purchase_date|date:"Y-m-d"|default:"—" }}</td>
+          <td>
+            {% if client.is_active %}
+              <span class="badge bg-success">🟢 نشط</span>
+            {% else %}
+              <span class="badge bg-danger">🔴 غير نشط</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

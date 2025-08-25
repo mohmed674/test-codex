@@ -1,0 +1,19 @@
+<!-- apps/banking/templates/banking/account_list.html -->
+<h1>🏧 Accounts</h1>
+<p><a href="{% url 'banking:account_create' %}">+ Add Account</a></p>
+<table>
+  <thead><tr><th>Name</th><th>Provider</th><th>Number</th><th>Currency</th><th></th></tr></thead>
+  <tbody>
+  {% for a in accounts %}
+    <tr>
+      <td>{{ a.name }}</td>
+      <td>{{ a.provider.name }}</td>
+      <td>{{ a.account_number }}</td>
+      <td>{{ a.currency }}</td>
+      <td><a href="{% url 'banking:account_detail' a.pk %}">View</a></td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="5">No accounts.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>

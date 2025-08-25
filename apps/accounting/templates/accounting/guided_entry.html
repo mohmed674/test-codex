@@ -1,0 +1,50 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\guided_entry.html -->
+{% extends 'core/base.html' %}
+{% load static %}
+{% load form_filters %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="text-center mb-4">🧠 إدخال محاسبي موجه بالذكاء الاصطناعي</h3>
+
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} text-center" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      
+      <div class="mb-3">
+        <label class="form-label">الوصف التفصيلي</label>
+        {{ form.description|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">المبلغ</label>
+        {{ form.amount|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">نوع المعاملة</label>
+        <select name="transaction_type" class="form-select" required>
+          <option value="" disabled selected>-- اختر نوع المعاملة --</option>
+          <option value="شراء خامات">شراء خامات</option>
+          <option value="بيع منتج">بيع منتج</option>
+          <option value="دفع رواتب">دفع رواتب</option>
+          <option value="هالك إنتاج">هالك إنتاج</option>
+        </select>
+      </div>
+
+      <div class="text-end">
+        <button type="submit" class="btn btn-success w-100">💾 تسجيل القيد بالذكاء الاصطناعي</button>
+      </div>
+    </form>
+
+    <button onclick="window.print()" class="btn btn-secondary mt-3">🖨 طباعة</button>
+  </div>
+</div>
+{% endblock %}
+

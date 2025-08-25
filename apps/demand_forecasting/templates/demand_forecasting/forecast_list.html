@@ -1,0 +1,14 @@
+<h4>📊 تنبؤات الطلب المستقبلية</h4>
+<a href="{% url 'demand_forecasting:forecast_generate' %}" class="btn btn-primary mb-3">➕ توليد تنبؤ جديد</a>
+
+<table class="table table-bordered">
+<tr><th>المنتج</th><th>الشهر</th><th>الكمية المتوقعة</th><th>تاريخ التوليد</th></tr>
+{% for f in forecasts %}
+<tr>
+  <td>{{ f.product.name }}</td>
+  <td>{{ f.forecast_month|date:"Y-m" }}</td>
+  <td>{{ f.predicted_quantity }}</td>
+  <td>{{ f.created_at|date:"Y-m-d" }}</td>
+</tr>
+{% endfor %}
+</table>

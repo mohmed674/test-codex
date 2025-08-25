@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-danger">⚠️ تأكيد حذف القسم</h2>
+
+    <div class="alert alert-warning p-4 border rounded shadow-sm">
+        <p class="mb-3">هل أنت متأكد أنك تريد حذف القسم: <strong>{{ department.name }}</strong>؟</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">🗑️ حذف نهائي</button>
+            <a href="{% url 'department_list' %}" class="btn btn-secondary">⬅️ إلغاء</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

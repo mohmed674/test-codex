@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>سجل الانضباط</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            direction: rtl;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        .filters input, .filters select {
+            padding: 6px;
+        }
+        .btn {
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .btn-blue {
+            background-color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            background-color: #fff;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
+        }
+        .no-data {
+            text-align: center;
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h2>سجل الانضباط</h2>
+
+    <form method="get" class="filters">
+        <input type="text" name="name" placeholder="اسم الموظف" value="{{ request.GET.name }}">
+        <input type="date" name="date_from" value="{{ request.GET.date_from }}">
+        <input type="date" name="date_to" value="{{ request.GET.date_to }}">
+        <select name="action_type">
+            <option value="">نوع الإجراء</option>
+            <option value="خصم" {% if request.GET.action_type == 'خصم' %}selected{% endif %}>خصم</option>
+            <option value="مكافأة" {% if request.GET.action_type == 'مكافأة' %}selected{% endif %}>مكافأة</option>
+            <option value="إنذار" {% if request.GET.action_type == 'إنذار' %}selected{% endif %}>إنذار</option>
+        </select>
+        <button type="submit">فلترة</button>
+        <a href="?name={{ request.GET.name }}&date_from={{ request.GET.date_from }}&date_to={{ request.GET.date_to }}&action_type={{ request.GET.action_type }}&export=1" class="btn">تصدير Excel</a>
+        <a href="?name={{ request.GET.name }}&date_from={{ request.GET.date_from }}&date_to={{ request.GET.date_to }}&action_type={{ request.GET.action_type }}&download_pdf=1" class="btn btn-blue">تحميل PDF</a>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>الموظف</th>
+                <th>نوع الإجراء</th>
+                <th>القيمة</th>
+                <th>السبب</th>
+                <th>أنشئ بواسطة</th>
+                <th>التاريخ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.employee.name }}</td>
+                <td>{{ record.type }}</td>
+                <td>{{ record.value|default:"-" }}</td>
+                <td>{{ record.reason }}</td>
+                <td>{{ record.created_by }}</td>
+                <td>{{ record.date }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="no-data">لا توجد سجلات</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

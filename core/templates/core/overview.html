@@ -1,0 +1,144 @@
+{# D:\ERP_CORE\core\templates\core\overview.html #}
+{% extends "core/base.html" %}
+{% load static i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}{% if LANGUAGE_BIDI %}نظرة عامة{% else %}Overview{% endif %}{% endblock %}
+
+{% block extra_head %}
+<style>
+  .apps-header{gap:.75rem}
+  .app-search{max-width:360px}
+  .odoo-apps-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:18px; align-items:stretch;
+  }
+  .app-card{
+    display:flex; align-items:center; gap:12px;
+    padding:14px 16px; min-height:64px;
+    border-radius:12px; border:1px solid var(--erp-bd);
+    background:var(--erp-card); color:var(--erp-text); text-decoration:none;
+    box-shadow:0 2px 6px rgba(0,0,0,.06);
+    transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  }
+  .app-card:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,.10)}
+  .app-card[aria-disabled="true"]{pointer-events:none; opacity:.55}
+  .odoo-app-title{font-weight:700}
+  .odoo-app-icon img{width:40px; height:40px; object-fit:contain; display:block; border-radius:6px}
+  .kpi{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:.75rem 1rem; min-width:160px}
+  .kpi .l{opacity:.7;font-size:.9rem}
+  .kpi .v{font-weight:800;font-size:1.2rem;margin-top:.2rem}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="odoo-choose-bg py-4">
+  <div class="odoo-container" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr' }}">
+
+    <!-- العنوان + البحث (على الطرف) -->
+    <div class="d-flex align-items-center apps-header mb-3">
+      <h2 class="fw-bold m-0">{% if LANGUAGE_BIDI %}نظرة عامة{% else %}Overview{% endif %}</h2>
+      <div class="ms-auto app-search">
+        <div class="input-group input-group-sm">
+          <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input id="appFilter" type="search" class="form-control form-control-sm"
+                 placeholder="{% if LANGUAGE_BIDI %}ابحث عن تطبيق…{% else %}Search apps…{% endif %}"
+                 aria-label="{% if LANGUAGE_BIDI %}بحث عن تطبيق{% else %}Search apps{% endif %}">
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <div class="kpi"><div class="l">{% if LANGUAGE_BIDI %}إجمالي المبيعات{% else %}Total Sales{% endif %}</div><div class="v">{{ kpis.total_sales|default:"0" }}</div></div>
+      <div class="kpi"><div class="l">{% if LANGUAGE_BIDI %}المعاملات النقدية{% else %}Cash Txns{% endif %}</div><div class="v">{{ kpis.total_transactions|default:"0" }}</div></div>
+      <div class="kpi"><div class="l">{% if LANGUAGE_BIDI %}المنتجات{% else %}Products{% endif %}</div><div class="v">{{ kpis.total_products|default:"0" }}</div></div>
+      <div class="kpi"><div class="l">{% if LANGUAGE_BIDI %}العملاء{% else %}Customers{% endif %}</div><div class="v">{{ kpis.total_clients|default:"0" }}</div></div>
+      <div class="kpi"><div class="l">{% if LANGUAGE_BIDI %}الموظفون{% else %}Employees{% endif %}</div><div class="v">{{ kpis.total_employees|default:"0" }}</div></div>
+    </div>
+
+    <!-- التطبيقات -->
+    {% if apps %}
+      <div id="appsGrid" class="odoo-apps-grid">
+        {% for app in apps %}
+          <a href="{{ app.url }}" class="app-card"
+             data-name="{{ app.name|lower }}"
+             {% if app.disabled %}aria-disabled="true" tabindex="-1"{% endif %}>
+            <span class="odoo-app-icon" aria-hidden="true">
+              <img class="app-ico" alt="" data-src="{{ app.icon_url }}">
+            </span>
+            <span class="odoo-app-title">{{ app.name }}</span>
+          </a>
+        {% endfor %}
+      </div>
+      <p class="text-center text-muted mt-3">
+        {% if LANGUAGE_BIDI %}عدد التطبيقات: <span id="appsCount">{{ apps_count|default:apps|length }}</span>{% else %}Apps: <span id="appsCount">{{ apps_count|default:apps|length }}</span>{% endif %}
+      </p>
+    {% else %}
+      <p class="text-center text-muted mt-4">
+        {% if LANGUAGE_BIDI %}لا توجد تطبيقات متاحة حالياً.{% else %}No apps discovered yet.{% endif %}
+      </p>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
+
+{# === Data via json_script (آمن بدون أقواس داخل JS) === #}
+{% static 'icons/3d/3dicons-moon-dynamic-color.png' as FB_ICON %}
+{{ apps|json_script:"o-apps" }}
+{{ LANGUAGE_BIDI|json_script:"o-rtl" }}
+{{ FB_ICON|json_script:"o-fallback" }}
+
+{% block extra_js %}
+<script>
+(function(){
+  // قراءة البيانات بأمان
+  var oApps     = JSON.parse(document.getElementById('o-apps').textContent || '[]');
+  var oFallback = JSON.parse(document.getElementById('o-fallback').textContent || '""');
+
+  var grid   = document.getElementById('appsGrid');
+  var input  = document.getElementById('appFilter');
+  var count  = document.getElementById('appsCount');
+  if(!grid) return;
+
+  // ضبط صور الأيقونات بـ data-src + fallback بدون onerror داخل الـHTML
+  grid.querySelectorAll('img.app-ico').forEach(function(img, idx){
+    var src = img.getAttribute('data-src') || ((oApps[idx] && oApps[idx].icon_url) || '');
+    img.addEventListener('error', function(){ this.src = oFallback; }, {once:false});
+    if(src) img.src = src; else img.src = oFallback;
+  });
+
+  // فلترة فورية
+  function normalize(t){
+    return (t||'').toLowerCase()
+      .replace(/\u0640/g,'')            // tatweel
+      .replace(/[\u064B-\u0652]/g,'')   // diacritics
+      .replace(/\s+/g,' ')
+      .trim();
+  }
+  function applyFilter(q){
+    var term = normalize(q);
+    var shown = 0;
+    grid.querySelectorAll('.app-card').forEach(function(card){
+      var name = normalize(card.getAttribute('data-name') || '');
+      var show = !term || name.indexOf(term) !== -1;
+      card.style.display = show ? '' : 'none';
+      if(show) shown++;
+    });
+    if(count) count.textContent = String(shown);
+  }
+  if(input){
+    input.addEventListener('input', function(e){ applyFilter(e.target.value); });
+  }
+  window.addEventListener('keydown', function(e){
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if(e.key === '/' && !/input|textarea|select/i.test(tag)){
+      e.preventDefault(); if(input){ input.focus(); }
+    }
+  });
+
+  applyFilter('');
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,14 @@
+<h4>💸 سجل المصاريف</h4>
+<a href="{% url 'expenses:expense_create' %}" class="btn btn-success mb-3">➕ إضافة مصروف</a>
+<table class="table table-bordered">
+<tr><th>العنوان</th><th>الفئة</th><th>المبلغ</th><th>التاريخ</th><th>ملاحظات</th></tr>
+{% for e in expenses %}
+<tr>
+  <td>{{ e.title }}</td>
+  <td>{{ e.get_category_display }}</td>
+  <td>{{ e.amount }}</td>
+  <td>{{ e.date }}</td>
+  <td>{{ e.notes }}</td>
+</tr>
+{% endfor %}
+</table>

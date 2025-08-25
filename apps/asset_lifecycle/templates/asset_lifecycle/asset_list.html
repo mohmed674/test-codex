@@ -1,0 +1,13 @@
+<h4>🏢 الأصول المملوكة</h4>
+<a href="{% url 'asset_lifecycle:asset_create' %}" class="btn btn-primary mb-3">➕ أصل جديد</a>
+<table class="table table-bordered">
+<tr><th>الاسم</th><th>السيريال</th><th>الحالة</th><th>القيمة الحالية</th></tr>
+{% for a in assets %}
+<tr>
+  <td>{{ a.name }}</td>
+  <td>{{ a.serial_number }}</td>
+  <td>{{ a.get_status_display }}</td>
+  <td>{{ a.current_value }}</td>
+</tr>
+{% endfor %}
+</table>

@@ -1,0 +1,7 @@
+{% extends "core/base.html" %}
+{% block title %}{{ model_name }} - تفاصيل{% endblock %}
+{% block content %}
+<h2>تفاصيل {{ model_name }}</h2>
+<pre style="white-space:pre-wrap">{{ object }}</pre>
+<a class="button" href="javascript:history.back()">عودة</a>
+{% endblock %}

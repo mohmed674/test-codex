@@ -1,0 +1,13 @@
+<!-- apps/banking/templates/banking/recon_detail.html -->
+<h1>Reconciliation — {{ batch.account.name }}</h1>
+<ul>
+  <li>Provider: {{ batch.provider.name }}</li>
+  <li>Period: {{ batch.period_start|date:"Y-m-d" }} → {{ batch.period_end|date:"Y-m-d" }}</li>
+  <li>Status: {{ batch.status }}</li>
+  <li>Matched: {{ batch.matched_count }} — Unmatched: {{ batch.unmatched_count }}</li>
+</ul>
+<p>
+  <a href="{% url 'banking:recon_match' batch.pk %}">Mark as Matched</a> |
+  <a href="{% url 'banking:recon_close' batch.pk %}">Close</a> |
+  <a href="{% url 'banking:recon_list' %}">Back</a>
+</p>

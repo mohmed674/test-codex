@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>قائمة المرتبات</title>
+    <style>
+        body { font-family: Arial; direction: rtl; background-color: #f4f4f4; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #eee; }
+        .btn { padding: 8px 12px; text-decoration: none; background-color: #28a745; color: white; border-radius: 4px; }
+        .filters { margin: 15px 0; }
+        .filters input, .filters select { padding: 6px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h2>قائمة المرتبات</h2>
+
+    <div class="filters">
+        <form method="get">
+            <input type="text" name="name" placeholder="اسم الموظف" value="{{ request.GET.name }}">
+            <select name="month">
+                <option value="">الشهر</option>
+                {% for m in 1|to:12 %}
+                    <option value="{{ m }}" {% if request.GET.month == m|stringformat:"s" %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+            </select>
+            <select name="year">
+                <option value="">السنة</option>
+                {% for y in year_range %}
+                    <option value="{{ y }}" {% if request.GET.year == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">فلترة</button>
+            <a href="?export=1" class="btn">تصدير Excel</a>
+            <a href="?download_pdf=1" class="btn" style="background:#007bff;">تحميل PDF</a>
+            <a href="{% url 'add_salary' %}" class="btn" style="background:#17a2b8;">إضافة راتب</a>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>اسم الموظف</th>
+                <th>الشهر/السنة</th>
+                <th>المرتب الأساسي</th>
+                <th>الحوافز</th>
+                <th>الخصومات</th>
+                <th>صافي المرتب</th>
+                <th>💾 بيان PDF</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for salary in salaries %}
+            <tr>
+                <td>{{ salary.employee.name }}</td>
+                <td>{{ salary.month }}/{{ salary.year }}</td>
+                <td>{{ salary.base_salary }}</td>
+                <td>{{ salary.production_bonus }}</td>
+                <td>{{ salary.deductions }}</td>
+                <td>{{ salary.final_salary }}</td>
+                <td>
+                    <a href="{{ MEDIA_URL }}salaries/SAL-{{ salary.created_at|date:'Ymd' }}-{{ salary.id|stringformat:'03d' }}.pdf" target="_blank" class="btn" style="background:#6c757d;">
+                        تحميل
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7">لا توجد بيانات</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

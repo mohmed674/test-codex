@@ -1,0 +1,5 @@
+<h4>🔮 توليد تنبؤ جديد بالطلب</h4>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">توليد التنبؤ</button>
+</form>

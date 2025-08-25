@@ -1,0 +1,29 @@
+<table class="table table-bordered table-hover text-center align-middle mt-3">
+  <thead class="table-light">
+    <tr>
+      <th>التاريخ</th>
+      <th>المرحلة</th>
+      <th>عدد القطع</th>
+      <th>أجر القطعة</th>
+      <th>الإجمالي</th>
+      <th>ملاحظات</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for prod in employee.productionlog_set.all|dictsortreversed:"date" %}
+      <tr {% if prod.quantity >= 100 %}class="table-success"{% endif %}>
+        <td>{{ prod.date }}</td>
+        <td>{{ prod.stage }}</td>
+        <td>{{ prod.quantity }}</td>
+        <td>{{ prod.unit_wage }} ج.م</td>
+        <td>
+          {{ prod.quantity|floatformat:0 }} × {{ prod.unit_wage|floatformat:2 }} = 
+          {{ prod.quantity|floatformat:0|add:"0"|floatformat }} * {{ prod.unit_wage|floatformat:2 }} ج.م
+        </td>
+        <td>{{ prod.notes|default:"-" }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6">لا يوجد سجلات إنتاج لهذا الموظف.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

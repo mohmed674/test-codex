@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card p-4 shadow rounded-4">
+    <h3 class="mb-3">📊 تقارير تقييم الموظفين</h3>
+
+    <div class="mb-3">
+      <a href="?download_pdf=1" class="btn btn-danger">📄 PDF</a>
+      <a href="?export=1" class="btn btn-success">📤 Excel</a>
+      <a href="{% url 'evaluation:add' %}" class="btn btn-primary">➕ تقييم جديد</a>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>الموظف</th>
+            <th>التاريخ</th>
+            <th>الانضباط</th>
+            <th>الإنتاج</th>
+            <th>السلوك</th>
+            <th>النهائي</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in evaluations %}
+          <tr>
+            <td>{{ e.employee.name }}</td>
+            <td>{{ e.date }}</td>
+            <td>{{ e.attendance_score }}</td>
+            <td>{{ e.productivity_score }}</td>
+            <td>{{ e.behavior_score }}</td>
+            <td><strong>{{ e.final_score }}</strong></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="text-danger">لا توجد تقييمات.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

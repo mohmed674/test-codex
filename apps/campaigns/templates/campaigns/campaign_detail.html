@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>تفاصيل الحملة: {{ campaign.name }}</h2>
+<p><strong>الوسيلة:</strong> {{ campaign.get_channel_display }}</p>
+<p><strong>المحتوى:</strong><br>{{ campaign.content }}</p>
+<p><strong>تاريخ الإرسال:</strong> {{ campaign.scheduled_date }}</p>
+<p><strong>تم الإرسال؟</strong> {% if campaign.is_sent %}نعم{% else %}لا{% endif %}</p>
+
+<hr>
+<h4>العملاء المستهدفون</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>العميل</th>
+      <th>تم التوصيل؟</th>
+      <th>الرد</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for target in targets %}
+    <tr>
+      <td>{{ target.client }}</td>
+      <td>{% if target.is_delivered %}✔️{% else %}❌{% endif %}</td>
+      <td>{{ target.response|default:"-" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,43 @@
+<table class="table table-bordered table-hover text-center align-middle mt-3">
+  <thead class="table-light">
+    <tr>
+      <th>التاريخ</th>
+      <th>النوع</th>
+      <th>القيمة</th>
+      <th>السبب / الملاحظة</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for record in employee.disciplinerecord_set.all|dictsortreversed:"date" %}
+      <tr
+        {% if record.action_type == 'deduction' %}
+          class="table-danger"
+        {% elif record.action_type == 'reward' %}
+          class="table-success"
+        {% elif record.action_type == 'warning' %}
+          class="table-warning"
+        {% elif record.action_type == 'penalty' %}
+          class="table-secondary"
+        {% endif %}
+      >
+        <td>{{ record.date }}</td>
+        <td>
+          {% if record.action_type == 'deduction' %}🔴 خصم{% endif %}
+          {% if record.action_type == 'reward' %}🟢 مكافأة{% endif %}
+          {% if record.action_type == 'warning' %}🟡 تنبيه{% endif %}
+          {% if record.action_type == 'penalty' %}⚠️ جزاء{% endif %}
+        </td>
+        <td>
+          {% if record.amount %}
+            {{ record.amount }} ج.م
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>{{ record.notes|default:"-" }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4">لا يوجد سجلات انضباط مسجلة.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

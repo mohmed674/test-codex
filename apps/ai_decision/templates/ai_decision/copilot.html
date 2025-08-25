@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "مساعد ERP الذكي" %}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/copilot.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/htmx.org@1.9.2"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="copilot-container">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="m-0">🤖 {% trans "مساعد ERP الذكي" %}</h2>
+    <button type="button" id="localThemeToggle" class="btn btn-dark btn-sm">
+      🌙/☀️ {% trans "تبديل الوضع" %}
+    </button>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-cards">
+    <div class="kpi-card">
+      <h3>{% trans "إجمالي مبيعات الشهر" %}</h3>
+      <p>{{ total_sales|floatformat:2 }} {% trans "جنيه" %}</p>
+    </div>
+    <div class="kpi-card">
+      <h3>{% trans "أعلى منتجات" %}</h3>
+      <ul>
+        {% for item in top_products %}
+          <li>{{ item.product__name }} - {{ item.qty }} {% trans "وحدة" %}</li>
+        {% empty %}
+          <li class="text-muted">{% trans "لا توجد بيانات" %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="kpi-card">
+      <h3>{% trans "موردون متأخرون" %}</h3>
+      <ul>
+        {% for sup in delayed_suppliers %}
+          <li>{{ sup.supplier__name }} - {{ sup.delays }} {% trans "مرة" %}</li>
+        {% empty %}
+          <li class="text-muted">{% trans "لا يوجد تأخير حالياً" %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Chart -->
+  <div class="chart-container">
+    <canvas id="salesChart" aria-label="{% trans 'مخطط المبيعات الشهري' %}" role="img"></canvas>
+  </div>
+
+  <!-- Quick suggestions -->
+  <div class="suggestions">
+    <button hx-get="{% url 'copilot_query' %}?query=مبيعات الأسبوع" hx-target="#response">{% trans "مبيعات الأسبوع" %}</button>
+    <button hx-get="{% url 'copilot_query' %}?query=أكثر المنتجات مبيعاً" hx-target="#response">{% trans "المنتجات الأعلى مبيعاً" %}</button>
+    <button hx-get="{% url 'copilot_query' %}?query=موردين متأخرين" hx-target="#response">{% trans "موردون متأخرون" %}</button>
+  </div>
+
+  <!-- Query form -->
+  <form hx-get="{% url 'copilot_query' %}" hx-target="#response" class="query-form" role="search" aria-label="{% trans 'اسأل المساعد' %}">
+    <input type="text" name="query" placeholder="{% trans 'اكتب سؤالك هنا...' %}" required aria-required="true">
+    <button type="submit">{% trans "أرسل" %}</button>
+  </form>
+
+  <!-- Responses -->
+  <div id="response" class="response-box" aria-live="polite"></div>
+  <div id="chat-box" class="response-box mt-3"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/copilot_chat.js' %}"></script>
+<script src="{% static 'js/copilot_voice.js' %}"></script>
+<script>
+  (function(){
+    var el = document.getElementById('salesChart');
+    if(!el) return;
+    var ctx = el.getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['{% trans "يناير" %}', '{% trans "فبراير" %}', '{% trans "مارس" %}', '{% trans "أبريل" %}'],
+        datasets: [{
+          label: '{% trans "المبيعات الشهرية" %}',
+          data: [120000, 150000, 180000, 210000]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+          title: { display: true, text: '{% trans "مخطط مبيعات شهري" %}' }
+        },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  })();
+
+  (function(){
+    var localBtn = document.getElementById('localThemeToggle');
+    if(!localBtn) return;
+    localBtn.addEventListener('click', function(){
+      var globalBtn = document.getElementById('themeToggle');
+      if (globalBtn) { globalBtn.click(); return; }
+      var cur = document.documentElement.getAttribute('data-theme') || 'light';
+      var next = cur === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('erp_theme', next); } catch(e){}
+    });
+  })();
+</script>
+{% endblock %}

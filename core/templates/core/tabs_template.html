@@ -1,0 +1,172 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "تفاصيل العنصر" %}{% endblock %}
+
+{% block extra_head %}
+<style>
+  .tabs-wrap{position:relative}
+  .tabs-toolbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+  .nav-tabs .nav-link{border-radius:.75rem .75rem 0 0}
+  .tab-pane{background:#fff;border:1px solid #e5e7eb;border-top:0;border-radius:0 0 .75rem .75rem;padding:1rem}
+  [data-theme="dark"] .tab-pane{background:#0f141a;border-color:#1f2937}
+  .badge-soft{background:rgba(0,0,0,.06);color:inherit}
+  [data-theme="dark"] .badge-soft{background:rgba(255,255,255,.08)}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="odoo-choose-bg py-4">
+  <div class="odoo-container">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="fw-bold m-0">{% trans "تفاصيل المنتج / الموظف" %}</h2>
+      <div class="tabs-toolbar">
+        <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil-square"></i> {% trans "تعديل" %}</a>
+        <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-printer"></i> {% trans "طباعة" %}</a>
+        <a href="#" class="btn btn-sm btn-outline-success"><i class="bi bi-download"></i> {% trans "تصدير" %}</a>
+      </div>
+    </div>
+
+    <div class="tabs-wrap">
+      <ul class="nav nav-tabs" id="erpTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">
+            <i class="bi bi-info-circle"></i> {% trans "البيانات العامة" %}
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="finance-tab" data-bs-toggle="tab" data-bs-target="#finance" type="button" role="tab" aria-controls="finance" aria-selected="false">
+            <i class="bi bi-cash-stack"></i> {% trans "البيانات المالية" %}
+            <span class="badge rounded-pill ms-2 badge-soft">{{ finance_count|default:0 }}</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="docs-tab" data-bs-toggle="tab" data-bs-target="#docs" type="button" role="tab" aria-controls="docs" aria-selected="false">
+            <i class="bi bi-folder2-open"></i> {% trans "المستندات" %}
+            <span class="badge rounded-pill ms-2 badge-soft">{{ docs_count|default:0 }}</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="erpTabsContent">
+        <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab" tabindex="0">
+          {% block tab_general %}
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h6 class="text-muted mb-2">{% trans "معلومات أساسية" %}</h6>
+                  <div class="row">
+                    <div class="col-6 small text-muted">{% trans "الاسم" %}</div>
+                    <div class="col-6 fw-semibold">{{ object.name|default:"—" }}</div>
+                    <div class="col-6 small text-muted mt-2">{% trans "النوع" %}</div>
+                    <div class="col-6 fw-semibold mt-2">{{ object.category|default:"—" }}</div>
+                    <div class="col-6 small text-muted mt-2">{% trans "الحالة" %}</div>
+                    <div class="col-6 fw-semibold mt-2">{{ object.status|default:"—" }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h6 class="text-muted mb-2">{% trans "ملاحظات" %}</h6>
+                  <p class="m-0">{{ object.notes|default:_("لا توجد ملاحظات") }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endblock %}
+        </div>
+
+        <div class="tab-pane fade" id="finance" role="tabpanel" aria-labelledby="finance-tab" tabindex="0">
+          {% block tab_finance %}
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>{% trans "البند" %}</th>
+                  <th>{% trans "القيمة" %}</th>
+                  <th>{% trans "العملة" %}</th>
+                  <th>{% trans "ملاحظات" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in finance_rows %}
+                <tr>
+                  <td>{{ row.label }}</td>
+                  <td>{{ row.amount }}</td>
+                  <td>{{ row.currency|default:"EGP" }}</td>
+                  <td>{{ row.note|default:"" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4" class="text-center text-muted">{% trans "لا توجد بيانات مالية" %}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endblock %}
+        </div>
+
+        <div class="tab-pane fade" id="docs" role="tabpanel" aria-labelledby="docs-tab" tabindex="0">
+          {% block tab_docs %}
+          <div class="row g-3">
+            {% for doc in docs %}
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                  <div>
+                    <div class="fw-semibold">{{ doc.title }}</div>
+                    <div class="small text-muted">{{ doc.updated_at }}</div>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <a href="{{ doc.url }}" class="btn btn-sm btn-outline-primary">{% trans "عرض" %}</a>
+                    <a href="{{ doc.download_url|default:doc.url }}" class="btn btn-sm btn-outline-success">{% trans "تحميل" %}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">{% trans "لا توجد مستندات" %}</div>
+            {% endfor %}
+          </div>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function(){
+  const tabs = document.querySelector('#erpTabs');
+  if(!tabs) return;
+
+  const key = 'tabs.active.' + (location.pathname || 'root');
+
+  function activateFromHash(){
+    const hash = location.hash && document.querySelector(`button[data-bs-target="${location.hash}"]`);
+    const saved = !hash && localStorage.getItem(key);
+    const target = hash || saved;
+    if(target){
+      const btn = document.querySelector(`button[data-bs-target="${target}"]`);
+      if(btn){ new bootstrap.Tab(btn).show(); }
+    }
+  }
+
+  tabs.addEventListener('shown.bs.tab', function (e) {
+    const sel = e.target.getAttribute('data-bs-target');
+    if(sel){
+      history.replaceState(null, '', sel);
+      try{ localStorage.setItem(key, sel); }catch(_){}
+    }
+  });
+
+  activateFromHash();
+})();
+</script>
+{% endblock %}

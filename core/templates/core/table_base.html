@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+{% block title %}{{ title|default:_("قائمة") }}{% endblock %}
+{% block page_title %}{{ title|default:_("قائمة") }}{% endblock %}
+
+{% block page_toolbar %}
+  {% block toolbar %}
+    {# مثال زر إضافة #}
+    {% if create_url %}
+      <a href="{{ create_url }}" class="btn btn-success">
+        <i class="fa-solid fa-plus"></i> {{ create_label|default:_("إضافة") }}
+      </a>
+    {% endif %}
+  {% endblock %}
+{% endblock %}
+
+{% block content %}
+<div class="container py-3">
+  {% include "core/partials/_messages.html" %}
+  <div class="card shadow-sm">
+    <div class="card-body table-responsive density-normal">
+      <table class="table table-hover align-middle sticky-head">
+        <thead>
+          {% block table_head %}
+            <tr><th>{% trans "العمود" %}</th></tr>
+          {% endblock %}
+        </thead>
+        <tbody>
+          {% block table_body %}
+            <tr><td>-</td></tr>
+          {% endblock %}
+        </tbody>
+      </table>
+      {% include "core/partials/_pagination.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}

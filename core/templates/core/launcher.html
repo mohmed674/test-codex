@@ -1,0 +1,163 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}{% if LANGUAGE_BIDI %}التطبيقات{% else %}Applications{% endif %}{% endblock %}
+
+{% block extra_head %}
+<style>
+  .odoo-choose-bg{ background:var(--erp-bg); }
+  .odoo-container{ max-width:1160px; margin-inline:auto; }
+
+  /* Hero */
+  .choose-hero{ text-align:center; margin:10px 0 18px; }
+  .choose-title{
+    font-family:"Koorkin Bold Italic","Koorkin","Koorkin-BoldItalic","Montserrat","Noto Sans Arabic",sans-serif !important;
+    font-weight:800 !important; font-style:italic !important; letter-spacing:0 !important;
+    font-size:clamp(2rem,1.3rem + 2.2vw,3rem);
+    margin:0;
+  }
+  .choose-sub{ color:var(--erp-muted); margin-top:.25rem; }
+  .choose-search{ max-width:420px; margin:12px auto 0; }
+
+  /* Section titles */
+  .app-section-title{
+    font-family:"Koorkin Bold Italic","Koorkin","Koorkin-BoldItalic","Montserrat","Noto Sans Arabic",sans-serif !important;
+    font-weight:800 !important; font-style:italic !important;
+    font-size:clamp(1.1rem,.9rem + .7vw,1.45rem);
+    margin:1.1rem 0 .4rem;
+  }
+  .app-section-underline,
+  .app-section-title::after,
+  .app-section-title::before,
+  .app-section-title + hr{ display:none!important }
+
+  /* Grid */
+  .odoo-apps-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:18px; align-items:stretch;
+  }
+  .app-section{ margin-bottom:2rem !important; }
+
+  /* Card */
+  .app-card{
+    display:flex; align-items:center; gap:12px;
+    padding:14px 16px; min-height:64px;
+    border-radius:12px; border:1px solid #e9ecef; background:#fff; color:#0f172a; text-decoration:none;
+    box-shadow:0 2px 6px rgba(0,0,0,.06); transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  }
+  .app-card:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,.10) }
+  .app-card[aria-disabled="true"]{ pointer-events:none; opacity:.55; }
+  .odoo-app-title{ font-weight:700; }
+
+  /* Icon */
+  .odoo-app-icon{ display:inline-flex; align-items:center; justify-content:center; }
+  .odoo-app-icon img.app-ico{ width:40px; height:40px; object-fit:contain; display:block; border-radius:6px; }
+
+  /* Dark theme */
+  :root[data-theme="dark"] .app-card{ background:#fff; color:#0f172a; }
+
+  /* RTL/LTR */
+  .odoo-apps-grid.rtl{text-align:right} .odoo-apps-grid.ltr{text-align:left}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="odoo-choose-bg py-3">
+  <div class="odoo-container" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr' }}">
+    <!-- Hero -->
+    <div class="choose-hero">
+      <h2 class="choose-title">{% if LANGUAGE_BIDI %}اختر تطبيقاتك{% else %}Choose your Apps{% endif %}</h2>
+      <div class="choose-sub">
+        {% if LANGUAGE_BIDI %}تصفّح حسب المجموعة وابحث فورًا{% else %}Browse by group and search instantly{% endif %}
+      </div>
+      <div class="choose-search">
+        <input id="appFilter" type="search" class="form-control form-control-sm"
+               placeholder="{% if LANGUAGE_BIDI %}ابحث عن تطبيق…{% else %}Search apps…{% endif %}"
+               aria-label="{% if LANGUAGE_BIDI %}بحث عن تطبيق{% else %}Search apps{% endif %}">
+      </div>
+    </div>
+
+    <!-- Sections -->
+    {% for sec in sections %}
+      <div class="app-section">
+        <div class="app-section-title">
+          {% if LANGUAGE_BIDI %}{{ sec.title_ar|default:sec.title_en }}{% else %}{{ sec.title_en|default:sec.title_ar }}{% endif %}
+        </div>
+
+        {% if sec.items %}
+          <div class="odoo-apps-grid {{ LANGUAGE_BIDI|yesno:'rtl,ltr' }}">
+            {% for app in sec.items %}
+              <a href="{{ app.url }}" class="app-card"
+                 data-name="{{ app.name|lower }}" data-key="{{ app.key }}"
+                 {% if app.disabled %}aria-disabled="true" tabindex="-1"{% endif %}>
+                <span class="odoo-app-icon" aria-hidden="true">
+                  <!-- التعديل هنا: تعبئة src مباشرة -->
+                  <img class="app-ico" alt="" src="{{ app.icon_url }}">
+                </span>
+                <span class="odoo-app-title">{{ app.name }}</span>
+              </a>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="text-muted small px-2">{% if LANGUAGE_BIDI %}لا توجد عناصر{% else %}No items{% endif %}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <p class="text-center text-muted mt-3">
+      {% if LANGUAGE_BIDI %}عدد التطبيقات: <span id="appsCount">{{ apps_count|default:apps|length }}</span>{% else %}Apps: <span id="appsCount">{{ apps_count|default:apps|length }}</span>{% endif %}
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{# fallback آمن عبر json_script #}
+{% static 'icons/3d/3dicons-moon-dynamic-color.png' as FB_ICON %}
+{{ FB_ICON|json_script:"l-fallback" }}
+
+{% block extra_js %}
+<script>
+(function(){
+  // fallback للصور فقط
+  var lFallback = JSON.parse(document.getElementById('l-fallback').textContent || '""');
+  document.querySelectorAll('img.app-ico').forEach(function(img){
+    if(!img.getAttribute('src')){ img.src = lFallback; }
+    img.addEventListener('error', function(){ this.src = lFallback; });
+  });
+
+  // فلترة
+  var input   = document.getElementById('appFilter');
+  var cards   = Array.prototype.slice.call(document.querySelectorAll('.app-card'));
+  var countEl = document.getElementById('appsCount');
+
+  function normalize(t){
+    return (t||'').toLowerCase()
+      .replace(/\u0640/g,'')
+      .replace(/[\u064B-\u0652]/g,'')
+      .replace(/\s+/g,' ')
+      .trim();
+  }
+  function applyFilter(q){
+    var n = normalize(q), visible = 0;
+    cards.forEach(function(c){
+      var byName = normalize(c.getAttribute('data-name')||'');
+      var byKey  = normalize(c.getAttribute('data-key') ||'');
+      var show = !n || byName.indexOf(n)!==-1 || byKey.indexOf(n)!==-1;
+      c.style.display = show ? '' : 'none';
+      if(show) visible++;
+    });
+    if(countEl) countEl.textContent = String(visible);
+  }
+  if(input){ input.addEventListener('input', function(e){ applyFilter(e.target.value); }); }
+
+  // اختصار للبحث
+  window.addEventListener('keydown', function(e){
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if(e.key === '/' && !/input|textarea|select/i.test(tag)){ e.preventDefault(); input && input.focus(); }
+  });
+
+  applyFilter('');
+})();
+</script>
+{% endblock %}

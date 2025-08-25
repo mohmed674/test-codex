@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-4 text-center">📜 سجل تحركات المنتجات</h3>
+
+    {% if history %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped text-center align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>الوقت</th>
+            <th>اسم المنتج</th>
+            <th>الحالة</th>
+            <th>الموقع الحالي</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in history %}
+          <tr>
+            <td>{{ record.timestamp|date:"Y-m-d H:i" }}</td>
+            <td>{{ record.tracking.product_name }}</td>
+            <td>{{ record.get_status_display }}</td>
+            <td>{{ record.location }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div class="alert alert-warning text-center">🚫 لا يوجد أي سجل لحركات التتبع حاليًا.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

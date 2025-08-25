@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-25 06:45:14",
+  "collected": 14,
+  "passed": 5,
+  "failed": 0,
+  "errors": 8,
+  "skipped": 1,
+  "xfailed": 0,
+  "xpassed": 0,
+  "warnings": 0,
+  "duration_seconds": null,
+  "coverage_html": "D:\\ERP_CORE\\htmlcov\\index.html"
+}

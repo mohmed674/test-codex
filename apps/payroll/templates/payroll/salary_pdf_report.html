@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير المرتبات</title>
+    <style>
+        body { font-family: 'Arial'; direction: rtl; padding: 30px; font-size: 14px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h2 { margin: 0; font-size: 22px; }
+        .header p { font-size: 16px; color: #555; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #eee; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+
+        .footer { margin-top: 40px; text-align: center; font-size: 12px; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>تقرير شامل بالمرتبات</h2>
+        <p>الفترة: {{ filter_date }}</p>
+        <p>تاريخ توليد التقرير: {{ generated_at|date:"Y-m-d H:i" }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>اسم الموظف</th>
+                <th>الشهر/السنة</th>
+                <th>المرتب الأساسي</th>
+                <th>الحوافز</th>
+                <th>الخصومات</th>
+                <th>صافي المرتب</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for salary in salaries %}
+            <tr>
+                <td>{{ salary.employee.name }}</td>
+                <td>{{ salary.month }}/{{ salary.year }}</td>
+                <td>{{ salary.base_salary }}</td>
+                <td>{{ salary.production_bonus }}</td>
+                <td>{{ salary.deductions }}</td>
+                <td>{{ salary.final_salary }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">لا توجد بيانات لعرضها</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        تم توليد هذا التقرير تلقائيًا من نظام إدارة المرتبات.
+    </div>
+</body>
+</html>

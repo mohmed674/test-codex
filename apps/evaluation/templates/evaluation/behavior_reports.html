@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تقرير التقييمات</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            direction: rtl;
+            background-color: #f9f9f9;
+            padding: 30px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .filter-form {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .filter-form input, .filter-form select {
+            padding: 6px;
+            margin: 4px;
+            font-size: 14px;
+        }
+        .actions {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .actions a, .actions button {
+            padding: 8px 14px;
+            margin: 4px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .actions a.export { background-color: #28a745; }
+        .actions a.pdf { background-color: #dc3545; }
+        .actions button.print { background-color: #6c757d; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .excellent { background-color: #d4edda; }   /* ممتاز */
+        .average { background-color: #fff3cd; }     /* متوسط */
+        .poor { background-color: #f8d7da; }        /* ضعيف */
+    </style>
+</head>
+<body>
+    <h2>تقرير التقييمات</h2>
+
+    <form method="get" class="filter-form">
+        <input type="text" name="name" placeholder="اسم الموظف" value="{{ request.GET.name }}">
+        <input type="text" name="evaluator" placeholder="اسم المقيِّم" value="{{ request.GET.evaluator }}">
+        <input type="text" name="eval_type" placeholder="نوع التقييم" value="{{ request.GET.eval_type }}">
+        <input type="date" name="date_from" value="{{ request.GET.date_from }}">
+        <input type="date" name="date_to" value="{{ request.GET.date_to }}">
+        <button type="submit">فلترة</button>
+    </form>
+
+    <div class="actions">
+        <a class="export" href="?{{ request.GET.urlencode }}&export=1">تصدير Excel</a>
+        <a class="pdf" href="?{{ request.GET.urlencode }}&download_pdf=1">تصدير PDF</a>
+        <button class="print" onclick="window.print()">طباعة</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>اسم الموظف</th>
+                <th>نوع التقييم</th>
+                <th>المقيِّم</th>
+                <th>النتيجة</th>
+                <th>الملاحظات</th>
+                <th>التاريخ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr class="{% if record.score >= 85 %}excellent{% elif record.score >= 60 %}average{% else %}poor{% endif %}">
+                <td>{{ record.employee.name }}</td>
+                <td>{{ record.eval_type }}</td>
+                <td>{{ record.evaluator }}</td>
+                <td>{{ record.score }}</td>
+                <td>{{ record.notes|default:"-" }}</td>
+                <td>{{ record.date }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">لا توجد نتائج</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

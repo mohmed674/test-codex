@@ -1,0 +1,2120 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ERP Smart System\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-13 15:56+0300\n"
+"PO-Revision-Date: 2025-08-21 00:00+0300\n"
+"Last-Translator: Mohamed Assistant <noreply@example.com>\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0?0:n==1?1:n==2?2:(n%100>=3 && n%100<=10)?3:(n%100>=11 && n%100<=99)?4:5;\n"
+
+#: .\ERP_CORE\settings.py:164 .\bi\templates\bi\dashboard.html:12
+#: .\campaigns\templates\campaigns\base.html:88
+#: .\core\templates\core\base.html:90
+msgid "العربية"
+msgstr "العربية"
+
+#: .\ERP_CORE\settings.py:165
+msgid "English"
+msgstr "الإنجليزية"
+
+#: .\ERP_CORE\settings.py:275
+msgid "ERP Smart System"
+msgstr "نظام ERP الذكي"
+
+#: .\ai_decision\apps.py:10
+msgid "الذكاء الاصطناعي (Copilot)"
+msgstr "الذكاء الاصطناعي (Copilot)"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:4
+#: .\ai_decision\templates\ai_decision\copilot.html:15
+msgid "مساعد ERP الذكي"
+msgstr "مساعد ERP الذكي"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:17
+msgid "تبديل الوضع"
+msgstr "تبديل الوضع"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:24
+msgid "إجمالي مبيعات الشهر"
+msgstr "إجمالي مبيعات الشهر"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:25
+#: .\bi\templates\bi\dashboard.html:41 .\bi\templates\bi\dashboard.html:57
+#: .\bi\templates\bi\dashboard.html:65
+msgid "جنيه"
+msgstr "جنيه"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:28
+msgid "أعلى منتجات"
+msgstr "أعلى منتجات"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:31
+msgid "وحدة"
+msgstr "وحدة"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:33
+#: .\core\templates\core\criteria_list.html:33
+msgid "لا توجد بيانات"
+msgstr "لا توجد بيانات"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:38
+#: .\ai_decision\templates\ai_decision\copilot.html:58
+msgid "موردون متأخرون"
+msgstr "موردون متأخرون"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:41
+msgid "مرة"
+msgstr "مرة"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:43
+msgid "لا يوجد تأخير حالياً"
+msgstr "لا يوجد تأخير حالياً"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:51
+msgid "مخطط المبيعات الشهري"
+msgstr "مخطط المبيعات الشهري"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:56
+msgid "مبيعات الأسبوع"
+msgstr "مبيعات الأسبوع"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:57
+msgid "المنتجات الأعلى مبيعاً"
+msgstr "المنتجات الأعلى مبيعاً"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:62
+msgid "اسأل المساعد"
+msgstr "اسأل المساعد"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:63
+msgid "اكتب سؤالك هنا..."
+msgstr "اكتب سؤالك هنا..."
+
+#: .\ai_decision\templates\ai_decision\copilot.html:64
+msgid "أرسل"
+msgstr "أرسل"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:84
+msgid "يناير"
+msgstr "يناير"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:84
+msgid "فبراير"
+msgstr "فبراير"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:84
+msgid "مارس"
+msgstr "مارس"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:84
+msgid "أبريل"
+msgstr "أبريل"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:86
+#: .\dashboard_center\templates\dashboard_center\dashboard.html:83
+#: .\dashboard_center\templates\dashboard_center\overview.html:86
+#: .\dashboard_center\templates\dashboard_center\overview.html:121
+msgid "المبيعات الشهرية"
+msgstr "المبيعات الشهرية"
+
+#: .\ai_decision\templates\ai_decision\copilot.html:94
+msgid "مخطط مبيعات شهري"
+msgstr "مخطط مبيعات شهري"
+
+#: .\apps\templates\apps\icon_card.html:6 .\inventory\models.py:18
+msgid "دخول"
+msgstr "دخول"
+
+#: .\apps\templates\apps\launcher.html:6 .\apps\templates\apps\launcher.html:11
+msgid "تطبيقات النظام"
+msgstr "تطبيقات النظام"
+
+#: .\apps\templates\apps\launcher.html:14 .\bi\templates\bi\dashboard.html:31
+#: .\core\templates\core\job_title_list.html:9
+#: .\core\templates\core\unit_list.html:13
+msgid "تصدير PDF"
+msgstr "تصدير PDF"
+
+#: .\apps\templates\apps\launcher.html:17 .\bi\templates\bi\dashboard.html:32
+#: .\core\templates\core\job_title_list.html:10
+#: .\core\templates\core\unit_list.html:12
+msgid "تصدير Excel"
+msgstr "تصدير Excel"
+
+#: .\apps\templates\apps\launcher.html:19
+#: .\core\templates\core\tabs_template.html:26
+#: .\core\templates\core\unit_list.html:14 .\pattern\models.py:7
+msgid "طباعة"
+msgstr "طباعة"
+
+#: .\backup_center\models.py:5
+#: .\backup_center\templates\backup_center\dashboard.html:12
+#: .\core\models.py:25 .\core\models.py:73 .\core\models.py:114
+#: .\core\models.py:137 .\core\models.py:160 .\core\models.py:177
+#: .\core\models.py:199
+msgid "Created At"
+msgstr "تاريخ الإنشاء"
+
+#: .\backup_center\models.py:6
+msgid "Backup File Path"
+msgstr "مسار ملف النسخ الاحتياطي"
+
+#: .\backup_center\models.py:7
+msgid "Database"
+msgstr "قاعدة البيانات"
+
+#: .\backup_center\models.py:7
+msgid "Media Files"
+msgstr "ملفات الوسائط"
+
+#: .\backup_center\models.py:10
+msgid "Backup Record"
+msgstr "سجل النسخ الاحتياطي"
+
+#: .\backup_center\models.py:11
+msgid "Backup Records"
+msgstr "سجلات النسخ الاحتياطي"
+
+#: .\backup_center\templates\backup_center\dashboard.html:2
+msgid "Backup Center"
+msgstr "مركز النسخ الاحتياطي"
+
+#: .\backup_center\templates\backup_center\dashboard.html:5
+msgid "Create Database Backup"
+msgstr "إنشاء نسخة احتياطية لقاعدة البيانات"
+
+#: .\backup_center\templates\backup_center\dashboard.html:6
+msgid "Create Media Backup"
+msgstr "إنشاء نسخة احتياطية للوسائط"
+
+#: .\backup_center\templates\backup_center\dashboard.html:11
+msgid "Type"
+msgstr "النوع"
+
+#: .\backup_center\templates\backup_center\dashboard.html:13
+msgid "File"
+msgstr "الملف"
+
+#: .\bi\templates\bi\dashboard.html:6
+msgid "لوحة القيادة - ذكاء الأعمال"
+msgstr "لوحة القيادة - ذكاء الأعمال"
+
+#: .\bi\templates\bi\dashboard.html:26
+msgid "تحليلات المبيعات"
+msgstr "تحليلات المبيعات"
+
+#: .\bi\templates\bi\dashboard.html:27
+msgid "تحليلات العملاء"
+msgstr "تحليلات العملاء"
+
+#: .\bi\templates\bi\dashboard.html:28
+msgid "تحليلات مالية"
+msgstr "تحليلات مالية"
+
+#: .\bi\templates\bi\dashboard.html:39
+msgid "إجمالي المبيعات (آخر 30 يوم)"
+msgstr "إجمالي المبيعات (آخر 30 يوم)"
+
+#: .\bi\templates\bi\dashboard.html:47
+#: .\dashboard_center\templates\dashboard_center\dashboard.html:45
+#: .\dashboard_center\templates\dashboard_center\overview.html:49
+msgid "عدد العملاء"
+msgstr "عدد العملاء"
+
+#: .\bi\templates\bi\dashboard.html:55
+msgid "الإيرادات الكلية"
+msgstr "الإيرادات الكلية"
+
+#: .\bi\templates\bi\dashboard.html:63
+msgid "المصروفات الكلية"
+msgstr "المصروفات الكلية"
+
+#: .\campaigns\templates\campaigns\base.html:8
+#: .\core\templates\core\base.html:8
+msgid "نظام ERP الذكي"
+msgstr "نظام ERP الذكي"
+
+#: .\campaigns\templates\campaigns\base.html:60
+#: .\core\templates\core\base.html:62
+msgid "هذه الواجهة تتطلب تفعيل JavaScript."
+msgstr "هذه الواجهة تتطلب تفعيل JavaScript."
+
+#: .\campaigns\templates\campaigns\base.html:66
+#: .\core\templates\core\base.html:68
+msgid "الشريط الجانبي"
+msgstr "الشريط الجانبي"
+
+#: .\campaigns\templates\campaigns\base.html:68
+#: .\core\templates\core\base.html:70 .\core\templates\core\dashboard.html:4
+#: .\core\templates\core\dashboard.html:10
+#: .\dashboard_center\templates\dashboard_center\overview.html:4
+msgid "لوحة التحكم"
+msgstr "لوحة التحكم"
+
+#: .\campaigns\templates\campaigns\base.html:69
+#: .\core\templates\core\base.html:71
+msgid "الوظائف"
+msgstr "الوظائف"
+
+#: .\campaigns\templates\campaigns\base.html:70
+#: .\core\templates\core\base.html:72
+msgid "الوحدات"
+msgstr "الوحدات"
+
+#: .\campaigns\templates\campaigns\base.html:71
+#: .\core\templates\core\criteria_list.html:6
+#: .\core\templates\core\base.html:73
+msgid "معايير التقييم"
+msgstr "معايير التقييم"
+
+#: .\campaigns\templates\campaigns\base.html:72
+#: .\core\templates\core\base.html:74
+#: .\core\templates\core\stage_type_list.html:6
+msgid "مراحل الإنتاج"
+msgstr "مراحل الإنتاج"
+
+#: .\campaigns\templates\campaigns\base.html:73
+#: .\core\templates\core\base.html:75
+msgid "حدود الخطورة"
+msgstr "حدود المخاطر"
+
+#: .\campaigns\templates\campaigns\base.html:74
+#: .\core\templates\core\department_role_list.html:6
+#: .\core\templates\core\base.html:76
+msgid "أدوار الأقسام"
+msgstr "أدوار الأقسام"
+
+#: .\campaigns\templates\campaigns\base.html:80
+#: .\core\templates\core\base.html:82
+msgid "نظام إدارة موارد المصنع"
+msgstr "نظام إدارة موارد المصنع"
+
+#: .\campaigns\templates\campaigns\base.html:83
+#: .\core\templates\core\base.html:85
+msgid "تبديل اللغة"
+msgstr "تبديل اللغة"
+
+#: .\campaigns\templates\campaigns\base.html:86
+#: .\core\templates\core\base.html:88
+msgid "اختر اللغة"
+msgstr "اختر اللغة"
+
+#: .\campaigns\templates\campaigns\base.html:93
+#: .\core\templates\core\base.html:95
+msgid "تبديل الوضع الليلي"
+msgstr "تبديل الوضع الليلي"
+
+#: .\campaigns\templates\campaigns\base.html:94
+#: .\core\templates\core\base.html:96
+msgid "الوضع الليلي"
+msgstr "الوضع الليلي"
+
+#: .\campaigns\templates\campaigns\base.html:97
+#: .\core\templates\core\base.html:99
+msgid "لوحة المدير"
+msgstr "لوحة المدير"
+
+#: .\campaigns\templates\campaigns\base.html:98
+#: .\core\templates\core\launcher.html:66
+#: .\core\templates\core\base.html:100
+msgid "تسجيل الخروج"
+msgstr "تسجيل الخروج"
+
+#: .\clients\admin.py:7
+msgid "حالة التفعيل"
+msgstr "حالة التفعيل"
+
+#: .\clients\admin.py:11 .\notifications\models.py:37
+msgid "نشط"
+msgstr "نشط"
+
+#: .\clients\admin.py:11
+msgid "غير نشط"
+msgstr "غير نشط"
+
+#: .\clients\admin.py:62 .\clients\models.py:11
+#: .\core\templates\core\criteria_list.html:17
+#: .\core\templates\core\datatable_template.html:36
+#: .\core\templates\core\department_role_list.html:13
+#: .\core\templates\core\stage_type_list.html:13
+#: .\core\templates\core\tabs_template.html:61 .\inventory\models.py:34
+msgid "الاسم"
+msgstr "الاسم"
+
+#: .\clients\admin.py:66
+msgid "الهاتف"
+msgstr "الهاتف"
+
+#: .\clients\admin.py:70
+msgid "البريد"
+msgstr "البريد"
+
+#: .\clients\admin.py:72 .\clients\models.py:19
+#: .\core\templates\core\criteria_list.html:20 .\sales\models.py:123
+msgid "نشط؟"
+msgstr "نشط؟"
+
+#: .\clients\admin.py:76
+msgid "التصنيف"
+msgstr "التصنيف"
+
+#: .\clients\apps.py:7
+msgid "العملاء والشركاء"
+msgstr "العملاء والشركاء"
+
+#: .\clients\models.py:8
+msgid "شركة"
+msgstr "شركة"
+
+#: .\clients\models.py:9
+msgid "فرد"
+msgstr "فرد"
+
+#: .\clients\models.py:12 .\core\templates\core\criteria_list.html:18
+#: .\core\templates\core\datatable_template.html:37
+#: .\core\templates\core\tabs_template.html:63
+msgid "النوع"
+msgstr "النوع"
+
+#: .\clients\models.py:14
+msgid "رقم الهاتف"
+msgstr "رقم الهاتف"
+
+#: .\clients\models.py:15
+msgid "البريد الإلكتروني"
+msgstr "البريد الإلكتروني"
+
+#: .\clients\models.py:16
+msgid "الرقم الضريبي"
+msgstr "الرقم الضريبي"
+
+#: .\clients\models.py:17 .\sales\models.py:30
+msgid "كود الحساب المحاسبي"
+msgstr "كود الحساب المحاسبي"
+
+#: .\clients\models.py:20 .\core\templates\core\tabs_template.html:74
+#: .\core\templates\core\tabs_template.html:92 .\inventory\models.py:53
+#: .\inventory\models.py:115 .\inventory\models.py:133
+msgid "ملاحظات"
+msgstr "ملاحظات"
+
+#: .\clients\models.py:21
+msgid "آخر نشاط"
+msgstr "آخر نشاط"
+
+#: .\clients\models.py:23 .\clients\models.py:77 .\inventory\models.py:151
+#: .\notifications\models.py:35 .\sales\models.py:28
+msgid "تاريخ الإنشاء"
+msgstr "تاريخ الإنشاء"
+
+#: .\clients\models.py:24
+msgid "تاريخ التحديث"
+msgstr "تاريخ التحديث"
+
+#: .\clients\models.py:27
+msgid "شريك"
+msgstr "شريك"
+
+#: .\clients\models.py:28
+msgid "الشركاء"
+msgstr "الشركاء"
+
+#: .\clients\models.py:41
+msgid "فاتورة"
+msgstr "فاتورة"
+
+#: .\clients\models.py:42
+msgid "شحن"
+msgstr "شحن"
+
+#: .\clients\models.py:43
+msgid "أخرى"
+msgstr "أخرى"
+
+#: .\clients\models.py:45 .\clients\models.py:70
+msgid "الشريك"
+msgstr "الشريك"
+
+#: .\clients\models.py:46
+msgid "نوع العنوان"
+msgstr "نوع العنوان"
+
+#: .\clients\models.py:47
+msgid "الدولة"
+msgstr "الدولة"
+
+#: .\clients\models.py:48
+msgid "المحافظة"
+msgstr "المحافظة"
+
+#: .\clients\models.py:49
+msgid "المدينة"
+msgstr "المدينة"
+
+#: .\clients\models.py:50
+msgid "الشارع"
+msgstr "الشارع"
+
+#: .\clients\models.py:51
+msgid "الرمز البريدي"
+msgstr "الرمز البريدي"
+
+#: .\clients\models.py:54
+msgid "عنوان"
+msgstr "عنوان"
+
+#: .\clients\models.py:55
+msgid "العناوين"
+msgstr "العناوين"
+
+#: .\clients\models.py:66
+msgid "عميل جديد"
+msgstr "عميل جديد"
+
+#: .\clients\models.py:67
+msgid "عميل منتظم"
+msgstr "عميل منتظم"
+
+#: .\clients\models.py:68
+msgid "عميل VIP"
+msgstr "عميل VIP"
+
+#: .\clients\models.py:71
+msgid "نوع العميل"
+msgstr "نوع العميل"
+
+#: .\clients\models.py:72 .\sales\models.py:76
+msgid "النقاط"
+msgstr "النقاط"
+
+#: .\clients\models.py:73
+msgid "إجمالي المشتريات"
+msgstr "إجمالي المشتريات"
+
+#: .\clients\models.py:74
+msgid "آخر عملية شراء"
+msgstr "آخر عملية شراء"
+
+#: .\clients\models.py:75
+msgid "صورة العميل"
+msgstr "صورة العميل"
+
+#: .\clients\models.py:80
+msgid "عميل (بروفايل)"
+msgstr "عميل (بروفايل)"
+
+#: .\clients\models.py:81
+msgid "عملاء (بروفايل)"
+msgstr "عملاء (بروفايل)"
+
+#: .\clients\models.py:102
+msgid "عميل"
+msgstr "عميل"
+
+#: .\clients\models.py:103 .\core\templates\core\dashboard.html:58
+#: .\core\templates\core\launcher.html:46 .\core\views.py:108
+msgid "العملاء"
+msgstr "العملاء"
+
+#: .\core\models.py:21
+msgid "Role Name"
+msgstr "اسم الدور"
+
+#: .\core\models.py:22 .\core\models.py:98 .\core\models.py:145
+#: .\core\models.py:168
+msgid "Description"
+msgstr "الوصف"
+
+#: .\core\models.py:23 .\core\models.py:108 .\core\models.py:131
+#: .\core\models.py:156 .\core\models.py:171 .\core\models.py:196
+msgid "Is Active?"
+msgstr "نشط؟"
+
+#: .\core\models.py:24 .\core\models.py:72 .\core\models.py:113
+#: .\core\models.py:136 .\core\models.py:159 .\core\models.py:176
+#: .\core\models.py:198
+msgid "Created By"
+msgstr "أُنشئ بواسطة"
+
+#: .\core\models.py:32
+msgid "قيد الانتظار"
+msgstr "قيد الانتظار"
+
+#: .\core\models.py:33
+msgid "تمت الموافقة"
+msgstr "تمت الموافقة"
+
+#: .\core\models.py:34
+msgid "مرفوض"
+msgstr "مرفوض"
+
+#: .\core\models.py:37 .\core\models.py:51 .\core\models.py:79
+msgid "User"
+msgstr "المستخدم"
+
+#: .\core\models.py:38
+msgid "Requested Role"
+msgstr "الدور المطلوب"
+
+#: .\core\models.py:39
+msgid "Justification"
+msgstr "مبرر الطلب"
+
+#: .\core\models.py:40
+msgid "Requested At"
+msgstr "تاريخ الطلب"
+
+#: .\core\models.py:42
+msgid "Status"
+msgstr "الحالة"
+
+#: .\core\models.py:43
+msgid "Response Reason"
+msgstr "سبب الاستجابة"
+
+#: .\core\models.py:44
+msgid "Reviewed By"
+msgstr "مراجع بواسطة"
+
+#: .\core\models.py:45
+msgid "Reviewed At"
+msgstr "تاريخ المراجعة"
+
+#: .\core\models.py:52
+msgid "Action"
+msgstr "الإجراء"
+
+#: .\core\models.py:53
+msgid "Timestamp"
+msgstr "الطابع الزمني"
+
+#: .\core\models.py:54
+msgid "IP Address"
+msgstr "عنوان IP"
+
+#: .\core\models.py:55
+msgid "User Agent"
+msgstr "وكيل المستخدم"
+
+#: .\core\models.py:56
+msgid "Location"
+msgstr "الموقع"
+
+#: .\core\models.py:62 .\core\models.py:80
+msgid "Role"
+msgstr "الدور"
+
+#: .\core\models.py:63
+msgid "Model Name"
+msgstr "اسم النموذج"
+
+#: .\core\models.py:64
+msgid "Can Create?"
+msgstr "يمكنه الإنشاء؟"
+
+#: .\core\models.py:65
+msgid "Can Read?"
+msgstr "يمكنه العرض؟"
+
+#: .\core\models.py:66
+msgid "Can Update?"
+msgstr "يمكنه التعديل؟"
+
+#: .\core\models.py:67
+msgid "Can Delete?"
+msgstr "يمكنه الحذف؟"
+
+#: .\core\models.py:69 .\core\models.py:90
+msgid "Section"
+msgstr "القسم"
+
+#: .\core\models.py:70
+msgid "Override Reason"
+msgstr "سبب التجاوز"
+
+#: .\core\models.py:81
+msgid "Reason"
+msgstr "السبب"
+
+#: .\core\models.py:82
+msgid "Granted By"
+msgstr "مُنح بواسطة"
+
+#: .\core\models.py:83
+msgid "Granted At"
+msgstr "تاريخ المنح"
+
+#: .\core\models.py:84
+msgid "Expires At"
+msgstr "تاريخ الانتهاء"
+
+#: .\core\models.py:86
+msgid "Is Revoked?"
+msgstr "تم إلغاؤه؟"
+
+#: .\core\models.py:87
+msgid "Revoked By"
+msgstr "أُلغي بواسطة"
+
+#: .\core\models.py:88
+msgid "Revoked At"
+msgstr "تاريخ الإلغاء"
+
+#: .\core\models.py:89 .\core\models.py:157
+msgid "Auto Generated?"
+msgstr "مولَّد تلقائيًا؟"
+
+#: .\core\models.py:97
+msgid "Job Title"
+msgstr "المسمى الوظيفي"
+
+#: .\core\models.py:99
+msgid "Salary Type"
+msgstr "نوع الراتب"
+
+#: .\core\models.py:100
+msgid "Hourly"
+msgstr "ساعي"
+
+#: .\core\models.py:101
+msgid "Piece"
+msgstr "قطعة"
+
+#: .\core\models.py:102
+msgid "Fixed"
+msgstr "ثابت"
+
+#: .\core\models.py:104
+msgid "Default Piece Rate"
+msgstr "أجرة القطعة الافتراضية"
+
+#: .\core\models.py:105
+msgid "Hourly Rate"
+msgstr "الأجر بالساعة"
+
+#: .\core\models.py:106
+msgid "Default Daily Hours"
+msgstr "ساعات العمل اليومية الافتراضية"
+
+#: .\core\models.py:109
+msgid "Visible on Payroll?"
+msgstr "يظهر في الرواتب؟"
+
+#: .\core\models.py:110
+msgid "Used in Sections"
+msgstr "مستخدم في الأقسام"
+
+#: .\core\models.py:111
+msgid "Linked to Production Stage"
+msgstr "مرتبط بمرحلة إنتاج"
+
+#: .\core\models.py:121
+msgid "Unit Name"
+msgstr "اسم الوحدة"
+
+#: .\core\models.py:122
+msgid "Abbreviation"
+msgstr "الاختصار"
+
+#: .\core\models.py:123
+msgid "Unit Type"
+msgstr "نوع الوحدة"
+
+#: .\core\models.py:124
+msgid "كمية"
+msgstr "كمية"
+
+#: .\core\models.py:125
+msgid "وزن"
+msgstr "وزن"
+
+#: .\core\models.py:126
+msgid "حجم"
+msgstr "حجم"
+
+#: .\core\models.py:127
+msgid "وقت"
+msgstr "وقت"
+
+#: .\core\models.py:128
+msgid "طول"
+msgstr "طول"
+
+#: .\core\models.py:132
+msgid "Is Bulk Unit?"
+msgstr "وحدة مجمّعة؟"
+
+#: .\core\models.py:133
+msgid "Conversion Factor"
+msgstr "معامل التحويل"
+
+#: .\core\models.py:134
+msgid "Used in Models"
+msgstr "مستخدم في النماذج"
+
+#: .\core\models.py:144
+msgid "Name"
+msgstr "الاسم"
+
+#: .\core\models.py:146
+msgid "Weight"
+msgstr "الوزن"
+
+#: .\core\models.py:148
+msgid "Criteria Type"
+msgstr "نوع المعيار"
+
+#: .\core\models.py:149
+msgid "انضباط"
+msgstr "انضباط"
+
+#: .\core\models.py:150
+msgid "أداء"
+msgstr "أداء"
+
+#: .\core\models.py:151
+msgid "جودة"
+msgstr "جودة"
+
+#: .\core\models.py:152
+msgid "حضور"
+msgstr "حضور"
+
+#: .\core\models.py:153
+msgid "سلامة"
+msgstr "سلامة"
+
+#: .\core\models.py:155
+msgid "Applies to Department"
+msgstr "ينطبق على القسم"
+
+#: .\core\models.py:167
+msgid "Stage Name"
+msgstr "اسم المرحلة"
+
+#: .\core\models.py:169
+msgid "Order"
+msgstr "الترتيب"
+
+#: .\core\models.py:172
+msgid "Estimated Duration (Minutes)"
+msgstr "المدة التقديرية (بالدقائق)"
+
+#: .\core\models.py:173
+msgid "Requires Machine?"
+msgstr "يتطلب ماكينة؟"
+
+#: .\core\models.py:175
+msgid "Linked Job Titles"
+msgstr "المسميات الوظيفية المرتبطة"
+
+#: .\core\models.py:184
+msgid "Risk Type"
+msgstr "نوع الخطر"
+
+#: .\core\models.py:185
+msgid "Threshold Value"
+msgstr "القيمة الحدية"
+
+#: .\core\models.py:186
+msgid "Severity Level"
+msgstr "مستوى الشدة"
+
+#: .\core\models.py:187
+msgid "منخفض"
+msgstr "منخفض"
+
+#: .\core\models.py:188
+msgid "متوسط"
+msgstr "متوسط"
+
+#: .\core\models.py:189
+msgid "مرتفع"
+msgstr "مرتفع"
+
+#: .\core\models.py:192
+msgid "Applies to Section"
+msgstr "ينطبق على القسم"
+
+#: .\core\models.py:193
+msgid "Auto Detected Field"
+msgstr "حقل مكتشف تلقائيًا"
+
+#: .\core\models.py:194
+msgid "Action Required"
+msgstr "إجراء مطلوب"
+
+#: .\core\models.py:195
+msgid "Trigger Auto Action?"
+msgstr "تشغيل إجراء تلقائي؟"
+
+#: .\core\templates\core\base_mobile.html:48
+msgid "Welcome to ERP Mobile Interface"
+msgstr "مرحبًا بك في واجهة ERP للجوال"
+
+#: .\core\templates\core\criteria_create.html:6
+msgid "إضافة معيار تقييم"
+msgstr "إضافة معيار تقييم"
+
+#: .\core\templates\core\criteria_create.html:11
+#: .\core\templates\core\department_role_create.html:11
+#: .\core\templates\core\risk_threshold_create.html:11
+#: .\core\templates\core\stage_type_create.html:11
+msgid "رجوع"
+msgstr "رجوع"
+
+#: .\core\templates\core\criteria_create.html:12
+#: .\core\templates\core\department_role_create.html:12
+#: .\core\templates\core\job_title_form.html:24
+#: .\core\templates\core\risk_threshold_create.html:12
+msgid "حفظ"
+msgstr "حفظ"
+
+#: .\core\templates\core\criteria_list.html:9
+msgid "إضافة معيار"
+msgstr "إضافة معيار"
+
+#: .\core\templates\core\criteria_list.html:19
+msgid "الوزن"
+msgstr "الوزن"
+
+#: .\core\templates\core\dashboard.html:29
+msgid "الوصول السريع"
+msgstr "الوصول السريع"
+
+#: .\core\templates\core\dashboard.html:46
+#: .\core\templates\core\launcher.html:31 .\core\views.py:100
+#: .\core\views.py:164
+msgid "الموارد البشرية"
+msgstr "الموارد البشرية"
+
+#: .\core\templates\core\dashboard.html:50
+#: .\core\templates\core\launcher.html:36 .\core\views.py:105
+#: .\core\views.py:163
+msgid "المخزون"
+msgstr "المخزون"
+
+#: .\core\templates\core\dashboard.html:54
+#: .\core\templates\core\launcher.html:41 .\core\views.py:106
+#: .\core\views.py:161
+msgid "المبيعات"
+msgstr "المبيعات"
+
+#: .\core\templates\core\datatable_template.html:4
+msgid "قائمة البيانات"
+msgstr "قائمة البيانات"
+
+#: .\core\templates\core\datatable_template.html:24
+msgid "قائمة العناصر"
+msgstr "قائمة العناصر"
+
+#: .\core\templates\core\datatable_template.html:35
+msgid "الرقم"
+msgstr "الرقم"
+
+#: .\core\templates\core\datatable_template.html:38
+#: .\core\templates\core\tabs_template.html:65
+msgid "الحالة"
+msgstr "الحالة"
+
+#: .\core\templates\core\department_role_create.html:6
+msgid "إضافة دور قسم"
+msgstr "إضافة دور قسم"
+
+#: .\core\templates\core\department_role_list.html:7
+msgid "إضافة دور"
+msgstr "إضافة دور"
+
+#: .\core\templates\core\department_role_list.html:23
+msgid "لا توجد أدوار"
+msgstr "لا توجد أدوار"
+
+#: .\core\templates\core\job_title_form.html:6
+msgid "إضافة / تعديل وظيفة"
+msgstr "إضافة / تعديل وظيفة"
+
+#: .\core\templates\core\job_title_form.html:7
+msgid "العودة للقائمة"
+msgstr "العودة للقائمة"
+
+#: .\core\templates\core\job_title_list.html:6
+msgid "قائمة الوظائف"
+msgstr "قائمة الوظائف"
+
+#: .\core\templates\core\job_title_list.html:8
+msgid "إضافة وظيفة"
+msgstr "إضافة وظيفة"
+
+#: .\core\templates\core\job_title_list.html:11
+msgid "طباعة مباشرة"
+msgstr "طباعة مباشرة"
+
+#: .\core\templates\core\launcher.html:4 .\core\templates\core\overview.html:6
+msgid "لوحة التطبيقات"
+msgstr "لوحة التطبيقات"
+
+#: .\core\templates\core\launcher.html:10
+msgid "اختر تطبيقاتك"
+msgstr "اختر تطبيقاتك"
+
+#: .\core\templates\core\launcher.html:51 .\core\views.py:107
+#: .\core\views.py:162
+msgid "المشتريات"
+msgstr "المشتريات"
+
+#: .\core\templates\core\launcher.html:56 .\core\views.py:109
+#: .\core\views.py:160
+msgid "المحاسبة"
+msgstr "المحاسبة"
+
+#: .\core\templates\core\launcher.html:61
+msgid "نقطة البيع"
+msgstr "نقطة البيع"
+
+#: .\core\templates\core\overview.html:42
+msgid "لوحة التحكم الرئيسية"
+msgstr "لوحة التحكم الرئيسية"
+
+#: .\core\templates\core\overview.html:44
+msgid "ابحث عن تطبيق…"
+msgstr "ابحث عن تطبيق…"
+
+#: .\core\templates\core\overview.html:44
+msgid "بحث عن تطبيق"
+msgstr "بحث عن تطبيق"
+
+#: .\core\templates\core\overview.html:75
+msgid "لا توجد تطبيقات متاحة حاليًا."
+msgstr "لا توجد تطبيقات متاحة حاليًا."
+
+#: .\core\templates\core\overview.html:79
+msgid "لا توجد تطبيقات لعرضها حاليًا."
+msgstr "لا توجد تطبيقات لعرضها حاليًا."
+
+#: .\core\templates\core\risk_threshold_create.html:6
+msgid "إضافة حد خطر"
+msgstr "إضافة حد خطر"
+
+#: .\core\templates\core\risk_threshold_list.html:6
+msgid "حدود المخاطر"
+msgstr "حدود المخاطر"
+
+#: .\core\templates\core\risk_threshold_list.html:7
+msgid "إضافة حد"
+msgstr "إضافة حد"
+
+#: .\core\templates\core\risk_threshold_list.html:13
+msgid "نوع الخطر"
+msgstr "نوع الخطر"
+
+#: .\core\templates\core\risk_threshold_list.html:14
+msgid "القيمة الحدية"
+msgstr "القيمة الحدية"
+
+#: .\core\templates\core\risk_threshold_list.html:15
+msgid "الخطورة"
+msgstr "الخطورة"
+
+#: .\core\templates\core\risk_threshold_list.html:16
+#: .\core\templates\core\stage_type_list.html:17
+msgid "نشطة؟"
+msgstr "نشطة؟"
+
+#: .\core\templates\core\risk_threshold_list.html:29
+msgid "لا توجد حدود"
+msgstr "لا توجد حدود"
+
+#: .\core\templates\core\stage_type_create.html:6
+msgid "إضافة مرحلة جديدة"
+msgstr "إضافة مرحلة جديدة"
+
+#: .\core\templates\core\stage_type_create.html:12
+msgid "حفظ المرحلة"
+msgstr "حفظ المرحلة"
+
+#: .\core\templates\core\stage_type_list.html:7
+msgid "إضافة مرحلة"
+msgstr "إضافة مرحلة"
+
+#: .\core\templates\core\stage_type_list.html:14
+msgid "الترتيب"
+msgstr "الترتيب"
+
+#: .\core\templates\core\stage_type_list.html:15
+msgid "المدة التقديرية"
+msgstr "المدة التقديرية"
+
+#: .\core\templates\core\stage_type_list.html:16
+msgid "تتطلب ماكينة؟"
+msgstr "تتطلب ماكينة؟"
+
+#: .\core\templates\core\stage_type_list.html:31
+msgid "لا توجد مراحل"
+msgstr "لا توجد مراحل"
+
+#: .\core\templates\core\tabs_template.html:4
+msgid "تفاصيل العنصر"
+msgstr "تفاصيل العنصر"
+
+#: .\core\templates\core\tabs_template.html:23
+msgid "تفاصيل المنتج / الموظف"
+msgstr "تفاصيل المنتج / الموظف"
+
+#: .\core\templates\core\tabs_template.html:25
+#: .\core\templates\core\unit_list.html:53
+msgid "تعديل"
+msgstr "تعديل"
+
+#: .\core\templates\core\tabs_template.html:27
+msgid "تصدير"
+msgstr "تصدير"
+
+#: .\core\templates\core\tabs_template.html:35
+msgid "البيانات العامة"
+msgstr "البيانات العامة"
+
+#: .\core\templates\core\tabs_template.html:40
+msgid "البيانات المالية"
+msgstr "البيانات المالية"
+
+#: .\core\templates\core\tabs_template.html:46
+msgid "المستندات"
+msgstr "المستندات"
+
+#: .\core\templates\core\tabs_template.html:59
+msgid "معلومات أساسية"
+msgstr "معلومات أساسية"
+
+#: .\core\templates\core\tabs_template.html:75
+msgid "لا توجد ملاحظات"
+msgstr "لا توجد ملاحظات"
+
+#: .\core\templates\core\tabs_template.html:89
+msgid "البند"
+msgstr "البند"
+
+#: .\core\templates\core\tabs_template.html:90
+msgid "القيمة"
+msgstr "القيمة"
+
+#: .\core\templates\core\tabs_template.html:91
+msgid "العملة"
+msgstr "العملة"
+
+#: .\core\templates\core\tabs_template.html:104
+msgid "لا توجد بيانات مالية"
+msgstr "لا توجد بيانات مالية"
+
+#: .\core\templates\core\tabs_template.html:124
+msgid "عرض"
+msgstr "عرض"
+
+#: .\core\templates\core\tabs_template.html:125
+msgid "تحميل"
+msgstr "تحميل"
+
+#: .\core\templates\core\tabs_template.html:131
+msgid "لا توجد مستندات"
+msgstr "لا توجد مستندات"
+
+#: .\core\templates\core\unit_create.html:6
+msgid "إضافة وحدة جديدة"
+msgstr "إضافة وحدة جديدة"
+
+#: .\core\templates\core\unit_create.html:13
+msgid "رجوع للقائمة"
+msgstr "رجوع للقائمة"
+
+#: .\core\templates\core\unit_create.html:14
+msgid "حفظ الوحدة"
+msgstr "حفظ الوحدة"
+
+#: .\core\templates\core\unit_list.html:6
+msgid "قائمة الوحدات"
+msgstr "قائمة الوحدات"
+
+#: .\core\templates\core\unit_list.html:9
+msgid "إضافة وحدة"
+msgstr "إضافة وحدة"
+
+#: .\core\templates\core\unit_list.html:23
+msgid "اسم الوحدة"
+msgstr "اسم الوحدة"
+
+#: .\core\templates\core\unit_list.html:24
+msgid "الاختصار"
+msgstr "الاختصار"
+
+#: .\core\templates\core\unit_list.html:25
+msgid "نوع الوحدة"
+msgstr "نوع الوحدة"
+
+#: .\core\templates\core\unit_list.html:26
+msgid "فعالة؟"
+msgstr "فعالة؟"
+
+#: .\core\templates\core\unit_list.html:27
+msgid "وحدة مجمعة؟"
+msgstr "وحدة مجمعة؟"
+
+#: .\core\templates\core\unit_list.html:28
+msgid "خيارات"
+msgstr "خيارات"
+
+#: .\core\templates\core\unit_list.html:58
+msgid "لا توجد وحدات مسجلة"
+msgstr "لا توجد وحدات مسجلة"
+
+#: .\core\templates\registration\login.html:4
+#: .\core\templates\registration\login.html:13
+#: .\core\templates\registration\login.html:52
+msgid "تسجيل الدخول"
+msgstr "تسجيل الدخول"
+
+#: .\core\templates\registration\login.html:14
+msgid "ادخل بيانات حسابك للمتابعة."
+msgstr "ادخل بيانات حسابك للمتابعة."
+
+#: .\core\templates\registration\login.html:27
+msgid "اسم المستخدم أو البريد الإلكتروني"
+msgstr "اسم المستخدم أو البريد الإلكتروني"
+
+#: .\core\templates\registration\login.html:29
+msgid "example@company.com"
+msgstr "example@company.com"
+
+#: .\core\templates\registration\login.html:33
+msgid "كلمة المرور"
+msgstr "كلمة المرور"
+
+#: .\core\templates\registration\login.html:36
+#: .\core\templates\registration\register.html:34
+msgid "إظهار/إخفاء"
+msgstr "إظهار/إخفاء"
+
+#: .\core\templates\registration\login.html:45
+msgid "تذكرني"
+msgstr "تذكرني"
+
+#: .\core\templates\registration\login.html:48
+msgid "نسيت كلمة المرور؟"
+msgstr "نسيت كلمة المرور؟"
+
+#: .\core\templates\registration\login.html:56
+msgid "لا تملك حسابًا؟"
+msgstr "لا تملك حسابًا؟"
+
+#: .\core\templates\registration\login.html:57
+msgid "إنشاء حساب جديد"
+msgstr "إنشاء حساب جديد"
+
+#: .\core\templates\registration\register.html:4
+msgid "إنشاء حساب"
+msgstr "إنشاء حساب"
+
+#: .\core\templates\registration\register.html:13
+msgid "تسجيل مستخدم جديد"
+msgstr "تسجيل مستخدم جديد"
+
+#: .\core\templates\registration\register.html:14
+msgid "املأ البيانات التالية لإتمام إنشاء الحساب."
+msgstr "املأ البيانات التالية لإتمام إنشاء الحساب."
+
+#: .\core\templates\registration\register.html:47
+msgid "إنشاء الحساب"
+msgstr "إنشاء الحساب"
+
+#: .\core\templates\registration\register.html:51
+msgid "العودة لتسجيل الدخول"
+msgstr "العودة لتسجيل الدخول"
+
+#: .\core\views.py:101
+msgid "الحضور والانصراف"
+msgstr "الحضور والانصراف"
+
+#: .\core\views.py:102
+msgid "الرواتب"
+msgstr "الرواتب"
+
+#: .\core\views.py:103
+msgid "الإنتاج"
+msgstr "الإنتاج"
+
+#: .\core\views.py:104 .\pos\templates\pos\order_detail.html:11
+msgid "المنتجات"
+msgstr "المنتجات"
+
+#: .\core\views.py:110
+msgid "التسويق"
+msgstr "التسويق"
+
+#: .\core\views.py:111
+msgid "الذكاء الاصطناعي"
+msgstr "الذكاء الاصطناعي"
+
+#: .\core\views.py:112
+msgid "الصيانة"
+msgstr "الصيانة"
+
+#: .\core\views.py:113 .\core\views.py:159
+msgid "الموردين"
+msgstr "الموردين"
+
+#: .\core\views.py:114
+msgid "العقود"
+msgstr "العقود"
+
+#: .\core\views.py:115
+msgid "لوحة المراقبة"
+msgstr "لوحة المراقبة"
+
+#: .\dashboard_center\templates\dashboard_center\dashboard.html:9
+#: .\dashboard_center\templates\dashboard_center\overview.html:13
+#: .\sales\forms.py:46 .\sales\models.py:92 .\sales\models.py:107
+msgid "إجمالي المبيعات"
+msgstr "إجمالي المبيعات"
+
+#: .\dashboard_center\templates\dashboard_center\dashboard.html:21
+#: .\dashboard_center\templates\dashboard_center\overview.html:25
+msgid "إجمالي المعاملات"
+msgstr "إجمالي المعاملات"
+
+#: .\dashboard_center\templates\dashboard_center\dashboard.html:33
+#: .\dashboard_center\templates\dashboard_center\overview.html:37
+msgid "عدد المنتجات"
+msgstr "عدد المنتجات"
+
+#: .\dashboard_center\templates\dashboard_center\dashboard.html:57
+#: .\dashboard_center\templates\dashboard_center\overview.html:61
+msgid "عدد الموظفين"
+msgstr "عدد الموظفين"
+
+#: .\dashboard_center\templates\dashboard_center\dashboard.html:69
+#: .\dashboard_center\templates\dashboard_center\overview.html:73
+msgid "نمو الشهر الحالي"
+msgstr "نمو الشهر الحالي"
+
+#: .\dashboard_center\templates\dashboard_center\overview.html:135
+#: .\dashboard_center\templates\dashboard_center\overview.html:137
+msgid "ج.م"
+msgstr "ج.م"
+
+#: .\discipline\models.py:8
+msgid "خصم"
+msgstr "خصم"
+
+#: .\discipline\models.py:9
+msgid "مكافأة"
+msgstr "مكافأة"
+
+#: .\discipline\models.py:10
+msgid "إنذار"
+msgstr "إنذار"
+
+#: .\discipline\models.py:13
+msgid "مبلغ"
+msgstr "مبلغ"
+
+#: .\discipline\models.py:14
+msgid "نسبة"
+msgstr "نسبة"
+
+#: .\inventory\models.py:9
+msgid "قطعة"
+msgstr "قطعة"
+
+#: .\inventory\models.py:10
+msgid "كيلو"
+msgstr "كيلو"
+
+#: .\inventory\models.py:11
+msgid "متر"
+msgstr "متر"
+
+#: .\inventory\models.py:12
+msgid "رول"
+msgstr "رول"
+
+#: .\inventory\models.py:13
+msgid "علبة"
+msgstr "علبة"
+
+#: .\inventory\models.py:19
+msgid "خروج"
+msgstr "خروج"
+
+#: .\inventory\models.py:20
+msgid "تسوية"
+msgstr "تسوية"
+
+#: .\inventory\models.py:25
+msgid "جرد جزئي أسبوعي"
+msgstr "جرد جزئي أسبوعي"
+
+#: .\inventory\models.py:26
+msgid "جرد شهري"
+msgstr "جرد شهري"
+
+#: .\inventory\models.py:27
+msgid "جرد سنوي"
+msgstr "جرد سنوي"
+
+#: .\inventory\models.py:35
+msgid "الكود"
+msgstr "الكود"
+
+#: .\inventory\models.py:36 .\inventory\models.py:69
+msgid "وحدة القياس"
+msgstr "وحدة القياس"
+
+#: .\inventory\models.py:37
+msgid "الوصف"
+msgstr "الوصف"
+
+#: .\inventory\models.py:40
+msgid "مادة خام"
+msgstr "مادة خام"
+
+#: .\inventory\models.py:41
+msgid "المواد الخام"
+msgstr "المواد الخام"
+
+#: .\inventory\models.py:50
+msgid "اسم المخزن"
+msgstr "اسم المخزن"
+
+#: .\inventory\models.py:51
+msgid "الموقع"
+msgstr "الموقع"
+
+#: .\inventory\models.py:52
+msgid "المدير"
+msgstr "المدير"
+
+#: .\inventory\models.py:56
+msgid "مخزن"
+msgstr "مخزن"
+
+#: .\inventory\models.py:57
+msgid "المخازن"
+msgstr "المخازن"
+
+#: .\inventory\models.py:66 .\inventory\models.py:129 .\sales\forms.py:28
+#: .\sales\forms.py:56 .\sales\models.py:56 .\sales\models.py:105
+#: .\sales\models.py:135
+msgid "المنتج"
+msgstr "المنتج"
+
+#: .\inventory\models.py:67
+msgid "المخزن"
+msgstr "المخزن"
+
+#: .\inventory\models.py:68 .\inventory\models.py:93 .\sales\forms.py:45
+#: .\sales\models.py:57
+msgid "الكمية"
+msgstr "الكمية"
+
+#: .\inventory\models.py:70
+msgid "الحد الأدنى"
+msgstr "الحد الأدنى"
+
+#: .\inventory\models.py:71
+msgid "آخر تحديث"
+msgstr "آخر تحديث"
+
+#: .\inventory\models.py:75
+msgid "عنصر مخزون"
+msgstr "عنصر مخزون"
+
+#: .\inventory\models.py:76
+msgid "عناصر المخزون"
+msgstr "عناصر المخزون"
+
+#: .\inventory\models.py:91
+msgid "العنصر"
+msgstr "العنصر"
+
+#: .\inventory\models.py:92
+msgid "نوع الحركة"
+msgstr "نوع الحركة"
+
+#: .\inventory\models.py:94 .\pos\templates\pos\order_detail.html:8
+#: .\sales\forms.py:45 .\sales\models.py:91
+msgid "التاريخ"
+msgstr "التاريخ"
+
+#: .\inventory\models.py:95
+msgid "ملاحظة"
+msgstr "ملاحظة"
+
+#: .\inventory\models.py:99
+msgid "حركة مخزون"
+msgstr "حركة مخزون"
+
+#: .\inventory\models.py:100
+msgid "حركات المخزون"
+msgstr "حركات المخزون"
+
+#: .\inventory\models.py:112
+msgid "نوع الجرد"
+msgstr "نوع الجرد"
+
+#: .\inventory\models.py:113
+msgid "تم بواسطة"
+msgstr "تم بواسطة"
+
+#: .\inventory\models.py:114
+msgid "تاريخ الجرد"
+msgstr "تاريخ الجرد"
+
+#: .\inventory\models.py:118 .\inventory\models.py:119
+msgid "جرد فعلي"
+msgstr "جرد فعلي"
+
+#: .\inventory\models.py:128
+msgid "الجرد"
+msgstr "الجرد"
+
+#: .\inventory\models.py:130
+msgid "كمية النظام"
+msgstr "كمية النظام"
+
+#: .\inventory\models.py:131
+msgid "الكمية الفعلية"
+msgstr "الكمية الفعلية"
+
+#: .\inventory\models.py:132
+msgid "الفرق"
+msgstr "الفرق"
+
+#: .\inventory\models.py:136 .\inventory\models.py:137
+msgid "تفاصيل الجرد"
+msgstr "تفاصيل الجرد"
+
+#: .\inventory\models.py:147
+msgid "عنصر الجرد"
+msgstr "عنصر الجرد"
+
+#: .\inventory\models.py:148
+msgid "تم الحل"
+msgstr "تم الحل"
+
+#: .\inventory\models.py:149
+msgid "الإجراء المتخذ"
+msgstr "الإجراء المتخذ"
+
+#: .\inventory\models.py:150
+msgid "تم التبليغ إلى"
+msgstr "تم التبليغ إلى"
+
+#: .\inventory\models.py:154
+msgid "تحقيق في فروقات الجرد"
+msgstr "تحقيق في فروقات الجرد"
+
+#: .\inventory\models.py:155
+msgid "تحقيقات فروقات الجرد"
+msgstr "تحقيقات فروقات الجرد"
+
+#: .\notifications\models.py:12
+msgid "معلومات"
+msgstr "معلومات"
+
+#: .\notifications\models.py:13
+msgid "تحذير"
+msgstr "تحذير"
+
+#: .\notifications\models.py:14
+msgid "هام"
+msgstr "هام"
+
+#: .\notifications\models.py:20
+msgid "المستخدم"
+msgstr "المستخدم"
+
+#: .\notifications\models.py:22
+msgid "عنوان الإشعار"
+msgstr "عنوان الإشعار"
+
+#: .\notifications\models.py:23
+msgid "نص الإشعار"
+msgstr "نص الإشعار"
+
+#: .\notifications\models.py:28
+msgid "نوع الإشعار"
+msgstr "نوع الإشعار"
+
+#: .\notifications\models.py:30
+msgid "رابط"
+msgstr "رابط"
+
+#: .\notifications\models.py:33
+msgid "بيانات إضافية"
+msgstr "بيانات إضافية"
+
+#: .\notifications\models.py:36
+msgid "تاريخ القراءة"
+msgstr "تاريخ القراءة"
+
+#: .\notifications\models.py:40
+msgid "إشعار"
+msgstr "إشعار"
+
+#: .\notifications\models.py:41
+#: .\notifications\templates\notifications\list.html:3
+#: .\notifications\templates\notifications\list.html:6
+msgid "الإشعارات"
+msgstr "الإشعارات"
+
+#: .\notifications\templates\notifications\list.html:12
+msgid "تعليم كمقروء"
+msgstr "تعليم كمقروء"
+
+#: .\notifications\templates\notifications\list.html:17
+msgid "لا توجد إشعارات"
+msgstr "لا توجد إشعارات"
+
+#: .\pattern\models.py:6
+msgid "أساسي"
+msgstr "أساسي"
+
+#: .\pattern\models.py:8
+msgid "تطريز"
+msgstr "تطريز"
+
+#: .\pattern\models.py:9
+msgid "قص ليزر"
+msgstr "قص ليزر"
+
+#: .\payroll\forms.py:41
+msgid "تم تسجيل مرتب لهذا الموظف في هذا الشهر مسبقًا."
+msgstr "تم تسجيل مرتب لهذا الموظف في هذا الشهر مسبقًا."
+
+#: .\payroll\forms.py:51
+msgid "صافي المرتب لا يمكن أن يكون أقل من صفر."
+msgstr "صافي المرتب لا يمكن أن يكون أقل من صفر."
+
+#: .\pos\templates\pos\new_order.html:6
+#: .\pos\templates\pos\order_detail.html:20
+msgid "طلب جديد"
+msgstr "طلب جديد"
+
+#: .\pos\templates\pos\new_order.html:10
+msgid "إتمام الطلب"
+msgstr "إتمام الطلب"
+
+#: .\pos\templates\pos\open_session.html:6
+msgid "فتح جلسة بيع"
+msgstr "فتح جلسة بيع"
+
+#: .\pos\templates\pos\open_session.html:10 .\sales\forms.py:44
+#: .\sales\models.py:90
+msgid "الموظف"
+msgstr "الموظف"
+
+#: .\pos\templates\pos\open_session.html:14
+msgid "الرصيد الافتتاحي"
+msgstr "الرصيد الافتتاحي"
+
+#: .\pos\templates\pos\open_session.html:17
+msgid "بدء الجلسة"
+msgstr "بدء الجلسة"
+
+#: .\pos\templates\pos\order_detail.html:6
+msgid "تفاصيل الطلب"
+msgstr "تفاصيل الطلب"
+
+#: .\pos\templates\pos\order_detail.html:9
+msgid "المجموع"
+msgstr "المجموع"
+
+#: .\pos\templates\pos\order_detail.html:21
+msgid "طباعة الفاتورة"
+msgstr "طباعة الفاتورة"
+
+#: .\sales\forms.py:14 .\sales\models.py:22
+msgid "رقم الفاتورة"
+msgstr "رقم الفاتورة"
+
+#: .\sales\forms.py:15 .\sales\models.py:23 .\sales\models.py:75
+#: .\sales\models.py:120
+msgid "العميل"
+msgstr "العميل"
+
+#: .\sales\forms.py:16 .\sales\models.py:24
+msgid "تاريخ الفاتورة"
+msgstr "تاريخ الفاتورة"
+
+#: .\sales\forms.py:17 .\sales\models.py:26
+msgid "طريقة الدفع"
+msgstr "طريقة الدفع"
+
+#: .\sales\forms.py:27 .\sales\models.py:55
+msgid "الفاتورة"
+msgstr "الفاتورة"
+
+#: .\sales\forms.py:30 .\sales\models.py:58
+msgid "سعر الوحدة"
+msgstr "سعر الوحدة"
+
+#: .\sales\forms.py:31 .\sales\models.py:59
+msgid "الخصم"
+msgstr "الخصم"
+
+#: .\sales\forms.py:57 .\sales\models.py:136
+msgid "الاقتراح"
+msgstr "الاقتراح"
+
+#: .\sales\models.py:11
+msgid "نقدي"
+msgstr "نقدي"
+
+#: .\sales\models.py:12
+msgid "فودافون كاش"
+msgstr "فودافون كاش"
+
+#: .\sales\models.py:13
+msgid "إنستاباي"
+msgstr "إنستاباي"
+
+#: .\sales\models.py:14
+msgid "تحويل بنكي"
+msgstr "تحويل بنكي"
+
+#: .\sales\models.py:15
+msgid "شيك"
+msgstr "شيك"
+
+#: .\sales\models.py:16
+msgid "بطاقة ائتمان"
+msgstr "بطاقة ائتمان"
+
+#: .\sales\models.py:17
+msgid "ValU"
+msgstr "ValU"
+
+#: .\sales\models.py:18
+msgid "PayPal"
+msgstr "PayPal"
+
+#: .\sales\models.py:19
+msgid "دفع لاحق"
+msgstr "دفع لاحق"
+
+#: .\sales\models.py:25
+msgid "إجمالي المبلغ"
+msgstr "إجمالي المبلغ"
+
+#: .\sales\models.py:27
+msgid "أنشأ بواسطة"
+msgstr "أنشأ بواسطة"
+
+#: .\sales\models.py:33
+msgid "فاتورة بيع"
+msgstr "فاتورة بيع"
+
+#: .\sales\models.py:34
+msgid "فواتير البيع"
+msgstr "فواتير البيع"
+
+#: .\sales\models.py:62
+msgid "بند فاتورة"
+msgstr "بند فاتورة"
+
+#: .\sales\models.py:63
+msgid "بنود الفاتورة"
+msgstr "بنود الفاتورة"
+
+#: .\sales\models.py:77
+msgid "مصدر النقاط"
+msgstr "مصدر النقاط"
+
+#: .\sales\models.py:78
+msgid "تاريخ الإضافة"
+msgstr "تاريخ الإضافة"
+
+#: .\sales\models.py:81
+msgid "سجل نقاط العميل"
+msgstr "سجل نقاط العميل"
+
+#: .\sales\models.py:82
+msgid "سجلات نقاط العملاء"
+msgstr "سجلات نقاط العملاء"
+
+#: .\sales\models.py:96
+msgid "أداء مبيعات"
+msgstr "أداء مبيعات"
+
+#: .\sales\models.py:97
+msgid "أداء المبيعات"
+msgstr "أداء المبيعات"
+
+#: .\sales\models.py:106
+msgid "الشهر"
+msgstr "الشهر"
+
+#: .\sales\models.py:108
+msgid "تنبيهات"
+msgstr "تنبيهات"
+
+#: .\sales\models.py:111
+msgid "تحليل مبيعات المنتج"
+msgstr "تحليل مبيعات المنتج"
+
+#: .\sales\models.py:112
+msgid "تحليلات مبيعات المنتجات"
+msgstr "تحليلات مبيعات المنتجات"
+
+#: .\sales\models.py:121
+msgid "آخر شراء"
+msgstr "آخر شراء"
+
+#: .\sales\models.py:122
+msgid "إجمالي الشراء"
+msgstr "إجمالي الشراء"
+
+#: .\sales\models.py:126
+msgid "نشاط العميل"
+msgstr "نشاط العميل"
+
+#: .\sales\models.py:127
+msgid "تحليل نشاط العملاء"
+msgstr "تحليل نشاط العملاء"
+
+#: .\sales\models.py:137
+msgid "تاريخ الاقتراح"
+msgstr "تاريخ الاقتراح"
+
+#: .\sales\models.py:140
+msgid "اقتراح مبيعات ذكي"
+msgstr "اقتراح مبيعات ذكي"
+
+#: .\sales\models.py:141
+msgid "اقتراحات المبيعات الذكية"
+msgstr "اقتراحات المبيعات الذكية"
+
+#: .\suppliers\templates\suppliers\dashboard.html:9
+msgid "لوحة تحكم الموردين"
+msgstr "لوحة تحكم الموردين"
+
+#: .\work_regulations\models.py:6
+msgid "Regulation Title"
+msgstr "عنوان اللائحة"
+
+#: .\work_regulations\models.py:7
+msgid "HTML Content"
+msgstr "محتوى HTML"
+
+#: .\work_regulations\models.py:8
+msgid "PDF File"
+msgstr "ملف PDF"
+
+#: .\work_regulations\models.py:12
+msgid "Work Regulation"
+msgstr "لائحة العمل"
+
+#: .\work_regulations\models.py:13
+msgid "Work Regulations"
+msgstr "لوائح العمل"
+
+#: .\work_regulations\models.py:20
+msgid "Employee"
+msgstr "الموظف"
+
+#: .\work_regulations\models.py:21
+msgid "Regulation"
+msgstr "اللائحة"
+
+#: .\work_regulations\models.py:25
+msgid "Agreement"
+msgstr "اتفاق"
+
+#: .\work_regulations\models.py:26
+msgid "Agreements"
+msgstr "اتفاقيات"
+
+#: .\work_regulations\templates\work_regulations\view.html:2
+msgid "Official Work Regulation"
+msgstr "اللائحة الرسمية للعمل"
+
+#: .\work_regulations\templates\work_regulations\view.html:15
+msgid "Download PDF version"
+msgstr "تنزيل نسخة PDF"
+
+#: .\work_regulations\templates\work_regulations\view.html:25
+msgid "I Agree to the Regulation"
+msgstr "أوافق على اللائحة"
+
+#: .\work_regulations\templates\work_regulations\view.html:30
+msgid "You have already agreed to this regulation."
+msgstr "لقد وافقت على هذه اللائحة مسبقًا."
+
+#~ msgid "متابعة المخزون وحركاته"
+#~ msgstr "متابعة المخزون وحركاته"
+
+# --- Added 2025-08-22: QMS (AQL / SPC / CAPA) UI/UX & messages ---
+
+#: apps/qms/templates/apps/qms/index.html:6
+msgid "Quality Management System (QMS)"
+msgstr "نظام إدارة الجودة (QMS)"
+
+#: apps/qms/templates/apps/qms/index.html:9
+msgid "إدارة الجودة"
+msgstr "إدارة الجودة"
+
+#: apps/qms/templates/apps/qms/index.html:21
+msgid "Search lots & records…"
+msgstr "ابحث في دفعات الفحص والسجلات…"
+
+#: apps/qms/templates/apps/qms/index.html:22
+msgid "بحث"
+msgstr "بحث"
+
+#: apps/qms/templates/apps/qms/index.html:42
+msgid "خطط AQL"
+msgstr "خطط AQL"
+
+#: apps/qms/templates/apps/qms/index.html:48
+msgid "دفعات فحص"
+msgstr "دفعات فحص"
+
+#: apps/qms/templates/apps/qms/index.html:52
+msgid "دفعة فحص جديدة"
+msgstr "دفعة فحص جديدة"
+
+#: apps/qms/templates/apps/qms/index.html:63
+msgid "SPC — Statistical Process Control"
+msgstr "SPC — الضبط الإحصائي للعملية"
+
+#: apps/qms/templates/apps/qms/index.html:69
+msgid "عمليات SPC"
+msgstr "عمليات SPC"
+
+#: apps/qms/templates/apps/qms/index.html:73
+msgid "مخططات SPC"
+msgstr "مخططات SPC"
+
+#: apps/qms/templates/apps/qms/index.html:77
+msgid "عملية جديدة"
+msgstr "عملية جديدة"
+
+#: apps/qms/templates/apps/qms/index.html:88
+msgid "CAPA — Corrective & Preventive Actions"
+msgstr "CAPA — إجراءات تصحيحية ووقائية"
+
+#: apps/qms/templates/apps/qms/index.html:94
+msgid "سجلات CAPA"
+msgstr "سجلات CAPA"
+
+#: apps/qms/templates/apps/qms/index.html:98
+msgid "سجل CAPA جديد"
+msgstr "سجل CAPA جديد"
+
+#: apps/qms/templates/apps/qms/index.html:115
+msgid "أحدث دفعات الفحص (AQL)"
+msgstr "أحدث دفعات الفحص (AQL)"
+
+#: apps/qms/templates/apps/qms/index.html:116
+msgid "عرض الكل"
+msgstr "عرض الكل"
+
+#: apps/qms/templates/apps/qms/index.html:124
+msgid "الكود"
+msgstr "الكود"
+
+#: apps/qms/templates/apps/qms/index.html:125
+msgid "المنتج/الصنف"
+msgstr "المنتج/الصنف"
+
+#: apps/qms/templates/apps/qms/index.html:126
+msgid "الحجم"
+msgstr "الحجم"
+
+#: apps/qms/templates/apps/qms/index.html:127
+msgid "القرار"
+msgstr "القرار"
+
+#: apps/qms/templates/apps/qms/index.html:128
+msgid "التاريخ"
+msgstr "التاريخ"
+
+#: apps/qms/templates/apps/qms/index.html:156
+msgid "أحدث سجلات CAPA"
+msgstr "أحدث سجلات CAPA"
+
+#: apps/qms/templates/apps/qms/index.html:164
+msgid "العنوان"
+msgstr "العنوان"
+
+#: apps/qms/templates/apps/qms/index.html:165
+msgid "الحالة"
+msgstr "الحالة"
+
+# ---- Views: success/info messages ----
+#: apps/qms/views.py:64
+msgid "تم إنشاء خطة AQL بنجاح."
+msgstr "تم إنشاء خطة AQL بنجاح."
+
+#: apps/qms/views.py:72
+msgid "تم تحديث خطة AQL بنجاح."
+msgstr "تم تحديث خطة AQL بنجاح."
+
+#: apps/qms/views.py:103
+msgid "تم إنشاء دفعة فحص AQL."
+msgstr "تم إنشاء دفعة فحص AQL."
+
+#: apps/qms/views.py:116
+msgid "تم تحديث دفعة الفحص."
+msgstr "تم تحديث دفعة الفحص."
+
+#: apps/qms/views.py:132
+msgid "تم تسجيل نتيجة الفحص."
+msgstr "تم تسجيل نتيجة الفحص."
+
+#: apps/qms/views.py:171
+msgid "تم إنشاء عملية SPC."
+msgstr "تم إنشاء عملية SPC."
+
+#: apps/qms/views.py:183
+msgid "تم تحديث عملية SPC."
+msgstr "تم تحديث عملية SPC."
+
+#: apps/qms/views.py:211
+msgid "تم إنشاء مخطط SPC."
+msgstr "تم إنشاء مخطط SPC."
+
+#: apps/qms/views.py:223
+msgid "تم تحديث مخطط SPC."
+msgstr "تم تحديث مخطط SPC."
+
+#: apps/qms/views.py:248
+msgid "تم إنشاء المجموعة الفرعية."
+msgstr "تم إنشاء المجموعة الفرعية."
+
+#: apps/qms/views.py:271
+msgid "تم إضافة نقطة البيانات."
+msgstr "تم إضافة نقطة البيانات."
+
+#: apps/qms/views.py:309
+msgid "تم إنشاء سجل CAPA."
+msgstr "تم إنشاء سجل CAPA."
+
+#: apps/qms/views.py:330
+msgid "تم تحديث سجل CAPA."
+msgstr "تم تحديث سجل CAPA."
+
+#: apps/qms/views.py:354
+msgid "تم إضافة إجراء CAPA."
+msgstr "تم إضافة إجراء CAPA."
+
+#: apps/qms/views.py:370
+msgid "تم تحديث إجراء CAPA."
+msgstr "تم تحديث إجراء CAPA."
+
+# ---- Models/Choices (SPC types & rules) ----
+#: apps/qms/models.py:257
+msgid "X̄-R"
+msgstr "X̄-R"
+
+#: apps/qms/models.py:258
+msgid "X̄-S"
+msgstr "X̄-S"
+
+#: apps/qms/models.py:259
+msgid "Individuals & MR"
+msgstr "أفراد و MR"
+
+#: apps/qms/models.py:260
+msgid "p (Proportion nonconforming)"
+msgstr "p (نسبة غير المطابقين)"
+
+#: apps/qms/models.py:261
+msgid "np (Count nonconforming)"
+msgstr "np (عدد غير المطابقين)"
+
+#: apps/qms/models.py:262
+msgid "c (Count of defects)"
+msgstr "c (عدد العيوب)"
+
+#: apps/qms/models.py:263
+msgid "u (Defects per unit)"
+msgstr "u (عيوب لكل وحدة)"
+
+#: apps/qms/models.py:268
+msgid "Western Electric"
+msgstr "قواعد ويسترن إلكتريك"
+
+#: apps/qms/models.py:269
+msgid "Nelson"
+msgstr "نيلسون"
+
+#: apps/qms/models.py:270
+msgid "±3σ basic"
+msgstr "أساسي ±3σ"
+
+# ---- Decision/status pills (AQL decisions) ----
+#: apps/qms/models.py:214
+msgid "قبول"
+msgstr "قبول"
+
+#: apps/qms/models.py:215
+msgid "رفض"
+msgstr "رفض"
+
+#: apps/qms/models.py:216
+msgid "إعادة عمل"
+msgstr "إعادة عمل"
+
+#: apps/qms/models.py:217
+msgid "احتواء"
+msgstr "احتواء"
+
+# ---- CAPA statuses/types (labels already عربية في الموديل نُعيدها لضمان التغطية) ----
+#: apps/qms/models.py:332
+msgid "تصحيحية"
+msgstr "تصحيحية"
+
+#: apps/qms/models.py:333
+msgid "وقائية"
+msgstr "وقائية"
+
+#: apps/qms/models.py:339
+msgid "مفتوحة"
+msgstr "مفتوحة"
+
+#: apps/qms/models.py:340
+msgid "قيد التنفيذ"
+msgstr "قيد التنفيذ"
+
+#: apps/qms/models.py:341
+msgid "تم التنفيذ"
+msgstr "تم التنفيذ"
+
+#: apps/qms/models.py:342
+msgid "تم التحقق"
+msgstr "تم التحقق"
+
+#: apps/qms/models.py:343
+msgid "غير فعالة"
+msgstr "غير فعالة"
+
+#: apps/qms/models.py:344
+msgid "مغلقة"
+msgstr "مغلقة"
+
+# ---- Misc UI text used within QMS pages ----
+#: apps/qms/templates/apps/qms/index.html:29
+msgid "خطط AQL"
+msgstr "خطط AQL"
+
+#: apps/qms/templates/apps/qms/index.html:34
+msgid "دفعات فحص"
+msgstr "دفعات فحص"
+
+#: apps/qms/templates/apps/qms/index.html:38
+msgid "دفعة فحص جديدة"
+msgstr "دفعة فحص جديدة"

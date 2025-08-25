@@ -1,0 +1,21 @@
+/* RTL base tweaks for Arabic UI — lightweight & safe */
+html[dir="rtl"] body {
+  font-family: "Cairo", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Arabic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+[dir="rtl"] .text-start { text-align:right !important; }
+[dir="rtl"] .text-end   { text-align:left  !important; }
+[dir="rtl"] input, [dir="rtl"] textarea, [dir="rtl"] select { direction:rtl; text-align:right; }
+[dir="rtl"] table th, [dir="rtl"] table td { text-align:right; }
+[dir="rtl"] .table .dropdown-menu { text-align:right; }
+[dir="rtl"] .breadcrumb { justify-content:flex-start; }
+[dir="rtl"] .pagination { direction:ltr; }
+[dir="rtl"] .pagination .page-link { direction:rtl; }
+[dir="rtl"] .sidebar-odoo { border-left:1px solid var(--border); border-right:0; }
+[dir="rtl"] .dropdown-menu { inset-inline-start:auto !important; inset-inline-end:0 !important; }
+[dir="rtl"] .toast-container { inset-inline-end:1rem; inset-inline-start:auto; }
+[dir="rtl"] .flip-rtl { transform:scaleX(-1); }
+[dir="rtl"] .ps-3 { padding-right:1rem !important; padding-left:0 !important; }
+[dir="rtl"] .pe-3 { padding-left:1rem !important;  padding-right:0 !important; }
+[dir="rtl"] .form-select { background-position:left .75rem center; padding-left:2rem; padding-right:.75rem; }
+[dir="rtl"] .card-header, [dir="rtl"] .modal-header { text-align:right; }
+[dir="rtl"] td[data-type="number"], [dir="rtl"] .text-numeric { direction:ltr; text-align:left; }

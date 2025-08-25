@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>تفاصيل العميل المحتمل: {{ lead.name }}</h2>
+<p><strong>الهاتف:</strong> {{ lead.phone }}</p>
+<p><strong>البريد:</strong> {{ lead.email }}</p>
+<p><strong>المصدر:</strong> {{ lead.source }}</p>
+<p><strong>الحالة:</strong> {{ lead.get_status_display }}</p>
+<p><strong>الموظف المسؤول:</strong> {{ lead.assigned_to }}</p>
+
+<hr>
+<h4>التفاعلات</h4>
+<ul>
+  {% for interaction in interactions %}
+    <li>{{ interaction.date }} - {{ interaction.note }} (بواسطة: {{ interaction.by }})</li>
+  {% empty %}
+    <li>لا توجد تفاعلات</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'crm:add_interaction' lead.pk %}" class="btn btn-sm btn-primary">إضافة تفاعل</a>
+
+<hr>
+<h4>الفرصة البيعية</h4>
+{% if opportunity %}
+  <p><strong>قيمة متوقعة:</strong> {{ opportunity.value }} جنيه</p>
+  <p><strong>تاريخ الإغلاق المتوقع:</strong> {{ opportunity.expected_close_date }}</p>
+  <p><strong>تمت البيعة؟</strong> {{ opportunity.is_won|yesno:"نعم,لا" }}</p>
+{% else %}
+  <a href="{% url 'crm:add_opportunity' lead.pk %}" class="btn btn-sm btn-success">تسجيل فرصة</a>
+{% endif %}
+{% endblock %}

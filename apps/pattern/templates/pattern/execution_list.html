@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3>سجل تنفيذ الباترونات</h3>
+    <div class="mb-2">
+        <a href="{% url 'pattern:execution_create' %}" class="btn btn-success">تنفيذ جديد</a>
+        <a href="?download_pdf=1" class="btn btn-danger">تصدير PDF</a>
+        <a href="?export=1" class="btn btn-info">تصدير Excel</a>
+    </div>
+    <table class="table table-striped table-bordered text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>التصميم</th>
+                <th>نوع التنفيذ</th>
+                <th>أمر الإنتاج</th>
+                <th>المنفذ</th>
+                <th>التاريخ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in executions %}
+            <tr>
+                <td>{{ e.design.title }}</td>
+                <td>{{ e.execution_type }}</td>
+                <td>{{ e.production_order.order_number }}</td>
+                <td>{{ e.executed_by }}</td>
+                <td>{{ e.executed_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

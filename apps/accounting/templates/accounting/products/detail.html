@@ -1,0 +1,208 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+{% get_current_language_bidi as BIDI %}
+{% url 'products:product_list' as PRODUCT_LIST_URL %}
+
+{% block title %}
+  {% if product %}{{ product.name }} — {{ product.code }}{% else %}{% trans "تفاصيل المنتج" %}{% endif %}
+{% endblock %}
+
+{% block header_title %}
+  📦 {% if product %}{{ product.name }} — {{ product.code }}{% else %}{% trans "تفاصيل المنتج" %}{% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+  <a href="{% url 'core:launcher' %}">{% trans "التطبيقات" %}</a> /
+  <a href="{{ PRODUCT_LIST_URL|default:'#' }}">{% trans "المنتجات" %}</a> /
+  {% if product %}{{ product.name }}{% else %}{% trans "تفاصيل" %}{% endif %}
+{% endblock %}
+
+{% block extra_head %}
+  {# إن لم يُمرَّر كائن المنتج، نحافظ على المفهوم الموحد ونُحوِّل للقائمة القياسية #}
+  {% if not product and PRODUCT_LIST_URL %}
+    <meta http-equiv="refresh" content="0; url={{ PRODUCT_LIST_URL }}">
+    <link rel="canonical" href="{{ PRODUCT_LIST_URL }}">
+  {% endif %}
+
+  {# تحسينات بسيطة #}
+  {% if product %}
+    <link rel="prefetch" href="{{ PRODUCT_LIST_URL }}?q={{ product.code|urlencode }}">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "{{ product.name|escapejs }}",
+      "sku": "{{ product.code|escapejs }}",
+      "image": [{% if product.image %}"{{ product.image.url }}"{% else %}"{% static 'icons/icon-512x512.png' %}"{% endif %}],
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "{{ product.currency|default:'EGP' }}",
+        "price": "{{ product.price|default:0 }}"
+      }
+    }
+    </script>
+  {% endif %}
+{% endblock %}
+
+{% block page_toolbar %}
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-secondary" href="{{ PRODUCT_LIST_URL|default:'#' }}">
+      <i class="fa-solid fa-list"></i> {% trans "القائمة" %}
+    </a>
+    {% if product %}
+      <a class="btn btn-primary" href="{{ PRODUCT_LIST_URL|default:'/products/' }}?q={{ product.code|urlencode }}">
+        <i class="fa-solid fa-box"></i> {% trans "عرض في صفحة المنتجات القياسية" %}
+      </a>
+      <button class="btn btn-light" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> {% trans "طباعة" %}
+      </button>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 py-4">
+
+  {% if not product %}
+    <div class="alert alert-info d-flex justify-content-between align-items-center">
+      <span>{% trans "يتم الآن تحويلك إلى صفحة المنتجات القياسية." %}</span>
+      <a class="btn btn-primary" href="{{ PRODUCT_LIST_URL|default:'/products/' }}">{% trans "الانتقال الآن" %}</a>
+    </div>
+    <div class="text-muted small mt-2 d-flex align-items-center gap-2">
+      <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
+      <span>{% trans "جاري التحويل…" %}</span>
+    </div>
+  {% else %}
+
+    <div class="row g-3">
+      <div class="col-12 col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex gap-3 align-items-start">
+              <div class="flex-shrink-0">
+                <div class="border rounded-3 p-2 bg-white">
+                  {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="" style="width:120px;height:120px;object-fit:contain">
+                  {% else %}
+                    <img src="{% static 'icons/icon-192x192.png' %}" alt="" style="width:120px;height:120px;object-fit:contain;opacity:.8">
+                  {% endif %}
+                </div>
+              </div>
+              <div class="flex-grow-1">
+                <h2 class="h5 mb-1">{{ product.name }}</h2>
+                <div class="text-muted small">
+                  <span class="me-2"><i class="fa-solid fa-barcode"></i> {{ product.code }}</span>
+                  {% if product.barcode %}<span class="me-2"><i class="fa-solid fa-upc"></i> {{ product.barcode }}</span>{% endif %}
+                  {% if product.uom %}<span class="me-2"><i class="fa-solid fa-ruler"></i> {{ product.uom }}</span>{% endif %}
+                  {% if product.is_active %}<span class="badge bg-success">{% trans "نشط" %}</span>{% else %}<span class="badge bg-secondary">{% trans "غير نشط" %}</span>{% endif %}
+                </div>
+                {% if product.description %}
+                  <p class="mt-2 mb-0">{{ product.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="row g-3">
+              <div class="col-6 col-md-4">
+                <div class="small text-muted">{% trans "السعر" %}</div>
+                <div class="fw-semibold">{{ product.price }} {{ product.currency|default:'EGP' }}</div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="small text-muted">{% trans "التكلفة" %}</div>
+                <div class="fw-semibold">{{ product.cost_price|default:0 }} {{ product.currency|default:'EGP' }}</div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="small text-muted">{% trans "الضريبة %" %}</div>
+                <div class="fw-semibold">{{ product.tax_rate|default:"0.00" }}%</div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="small text-muted">{% trans "الهامش التقريبي" %}</div>
+                <div class="fw-semibold">
+                  {% if product.price and product.cost_price is not None %}
+                    {{ product.price|floatformat:2|add:"0"|floatformat }} - {{ product.cost_price|floatformat:2 }} =
+                    {{ product.price|add:-product.cost_price|floatformat:2 }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="small text-muted">{% trans "تاريخ الإنشاء" %}</div>
+                <div class="fw-semibold">{{ product.created_at }}</div>
+              </div>
+              {% if product.updated_at %}
+              <div class="col-6 col-md-4">
+                <div class="small text-muted">{% trans "آخر تحديث" %}</div>
+                <div class="fw-semibold">{{ product.updated_at }}</div>
+              </div>
+              {% endif %}
+            </div>
+
+            {% if product.attributes %}
+            <hr>
+            <div>
+              <div class="small text-muted mb-2">{% trans "سمات المنتج" %}</div>
+              <div class="row g-2">
+                {% for k,v in product.attributes.items %}
+                  <div class="col-12 col-md-6">
+                    <div class="border rounded-3 p-2 bg-light">
+                      <div class="small text-muted">{{ k }}</div>
+                      <div class="fw-semibold">{{ v }}</div>
+                    </div>
+                  </div>
+                {% empty %}
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="small text-muted mb-2">{% trans "رموز" %}</div>
+            <div class="d-flex flex-wrap gap-3">
+              <div class="text-center">
+                <div class="border rounded-3 p-2 bg-white">
+                  {% if product.qr_code %}
+                    <img src="{{ product.qr_code.url }}" alt="QR" style="width:120px;height:120px;object-fit:contain">
+                  {% else %}
+                    <div class="d-flex align-items-center justify-content-center" style="width:120px;height:120px;opacity:.6">
+                      <i class="fa-solid fa-qrcode fa-3x"></i>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="small mt-1 text-muted">{% trans "QR" %}</div>
+              </div>
+              {% if product.barcode %}
+              <div class="text-center">
+                <div class="border rounded-3 p-2 bg-white d-flex align-items-center justify-content-center" style="width:120px;height:120px;">
+                  <i class="fa-solid fa-barcode fa-3x" aria-hidden="true"></i>
+                </div>
+                <div class="small mt-1 text-muted">{% trans "Barcode" %}</div>
+              </div>
+              {% endif %}
+            </div>
+
+            <hr>
+
+            <div class="d-grid gap-2">
+              <a class="btn btn-outline-primary" href="{{ PRODUCT_LIST_URL|default:'/products/' }}?q={{ product.code|urlencode }}">
+                <i class="fa-solid fa-box-open"></i> {% trans "فتح في قائمة المنتجات" %}
+              </a>
+              <button class="btn btn-outline-secondary" onclick="window.print()">
+                <i class="fa-solid fa-print"></i> {% trans "طباعة بطاقة المنتج" %}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
+</div>
+{% endblock %}

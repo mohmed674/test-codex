@@ -1,0 +1,86 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}{% if object %}{% trans "تعديل دور قسم" %}{% else %}{% trans "إضافة دور قسم" %}{% endif %}{% endblock %}
+
+{% block extra_head %}{{ block.super }}
+<link rel="stylesheet" href="{% static 'erp.css' %}">
+<style>.form-required::after{content:" *";color:var(--bs-danger);}</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-3" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr' }}">
+  <div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div>
+        <h5 class="mb-0 fw-bold">{% if object %}{% trans "تعديل دور قسم" %}{% else %}{% trans "إضافة دور قسم" %}{% endif %}</h5>
+        <div class="small opacity-75 mt-1">
+          <a href="{% url 'core:launcher' %}" class="text-decoration-none">{% trans "الرئيسية" %}</a>
+          <span class="mx-1">/</span>
+          <a href="{% url 'core:department_role_list' %}" class="text-decoration-none">{% trans "أدوار الأقسام" %}</a>
+          <span class="mx-1">/</span>
+          <span class="text-muted">{% if object %}{% trans "تعديل" %}{% else %}{% trans "إضافة" %}{% endif %}</span>
+        </div>
+      </div>
+      <a href="{% url 'core:department_role_list' %}" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-arrow-{{ LANGUAGE_BIDI|yesno:'right,left' }}"></i> {% trans "رجوع" %}
+      </a>
+    </div>
+
+    <div class="card-body">
+      <form id="deptRoleForm" method="post" novalidate autocomplete="off">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+
+        <div class="row g-3">
+          {% for field in form %}
+            {% if field.field.widget.input_type == "checkbox" %}
+              <div class="col-12 col-md-6 d-flex align-items-center" style="min-height:3rem">
+                <div class="form-check form-switch">
+                  {{ field }} <label class="form-check-label ms-2" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                </div>
+                {% if field.errors %}<div class="text-danger small ms-3">{{ field.errors|join:", " }}</div>{% endif %}
+              </div>
+            {% else %}
+              <div class="col-12 col-md-6">
+                <label class="form-label {% if field.field.required %}form-required{% endif %}" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<div class="form-text">{{ field.help_text|safe }}</div>{% endif %}
+                {% for e in field.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <a href="{% url 'core:department_role_list' %}" class="btn btn-outline-secondary"><i class="fas fa-xmark"></i> {% trans "إلغاء" %}</a>
+          <button id="drSave" class="btn btn-primary" type="submit" data-loading-text="{% trans 'جارٍ الحفظ…' %}">
+            <i class="fas fa-save"></i> {% trans "حفظ" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}{{ block.super }}
+<script src="{% static 'erp.js' %}"></script>
+<script>
+(function(){
+  const form = document.getElementById('deptRoleForm');
+  const save = document.getElementById('drSave');
+  const first = form.querySelector('input:not([type=hidden]):not([type=checkbox]), select, textarea');
+  first && first.focus();
+
+  window.addEventListener('keydown', e=>{
+    if((e.ctrlKey||e.metaKey) && e.key==='Enter'){ e.preventDefault(); save?.click(); }
+    else if(e.key==='Escape'){ e.preventDefault(); window.location.href = "{% url 'core:department_role_list' %}"; }
+  });
+
+  form.addEventListener('submit', function(){
+    if(save){ save.disabled = true; save.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>{{ _("جارٍ الحفظ…") }}'; }
+  }, { once: true });
+})();
+</script>
+{% endblock %}

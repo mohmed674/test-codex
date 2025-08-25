@@ -1,0 +1,12 @@
+<h4>📑 قائمة عروض الأسعار (RFQs)</h4>
+<a href="{% url 'rfq:rfq_create' %}" class="btn btn-success mb-3">➕ إصدار RFQ جديد</a>
+<table class="table table-bordered">
+<tr><th>العنوان</th><th>المهلة</th><th>تفاصيل</th></tr>
+{% for r in rfqs %}
+<tr>
+<td>{{ r.title }}</td>
+<td>{{ r.deadline }}</td>
+<td><a href="{% url 'rfq:rfq_detail' r.pk %}">عرض</a></td>
+</tr>
+{% endfor %}
+</table>

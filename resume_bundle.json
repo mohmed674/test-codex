@@ -1,0 +1,38 @@
+{
+  "resume_token": "ERP-RESUME",
+  "project_root": "D:\\ERP_CORE",
+  "settings_module": "config.settings",
+  "scanned_at": "2025-08-23T05:49:44.620857",
+  "last_updated": "2025-08-23T06:38:22.534838",
+  "last_script": "fix_namespaces_unique.py",
+  "urls_mode": "minimal_core_only",
+  "apps_count": 65,
+  "core_models": [
+    "DepartmentRole",
+    "Role",
+    "RoleRequest",
+    "AccessLog",
+    "PermissionMatrix",
+    "TemporaryAccessOverride",
+    "JobTitle",
+    "Unit",
+    "EvaluationCriteria",
+    "ProductionStageType",
+    "RiskThreshold",
+    "Department",
+    "Employee",
+    "Client",
+    "SmartAccountTemplate"
+  ],
+  "missing_admin": [
+    "core.Department",
+    "core.Employee",
+    "core.Client",
+    "core.SmartAccountTemplate"
+  ],
+  "next_plan": [
+    "re-add apps urls gradually in small batches",
+    "verify no duplicate namespaces after each batch"
+  ],
+  "ts": "2025-08-23T06:45:00.714974"
+}

@@ -1,0 +1,5 @@
+<h4>📄 التقديم على وظيفة: {{ job.title }}</h4>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">إرسال الطلب</button>
+</form>

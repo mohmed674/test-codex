@@ -1,0 +1,13 @@
+<h4>🗺️ خريطة المخازن</h4>
+<a href="{% url 'warehouse_map:add_zone' %}" class="btn btn-primary">➕ إضافة منطقة</a>
+<a href="{% url 'warehouse_map:add_location' %}" class="btn btn-success">➕ موقع تخزين</a>
+
+<hr>
+{% for zone in zones %}
+  <h5>📦 المنطقة: {{ zone.name }}</h5>
+  <ul>
+    {% for loc in zone.location_set.all %}
+      <li>{{ loc.label }} - السعة: {{ loc.capacity }} - المتاح: {{ loc.capacity|add:"-{}".format(loc.current_occupancy) }}</li>
+    {% endfor %}
+  </ul>
+{% endfor %}

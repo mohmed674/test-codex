@@ -1,0 +1,345 @@
+/* ==== FIX launcher grid hard ==== */
+.odoo-choose-bg{ padding-top:1rem; }
+.odoo-apps-grid{
+  display:grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+}
+.odoo-apps-grid > a{
+  display:flex !important;
+  align-items:center !important;
+  gap: 12px !important;
+  padding: 14px 16px !important;
+  text-decoration:none !important;
+  border-radius:12px !important;
+  border:1px solid #e9ecef !important;
+  box-shadow:0 2px 6px rgba(0,0,0,.06) !important;
+  background:#fff !important;        /* كارت أبيض */
+  color:#0f172a !important;
+  min-height:64px !important;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.odoo-apps-grid > a:hover{
+  transform: translateY(-2px);
+  box-shadow:0 6px 14px rgba(0,0,0,.10) !important;
+}
+
+/* مربع الأيقونة (الإعداد الأساسي قبل وضع الـ Bare Icon Mode) */
+.odoo-app-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.1rem;flex:0 0 40px;
+}
+
+/* ألوان للأيقونة حسب key (لن نحذفها للإرث، بس هنبطلها لاحقًا في الOverrides) */
+.app-sales .odoo-app-icon{ background:linear-gradient(135deg,#ffb74d,#fb8c00); }
+.app-crm .odoo-app-icon{ background:linear-gradient(135deg,#26c6da,#00acc1); }
+.app-pos .odoo-app-icon{ background:linear-gradient(135deg,#7e57c2,#5e35b1); }
+.app-inventory .odoo-app-icon{ background:linear-gradient(135deg,#66bb6a,#43a047); }
+.app-accounting .odoo-app-icon{ background:linear-gradient(135deg,#ab47bc,#8e24aa); }
+.app-projects .odoo-app-icon{ background:linear-gradient(135deg,#42a5f5,#1e88e5); }
+.app-purchases .odoo-app-icon{ background:linear-gradient(135deg,#ffa726,#fb8c00); }
+.app-support .odoo-app-icon{ background:linear-gradient(135deg,#29b6f6,#039be5); }
+.app-generic .odoo-app-icon{ background:linear-gradient(135deg,#90a4ae,#607d8b); }
+
+/* عنوان Choose your Apps */
+.choose-title{ font-weight:800; letter-spacing:.3px; }
+
+/* =========================
+   LAUNCHER SCREEN (Odoo-like)
+   ========================= */
+
+/* خلفية فاتحة زي Odoo */
+.odoo-choose-bg{
+  background:#f5f6fa !important;
+  color:#111827;
+  min-height:calc(100vh - 120px);
+  padding-top:1rem;
+}
+
+/* شبكة البلاطات */
+.odoo-apps-grid{
+  display:grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+}
+
+/* الكارت الأبيض */
+.odoo-apps-grid > a{
+  display:flex !important;
+  align-items:center !important;
+  gap: 12px !important;
+  padding: 14px 16px !important;
+  text-decoration:none !important;
+  border-radius:12px !important;
+  border:1px solid #e9ecef !important;
+  box-shadow:0 2px 6px rgba(0,0,0,.06) !important;
+  background:#fff !important;
+  color:#0f172a !important;
+  min-height:64px !important;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.odoo-apps-grid > a:hover{
+  transform: translateY(-2px);
+  box-shadow:0 6px 14px rgba(0,0,0,.10) !important;
+}
+
+/* عنوان Choose your Apps */
+.choose-title{
+  font-weight:800; letter-spacing:.3px;
+  font-size:clamp(1.3rem, 1.1rem + .8vw, 2rem);
+}
+
+/* تدرجات الأيقونات حسب key (إرث – هيتم تعطيل الخلفية لاحقًا) */
+.app-sales .odoo-app-icon{ background:linear-gradient(135deg,#ffb74d,#fb8c00); }
+.app-crm .odoo-app-icon{ background:linear-gradient(135deg,#26c6da,#00acc1); }
+.app-pos .odoo-app-icon{ background:linear-gradient(135deg,#7e57c2,#5e35b1); }
+.app-inventory .odoo-app-icon{ background:linear-gradient(135deg,#66bb6a,#43a047); }
+.app-accounting .odoo-app-icon{ background:linear-gradient(135deg,#ab47bc,#8e24aa); }
+.app-purchases .odoo-app-icon{ background:linear-gradient(135deg,#ffa726,#fb8c00); }
+.app-projects .odoo-app-icon{ background:linear-gradient(135deg,#42a5f5,#1e88e5); }
+.app-support .odoo-app-icon{ background:linear-gradient(135deg,#29b6f6,#039be5); }
+.app-hr .odoo-app-icon{ background:linear-gradient(135deg,#ef5350,#e53935); }
+.app-legal .odoo-app-icon{ background:linear-gradient(135deg,#5c6bc0,#3949ab); }
+.app-maintenance .odoo-app-icon{ background:linear-gradient(135deg,#81c784,#388e3c); }
+.app-marketing .odoo-app-icon{ background:linear-gradient(135deg,#ff8a65,#ff7043); }
+.app-documents .odoo-app-icon{ background:linear-gradient(135deg,#90caf9,#42a5f5); }
+.app-knowledge .odoo-app-icon{ background:linear-gradient(135deg,#8e24aa,#ba68c8); }
+.app-warehouse .odoo-app-icon{ background:linear-gradient(135deg,#26a69a,#00897b); }
+.app-shipping .odoo-app-icon{ background:linear-gradient(135deg,#4db6ac,#009688); }
+.app-suppliers .odoo-app-icon{ background:linear-gradient(135deg,#a5d6a7,#66bb6a); }
+.app-customers .odoo-app-icon{ background:linear-gradient(135deg,#80deea,#00bcd4); }
+.app-bi .odoo-app-icon{ background:linear-gradient(135deg,#9575cd,#7e57c2); }
+.app-mrp .odoo-app-icon{ background:linear-gradient(135deg,#b39ddb,#9575cd); }
+.app-expenses .odoo-app-icon{ background:linear-gradient(135deg,#ffcc80,#ffa726); }
+.app-notifications .odoo-app-icon{ background:linear-gradient(135deg,#64b5f6,#1e88e5); }
+.app-backup .odoo-app-icon{ background:linear-gradient(135deg,#cfd8dc,#90a4ae); }
+.app-api .odoo-app-icon{ background:linear-gradient(135deg,#90caf9,#2196f3); }
+.app-vendor .odoo-app-icon{ background:linear-gradient(135deg,#ffab91,#ff7043); }
+.app-rfq .odoo-app-icon{ background:linear-gradient(135deg,#ffd54f,#ffb300); }
+.app-core .odoo-app-icon{ background:linear-gradient(135deg,#78909c,#546e7a); }
+
+/* افتراضي */
+.app-generic .odoo-app-icon{ background:linear-gradient(135deg,#90a4ae,#607d8b); }
+
+/* استجابة الموبايل */
+@media (max-width: 575.98px){
+  .odoo-apps-grid{
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+    gap:12px !important;
+  }
+  .odoo-apps-grid > a{ padding:12px !important; }
+  .odoo-app-icon{ width:36px; height:36px; font-size:1rem; border-radius:8px; }
+}
+
+/* لو المستخدم مفعل الوضع الداكن على بقية السيستم — خلّي الكروت تفضل بيضاء هنا */
+:root[data-theme="dark"] .odoo-choose-bg{ background:#111318 !important; }
+:root[data-theme="dark"] .odoo-apps-grid > a{
+  background:#fff !important; color:#0f172a !important;
+  border-color:#e9ecef !important;
+}
+
+/* Section headings like Odoo */
+.odoo-section-title{
+  font-weight:700;
+  font-size:1.05rem;
+  color:#111827;
+  margin-top:2rem;
+}
+:root[data-theme="dark"] .odoo-section-title{ color:#e6e8ee; }
+
+/* ====== Launcher — Odoo-like cards, sections, fonts ====== */
+
+/* خطوط أنعم (إن توفرّت) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Cairo:wght@400;700&display=swap');
+/* ملاحظة: لو عايز تلتزم بخطوط base.html سيب السطر التالي متعلّق
+body { font-family: "Inter","Cairo",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; }
+*/
+
+.choose-title{ font-weight:800; letter-spacing:.2px; }
+
+/* قسم وعنوان */
+.app-section-title{
+  font-weight:700; opacity:.9; margin:.25rem 0 1rem;
+}
+
+/* شبكة البطاقات */
+.odoo-apps-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap:16px; align-items:stretch;
+}
+.app-card{
+  display:flex; align-items:center; gap:12px;
+  background:#fff; color:#0f172a; text-decoration:none;
+  border:1px solid #e9ecef; border-radius:12px; padding:14px 16px; min-height:64px;
+  box-shadow:0 2px 6px rgba(0,0,0,.06); transition:transform .15s, box-shadow .15s;
+}
+.app-card:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.12); }
+.odoo-app-title{ font-weight:700; }
+
+/* مربع الأيقونة (تعريف موروث قبل التعطيل النهائي) */
+.odoo-app-icon{
+  width:40px; height:40px; border-radius:10px;
+  display:inline-flex; align-items:center; justify-content:center;
+  color:#fff; font-size:1.1rem; flex:0 0 40px;
+}
+
+/* لوحة ألوان ثابتة — نوزّعها بالماب من السيرفر */
+.appc-teal    .odoo-app-icon{ background:linear-gradient(135deg,#0ea5a3,#14c2bf); }
+.appc-indigo  .odoo-app-icon{ background:linear-gradient(135deg,#5469d4,#7a8cff); }
+.appc-violet  .odoo-app-icon{ background:linear-gradient(135deg,#8e5cf7,#a98bff); }
+.appc-blue    .odoo-app-icon{ background:linear-gradient(135deg,#3291ff,#67b3ff); }
+.appc-cyan    .odoo-app-icon{ background:linear-gradient(135deg,#1ba1e2,#35c3ff); }
+.appc-green   .odoo-app-icon{ background:linear-gradient(135deg,#2e7d32,#66bb6a); }
+.appc-amber   .odoo-app-icon{ background:linear-gradient(135deg,#ffb74d,#fb8c00); }
+.appc-rose    .odoo-app-icon{ background:linear-gradient(135deg,#f43f5e,#fb7185); }
+.appc-slate   .odoo-app-icon{ background:linear-gradient(135deg,#64748b,#94a3b8); }
+.appc-brown   .odoo-app-icon{ background:linear-gradient(135deg,#8d4c20,#d98b58); }
+
+/* خلفية الصفحة */
+.odoo-choose-bg{
+  --bg1:#f3f5f9; --bg2:#eef1f7;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  min-height:calc(100vh - 120px);
+}
+:root[data-theme="dark"] .odoo-choose-bg{
+  --bg1:#0e0f13; --bg2:#141823;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+}
+
+/* ============== إضافات PLM العامة — لا تمس الموجود ============== */
+
+/* Navbar */
+.navbar-brand { font-weight:bold; font-size:1.2rem; }
+.navbar-nav .nav-link { color:#4b5563 !important; }
+.navbar-nav .nav-link:hover { color:#111827 !important; }
+
+/* Tables */
+.table th, .table td { vertical-align: middle !important; }
+.table thead th { background-color:#343a40; color:#fff; }
+
+/* Cards */
+.card{ margin-bottom:20px; border-radius:6px; box-shadow:0 2px 4px rgba(0,0,0,.1); }
+.card-title{ font-size:1.1rem; font-weight:600; }
+
+/* Buttons */
+.btn-primary{ background-color:#0069d9; border-color:#0062cc; }
+.btn-primary:hover{ background-color:#0056b3; border-color:#004085; }
+
+/* =========================
+   RTL & NAVBAR FIXES (لغة/قوائم)
+   ========================= */
+
+/* اجعل النافبار والأدلة فوق أي عناصر أخرى */
+.erp-navbar{ z-index:1040; overflow:visible; }
+.dropdown-menu{ z-index:1100; box-shadow:0 10px 24px rgba(0,0,0,.12); border:1px solid rgba(0,0,0,.08); }
+
+/* تصحيح محاذاة bootstrap utility في RTL عند استخدام CSS غير RTL من CDN */
+[dir="rtl"] .ms-auto{ margin-left:0 !important; margin-right:auto !important; }
+[dir="rtl"] .me-1{ margin-left:.25rem !important; margin-right:0 !important; }
+[dir="rtl"] .me-2{ margin-left:.5rem !important; margin-right:0 !important; }
+[dir="rtl"] .ms-1{ margin-right:.25rem !important; margin-left:0 !important; }
+[dir="rtl"] .ms-2{ margin-right:.5rem !important; margin-left:0 !important; }
+
+/* قائمة المستخدم المنسدلة تظهر باتجاه اليسار في RTL (بدل right:0 الإفتراضي) */
+[dir="rtl"] .dropdown-menu-end[data-bs-popper]{ right:auto !important; left:0 !important; }
+[dir="rtl"] .dropdown-menu{ text-align:right; }
+
+/* ضبط نموذج تغيير اللغة داخل الشريط العلوي حتى لا يطفو في المنتصف */
+.erp-navbar form[action$="set_language"]{ min-width:140px; }
+[dir="ltr"] .erp-navbar form[action$="set_language"]{ margin-left:auto !important; margin-right:0 !important; }
+[dir="rtl"] .erp-navbar form[action$="set_language"]{ margin-right:auto !important; margin-left:0 !important; }
+
+/* أيقونة اللغة/السهم في RTL */
+[dir="rtl"] .navbar .dropdown-toggle::after{ margin-right:.255em; margin-left:0; }
+
+/* لمنع القصّ عند ظهور القائمة تحت الشريط */
+.erp-navbar .dropdown{ overflow:visible; }
+
+/* تحسين تباين عناصر القائمة داخل الوضع الداكن والفاتح */
+.dropdown-menu .dropdown-item{ font-weight:500; }
+:root[data-theme="dark"] .dropdown-menu{ background:#161b2b; border-color:rgba(255,255,255,.08); }
+:root[data-theme="dark"] .dropdown-menu .dropdown-item{ color:#e6e8ee; }
+:root[data-theme="dark"] .dropdown-menu .dropdown-item:hover{ background:rgba(255,255,255,.06); }
+
+/* ===== نهاية إصلاحات RTL واللغة ===== */
+
+
+/* ===============================
+   BARE ICON MODE — بدون أي خلفية
+   =============================== */
+
+/* إزالة أي مربّع/دائرة/تدرّج خلف الرمز نهائيًا (مع الحفاظ على الإرث) */
+.odoo-app-icon{
+  width:auto !important;
+  height:auto !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  padding:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:inherit !important;
+  display:inline-block !important;
+}
+
+/* حجم الرمز (صورة أو آيكون فونت) – تكبير بسيط */
+.odoo-app-icon img{
+  width:36px !important; height:36px !important;
+  object-fit:contain; display:block; filter:none !important; background:transparent !important;
+}
+.odoo-app-icon i{
+  font-size:36px !important; line-height:36px !important;
+}
+
+/* إبطال أي ألوان/خلفيات معرفة سابقًا على كل المجموعات */
+.app-sales .odoo-app-icon,
+.app-crm .odoo-app-icon,
+.app-pos .odoo-app-icon,
+.app-inventory .odoo-app-icon,
+.app-accounting .odoo-app-icon,
+.app-projects .odoo-app-icon,
+.app-purchases .odoo-app-icon,
+.app-support .odoo-app-icon,
+.app-hr .odoo-app-icon,
+.app-legal .odoo-app-icon,
+.app-maintenance .odoo-app-icon,
+.app-marketing .odoo-app-icon,
+.app-documents .odoo-app-icon,
+.app-knowledge .odoo-app-icon,
+.app-warehouse .odoo-app-icon,
+.app-shipping .odoo-app-icon,
+.app-suppliers .odoo-app-icon,
+.app-customers .odoo-app-icon,
+.app-bi .odoo-app-icon,
+.app-mrp .odoo-app-icon,
+.app-expenses .odoo-app-icon,
+.app-notifications .odoo-app-icon,
+.app-backup .odoo-app-icon,
+.app-api .odoo-app-icon,
+.app-vendor .odoo-app-icon,
+.app-rfq .odoo-app-icon,
+.app-core .odoo-app-icon,
+.app-generic .odoo-app-icon,
+.appc-teal .odoo-app-icon,
+.appc-indigo .odoo-app-icon,
+.appc-violet .odoo-app-icon,
+.appc-blue .odoo-app-icon,
+.appc-cyan .odoo-app-icon,
+.appc-green .odoo-app-icon,
+.appc-amber .odoo-app-icon,
+.appc-rose .odoo-app-icon,
+.appc-slate .odoo-app-icon,
+.appc-brown .odoo-app-icon{
+  background:transparent !important;
+  box-shadow:none !important;
+  border:none !important;
+}
+
+/* تثبيت محاذاة مُبدّل اللغة في RTL (مرّة إضافية لضمان الأولوية) */
+[dir="rtl"] .erp-navbar .d-lg-flex.ms-auto{
+  margin-right:auto !important; margin-left:0 !important;
+}

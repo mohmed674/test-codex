@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>🏬 المواقع التخزينية</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
+<body class="bg-light p-4">
+
+<div class="container bg-white p-4 rounded shadow-sm">
+
+    <h3 class="text-center mb-4">🏬 المواقع التخزينية</h3>
+
+    <!-- ✅ رسائل التنبيه -->
+    {% if messages %}
+      <div class="mt-2">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm text-right" role="alert" dir="rtl">
+            <strong>📢</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="إغلاق"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- ➕ زر إضافة موقع جديد (اختياري) -->
+    <div class="text-end mb-3">
+        <a href="{% url 'inventory:add_location' %}" class="btn btn-outline-success btn-sm">➕ موقع جديد</a>
+    </div>
+
+    <!-- 📋 جدول المواقع -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>الرقم</th>
+                    <th>اسم الموقع</th>
+                    <th>الوصف</th>
+                    <th>ملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for loc in locations %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ loc.name }}</td>
+                        <td>{{ loc.description|default:"—" }}</td>
+                        <td>{{ loc.note|default:"—" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="4">⚠️ لا توجد مواقع حالياً.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- ✅ Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

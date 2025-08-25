@@ -1,0 +1,190 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ employee.name|default:employee.full_name|default:"الملف الشخصي" }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-3" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+
+  <!-- Header + actions -->
+  <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+    <h2 class="m-0 fw-bold">
+      👤 {{ employee.name|default:employee.full_name|default:employee.display_name|default:employee.username|default:("#"|add:employee.id) }}
+    </h2>
+    <div class="ms-auto d-flex gap-2">
+      <a href="{% url 'employees:employee_list' %}" class="btn btn-light btn-sm">
+        🔙 {% if LANGUAGE_BIDI %}رجوع{% else %}Back{% endif %}
+      </a>
+      <a href="{% url 'employees:employee_edit' employee.pk %}" class="btn btn-warning btn-sm text-dark">
+        ✏️ {% if LANGUAGE_BIDI %}تعديل{% else %}Edit{% endif %}
+      </a>
+      <a href="?export=1" class="btn btn-outline-success btn-sm">📊 Excel</a>
+      <a href="?download_pdf=1" class="btn btn-outline-danger btn-sm">🖨️ PDF</a>
+    </div>
+  </div>
+
+  <!-- Quick info badges -->
+  <div class="row g-2 mb-3">
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm">
+        <div class="card-body d-flex justify-content-between">
+          <span>{% if LANGUAGE_BIDI %}القسم{% else %}Department{% endif %}</span>
+          <strong>{{ employee.department|default:"-" }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm">
+        <div class="card-body d-flex justify-content-between">
+          <span>{% if LANGUAGE_BIDI %}المسمى{% else %}Title{% endif %}</span>
+          <strong>{{ employee.job_title|default:"-" }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm">
+        <div class="card-body d-flex justify-content-between">
+          <span>⭐ {% if LANGUAGE_BIDI %}التقييم{% else %}Score{% endif %}</span>
+          <strong>{{ employee.evaluation_score|default:"-" }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm">
+        <div class="card-body d-flex justify-content-between">
+          <span>🟢 {% if LANGUAGE_BIDI %}الحالة{% else %}Status{% endif %}</span>
+          <strong>{% if employee.active %}{% if LANGUAGE_BIDI %}نشط{% else %}Active{% endif %}{% else %}{% if LANGUAGE_BIDI %}غير نشط{% else %}Inactive{% endif %}{% endif %}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Work Regulations -->
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h5 class="mb-2">📄 {% if LANGUAGE_BIDI %}حالة لائحة العمل{% else %}Work Regulations{% endif %}</h5>
+      {% if regulation_status %}
+        <span class="text-success">✅ {% if LANGUAGE_BIDI %}تم التوقيع{% else %}Signed{% endif %}</span>
+      {% else %}
+        <span class="text-danger">⚠️ {% if LANGUAGE_BIDI %}لم تتم الموافقة بعد{% else %}Pending approval{% endif %}</span>
+      {% endif %}
+      <a href="{% url 'work_regulations:view_work_regulation' %}" class="btn btn-outline-primary btn-sm ms-2">
+        🔗 {% if LANGUAGE_BIDI %}عرض اللائحة{% else %}Open Regulation{% endif %}
+      </a>
+    </div>
+  </div>
+
+  <!-- Incentives & deductions -->
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h5 class="mb-3">💰 {% if LANGUAGE_BIDI %}الحوافز والخصومات لهذا الشهر{% else %}This Month Incentives & Deductions{% endif %}</h5>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between">
+          🎯 {% if LANGUAGE_BIDI %}مكافأة الالتزام{% else %}Commitment Bonus{% endif %}
+          <span class="badge bg-success">{{ incentive.commitment_bonus|default:"0" }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          🏅 {% if LANGUAGE_BIDI %}مكافأة ربع سنوية{% else %}Quarterly Bonus{% endif %}
+          <span class="badge bg-success">{{ incentive.quarterly_bonus|default:"0" }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          ❌ {% if LANGUAGE_BIDI %}إجمالي الخصومات{% else %}Total Penalties{% endif %}
+          <span class="badge bg-danger">{{ incentive.penalty_total|default:"0" }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Filters for discipline records -->
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <form class="row g-2" method="get">
+        <div class="col-12 col-md-3">
+          <label class="form-label">{% if LANGUAGE_BIDI %}نوع الإجراء{% else %}Action Type{% endif %}</label>
+          <input type="text" name="action_type" value="{{ request.GET.action_type }}" class="form-control form-control-sm" placeholder="{% if LANGUAGE_BIDI %}مثل: خصم{% else %}e.g. penalty{% endif %}">
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label">{% if LANGUAGE_BIDI %}من تاريخ{% else %}From{% endif %}</label>
+          <input type="date" name="date_from" value="{{ request.GET.date_from }}" class="form-control form-control-sm">
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label">{% if LANGUAGE_BIDI %}إلى تاريخ{% else %}To{% endif %}</label>
+          <input type="date" name="date_to" value="{{ request.GET.date_to }}" class="form-control form-control-sm">
+        </div>
+        <div class="col-12 col-md-3 d-flex align-items-end">
+          <button class="btn btn-outline-secondary btn-sm w-100" type="submit">
+            🔎 {% if LANGUAGE_BIDI %}تصفية{% else %}Filter{% endif %}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Discipline records table -->
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h5 class="mb-3">⚖️ {% if LANGUAGE_BIDI %}سجل المخالفات{% else %}Discipline Records{% endif %}</h5>
+      <div class="table-responsive">
+        <table class="table table-sm table-bordered align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>{% if LANGUAGE_BIDI %}النوع{% else %}Type{% endif %}</th>
+              <th>{% if LANGUAGE_BIDI %}القيمة{% else %}Value{% endif %}</th>
+              <th>{% if LANGUAGE_BIDI %}السبب{% else %}Reason{% endif %}</th>
+              <th>{% if LANGUAGE_BIDI %}أنشئ بواسطة{% else %}Created By{% endif %}</th>
+              <th>{% if LANGUAGE_BIDI %}التاريخ{% else %}Date{% endif %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in records %}
+              <tr>
+                <td>{{ r.type|default:"-" }}</td>
+                <td>{{ r.value|default:"-" }}</td>
+                <td>{{ r.reason|default:"-" }}</td>
+                <td>{{ r.created_by|default:"-" }}</td>
+                <td>
+                  {{ r.date|date:"Y-m-d"|default:r.created_at|date:"Y-m-d"|default:r.timestamp|date:"Y-m-d"|default:"-" }}
+                </td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="5" class="text-center text-muted">{% if LANGUAGE_BIDI %}لا توجد سجلات{% else %}No records{% endif %}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Production logs -->
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h5 class="mb-3">🧵 {% if LANGUAGE_BIDI %}إنتاج الموظف{% else %}Production Logs{% endif %}</h5>
+      <div class="table-responsive">
+        <table class="table table-sm table-bordered align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>{% if LANGUAGE_BIDI %}التاريخ{% else %}Date{% endif %}</th>
+              <th>{% if LANGUAGE_BIDI %}الكمية{% else %}Qty{% endif %}</th>
+              <th>{% if LANGUAGE_BIDI %}أجر الوحدة{% else %}Unit Wage{% endif %}</th>
+              <th>{% if LANGUAGE_BIDI %}الإجمالي{% else %}Total{% endif %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in production_logs %}
+              <tr>
+                <td>{{ p.date|date:"Y-m-d"|default:p.created_at|date:"Y-m-d"|default:p.timestamp|date:"Y-m-d"|default:"-" }}</td>
+                <td>{{ p.quantity|default:p.qty|default:"-" }}</td>
+                <td>{{ p.unit_wage|default:p.wage|default:p.unit_price|default:p.rate|default:"-" }}</td>
+                <td>{{ p.total|default:"0" }}</td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="4" class="text-center text-muted">{% if LANGUAGE_BIDI %}لا توجد سجلات{% else %}No records{% endif %}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

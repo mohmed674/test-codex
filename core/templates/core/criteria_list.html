@@ -1,0 +1,213 @@
+{% extends 'core/base.html' %}
+{% load i18n static %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}{% trans "معايير التقييم" %}{% endblock %}
+
+{% block extra_head %}{{ block.super }}
+<link rel="stylesheet" href="{% static 'erp.css' %}">
+<style>
+  .table-tools{gap:.5rem;flex-wrap:wrap}
+  .sticky-head thead th{position:sticky;top:0;background:var(--bs-body-bg);z-index:1}
+  .density-compact .table td,.density-compact .table th{padding:.25rem .5rem}
+  .density-comfort .table td,.density-comfort .table th{padding:1rem}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-3" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr' }}">
+
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h4 class="fw-bold m-0">{% trans "معايير التقييم" %}</h4>
+
+    <div class="d-flex table-tools">
+      <a href="{% url 'core:criteria_create' %}" class="btn btn-success">
+        <i class="fas fa-plus"></i> {% trans "إضافة معيار" %}
+      </a>
+
+      <div class="input-group input-group-sm" style="max-width:260px">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <input id="listSearch" type="search" class="form-control"
+               placeholder="{% trans 'ابحث…' %}" aria-label="{% trans 'بحث' %}">
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-outline-secondary btn-sm density-btn" data-density="compact" title="{% trans 'مضغوط' %}">≡</button>
+        <button class="btn btn-outline-secondary btn-sm density-btn" data-density="normal"  title="{% trans 'عادي' %}">≣</button>
+        <button class="btn btn-outline-secondary btn-sm density-btn" data-density="comfort" title="{% trans 'مريح' %}">≢</button>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="fas fa-columns"></i> {% trans "الأعمدة" %}
+        </button>
+        <div class="dropdown-menu dropdown-menu-end p-2" style="min-width:260px">
+          <div class="form-check"><input class="form-check-input col-toggle" type="checkbox" value="col-idx" id="colIdx" checked>
+            <label class="form-check-label" for="colIdx">#</label></div>
+
+          <div class="form-check"><input class="form-check-input col-toggle" type="checkbox" value="col-name" id="colName" checked>
+            <label class="form-check-label" for="colName">{% trans "الاسم" %}</label></div>
+
+          <div class="form-check"><input class="form-check-input col-toggle" type="checkbox" value="col-type" id="colType" checked>
+            <label class="form-check-label" for="colType">{% trans "النوع" %}</label></div>
+
+          <div class="form-check"><input class="form-check-input col-toggle" type="checkbox" value="col-weight" id="colWeight" checked>
+            <label class="form-check-label" for="colWeight">{% trans "الوزن" %}</label></div>
+
+          <div class="form-check"><input class="form-check-input col-toggle" type="checkbox" value="col-active" id="colActive" checked>
+            <label class="form-check-label" for="colActive">{% trans "نشط؟" %}</label></div>
+
+          <div class="form-check"><input class="form-check-input col-toggle" type="checkbox" value="col-actions" id="colActions" checked disabled>
+            <label class="form-check-label" for="colActions">{% trans "الإجراءات" %}</label></div>
+        </div>
+      </div>
+
+      <a href="?export=excel" class="btn btn-outline-success btn-sm">
+        <i class="fas fa-file-excel"></i> Excel
+      </a>
+      <a href="?export=pdf" class="btn btn-outline-danger btn-sm">
+        <i class="fas fa-file-pdf"></i> PDF
+      </a>
+      <button onclick="window.print()" class="btn btn-outline-dark btn-sm">
+        <i class="fas fa-print"></i> {% trans "طباعة" %}
+      </button>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="text-muted small">
+          {% blocktrans %}إجمالي السجلات: {% endblocktrans %}<span id="totalCount">{{ criteria|length }}</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <label for="perPage" class="small">{% trans "لكل صفحة" %}</label>
+          <select id="perPage" class="form-select form-select-sm" style="width:auto">
+            <option>10</option><option selected>25</option><option>50</option><option>100</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive density-normal">
+        <table id="dataTable" class="table table-bordered table-hover align-middle text-center sticky-head">
+          <thead class="table-dark">
+            <tr>
+              <th class="col-idx">#</th>
+              <th class="col-name">{% trans "الاسم" %}</th>
+              <th class="col-type">{% trans "النوع" %}</th>
+              <th class="col-weight">{% trans "الوزن" %}</th>
+              <th class="col-active">{% trans "نشط؟" %}</th>
+              <th class="col-actions">{% trans "الإجراءات" %}</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            {% for c in criteria %}
+            <tr>
+              <td class="col-idx">{{ forloop.counter }}</td>
+              <td class="col-name">{{ c.name }}</td>
+              <td class="col-type">{{ c.get_criteria_type_display }}</td>
+              <td class="col-weight">{{ c.weight }}</td>
+              <td class="col-active">{% if c.is_active %}✅{% else %}❌{% endif %}</td>
+              <td class="col-actions">
+                <div class="d-flex justify-content-center gap-1">
+                  <a href="{% url 'core:criteria_update' c.pk %}" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-pen"></i> {% trans "تعديل" %}
+                  </a>
+                  <form method="post" action="{% url 'core:criteria_delete' c.pk %}" data-confirm>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                      <i class="fas fa-trash"></i> {% trans "حذف" %}
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-muted">{% trans "لا توجد بيانات" %}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <nav class="d-flex justify-content-center mt-2">
+        <ul id="pager" class="pagination pagination-sm mb-0"></ul>
+      </nav>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}{{ block.super }}
+<link rel="preload" href="{% static 'erp.js' %}" as="script">
+<script src="{% static 'erp.js' %}"></script>
+
+{% translate "تأكيد الحذف؟" as criteria_confirm_msg %}
+{{ criteria_confirm_msg|json_script:"criteria-confirm" }}
+
+<script>
+(function(){
+  const el = document.getElementById('criteria-confirm');
+  const CONFIRM_MSG = el ? JSON.parse(el.textContent) : 'Are you sure?';
+  document.querySelectorAll('form[data-confirm]').forEach(f=>{
+    f.addEventListener('submit', e=>{ if(!confirm(CONFIRM_MSG)) e.preventDefault(); });
+  });
+
+  const table=document.getElementById('dataTable');
+  const tbody=document.getElementById('tableBody');
+  const rows=Array.from(tbody.querySelectorAll('tr'));
+  const search=document.getElementById('listSearch');
+  const perPageSel=document.getElementById('perPage');
+  const pager=document.getElementById('pager');
+  const wrapper=table.closest('.table-responsive');
+
+  document.querySelectorAll('.density-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      wrapper.classList.remove('density-compact','density-normal','density-comfort');
+      wrapper.classList.add('density-'+btn.dataset.density);
+      localStorage.setItem('criteria-density', btn.dataset.density);
+    });
+  });
+  wrapper.classList.add('density-'+(localStorage.getItem('criteria-density')||'normal'));
+
+  document.querySelectorAll('.col-toggle').forEach(chk=>{
+    const colClass=chk.value;
+    chk.addEventListener('change',()=>toggleColumn(colClass, chk.checked));
+    toggleColumn(colClass, chk.checked);
+  });
+  function toggleColumn(colClass, visible){
+    table.querySelectorAll('.'+colClass).forEach(cell=>cell.style.display=visible?'':'none');
+  }
+
+  let filtered=rows.slice();
+  function render(){
+    const perPage=parseInt(perPageSel.value,10)||25;
+    const pages=Math.max(1, Math.ceil(filtered.length/perPage));
+    const current=Math.min(parseInt(pager.dataset.page||'1',10), pages);
+    tbody.innerHTML='';
+    filtered.slice((current-1)*perPage, current*perPage).forEach(tr=>tbody.appendChild(tr));
+    document.getElementById('totalCount').textContent=filtered.length;
+    pager.innerHTML='';
+    const mk=(p,label,disabled=false,active=false)=>{const li=document.createElement('li');
+      li.className=`page-item ${disabled?'disabled':''} ${active?'active':''}`;
+      const a=document.createElement('a'); a.className='page-link'; a.href='#'; a.textContent=label;
+      a.addEventListener('click',e=>{e.preventDefault(); if(disabled)return; pager.dataset.page=String(p); render();});
+      li.appendChild(a); return li;};
+    pager.appendChild(mk(Math.max(1,current-1),'«', current===1));
+    for(let p=1;p<=pages;p++){
+      if(p<=2||p>pages-2||Math.abs(p-current)<=1){pager.appendChild(mk(p,String(p),false,p===current));}
+      else if(pager.lastChild && pager.lastChild.textContent!=='…'){const li=document.createElement('li'); li.className='page-item disabled'; li.innerHTML='<span class="page-link">…</span>'; pager.appendChild(li);}
+    }
+    pager.appendChild(mk(Math.min(pages,current+1),'»', current===pages));
+  }
+  function applyFilter(){
+    const term=(search?.value||'').trim().toLowerCase();
+    filtered=rows.filter(tr=>tr.textContent.toLowerCase().includes(term));
+    pager.dataset.page='1'; render();
+  }
+  search && search.addEventListener('input', applyFilter);
+  perPageSel.addEventListener('change', ()=>{pager.dataset.page='1'; render();});
+  applyFilter();
+})();
+</script>
+{% endblock %}

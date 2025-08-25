@@ -1,0 +1,53 @@
+<!-- ERP_CORE/internal_monitoring/templates/internal_monitoring/risk_dashboard.html -->
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">لوحة مراقبة المخالفات والعجوزات</h2>
+
+  <div class="row mb-4">
+    <div class="col">
+      <h5>إحصائيات حسب مستوى الخطورة:</h5>
+      <ul>
+        {% for item in stats %}
+          <li>{{ item.risk_level }}: {{ item.count }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col">
+      <h5>حسب القسم:</h5>
+      <ul>
+        {% for item in by_category %}
+          <li>{{ item.category }}: {{ item.count }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>المستخدم</th>
+        <th>القسم</th>
+        <th>نوع الحدث</th>
+        <th>المستوى</th>
+        <th>الملاحظات</th>
+        <th>تاريخ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for incident in incidents %}
+      <tr>
+        <td>{{ incident.user }}</td>
+        <td>{{ incident.category }}</td>
+        <td>{{ incident.event_type }}</td>
+        <td>{{ incident.risk_level }}</td>
+        <td>{{ incident.notes }}</td>
+        <td>{{ incident.created_at|date:"Y-m-d H:i" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

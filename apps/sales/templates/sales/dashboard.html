@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow p-4 rounded-4">
+    <h3 class="mb-4">📊 لوحة تحكم المبيعات</h3>
+    <div class="row text-center">
+      <div class="col-md-3 mb-3">
+        <div class="bg-primary text-white rounded-4 p-3">
+          <h5>عدد الفواتير</h5>
+          <h2>{{ total_invoices }}</h2>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="bg-success text-white rounded-4 p-3">
+          <h5>إجمالي المبيعات</h5>
+          <h2>{{ total_sales }} جنيه</h2>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="bg-warning text-dark rounded-4 p-3">
+          <h5>العملاء النشطين</h5>
+          <h2>{{ active_customers }}</h2>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="bg-danger text-white rounded-4 p-3">
+          <h5>الموديلات الراكدة</h5>
+          <h2>{{ stagnant_models }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

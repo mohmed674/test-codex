@@ -1,0 +1,27 @@
+<!-- D:\ERP_CORE\accounting\templates\accounting\partners\supplier_list.html -->
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">قائمة الموردين</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>الاسم</th>
+                <th>رقم الهاتف</th>
+                <th>البريد الإلكتروني</th>
+                <th>العنوان</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier in suppliers %}
+            <tr>
+                <td>{{ supplier.name }}</td>
+                <td>{{ supplier.phone }}</td>
+                <td>{{ supplier.email }}</td>
+                <td>{{ supplier.address }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

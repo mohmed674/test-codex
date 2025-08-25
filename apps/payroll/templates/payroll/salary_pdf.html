@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>بيان صرف مرتب</title>
+    <style>
+        body { font-family: 'Arial'; direction: rtl; padding: 40px; background: white; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h2 { margin: 0; font-size: 24px; }
+        .info { margin-bottom: 30px; font-size: 18px; }
+        .info div { margin-bottom: 10px; }
+        .footer { text-align: center; margin-top: 40px; font-size: 14px; color: #555; }
+        .box { border: 1px solid #ccc; padding: 25px; border-radius: 10px; background: #f7f7f7; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>بيان صرف مرتب</h2>
+    </div>
+
+    <div class="box">
+        <div class="info">
+            <div>📄 رقم البيان: {{ ref_number }}</div>
+            <div>👤 الموظف: {{ employee.name }}</div>
+            <div>💼 المرتب الأساسي: {{ base_salary }} جنيه</div>
+            <div>🎯 الحوافز: {{ production_bonus }} جنيه</div>
+            <div>❌ الخصومات: {{ deductions }} جنيه</div>
+            <div>✅ صافي المرتب: <strong>{{ final_salary }}</strong> جنيه</div>
+            <div>🗒️ ملاحظات: {{ note|default:"لا يوجد" }}</div>
+            <div>📅 التاريخ: {{ created_at|date:"Y-m-d" }}</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        تم توليد هذا المستند تلقائيًا بواسطة نظام إدارة المرتبات.
+    </div>
+</body>
+</html>
