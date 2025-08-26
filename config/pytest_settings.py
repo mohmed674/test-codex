@@ -47,9 +47,23 @@ if _core_app and _core_app not in _project_apps:
 
 PROJECT_APPS = _project_apps
 
-# ✅ دمج INSTALLED_APPS من الإعدادات الأساسية + الأساسية + تطبيقات المشروع (مع إزالة التكرارات مع الحفاظ على الترتيب)
+# ✅ دمج INSTALLED_APPS مع تطبيع plm/media وإزالة التكرارات مع الحفاظ على الترتيب
 _BASE_INSTALLED_APPS = list(globals().get("INSTALLED_APPS", []))
-INSTALLED_APPS = list(dict.fromkeys(_BASE_INSTALLED_APPS + BASE_APPS + PROJECT_APPS))
+
+def _normalize(app: str) -> str:
+    if app == "apps.media":
+        return "apps.media.apps.MediaConfig"
+    if app == "apps.plm":
+        return "apps.plm.apps.PlmConfig"
+    return app
+
+_combined = [_normalize(a) for a in (_BASE_INSTALLED_APPS + BASE_APPS + PROJECT_APPS)]
+INSTALLED_APPS = []
+_seen = set()
+for app in _combined:
+    if app not in _seen:
+        _seen.add(app)
+        INSTALLED_APPS.append(app)
 
 # ✅ ميدلوير: استخدم الموجود في الإعدادات الأساسية وإلا وفّر مجموعة افتراضية آمنة
 MIDDLEWARE = list(globals().get("MIDDLEWARE", [])) or [
