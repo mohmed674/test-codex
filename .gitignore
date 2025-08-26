@@ -53,6 +53,10 @@ staticfiles/
 static_root/
 **/staticfiles.json
 media/
+!apps/media/
+!apps/media/**
+apps/media/**/__pycache__/
+apps/media/**/*.pyc
 
 # ==== Translations (compiled) ====
 *.mo

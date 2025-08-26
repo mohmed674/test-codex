@@ -49,7 +49,14 @@ PROJECT_APPS = _project_apps
 
 # ✅ دمج INSTALLED_APPS من الإعدادات الأساسية + الأساسية + تطبيقات المشروع (مع إزالة التكرارات مع الحفاظ على الترتيب)
 _BASE_INSTALLED_APPS = list(globals().get("INSTALLED_APPS", []))
-INSTALLED_APPS = list(dict.fromkeys(_BASE_INSTALLED_APPS + BASE_APPS + PROJECT_APPS))
+_combined_apps = []
+for _app in _BASE_INSTALLED_APPS + BASE_APPS + PROJECT_APPS:
+    if _app == "apps.media":
+        _app = "apps.media.apps.MediaConfig"
+    elif _app == "apps.plm":
+        _app = "apps.plm.apps.PlmConfig"
+    _combined_apps.append(_app)
+INSTALLED_APPS = list(dict.fromkeys(_combined_apps))
 
 # ✅ ميدلوير: استخدم الموجود في الإعدادات الأساسية وإلا وفّر مجموعة افتراضية آمنة
 MIDDLEWARE = list(globals().get("MIDDLEWARE", [])) or [
