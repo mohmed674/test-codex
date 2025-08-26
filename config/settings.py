@@ -32,7 +32,7 @@ def _csv_env(name, default=''):
 ALLOWED_HOSTS = _csv_env('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,[::1]')
 
 INSTALLED_APPS = [
-    'apps.plm.apps.PlmConfig',
+    'apps.plm',
     'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
