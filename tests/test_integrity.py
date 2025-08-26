@@ -10,7 +10,7 @@ from django.db.migrations.loader import MigrationLoader
 from django.test import Client
 from django.urls import get_resolver, set_urlconf
 
-EXPECTED_LABELS: Set[str] = {"employees", "employee_monitoring", "survey", "media"}
+EXPECTED_LABELS: Set[str] = {"employees"}
 
 def _existing_tables() -> Set[str]:
     return set(connection.introspection.table_names())

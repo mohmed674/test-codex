@@ -2,7 +2,7 @@
 import os
 
 # تأكيد إعدادات Django للاختبار
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.pytest_settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings_test")
 
 import pytest
 import django
@@ -27,15 +27,17 @@ def _bootstrap_django(django_db_setup, django_db_blocker):
     3) توثيق أن قاعدة البيانات المستخدمة هي قاعدة اختبار.
     """
     import os as _os
+    import django as _django
     from django.conf import settings as _settings
     from django.core.management import call_command as _call_command
 
     # تأكيد أن الإعدادات الصحيحة محملة
-    assert _os.environ.get("DJANGO_SETTINGS_MODULE") == "config.pytest_settings", (
-        "DJANGO_SETTINGS_MODULE يجب أن يكون config.pytest_settings أثناء الاختبارات."
+    assert _os.environ.get("DJANGO_SETTINGS_MODULE") == "config.settings_test", (
+        "DJANGO_SETTINGS_MODULE يجب أن يكون config.settings_test أثناء الاختبارات."
     )
 
-    # فحوصات أساسية على التطبيقات
+    # تأكد من تهيئة Django قبل فحص التطبيقات
+    _django.setup()
     _required = {"django.contrib.auth", "django.contrib.contenttypes", "django.contrib.sessions"}
     assert _required.issubset(set(_settings.INSTALLED_APPS)), (
         "INSTALLED_APPS يجب أن تحتوي على التطبيقات الأساسية: auth/contenttypes/sessions."
