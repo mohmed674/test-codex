@@ -8,14 +8,7 @@ from dotenv import load_dotenv  # ✅ تحميل ملف البيئة
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(dotenv_path=BASE_DIR / '.env')  # ✅ تحميل ملف .env من جذر المشروع
 
-# ✅ كود فحص مؤقت لتأكيد تحميل متغيرات الاتصال
-print("🔐 DEBUG:", {
-    "DB_NAME": os.environ.get("DJANGO_DB_NAME"),
-    "DB_USER": os.environ.get("DJANGO_DB_USER"),
-    "DB_PASSWORD": os.environ.get("DJANGO_DB_PASSWORD"),
-    "DB_HOST": os.environ.get("DJANGO_DB_HOST"),
-    "DB_PORT": os.environ.get("DJANGO_DB_PORT"),
-})
+# تم إزالة طباعة بيانات الاتصال لتجنب كشف المتغيرات السرية
 
 
 from celery.schedules import crontab
@@ -23,7 +16,9 @@ from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
 
 # ── Environment-driven core settings ───────────────────────────────────────────
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'secret-for-dev-only')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+if not SECRET_KEY:
+    raise RuntimeError("DJANGO_SECRET_KEY environment variable is not set")
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 def _csv_env(name, default=''):
