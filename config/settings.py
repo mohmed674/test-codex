@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'corsheaders',
     'colorfield',
-    # 'core',  ⛔ تمت إزالته
+    'core',
     'apps.employees',
     'apps.attendance',
     'apps.evaluation',
@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     'apps.inventory',
     'apps.survey',
     'apps.tracking',
-    'apps.media',
     'apps.maintenance',
     'apps.monitoring',
     'apps.internal_monitoring',
