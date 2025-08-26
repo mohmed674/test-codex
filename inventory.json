@@ -1,0 +1,1417 @@
+{
+  "project_root": "D:\\ERP_CORE",
+  "settings_module": "config.settings",
+  "scanned_at": "2025-08-23T23:51:18.201981",
+  "apps": {
+    "plm": {
+      "module": "apps.plm",
+      "models": [
+        "PLMDocument",
+        "ProductTemplate",
+        "ProductVersion",
+        "LifecycleStage",
+        "ProductLifecycle",
+        "Bom",
+        "BomLine",
+        "ChangeRequest",
+        "ChangeRequestItem"
+      ]
+    },
+    "core": {
+      "module": "core",
+      "models": [
+        "DepartmentRole",
+        "Role",
+        "RoleRequest",
+        "AccessLog",
+        "PermissionMatrix",
+        "TemporaryAccessOverride",
+        "JobTitle",
+        "Unit",
+        "EvaluationCriteria",
+        "ProductionStageType",
+        "RiskThreshold",
+        "Department",
+        "Employee",
+        "Client",
+        "SmartAccountTemplate"
+      ]
+    },
+    "employees": {
+      "module": "apps.employees",
+      "models": [
+        "Department",
+        "Employee",
+        "AttendanceRecord",
+        "MonthlyIncentive"
+      ]
+    },
+    "attendance": {
+      "module": "apps.attendance",
+      "models": [
+        "Attendance"
+      ]
+    },
+    "evaluation": {
+      "module": "apps.evaluation",
+      "models": [
+        "Evaluation",
+        "LatenessAbsence"
+      ]
+    },
+    "payroll": {
+      "module": "apps.payroll",
+      "models": [
+        "Salary",
+        "Advance",
+        "PaymentRecord",
+        "HistoricalPayment",
+        "AttendanceRecord",
+        "MonthlyIncentive",
+        "PolicySetting"
+      ]
+    },
+    "departments": {
+      "module": "apps.departments",
+      "models": [
+        "Department"
+      ]
+    },
+    "discipline": {
+      "module": "apps.discipline",
+      "models": [
+        "DisciplineRecord"
+      ]
+    },
+    "employee_monitoring": {
+      "module": "apps.employee_monitoring",
+      "models": [
+        "MonitoringRecord",
+        "Evaluation"
+      ]
+    },
+    "production": {
+      "module": "apps.production",
+      "models": [
+        "ProductionOrder",
+        "ProductionStage",
+        "MaterialConsumption",
+        "FinalProductOutput",
+        "ProductionScanQR",
+        "BillOfMaterials",
+        "QualityCheck",
+        "ProductVersion",
+        "ProductionLog"
+      ]
+    },
+    "products": {
+      "module": "apps.products",
+      "models": [
+        "Product",
+        "FinishedProduct"
+      ]
+    },
+    "inventory": {
+      "module": "apps.inventory",
+      "models": [
+        "RawMaterial",
+        "Warehouse",
+        "InventoryItem",
+        "InventoryMovement",
+        "InventoryAudit",
+        "InventoryAuditItem",
+        "InventoryDiscrepancyInvestigation",
+        "Inventory"
+      ]
+    },
+    "survey": {
+      "module": "apps.survey",
+      "models": [
+        "Survey",
+        "SurveyQuestion",
+        "SurveyChoice",
+        "SurveyResponse",
+        "Answer"
+      ]
+    },
+    "tracking": {
+      "module": "apps.tracking",
+      "models": [
+        "ProductTracking",
+        "ProductTrackingMovement"
+      ]
+    },
+    "media": {
+      "module": "apps.media",
+      "models": [
+        "MediaFile"
+      ]
+    },
+    "maintenance": {
+      "module": "apps.maintenance",
+      "models": [
+        "Machine",
+        "MaintenanceLog",
+        "MaintenanceRequest"
+      ]
+    },
+    "monitoring": {
+      "module": "apps.monitoring",
+      "models": [
+        "Client",
+        "DistributionOrder",
+        "Shipment"
+      ]
+    },
+    "internal_monitoring": {
+      "module": "apps.internal_monitoring",
+      "models": [
+        "InventoryDiscrepancy",
+        "SuspiciousActivity",
+        "RiskIncident",
+        "ReportLog",
+        "DisciplinaryAction"
+      ]
+    },
+    "pattern": {
+      "module": "apps.pattern",
+      "models": [
+        "PatternDesign",
+        "PatternPiece",
+        "PatternExecution"
+      ]
+    },
+    "voice_commands": {
+      "module": "apps.voice_commands",
+      "models": [
+        "VoiceCommand"
+      ]
+    },
+    "clients": {
+      "module": "apps.clients",
+      "models": [
+        "Partner",
+        "Address",
+        "Customer",
+        "Client"
+      ]
+    },
+    "sales": {
+      "module": "apps.sales",
+      "models": [
+        "SaleInvoice",
+        "SaleItem",
+        "ClientPointsLog",
+        "SalesPerformance",
+        "ProductSalesAnalysis",
+        "ClientActivity",
+        "SmartSalesSuggestion"
+      ]
+    },
+    "purchases": {
+      "module": "apps.purchases",
+      "models": [
+        "PurchaseRequest",
+        "PurchaseItem",
+        "PurchaseOrder",
+        "PurchaseInvoice"
+      ]
+    },
+    "accounting": {
+      "module": "apps.accounting",
+      "models": [
+        "Supplier",
+        "Customer",
+        "PaymentMethod",
+        "PaymentOrder",
+        "Asset",
+        "Expense",
+        "Invoice",
+        "Payment",
+        "Account",
+        "JournalEntry",
+        "JournalItem",
+        "AccountingSuggestionLog",
+        "BillOfMaterial",
+        "ManufacturingOrder",
+        "SupplierInvoice",
+        "SalesInvoice",
+        "PurchaseInvoice",
+        "InvoiceItem",
+        "CashTransaction"
+      ]
+    },
+    "ai_decision": {
+      "module": "apps.ai_decision",
+      "models": [
+        "AIDecisionAlert",
+        "DecisionAnalysis",
+        "AIDecisionLog"
+      ]
+    },
+    "whatsapp_bot": {
+      "module": "apps.whatsapp_bot",
+      "models": [
+        "WhatsAppOrder"
+      ]
+    },
+    "theme_manager": {
+      "module": "apps.theme_manager",
+      "models": []
+    },
+    "themes": {
+      "module": "apps.themes",
+      "models": []
+    },
+    "dark_mode": {
+      "module": "apps.dark_mode",
+      "models": []
+    },
+    "bi": {
+      "module": "apps.bi",
+      "models": []
+    },
+    "campaigns": {
+      "module": "apps.campaigns",
+      "models": [
+        "Campaign",
+        "CampaignTarget"
+      ]
+    },
+    "client_portal": {
+      "module": "apps.client_portal",
+      "models": [
+        "ClientAccess",
+        "SupportTicket",
+        "SupportResponse"
+      ]
+    },
+    "contracts": {
+      "module": "apps.contracts",
+      "models": [
+        "Contract"
+      ]
+    },
+    "crm": {
+      "module": "apps.crm",
+      "models": [
+        "Lead",
+        "Interaction",
+        "Opportunity"
+      ]
+    },
+    "legal": {
+      "module": "apps.legal",
+      "models": [
+        "LegalCase"
+      ]
+    },
+    "mobile": {
+      "module": "apps.mobile",
+      "models": []
+    },
+    "notifications": {
+      "module": "apps.notifications",
+      "models": [
+        "Notification"
+      ]
+    },
+    "offline_sync": {
+      "module": "apps.offline_sync",
+      "models": [
+        "OfflineSyncLog"
+      ]
+    },
+    "pos": {
+      "module": "apps.pos",
+      "models": [
+        "POSSession",
+        "POSOrder",
+        "POSOrderItem"
+      ]
+    },
+    "projects": {
+      "module": "apps.projects",
+      "models": [
+        "Project",
+        "Task"
+      ]
+    },
+    "risk_management": {
+      "module": "apps.risk_management",
+      "models": [
+        "Risk"
+      ]
+    },
+    "shipping": {
+      "module": "apps.shipping",
+      "models": [
+        "ShippingCompany",
+        "Shipment"
+      ]
+    },
+    "suppliers": {
+      "module": "apps.suppliers",
+      "models": [
+        "Supplier"
+      ]
+    },
+    "support": {
+      "module": "apps.support",
+      "models": [
+        "SupportTicket",
+        "SupportResponse"
+      ]
+    },
+    "dashboard_center": {
+      "module": "apps.dashboard_center",
+      "models": []
+    },
+    "api_gateway": {
+      "module": "apps.api_gateway",
+      "models": []
+    },
+    "asset_lifecycle": {
+      "module": "apps.asset_lifecycle",
+      "models": [
+        "Asset"
+      ]
+    },
+    "backup_center": {
+      "module": "apps.backup_center",
+      "models": [
+        "BackupRecord"
+      ]
+    },
+    "communication": {
+      "module": "apps.communication",
+      "models": [
+        "ChatThread",
+        "Message"
+      ]
+    },
+    "demand_forecasting": {
+      "module": "apps.demand_forecasting",
+      "models": [
+        "Forecast"
+      ]
+    },
+    "document_center": {
+      "module": "apps.document_center",
+      "models": [
+        "Document"
+      ]
+    },
+    "expenses": {
+      "module": "apps.expenses",
+      "models": [
+        "Expense"
+      ]
+    },
+    "internal_bot": {
+      "module": "apps.internal_bot",
+      "models": [
+        "BotMessage"
+      ]
+    },
+    "knowledge_center": {
+      "module": "apps.knowledge_center",
+      "models": [
+        "Category",
+        "Article"
+      ]
+    },
+    "mrp": {
+      "module": "apps.mrp",
+      "models": [
+        "MaterialPlanning",
+        "MaterialLine",
+        "ProcurementSuggestion",
+        "PlanningException"
+      ]
+    },
+    "recruitment": {
+      "module": "apps.recruitment",
+      "models": [
+        "JobPosition",
+        "Application"
+      ]
+    },
+    "rfq": {
+      "module": "apps.rfq",
+      "models": [
+        "RFQ",
+        "RFQItem",
+        "RFQResponse",
+        "RFQResponseItem"
+      ]
+    },
+    "vendor_portal": {
+      "module": "apps.vendor_portal",
+      "models": []
+    },
+    "warehouse_map": {
+      "module": "apps.warehouse_map",
+      "models": [
+        "Zone",
+        "Location"
+      ]
+    },
+    "work_regulations": {
+      "module": "apps.work_regulations",
+      "models": [
+        "Regulation",
+        "EmployeeAgreement"
+      ]
+    },
+    "workflow": {
+      "module": "apps.workflow",
+      "models": [
+        "WorkflowRule"
+      ]
+    },
+    "qms": {
+      "module": "apps.qms",
+      "models": [
+        "QualityCharacteristic",
+        "DefectType",
+        "AQLPlan",
+        "AQLCodeLetter",
+        "AQLSamplingRow",
+        "InspectionLot",
+        "InspectionResult",
+        "Nonconformity",
+        "ControlProcess",
+        "ControlChart",
+        "Subgroup",
+        "DataPoint",
+        "CapabilityStudy",
+        "CAPARecord",
+        "CAPAAction"
+      ]
+    },
+    "audit_out": {
+      "module": "apps.audit_out",
+      "models": []
+    },
+    "docs": {
+      "module": "apps.docs",
+      "models": []
+    },
+    "templates": {
+      "module": "apps.templates",
+      "models": []
+    }
+  },
+  "admin_registered": [
+    "plm.PLMDocument",
+    "plm.ProductTemplate",
+    "plm.ProductVersion",
+    "plm.LifecycleStage",
+    "plm.ProductLifecycle",
+    "plm.Bom",
+    "plm.BomLine",
+    "plm.ChangeRequest",
+    "plm.ChangeRequestItem",
+    "auth.Group",
+    "auth.User",
+    "django_celery_results.TaskResult",
+    "django_celery_results.GroupResult",
+    "django_celery_beat.PeriodicTask",
+    "django_celery_beat.ClockedSchedule",
+    "django_celery_beat.CrontabSchedule",
+    "django_celery_beat.IntervalSchedule",
+    "django_celery_beat.SolarSchedule",
+    "core.JobTitle",
+    "core.Unit",
+    "core.EvaluationCriteria",
+    "core.ProductionStageType",
+    "core.RiskThreshold",
+    "core.DepartmentRole",
+    "core.Role",
+    "core.RoleRequest",
+    "core.AccessLog",
+    "core.PermissionMatrix",
+    "core.TemporaryAccessOverride",
+    "core.Department",
+    "core.Employee",
+    "core.Client",
+    "core.SmartAccountTemplate",
+    "employees.Department",
+    "employees.Employee",
+    "employees.AttendanceRecord",
+    "employees.MonthlyIncentive",
+    "attendance.Attendance",
+    "evaluation.Evaluation",
+    "evaluation.LatenessAbsence",
+    "payroll.Salary",
+    "payroll.Advance",
+    "payroll.PaymentRecord",
+    "payroll.HistoricalPayment",
+    "payroll.AttendanceRecord",
+    "payroll.MonthlyIncentive",
+    "payroll.PolicySetting",
+    "departments.Department",
+    "discipline.DisciplineRecord",
+    "employee_monitoring.MonitoringRecord",
+    "employee_monitoring.Evaluation",
+    "production.ProductionOrder",
+    "production.ProductionStage",
+    "production.MaterialConsumption",
+    "production.FinalProductOutput",
+    "production.ProductionScanQR",
+    "production.BillOfMaterials",
+    "production.QualityCheck",
+    "production.ProductVersion",
+    "production.ProductionLog",
+    "products.Product",
+    "products.FinishedProduct",
+    "inventory.RawMaterial",
+    "inventory.Warehouse",
+    "inventory.InventoryItem",
+    "inventory.InventoryMovement",
+    "inventory.InventoryAudit",
+    "inventory.InventoryAuditItem",
+    "inventory.InventoryDiscrepancyInvestigation",
+    "survey.Survey",
+    "survey.SurveyQuestion",
+    "survey.SurveyChoice",
+    "survey.SurveyResponse",
+    "survey.Answer",
+    "tracking.ProductTracking",
+    "tracking.ProductTrackingMovement",
+    "media.MediaFile",
+    "maintenance.Machine",
+    "maintenance.MaintenanceLog",
+    "maintenance.MaintenanceRequest",
+    "monitoring.Client",
+    "monitoring.DistributionOrder",
+    "monitoring.Shipment",
+    "internal_monitoring.InventoryDiscrepancy",
+    "internal_monitoring.SuspiciousActivity",
+    "internal_monitoring.RiskIncident",
+    "internal_monitoring.ReportLog",
+    "internal_monitoring.DisciplinaryAction",
+    "pattern.PatternDesign",
+    "pattern.PatternPiece",
+    "pattern.PatternExecution",
+    "voice_commands.VoiceCommand",
+    "clients.Partner",
+    "clients.Address",
+    "clients.Customer",
+    "clients.Client",
+    "sales.SaleInvoice",
+    "sales.SaleItem",
+    "sales.ClientPointsLog",
+    "sales.SalesPerformance",
+    "sales.ProductSalesAnalysis",
+    "sales.ClientActivity",
+    "sales.SmartSalesSuggestion",
+    "purchases.PurchaseRequest",
+    "purchases.PurchaseItem",
+    "purchases.PurchaseOrder",
+    "purchases.PurchaseInvoice",
+    "accounting.Supplier",
+    "accounting.Customer",
+    "accounting.PaymentMethod",
+    "accounting.PaymentOrder",
+    "accounting.Asset",
+    "accounting.Expense",
+    "accounting.Invoice",
+    "accounting.Payment",
+    "accounting.Account",
+    "accounting.JournalEntry",
+    "accounting.JournalItem",
+    "accounting.AccountingSuggestionLog",
+    "accounting.BillOfMaterial",
+    "accounting.ManufacturingOrder",
+    "accounting.SupplierInvoice",
+    "accounting.SalesInvoice",
+    "accounting.PurchaseInvoice",
+    "accounting.InvoiceItem",
+    "accounting.CashTransaction",
+    "ai_decision.AIDecisionAlert",
+    "ai_decision.DecisionAnalysis",
+    "ai_decision.AIDecisionLog",
+    "whatsapp_bot.WhatsAppOrder",
+    "campaigns.Campaign",
+    "campaigns.CampaignTarget",
+    "client_portal.ClientAccess",
+    "client_portal.SupportTicket",
+    "client_portal.SupportResponse",
+    "contracts.Contract",
+    "crm.Lead",
+    "crm.Interaction",
+    "crm.Opportunity",
+    "legal.LegalCase",
+    "notifications.Notification",
+    "offline_sync.OfflineSyncLog",
+    "pos.POSSession",
+    "pos.POSOrder",
+    "pos.POSOrderItem",
+    "projects.Project",
+    "projects.Task",
+    "risk_management.Risk",
+    "shipping.ShippingCompany",
+    "shipping.Shipment",
+    "suppliers.Supplier",
+    "support.SupportTicket",
+    "support.SupportResponse",
+    "asset_lifecycle.Asset",
+    "backup_center.BackupRecord",
+    "communication.ChatThread",
+    "communication.Message",
+    "demand_forecasting.Forecast",
+    "document_center.Document",
+    "expenses.Expense",
+    "internal_bot.BotMessage",
+    "knowledge_center.Category",
+    "knowledge_center.Article",
+    "mrp.MaterialPlanning",
+    "mrp.MaterialLine",
+    "mrp.ProcurementSuggestion",
+    "mrp.PlanningException",
+    "recruitment.JobPosition",
+    "recruitment.Application",
+    "rfq.RFQ",
+    "rfq.RFQItem",
+    "rfq.RFQResponse",
+    "rfq.RFQResponseItem",
+    "warehouse_map.Zone",
+    "warehouse_map.Location",
+    "work_regulations.Regulation",
+    "work_regulations.EmployeeAgreement",
+    "workflow.WorkflowRule",
+    "qms.QualityCharacteristic",
+    "qms.DefectType",
+    "qms.AQLPlan",
+    "qms.AQLCodeLetter",
+    "qms.AQLSamplingRow",
+    "qms.InspectionLot",
+    "qms.InspectionResult",
+    "qms.Nonconformity",
+    "qms.ControlProcess",
+    "qms.ControlChart",
+    "qms.Subgroup",
+    "qms.DataPoint",
+    "qms.CapabilityStudy",
+    "qms.CAPARecord",
+    "qms.CAPAAction"
+  ],
+  "urls": [
+    "site/ -> site_home",
+    "^media/(?P<path>.*)$ -> NoName",
+    "^static/(?P<path>.*)$ -> NoName"
+  ],
+  "templates_presence": {
+    "plm": {
+      "dir_exists": true,
+      "files": [
+        "apps\\plm\\templates\\plm\\index.html",
+        "apps\\plm\\templates\\plm\\lifecycle_stages.html",
+        "apps\\plm\\templates\\plm\\product_lifecycle.html"
+      ]
+    },
+    "core": {
+      "dir_exists": true,
+      "files": [
+        "core\\templates\\core\\accesslog_detail.html",
+        "core\\templates\\core\\accesslog_list.html",
+        "core\\templates\\core\\admin_dashboard.html",
+        "core\\templates\\core\\base.html",
+        "core\\templates\\core\\base_mobile.html",
+        "core\\templates\\core\\client_detail.html",
+        "core\\templates\\core\\client_list.html",
+        "core\\templates\\core\\confirm_delete.html",
+        "core\\templates\\core\\criteria_create.html",
+        "core\\templates\\core\\criteria_form.html",
+        "core\\templates\\core\\criteria_list.html",
+        "core\\templates\\core\\dashboard.html",
+        "core\\templates\\core\\datatable_template.html",
+        "core\\templates\\core\\departmentrole_detail.html",
+        "core\\templates\\core\\departmentrole_list.html",
+        "core\\templates\\core\\department_detail.html",
+        "core\\templates\\core\\department_list.html",
+        "core\\templates\\core\\department_role_create.html",
+        "core\\templates\\core\\department_role_form.html",
+        "core\\templates\\core\\department_role_list.html",
+        "core\\templates\\core\\employee_detail.html",
+        "core\\templates\\core\\employee_list.html",
+        "core\\templates\\core\\evaluationcriteria_detail.html",
+        "core\\templates\\core\\evaluationcriteria_list.html",
+        "core\\templates\\core\\form.html",
+        "core\\templates\\core\\form_create.html",
+        "core\\templates\\core\\jobtitle_detail.html",
+        "core\\templates\\core\\jobtitle_list.html",
+        "core\\templates\\core\\job_title_create.html",
+        "core\\templates\\core\\job_title_form.html",
+        "core\\templates\\core\\job_title_list.html",
+        "core\\templates\\core\\launcher.html",
+        "core\\templates\\core\\offline.html",
+        "core\\templates\\core\\overview.html",
+        "core\\templates\\core\\permissionmatrix_detail.html",
+        "core\\templates\\core\\permissionmatrix_list.html",
+        "core\\templates\\core\\productionstagetype_detail.html",
+        "core\\templates\\core\\productionstagetype_list.html",
+        "core\\templates\\core\\riskthreshold_detail.html",
+        "core\\templates\\core\\riskthreshold_list.html",
+        "core\\templates\\core\\risk_threshold_create.html",
+        "core\\templates\\core\\risk_threshold_form.html",
+        "core\\templates\\core\\risk_threshold_list.html",
+        "core\\templates\\core\\rolerequest_detail.html",
+        "core\\templates\\core\\rolerequest_list.html",
+        "core\\templates\\core\\role_detail.html",
+        "core\\templates\\core\\role_list.html",
+        "core\\templates\\core\\smartaccounttemplate_detail.html",
+        "core\\templates\\core\\smartaccounttemplate_list.html",
+        "core\\templates\\core\\stage_type_create.html",
+        "core\\templates\\core\\stage_type_form.html",
+        "core\\templates\\core\\stage_type_list.html",
+        "core\\templates\\core\\table_base.html",
+        "core\\templates\\core\\table_list.html",
+        "core\\templates\\core\\tabs_template.html",
+        "core\\templates\\core\\temporaryaccessoverride_detail.html",
+        "core\\templates\\core\\temporaryaccessoverride_list.html",
+        "core\\templates\\core\\unit_create.html",
+        "core\\templates\\core\\unit_detail.html",
+        "core\\templates\\core\\unit_form.html",
+        "core\\templates\\core\\unit_list.html",
+        "core\\templates\\registration\\login.html",
+        "core\\templates\\registration\\register.html"
+      ]
+    },
+    "employees": {
+      "dir_exists": true,
+      "files": [
+        "apps\\employees\\templates\\employees\\employee_discipline_pdf.html",
+        "apps\\employees\\templates\\employees\\employee_profile.html",
+        "apps\\employees\\templates\\employees\\index.html",
+        "apps\\employees\\templates\\employees\\monthly_incentive_report.html"
+      ]
+    },
+    "attendance": {
+      "dir_exists": true,
+      "files": [
+        "apps\\attendance\\templates\\attendance\\add_attendance.html",
+        "apps\\attendance\\templates\\attendance\\attendance_list.html",
+        "apps\\attendance\\templates\\attendance\\attendance_pdf.html",
+        "apps\\attendance\\templates\\attendance\\attendance_print.html",
+        "apps\\attendance\\templates\\attendance\\index.html",
+        "apps\\attendance\\templates\\attendance\\input.html",
+        "apps\\attendance\\templates\\attendance\\lateness_absence_print.html"
+      ]
+    },
+    "evaluation": {
+      "dir_exists": true,
+      "files": [
+        "apps\\evaluation\\templates\\evaluation\\add_evaluation.html",
+        "apps\\evaluation\\templates\\evaluation\\behavior_reports.html",
+        "apps\\evaluation\\templates\\evaluation\\create_evaluation.html",
+        "apps\\evaluation\\templates\\evaluation\\evaluate_behavior.html",
+        "apps\\evaluation\\templates\\evaluation\\evaluation_form.html",
+        "apps\\evaluation\\templates\\evaluation\\evaluation_list.html",
+        "apps\\evaluation\\templates\\evaluation\\evaluation_log.html",
+        "apps\\evaluation\\templates\\evaluation\\evaluation_pdf.html",
+        "apps\\evaluation\\templates\\evaluation\\index.html",
+        "apps\\evaluation\\templates\\evaluation\\pdf_template.html"
+      ]
+    },
+    "payroll": {
+      "dir_exists": true,
+      "files": [
+        "apps\\payroll\\templates\\payroll\\add_advance.html",
+        "apps\\payroll\\templates\\payroll\\add_salary.html",
+        "apps\\payroll\\templates\\payroll\\advance_list.html",
+        "apps\\payroll\\templates\\payroll\\advance_pdf_report.html",
+        "apps\\payroll\\templates\\payroll\\index.html",
+        "apps\\payroll\\templates\\payroll\\input.html",
+        "apps\\payroll\\templates\\payroll\\policy_settings.html",
+        "apps\\payroll\\templates\\payroll\\salary_list.html",
+        "apps\\payroll\\templates\\payroll\\salary_pdf.html",
+        "apps\\payroll\\templates\\payroll\\salary_pdf_report.html",
+        "apps\\payroll\\templates\\payroll\\reports\\advance_report.html",
+        "apps\\payroll\\templates\\payroll\\reports\\payment_pdf_report.html",
+        "apps\\payroll\\templates\\payroll\\reports\\payment_report.html"
+      ]
+    },
+    "departments": {
+      "dir_exists": true,
+      "files": [
+        "apps\\departments\\templates\\departments\\create.html",
+        "apps\\departments\\templates\\departments\\delete.html",
+        "apps\\departments\\templates\\departments\\edit.html",
+        "apps\\departments\\templates\\departments\\index.html",
+        "apps\\departments\\templates\\departments\\list.html"
+      ]
+    },
+    "discipline": {
+      "dir_exists": true,
+      "files": [
+        "apps\\discipline\\templates\\discipline\\discipline_form.html",
+        "apps\\discipline\\templates\\discipline\\discipline_log.html",
+        "apps\\discipline\\templates\\discipline\\discipline_report.html",
+        "apps\\discipline\\templates\\discipline\\employee_discipline_history.html",
+        "apps\\discipline\\templates\\discipline\\employee_discipline_pdf.html",
+        "apps\\discipline\\templates\\discipline\\employee_profile.html",
+        "apps\\discipline\\templates\\discipline\\index.html",
+        "apps\\discipline\\templates\\discipline\\manager_discipline_report.html",
+        "apps\\discipline\\templates\\discipline\\pdf_template.html"
+      ]
+    },
+    "employee_monitoring": {
+      "dir_exists": true,
+      "files": [
+        "apps\\employee_monitoring\\templates\\employee_monitoring\\dashboard.html",
+        "apps\\employee_monitoring\\templates\\employee_monitoring\\index.html",
+        "apps\\employee_monitoring\\templates\\employee_monitoring\\input.html",
+        "apps\\employee_monitoring\\templates\\employee_monitoring\\monitoring_pdf.html"
+      ]
+    },
+    "production": {
+      "dir_exists": true,
+      "files": [
+        "apps\\production\\templates\\production\\consumption_list.html",
+        "apps\\production\\templates\\production\\create_consumption.html",
+        "apps\\production\\templates\\production\\create_order.html",
+        "apps\\production\\templates\\production\\create_stage.html",
+        "apps\\production\\templates\\production\\index.html",
+        "apps\\production\\templates\\production\\order_list.html",
+        "apps\\production\\templates\\production\\production_dashboard.html",
+        "apps\\production\\templates\\production\\production_order_form.html",
+        "apps\\production\\templates\\production\\product_version_form.html",
+        "apps\\production\\templates\\production\\product_version_list.html",
+        "apps\\production\\templates\\production\\product_version_pdf.html",
+        "apps\\production\\templates\\production\\quality_check_form.html",
+        "apps\\production\\templates\\production\\quality_check_list.html",
+        "apps\\production\\templates\\production\\stage_list.html"
+      ]
+    },
+    "products": {
+      "dir_exists": true,
+      "files": [
+        "apps\\products\\templates\\products\\index.html",
+        "apps\\products\\templates\\products\\product_confirm_delete.html",
+        "apps\\products\\templates\\products\\product_form.html",
+        "apps\\products\\templates\\products\\product_list.html",
+        "apps\\products\\templates\\products\\product_pdf.html",
+        "apps\\products\\templates\\products\\register.html"
+      ]
+    },
+    "inventory": {
+      "dir_exists": true,
+      "files": [
+        "apps\\inventory\\templates\\inventory\\audit_detail.html",
+        "apps\\inventory\\templates\\inventory\\audit_pdf.html",
+        "apps\\inventory\\templates\\inventory\\create_audit.html",
+        "apps\\inventory\\templates\\inventory\\dashboard.html",
+        "apps\\inventory\\templates\\inventory\\edit_audit.html",
+        "apps\\inventory\\templates\\inventory\\index.html",
+        "apps\\inventory\\templates\\inventory\\inventory_detail.html",
+        "apps\\inventory\\templates\\inventory\\inventory_list.html",
+        "apps\\inventory\\templates\\inventory\\inventory_locations.html",
+        "apps\\inventory\\templates\\inventory\\inventory_transactions.html",
+        "apps\\inventory\\templates\\inventory\\item_delete_confirm.html",
+        "apps\\inventory\\templates\\inventory\\item_form.html",
+        "apps\\inventory\\templates\\inventory\\transaction_form.html",
+        "apps\\inventory\\templates\\inventory\\warehouse_delete_confirm.html",
+        "apps\\inventory\\templates\\inventory\\warehouse_form.html",
+        "apps\\inventory\\templates\\inventory\\warehouse_list.html"
+      ]
+    },
+    "survey": {
+      "dir_exists": true,
+      "files": [
+        "apps\\survey\\templates\\survey\\index.html",
+        "apps\\survey\\templates\\survey\\survey_results.html",
+        "apps\\survey\\templates\\survey\\survey_results_pdf.html",
+        "apps\\survey\\templates\\survey\\take_survey.html",
+        "apps\\survey\\templates\\survey\\thanks.html"
+      ]
+    },
+    "tracking": {
+      "dir_exists": true,
+      "files": [
+        "apps\\tracking\\templates\\tracking\\advanced_report.html",
+        "apps\\tracking\\templates\\tracking\\customer_tracking.html",
+        "apps\\tracking\\templates\\tracking\\dashboard.html",
+        "apps\\tracking\\templates\\tracking\\form.html",
+        "apps\\tracking\\templates\\tracking\\index.html",
+        "apps\\tracking\\templates\\tracking\\movement_dashboard.html",
+        "apps\\tracking\\templates\\tracking\\movement_form.html",
+        "apps\\tracking\\templates\\tracking\\tracking_history.html",
+        "apps\\tracking\\templates\\tracking\\tracking_pdf.html",
+        "apps\\tracking\\templates\\tracking\\track_product.html"
+      ]
+    },
+    "media": {
+      "dir_exists": true,
+      "files": [
+        "apps\\media\\templates\\media\\index.html",
+        "apps\\media\\templates\\media\\media_detail.html",
+        "apps\\media\\templates\\media\\media_excel.html",
+        "apps\\media\\templates\\media\\media_form.html",
+        "apps\\media\\templates\\media\\media_list.html",
+        "apps\\media\\templates\\media\\media_pdf.html"
+      ]
+    },
+    "maintenance": {
+      "dir_exists": true,
+      "files": [
+        "apps\\maintenance\\templates\\maintenance\\index.html",
+        "apps\\maintenance\\templates\\maintenance\\log_maintenance.html",
+        "apps\\maintenance\\templates\\maintenance\\maintenance_logs.html",
+        "apps\\maintenance\\templates\\maintenance\\maintenance_logs_pdf.html"
+      ]
+    },
+    "monitoring": {
+      "dir_exists": true,
+      "files": [
+        "apps\\monitoring\\templates\\monitoring\\capture_image.html",
+        "apps\\monitoring\\templates\\monitoring\\create_order.html",
+        "apps\\monitoring\\templates\\monitoring\\create_shipment.html",
+        "apps\\monitoring\\templates\\monitoring\\dashboard.html",
+        "apps\\monitoring\\templates\\monitoring\\index.html",
+        "apps\\monitoring\\templates\\monitoring\\track_shipments.html"
+      ]
+    },
+    "internal_monitoring": {
+      "dir_exists": true,
+      "files": [
+        "apps\\internal_monitoring\\templates\\internal_monitoring\\index.html",
+        "apps\\internal_monitoring\\templates\\internal_monitoring\\risk_dashboard.html"
+      ]
+    },
+    "pattern": {
+      "dir_exists": true,
+      "files": [
+        "apps\\pattern\\templates\\pattern\\dashboard.html",
+        "apps\\pattern\\templates\\pattern\\designs_pdf.html",
+        "apps\\pattern\\templates\\pattern\\design_form.html",
+        "apps\\pattern\\templates\\pattern\\design_list.html",
+        "apps\\pattern\\templates\\pattern\\executions_pdf.html",
+        "apps\\pattern\\templates\\pattern\\execution_form.html",
+        "apps\\pattern\\templates\\pattern\\execution_list.html",
+        "apps\\pattern\\templates\\pattern\\index.html",
+        "apps\\pattern\\templates\\pattern\\piece_form.html",
+        "apps\\pattern\\templates\\pattern\\piece_list.html"
+      ]
+    },
+    "voice_commands": {
+      "dir_exists": true,
+      "files": [
+        "apps\\voice_commands\\templates\\voice_commands\\index.html"
+      ]
+    },
+    "clients": {
+      "dir_exists": true,
+      "files": [
+        "apps\\clients\\templates\\clients\\ai_insights.html",
+        "apps\\clients\\templates\\clients\\client_analysis_dashboard.html",
+        "apps\\clients\\templates\\clients\\client_confirm_delete.html",
+        "apps\\clients\\templates\\clients\\client_form.html",
+        "apps\\clients\\templates\\clients\\client_list.html",
+        "apps\\clients\\templates\\clients\\client_pdf.html",
+        "apps\\clients\\templates\\clients\\index.html"
+      ]
+    },
+    "sales": {
+      "dir_exists": true,
+      "files": [
+        "apps\\sales\\templates\\sales\\dashboard.html",
+        "apps\\sales\\templates\\sales\\index.html",
+        "apps\\sales\\templates\\sales\\invoice_form.html",
+        "apps\\sales\\templates\\sales\\invoice_list.html",
+        "apps\\sales\\templates\\sales\\invoice_template.html",
+        "apps\\sales\\templates\\sales\\performance.html",
+        "apps\\sales\\templates\\sales\\sale_invoice_print.html",
+        "apps\\sales\\templates\\sales\\suggestions.html"
+      ]
+    },
+    "purchases": {
+      "dir_exists": true,
+      "files": [
+        "apps\\purchases\\templates\\purchases\\index.html",
+        "apps\\purchases\\templates\\purchases\\purchase_invoice_form.html",
+        "apps\\purchases\\templates\\purchases\\purchase_list.html",
+        "apps\\purchases\\templates\\purchases\\purchase_order_form.html",
+        "apps\\purchases\\templates\\purchases\\purchase_request_form.html",
+        "apps\\purchases\\templates\\purchases\\report_pdf.html"
+      ]
+    },
+    "accounting": {
+      "dir_exists": true,
+      "files": [
+        "apps\\accounting\\templates\\accounting\\dashboard.html",
+        "apps\\accounting\\templates\\accounting\\financial_analysis.html",
+        "apps\\accounting\\templates\\accounting\\guided_entry.html",
+        "apps\\accounting\\templates\\accounting\\index.html",
+        "apps\\accounting\\templates\\accounting\\invoice_list.html",
+        "apps\\accounting\\templates\\accounting\\journal_entry_form.html",
+        "apps\\accounting\\templates\\accounting\\journal_entry_list.html",
+        "apps\\accounting\\templates\\accounting\\suggestion_log.html",
+        "apps\\accounting\\templates\\accounting\\year_end_closing.html",
+        "apps\\accounting\\templates\\accounting\\invoices\\purchase_invoice_detail.html",
+        "apps\\accounting\\templates\\accounting\\invoices\\purchase_invoice_form.html",
+        "apps\\accounting\\templates\\accounting\\invoices\\sales_invoice_detail.html",
+        "apps\\accounting\\templates\\accounting\\invoices\\sales_invoice_form.html",
+        "apps\\accounting\\templates\\accounting\\journal\\journal_dashboard.html",
+        "apps\\accounting\\templates\\accounting\\journal\\journal_pdf.html",
+        "apps\\accounting\\templates\\accounting\\partners\\customer_form.html",
+        "apps\\accounting\\templates\\accounting\\partners\\customer_list.html",
+        "apps\\accounting\\templates\\accounting\\partners\\supplier_form.html",
+        "apps\\accounting\\templates\\accounting\\partners\\supplier_list.html",
+        "apps\\accounting\\templates\\accounting\\products\\detail.html",
+        "apps\\accounting\\templates\\accounting\\products\\product_form.html",
+        "apps\\accounting\\templates\\accounting\\products\\product_list.html",
+        "apps\\accounting\\templates\\accounting\\reports\\asset_report_pdf.html",
+        "apps\\accounting\\templates\\accounting\\reports\\cash_transactions_report_pdf.html",
+        "apps\\accounting\\templates\\accounting\\reports\\expense_report_pdf.html",
+        "apps\\accounting\\templates\\accounting\\reports\\journal_report_pdf.html",
+        "apps\\accounting\\templates\\accounting\\reports\\payments_by_method_report.html",
+        "apps\\accounting\\templates\\accounting\\reports\\purchase_report_pdf.html",
+        "apps\\accounting\\templates\\accounting\\reports\\reports_index.html",
+        "apps\\accounting\\templates\\accounting\\reports\\reports_overview.html",
+        "apps\\accounting\\templates\\accounting\\reports\\sales_report_pdf.html"
+      ]
+    },
+    "ai_decision": {
+      "dir_exists": true,
+      "files": [
+        "apps\\ai_decision\\templates\\ai_decision\\ai_report_pdf.html",
+        "apps\\ai_decision\\templates\\ai_decision\\analyze.html",
+        "apps\\ai_decision\\templates\\ai_decision\\copilot.html",
+        "apps\\ai_decision\\templates\\ai_decision\\copilot_dashboard.html",
+        "apps\\ai_decision\\templates\\ai_decision\\dashboard.html",
+        "apps\\ai_decision\\templates\\ai_decision\\decision_history.html",
+        "apps\\ai_decision\\templates\\ai_decision\\index.html",
+        "apps\\ai_decision\\templates\\ai_decision\\ocr_upload.html",
+        "apps\\ai_decision\\templates\\ai_decision\\predictive_analysis.html",
+        "apps\\ai_decision\\templates\\ai_decision\\report.html",
+        "apps\\ai_decision\\templates\\ai_decision\\reports_dashboard.html",
+        "apps\\ai_decision\\templates\\ai_decision\\sales_analysis_report.html",
+        "apps\\ai_decision\\templates\\ai_decision\\visual_dashboard.html"
+      ]
+    },
+    "whatsapp_bot": {
+      "dir_exists": true,
+      "files": [
+        "apps\\whatsapp_bot\\templates\\whatsapp_bot\\behavior_analysis.html",
+        "apps\\whatsapp_bot\\templates\\whatsapp_bot\\dashboard.html",
+        "apps\\whatsapp_bot\\templates\\whatsapp_bot\\index.html",
+        "apps\\whatsapp_bot\\templates\\whatsapp_bot\\order_log.html"
+      ]
+    },
+    "theme_manager": {
+      "dir_exists": true,
+      "files": [
+        "apps\\theme_manager\\templates\\theme_manager\\index.html"
+      ]
+    },
+    "themes": {
+      "dir_exists": true,
+      "files": [
+        "apps\\themes\\templates\\themes\\index.html"
+      ]
+    },
+    "dark_mode": {
+      "dir_exists": true,
+      "files": [
+        "apps\\dark_mode\\templates\\dark_mode\\index.html"
+      ]
+    },
+    "bi": {
+      "dir_exists": true,
+      "files": [
+        "apps\\bi\\templates\\bi\\client_analytics.html",
+        "apps\\bi\\templates\\bi\\dashboard.html",
+        "apps\\bi\\templates\\bi\\financial_analytics.html",
+        "apps\\bi\\templates\\bi\\index.html",
+        "apps\\bi\\templates\\bi\\pdf_template.html",
+        "apps\\bi\\templates\\bi\\sales_analytics.html"
+      ]
+    },
+    "campaigns": {
+      "dir_exists": true,
+      "files": [
+        "apps\\campaigns\\templates\\campaigns\\campaign_detail.html",
+        "apps\\campaigns\\templates\\campaigns\\campaign_form.html",
+        "apps\\campaigns\\templates\\campaigns\\campaign_list.html",
+        "apps\\campaigns\\templates\\campaigns\\index.html"
+      ]
+    },
+    "client_portal": {
+      "dir_exists": true,
+      "files": [
+        "apps\\client_portal\\templates\\client_portal\\dashboard.html",
+        "apps\\client_portal\\templates\\client_portal\\index.html",
+        "apps\\client_portal\\templates\\client_portal\\submit_ticket.html"
+      ]
+    },
+    "contracts": {
+      "dir_exists": true,
+      "files": [
+        "apps\\contracts\\templates\\contracts\\contract_detail.html",
+        "apps\\contracts\\templates\\contracts\\contract_form.html",
+        "apps\\contracts\\templates\\contracts\\contract_list.html",
+        "apps\\contracts\\templates\\contracts\\index.html"
+      ]
+    },
+    "crm": {
+      "dir_exists": true,
+      "files": [
+        "apps\\crm\\templates\\crm\\add_interaction.html",
+        "apps\\crm\\templates\\crm\\add_opportunity.html",
+        "apps\\crm\\templates\\crm\\index.html",
+        "apps\\crm\\templates\\crm\\lead_detail.html",
+        "apps\\crm\\templates\\crm\\lead_list.html"
+      ]
+    },
+    "legal": {
+      "dir_exists": true,
+      "files": [
+        "apps\\legal\\templates\\legal\\index.html",
+        "apps\\legal\\templates\\legal\\legal_case_detail.html",
+        "apps\\legal\\templates\\legal\\legal_case_form.html",
+        "apps\\legal\\templates\\legal\\legal_case_list.html"
+      ]
+    },
+    "mobile": {
+      "dir_exists": true,
+      "files": [
+        "apps\\mobile\\templates\\mobile\\dashboard.html",
+        "apps\\mobile\\templates\\mobile\\index.html"
+      ]
+    },
+    "notifications": {
+      "dir_exists": true,
+      "files": [
+        "apps\\notifications\\templates\\notifications\\index.html",
+        "apps\\notifications\\templates\\notifications\\list.html",
+        "apps\\notifications\\templates\\notifications\\notifications_pdf.html",
+        "apps\\notifications\\templates\\notifications\\notification_list.html",
+        "apps\\notifications\\templates\\notifications\\pdf_list.html",
+        "apps\\notifications\\templates\\notifications\\partials\\notification_list_partial.html"
+      ]
+    },
+    "offline_sync": {
+      "dir_exists": true,
+      "files": [
+        "apps\\offline_sync\\templates\\offline_sync\\dashboard.html",
+        "apps\\offline_sync\\templates\\offline_sync\\index.html"
+      ]
+    },
+    "pos": {
+      "dir_exists": true,
+      "files": [
+        "apps\\pos\\templates\\pos\\index.html",
+        "apps\\pos\\templates\\pos\\new_order.html",
+        "apps\\pos\\templates\\pos\\open_session.html",
+        "apps\\pos\\templates\\pos\\order_detail.html"
+      ]
+    },
+    "projects": {
+      "dir_exists": true,
+      "files": [
+        "apps\\projects\\templates\\projects\\index.html",
+        "apps\\projects\\templates\\projects\\project_detail.html",
+        "apps\\projects\\templates\\projects\\project_form.html",
+        "apps\\projects\\templates\\projects\\project_list.html"
+      ]
+    },
+    "risk_management": {
+      "dir_exists": true,
+      "files": [
+        "apps\\risk_management\\templates\\risk_management\\index.html",
+        "apps\\risk_management\\templates\\risk_management\\risk_detail.html",
+        "apps\\risk_management\\templates\\risk_management\\risk_form.html",
+        "apps\\risk_management\\templates\\risk_management\\risk_list.html"
+      ]
+    },
+    "shipping": {
+      "dir_exists": true,
+      "files": [
+        "apps\\shipping\\templates\\shipping\\index.html",
+        "apps\\shipping\\templates\\shipping\\shipment_form.html",
+        "apps\\shipping\\templates\\shipping\\shipment_list.html",
+        "apps\\shipping\\templates\\shipping\\shipment_track.html"
+      ]
+    },
+    "suppliers": {
+      "dir_exists": true,
+      "files": [
+        "apps\\suppliers\\templates\\suppliers\\dashboard.html",
+        "apps\\suppliers\\templates\\suppliers\\index.html",
+        "apps\\suppliers\\templates\\suppliers\\supplier_form.html",
+        "apps\\suppliers\\templates\\suppliers\\supplier_list.html"
+      ]
+    },
+    "support": {
+      "dir_exists": true,
+      "files": [
+        "apps\\support\\templates\\support\\index.html",
+        "apps\\support\\templates\\support\\response_form.html",
+        "apps\\support\\templates\\support\\ticket_detail.html",
+        "apps\\support\\templates\\support\\ticket_form.html",
+        "apps\\support\\templates\\support\\ticket_list.html"
+      ]
+    },
+    "dashboard_center": {
+      "dir_exists": true,
+      "files": [
+        "apps\\dashboard_center\\templates\\dashboard_center\\dashboard.html",
+        "apps\\dashboard_center\\templates\\dashboard_center\\index.html",
+        "apps\\dashboard_center\\templates\\dashboard_center\\overview.html"
+      ]
+    },
+    "api_gateway": {
+      "dir_exists": true,
+      "files": [
+        "apps\\api_gateway\\templates\\api_gateway\\index.html"
+      ]
+    },
+    "asset_lifecycle": {
+      "dir_exists": true,
+      "files": [
+        "apps\\asset_lifecycle\\templates\\asset_lifecycle\\asset_form.html",
+        "apps\\asset_lifecycle\\templates\\asset_lifecycle\\asset_list.html",
+        "apps\\asset_lifecycle\\templates\\asset_lifecycle\\index.html"
+      ]
+    },
+    "backup_center": {
+      "dir_exists": true,
+      "files": [
+        "apps\\backup_center\\templates\\backup_center\\dashboard.html",
+        "apps\\backup_center\\templates\\backup_center\\index.html"
+      ]
+    },
+    "communication": {
+      "dir_exists": true,
+      "files": [
+        "apps\\communication\\templates\\communication\\index.html",
+        "apps\\communication\\templates\\communication\\thread_list.html"
+      ]
+    },
+    "demand_forecasting": {
+      "dir_exists": true,
+      "files": [
+        "apps\\demand_forecasting\\templates\\demand_forecasting\\forecast_form.html",
+        "apps\\demand_forecasting\\templates\\demand_forecasting\\forecast_list.html",
+        "apps\\demand_forecasting\\templates\\demand_forecasting\\index.html"
+      ]
+    },
+    "document_center": {
+      "dir_exists": true,
+      "files": [
+        "apps\\document_center\\templates\\document_center\\document_form.html",
+        "apps\\document_center\\templates\\document_center\\document_list.html",
+        "apps\\document_center\\templates\\document_center\\index.html"
+      ]
+    },
+    "expenses": {
+      "dir_exists": true,
+      "files": [
+        "apps\\expenses\\templates\\expenses\\expense_form.html",
+        "apps\\expenses\\templates\\expenses\\expense_list.html",
+        "apps\\expenses\\templates\\expenses\\index.html"
+      ]
+    },
+    "internal_bot": {
+      "dir_exists": true,
+      "files": [
+        "apps\\internal_bot\\templates\\internal_bot\\chat.html",
+        "apps\\internal_bot\\templates\\internal_bot\\index.html"
+      ]
+    },
+    "knowledge_center": {
+      "dir_exists": true,
+      "files": [
+        "apps\\knowledge_center\\templates\\knowledge_center\\article_form.html",
+        "apps\\knowledge_center\\templates\\knowledge_center\\article_list.html",
+        "apps\\knowledge_center\\templates\\knowledge_center\\index.html"
+      ]
+    },
+    "mrp": {
+      "dir_exists": true,
+      "files": [
+        "apps\\mrp\\templates\\mrp\\index.html",
+        "apps\\mrp\\templates\\mrp\\planning_detail.html",
+        "apps\\mrp\\templates\\mrp\\planning_form.html",
+        "apps\\mrp\\templates\\mrp\\planning_list.html"
+      ]
+    },
+    "recruitment": {
+      "dir_exists": true,
+      "files": [
+        "apps\\recruitment\\templates\\recruitment\\apply_job.html",
+        "apps\\recruitment\\templates\\recruitment\\index.html",
+        "apps\\recruitment\\templates\\recruitment\\job_list.html"
+      ]
+    },
+    "rfq": {
+      "dir_exists": true,
+      "files": [
+        "apps\\rfq\\templates\\rfq\\index.html",
+        "apps\\rfq\\templates\\rfq\\rfq_detail.html",
+        "apps\\rfq\\templates\\rfq\\rfq_form.html",
+        "apps\\rfq\\templates\\rfq\\rfq_list.html"
+      ]
+    },
+    "vendor_portal": {
+      "dir_exists": true,
+      "files": [
+        "apps\\vendor_portal\\templates\\vendor_portal\\dashboard.html",
+        "apps\\vendor_portal\\templates\\vendor_portal\\index.html"
+      ]
+    },
+    "warehouse_map": {
+      "dir_exists": true,
+      "files": [
+        "apps\\warehouse_map\\templates\\warehouse_map\\index.html",
+        "apps\\warehouse_map\\templates\\warehouse_map\\map_overview.html",
+        "apps\\warehouse_map\\templates\\warehouse_map\\zone_form.html"
+      ]
+    },
+    "work_regulations": {
+      "dir_exists": true,
+      "files": [
+        "apps\\work_regulations\\templates\\work_regulations\\index.html",
+        "apps\\work_regulations\\templates\\work_regulations\\view.html"
+      ]
+    },
+    "workflow": {
+      "dir_exists": true,
+      "files": [
+        "apps\\workflow\\templates\\workflow\\index.html",
+        "apps\\workflow\\templates\\workflow\\workflow_form.html",
+        "apps\\workflow\\templates\\workflow\\workflow_list.html"
+      ]
+    },
+    "qms": {
+      "dir_exists": true,
+      "files": [
+        "apps\\qms\\templates\\qms\\index.html"
+      ]
+    },
+    "audit_out": {
+      "dir_exists": true,
+      "files": [
+        "apps\\audit_out\\templates\\audit_out\\index.html"
+      ]
+    },
+    "docs": {
+      "dir_exists": true,
+      "files": [
+        "apps\\docs\\templates\\docs\\index.html"
+      ]
+    },
+    "templates": {
+      "dir_exists": true,
+      "files": [
+        "apps\\templates\\templates\\templates\\index.html"
+      ]
+    }
+  },
+  "missing_admin": [
+    "inventory.Inventory"
+  ]
+}

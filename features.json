@@ -1,0 +1,58 @@
+[
+  {
+    "module": "apps.plm",
+    "feature": "Product lifecycle management",
+    "sap_parity": "Y",
+    "odoo_parity": "Y",
+    "oracle_parity": "Y"
+  },
+  {
+    "module": "apps.media",
+    "feature": "Media management",
+    "sap_parity": "Y",
+    "odoo_parity": "Y",
+    "oracle_parity": "N"
+  },
+  {
+    "module": "core",
+    "feature": "Internationalization in base template",
+    "sap_parity": "Y",
+    "odoo_parity": "Y",
+    "oracle_parity": "Y"
+  },
+  {
+    "module": "apps.sales",
+    "feature": "API Serializers",
+    "sap_parity": "Y",
+    "odoo_parity": "Y",
+    "oracle_parity": "Y"
+  },
+  {
+    "module": "apps.qms",
+    "feature": "Admin registration",
+    "sap_parity": "Y",
+    "odoo_parity": "Y",
+    "oracle_parity": "Y"
+  },
+  {
+    "module": "apps.inventory",
+    "feature": "Automated tests",
+    "sap_parity": "Y",
+    "odoo_parity": "Y",
+    "oracle_parity": "Y"
+  },
+  {
+    "module": "apps.campaigns",
+    "feature": "Mobile integrations",
+    "sap_parity": "N",
+    "odoo_parity": "Y",
+    "oracle_parity": "N"
+  },
+  {
+    "module": "deps",
+    "feature": "django_celery_results and django-colorfield",
+    "sap_parity": "NA",
+    "odoo_parity": "NA",
+    "oracle_parity": "NA"
+  }
+]

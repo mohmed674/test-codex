@@ -1,0 +1,9 @@
+Module,Feature,Our Status,Evidence (file:line),SAP Parity,Odoo Parity,Oracle Parity,Notes
+apps.plm,Product lifecycle management,Partial,"config/settings.py:35; apps/plm/apps.py:3",Y,Y,Y,Duplicate label
+apps.media,Media management,Missing,"config/settings.py:63; config/urls.py:52",Y,Y,N,Module referenced but missing
+core,Internationalization in base template,Partial,"core/templates/core/base.html:6; core/templates/core/base.html:18",Y,Y,Y,Hardcoded Arabic strings
+apps.sales,API Serializers,Missing,"apps/sales (no serializers.py)",Y,Y,Y,Need serializers
+apps.qms,Admin registration,Partial,"apps/qms/models.py:44; apps/qms/admin.py",Y,Y,Y,MeasurementType not registered
+apps.inventory,Automated tests,Missing,"tests (no inventory tests)",Y,Y,Y,Add tests
+apps.campaigns,Mobile integrations,Partial,"apps/campaigns/integrations.py:19; apps/campaigns/integrations.py:28",N,Y,N,TODO integrations
+deps,"django_celery_results and django-colorfield",Missing,"requirements_lock.txt:29; requirements_lock.txt:36; requirements.txt",NA,NA,NA,Add deps to requirements.txt
