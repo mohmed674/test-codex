@@ -1,0 +1,155 @@
+{
+  "Accounting": {
+    "accounting": [
+      "apps/accounting/models.py",
+      "apps/accounting/views.py",
+      "apps/accounting/serializers.py"
+    ],
+    "banking": [
+      "apps/banking/models.py",
+      "apps/banking/views.py"
+    ]
+  },
+  "Sales": {
+    "sales": [
+      "apps/sales/models.py",
+      "apps/sales/views.py"
+    ]
+  },
+  "CRM": {
+    "crm": [
+      "apps/crm/models.py",
+      "apps/crm/views.py",
+      "apps/crm/serializers.py"
+    ]
+  },
+  "Inventory": {
+    "inventory": [
+      "apps/inventory/models.py",
+      "apps/inventory/views.py"
+    ]
+  },
+  "HR": {
+    "employees": [
+      "apps/employees/models.py",
+      "apps/employees/views.py",
+      "apps/employees/serializers.py"
+    ],
+    "attendance": [
+      "apps/attendance/models.py",
+      "apps/attendance/views.py",
+      "apps/attendance/serializers.py"
+    ],
+    "departments": [
+      "apps/departments/models.py",
+      "apps/departments/views.py",
+      "apps/departments/serializers.py"
+    ],
+    "discipline": [
+      "apps/discipline/models.py",
+      "apps/discipline/views.py",
+      "apps/discipline/serializers.py"
+    ],
+    "evaluation": [
+      "apps/evaluation/models.py",
+      "apps/evaluation/views.py"
+    ],
+    "payroll": [
+      "apps/payroll/models.py",
+      "apps/payroll/views.py"
+    ],
+    "recruitment": [
+      "apps/recruitment/models.py",
+      "apps/recruitment/views.py"
+    ],
+    "employee_monitoring": [
+      "apps/employee_monitoring/models.py",
+      "apps/employee_monitoring/views.py"
+    ]
+  },
+  "POS": {
+    "pos": [
+      "apps/pos/models.py",
+      "apps/pos/views.py",
+      "apps/pos/serializers.py"
+    ]
+  },
+  "MRP": {
+    "mrp": [
+      "apps/mrp/models.py",
+      "apps/mrp/views.py"
+    ],
+    "production": [
+      "apps/production/models.py",
+      "apps/production/views.py"
+    ],
+    "pattern": [
+      "apps/pattern/models.py",
+      "apps/pattern/views.py"
+    ]
+  },
+  "Shipping": {
+    "shipping": [
+      "apps/shipping/models.py",
+      "apps/shipping/views.py",
+      "apps/shipping/serializers.py"
+    ]
+  },
+  "Quality": {
+    "qms": [
+      "apps/qms/models.py",
+      "apps/qms/views.py"
+    ]
+  },
+  "Support": {
+    "support": [
+      "apps/support/models.py",
+      "apps/support/views.py",
+      "apps/support/serializers.py"
+    ]
+  },
+  "AI": {
+    "ai_decision": [
+      "apps/ai_decision/models.py",
+      "apps/ai_decision/views.py",
+      "apps/ai_decision/serializers.py"
+    ],
+    "voice_commands": [
+      "apps/voice_commands/models.py",
+      "apps/voice_commands/views.py"
+    ],
+    "whatsapp_bot": [
+      "apps/whatsapp_bot/models.py",
+      "apps/whatsapp_bot/views.py"
+    ]
+  },
+  "Integrations": {
+    "api_gateway": [
+      "apps/api_gateway/views.py"
+    ],
+    "offline_sync": [
+      "apps/offline_sync/models.py",
+      "apps/offline_sync/views.py"
+    ],
+    "communication": [
+      "apps/communication/models.py",
+      "apps/communication/views.py"
+    ]
+  },
+  "Platform": {
+    "core": [
+      "core/models.py",
+      "core/views.py",
+      "core/serializers.py"
+    ],
+    "theme_manager": [
+      "apps/theme_manager/views.py"
+    ],
+    "templates": [
+      "apps/templates/views.py"
+    ],
+    "site": [
+      "apps/site/views.py"
+    ]
+  }
+}
