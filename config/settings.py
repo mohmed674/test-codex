@@ -32,6 +32,8 @@ def _csv_env(name, default=''):
 ALLOWED_HOSTS = _csv_env('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,[::1]')
 
 INSTALLED_APPS = [
+    'core',
+    'apps.media.apps.MediaConfig',
     'apps.plm.apps.PlmConfig',
     'widget_tweaks',
     'django.contrib.admin',
@@ -47,7 +49,6 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'corsheaders',
     'colorfield',
-    # 'core',  ⛔ تمت إزالته
     'apps.employees',
     'apps.attendance',
     'apps.evaluation',
@@ -60,7 +61,6 @@ INSTALLED_APPS = [
     'apps.inventory',
     'apps.survey',
     'apps.tracking',
-    'apps.media',
     'apps.maintenance',
     'apps.monitoring',
     'apps.internal_monitoring',

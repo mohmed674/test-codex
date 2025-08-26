@@ -40,7 +40,12 @@ def resolve_core_app(base_path: Path) -> Optional[str]:
         return "core"
     return None
 
-_project_apps = collect_all_apps(BASE_DIR)
+# جمع تطبيقات المشروع مع تطبيع المسارات لـ media و plm
+_project_apps = [
+    'apps.media.apps.MediaConfig' if app == 'apps.media' else
+    'apps.plm.apps.PlmConfig' if app == 'apps.plm' else app
+    for app in collect_all_apps(BASE_DIR)
+]
 _core_app = resolve_core_app(BASE_DIR)
 if _core_app and _core_app not in _project_apps:
     _project_apps.insert(0, _core_app)

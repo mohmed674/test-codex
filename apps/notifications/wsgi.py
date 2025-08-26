@@ -11,7 +11,7 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 # ضبط متغير البيئة الخاص بإعدادات المشروع
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ERP_CORE.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 # استيراد تطبيق WSGI لتشغيل المشروع
 application = get_wsgi_application()
