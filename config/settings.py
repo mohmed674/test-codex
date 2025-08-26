@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'apps.inventory',
     'apps.survey',
     'apps.tracking',
-    'apps.media',
+    'apps.media.apps.MediaConfig',
     'apps.maintenance',
     'apps.monitoring',
     'apps.internal_monitoring',
