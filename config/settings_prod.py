@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'core',
     'apps.employees','apps.attendance','apps.evaluation','apps.payroll','apps.departments','apps.discipline',
     'apps.employee_monitoring','apps.production','apps.products','apps.inventory','apps.survey','apps.tracking',
-    'apps.media','apps.maintenance','apps.monitoring','apps.internal_monitoring','apps.pattern','apps.voice_commands',
+    'apps.media.apps.MediaConfig','apps.maintenance','apps.monitoring','apps.internal_monitoring','apps.pattern','apps.voice_commands',
     'apps.clients','apps.sales','apps.purchases','apps.accounting','apps.ai_decision','apps.whatsapp_bot',
     'apps.theme_manager','apps.themes','apps.dark_mode',
     'apps.bi','apps.campaigns','apps.client_portal','apps.contracts','apps.crm','apps.legal',
