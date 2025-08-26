@@ -3,3 +3,4 @@
 class PlmConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'apps.plm'
+    label = 'plm_mfg'
