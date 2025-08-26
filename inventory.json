@@ -1,0 +1,4314 @@
+[
+  {
+    "path": "wire_urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "auto_generate_forms_and_filters.py",
+    "role": "utils"
+  },
+  {
+    "path": "analyze_project.py",
+    "role": "utils"
+  },
+  {
+    "path": "run_tests.py",
+    "role": "utils"
+  },
+  {
+    "path": "analyze_project.txt",
+    "role": "utils"
+  },
+  {
+    "path": "resume_bundle.json",
+    "role": "utils"
+  },
+  {
+    "path": ".pylintrc",
+    "role": "utils"
+  },
+  {
+    "path": "test_integrity.py",
+    "role": "test"
+  },
+  {
+    "path": "fix_suppliers_include.py",
+    "role": "utils"
+  },
+  {
+    "path": "file_list.txt",
+    "role": "utils"
+  },
+  {
+    "path": "dedupe_url_includes.py",
+    "role": "utils"
+  },
+  {
+    "path": "test_employees.py",
+    "role": "test"
+  },
+  {
+    "path": "requirements_lock.txt",
+    "role": "utils"
+  },
+  {
+    "path": "project_inventory.json",
+    "role": "utils"
+  },
+  {
+    "path": "security_scan_project.py",
+    "role": "utils"
+  },
+  {
+    "path": "auto_generate_serializers_and_views.py",
+    "role": "utils"
+  },
+  {
+    "path": ".env.example",
+    "role": "utils"
+  },
+  {
+    "path": "auto_generate_core_module.py",
+    "role": "utils"
+  },
+  {
+    "path": "fix_suppliers_main_imports.py",
+    "role": "utils"
+  },
+  {
+    "path": "test_survey.py",
+    "role": "test"
+  },
+  {
+    "path": "stabilize_suppliers_routing.py",
+    "role": "utils"
+  },
+  {
+    "path": "fix_suppliers_exports.py",
+    "role": "utils"
+  },
+  {
+    "path": "deploy_ready_report.json",
+    "role": "utils"
+  },
+  {
+    "path": "git_status.txt",
+    "role": "utils"
+  },
+  {
+    "path": "manage.py",
+    "role": "utils"
+  },
+  {
+    "path": "requirements.txt",
+    "role": "utils"
+  },
+  {
+    "path": "icons.txt",
+    "role": "utils"
+  },
+  {
+    "path": "fix_suppliers_urls_main_generic.py",
+    "role": "utils"
+  },
+  {
+    "path": "inventory_output.txt",
+    "role": "utils"
+  },
+  {
+    "path": "_sw_preview.js",
+    "role": "utils"
+  },
+  {
+    "path": "scan_apps_structure_alt.py",
+    "role": "utils"
+  },
+  {
+    "path": "fix_suppliers_urls_circular.py",
+    "role": "utils"
+  },
+  {
+    "path": "generate_core_templates.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps_structure_scan.txt",
+    "role": "utils"
+  },
+  {
+    "path": "project_tree.txt",
+    "role": "utils"
+  },
+  {
+    "path": "generate_auth_roles_and_permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "fix_missing_inventory_alias.py",
+    "role": "utils"
+  },
+  {
+    "path": "prepare_for_deploy.py",
+    "role": "utils"
+  },
+  {
+    "path": "pytest.ini",
+    "role": "utils"
+  },
+  {
+    "path": "final_integrity_check.py",
+    "role": "utils"
+  },
+  {
+    "path": "reports_inventory.txt",
+    "role": "utils"
+  },
+  {
+    "path": "register_core_missing_admin.py",
+    "role": "utils"
+  },
+  {
+    "path": "project_structure.txt",
+    "role": "utils"
+  },
+  {
+    "path": "validate_templates_with_new_contexts.py",
+    "role": "utils"
+  },
+  {
+    "path": "detect_unused_models_or_urls.py",
+    "role": "utils"
+  },
+  {
+    "path": ".gitignore",
+    "role": "utils"
+  },
+  {
+    "path": "conftest.py",
+    "role": "utils"
+  },
+  {
+    "path": "fix_namespaces_unique.py",
+    "role": "utils"
+  },
+  {
+    "path": "project_state.json",
+    "role": "utils"
+  },
+  {
+    "path": "fix_suppliers_urls_package.py",
+    "role": "utils"
+  },
+  {
+    "path": "lear_plm_productlifecycle.py",
+    "role": "utils"
+  },
+  {
+    "path": "reset_routing_minimal.py",
+    "role": "utils"
+  },
+  {
+    "path": "python_version.txt",
+    "role": "utils"
+  },
+  {
+    "path": "inventory_project.py",
+    "role": "utils"
+  },
+  {
+    "path": "test_media.py",
+    "role": "test"
+  },
+  {
+    "path": "bridge_suppliers_urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "sync_admin_with_fixed_models_and_urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "make_resume_bundle.py",
+    "role": "utils"
+  },
+  {
+    "path": "erp_autofix_all.py",
+    "role": "utils"
+  },
+  {
+    "path": "security_report.json",
+    "role": "utils"
+  },
+  {
+    "path": "generate_full_module_from_model.py",
+    "role": "utils"
+  },
+  {
+    "path": "clear_plm_productlifecycle.py",
+    "role": "utils"
+  },
+  {
+    "path": "load_project_context.p",
+    "role": "utils"
+  },
+  {
+    "path": "final_integrity_report.json",
+    "role": "utils"
+  },
+  {
+    "path": "git_commit.txt",
+    "role": "utils"
+  },
+  {
+    "path": "fix_suppliers_api_urls.py",
+    "role": "api"
+  },
+  {
+    "path": "load_project_context.py",
+    "role": "utils"
+  },
+  {
+    "path": "project_meta.json",
+    "role": "utils"
+  },
+  {
+    "path": "launch_project_manager.py",
+    "role": "utils"
+  },
+  {
+    "path": "generate_missing_urls_or_admin.py",
+    "role": "utils"
+  },
+  {
+    "path": "verify_core_module_integrity.py",
+    "role": "utils"
+  },
+  {
+    "path": "strip_namespace_tuples.py",
+    "role": "utils"
+  },
+  {
+    "path": "config/settings_prod.py",
+    "role": "settings"
+  },
+  {
+    "path": "config/asgi.py",
+    "role": "utils"
+  },
+  {
+    "path": "config/celery_app.py",
+    "role": "utils"
+  },
+  {
+    "path": "config/settings.py",
+    "role": "settings"
+  },
+  {
+    "path": "config/init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "config/test_urls.py",
+    "role": "test"
+  },
+  {
+    "path": "config/urls.autobackup.py",
+    "role": "utils"
+  },
+  {
+    "path": "config/pytest_settings.py",
+    "role": "utils"
+  },
+  {
+    "path": "config/wsgi.py",
+    "role": "utils"
+  },
+  {
+    "path": "config/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "tests/test_media_smoke.py",
+    "role": "test"
+  },
+  {
+    "path": "tests/test_employees_smoke.py",
+    "role": "test"
+  },
+  {
+    "path": "tests/test_integrity.py",
+    "role": "test"
+  },
+  {
+    "path": "tests/test_survey_smoke.py",
+    "role": "test"
+  },
+  {
+    "path": "tests/test_campaigns.py",
+    "role": "test"
+  },
+  {
+    "path": "tests/conftest.py",
+    "role": "test"
+  },
+  {
+    "path": "tests/test_employee_monitoring_smoke.py",
+    "role": "test"
+  },
+  {
+    "path": "tests/test_smoke.py",
+    "role": "test"
+  },
+  {
+    "path": "locale/en/LC_MESSAGES/django.po",
+    "role": "utils"
+  },
+  {
+    "path": "locale/ar/LC_MESSAGES/django.po",
+    "role": "utils"
+  },
+  {
+    "path": "locale/ar/LC_MESSAGES/django.po.pre_dedup.bak",
+    "role": "utils"
+  },
+  {
+    "path": "locale/ar/LC_MESSAGES/django.po.bak",
+    "role": "utils"
+  },
+  {
+    "path": "core/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "core/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "core/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/context_processors.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/middleware.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/views_pwa.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/views.py",
+    "role": "view"
+  },
+  {
+    "path": "core/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "core/api_urls.py",
+    "role": "api"
+  },
+  {
+    "path": "core/helpers.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/api_views.py",
+    "role": "api"
+  },
+  {
+    "path": "core/settings_global.py",
+    "role": "settings"
+  },
+  {
+    "path": "core/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/models.py",
+    "role": "model"
+  },
+  {
+    "path": "core/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "core/templatetags/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/templatetags/querystring.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/templatetags/form_filters.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/templatetags/smart_hints.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/integrations/whatsapp.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/integrations/payments.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/integrations/signature.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/utils/archive.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/utils/export_utils.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/utils/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/utils/pdf_render.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/utils/export_excel.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/utils/field_hints.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/utils/launcher.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/utils/rendering.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/partials/_pagination.html",
+    "role": "template"
+  },
+  {
+    "path": "core/partials/_messages.html",
+    "role": "template"
+  },
+  {
+    "path": "core/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "core/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "core/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "core/management/commands/repair_missing_templates.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/management/commands/prepare_db.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/management/commands/debug_templates.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/management/commands/smoke_apps.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/management/commands/audit_erp.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/management/commands/generate_stub_templates.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/templates/sw.js",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/registration/register.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/registration/login.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/risk_threshold_create.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/permissionmatrix_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/productionstagetype_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/stage_type_create.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/productionstagetype_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/riskthreshold_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/form.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/confirm_delete.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/base_mobile.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/smartaccounttemplate_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/criteria_form.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/client_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/jobtitle_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/employee_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/smartaccounttemplate_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/criteria_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/unit_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/client_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/rolerequest_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/department_role_form.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/departmentrole_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/stage_type_form.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/jobtitle_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/job_title_form.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/admin_dashboard.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/form_create.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/criteria_create.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/risk_threshold_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/role_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/accesslog_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/riskthreshold_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/launcher.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/department_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/table_base.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/temporaryaccessoverride_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/employee_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/job_title_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/dashboard.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/stage_type_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/rolerequest_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/overview.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/unit_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/department_role_create.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/job_title_create.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/evaluationcriteria_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/tabs_template.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/risk_threshold_form.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/datatable_template.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/accesslog_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/evaluationcriteria_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/department_role_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/department_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/permissionmatrix_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/departmentrole_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/unit_form.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/temporaryaccessoverride_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/role_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/table_list.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/unit_create.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/base.html",
+    "role": "template"
+  },
+  {
+    "path": "core/templates/core/offline.html",
+    "role": "template"
+  },
+  {
+    "path": "core/Middleware/global_context.py",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/sw.js",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/manifest.json",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/offline.html",
+    "role": "template"
+  },
+  {
+    "path": "core/static/icons/suppliers.png",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/icons/sales.png",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/icons/icon-192x192.png",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/icons/purchases.png",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/icons/icon-512x512.png",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/icons/accounting.png",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/icons/inventory.png",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/icons/hr.png",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/js/erp.js",
+    "role": "utils"
+  },
+  {
+    "path": "core/static/css/erp.css",
+    "role": "utils"
+  },
+  {
+    "path": ".git/config",
+    "role": "utils"
+  },
+  {
+    "path": ".git/HEAD",
+    "role": "utils"
+  },
+  {
+    "path": ".git/index",
+    "role": "utils"
+  },
+  {
+    "path": ".git/packed-refs",
+    "role": "utils"
+  },
+  {
+    "path": ".git/description",
+    "role": "utils"
+  },
+  {
+    "path": ".git/FETCH_HEAD",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/pre-rebase.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/commit-msg.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/prepare-commit-msg.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/fsmonitor-watchman.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/sendemail-validate.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/pre-push.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/applypatch-msg.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/push-to-checkout.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/pre-merge-commit.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/pre-applypatch.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/post-update.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/update.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/pre-commit.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/hooks/pre-receive.sample",
+    "role": "utils"
+  },
+  {
+    "path": ".git/refs/heads/work",
+    "role": "utils"
+  },
+  {
+    "path": ".git/refs/heads/main",
+    "role": "utils"
+  },
+  {
+    "path": ".git/objects/pack/pack-fc17dadca46459c1a22edc401a92b1a61bdad6fe.rev",
+    "role": "utils"
+  },
+  {
+    "path": ".git/objects/pack/pack-fc17dadca46459c1a22edc401a92b1a61bdad6fe.idx",
+    "role": "utils"
+  },
+  {
+    "path": ".git/objects/pack/pack-fc17dadca46459c1a22edc401a92b1a61bdad6fe.pack",
+    "role": "utils"
+  },
+  {
+    "path": ".git/logs/HEAD",
+    "role": "utils"
+  },
+  {
+    "path": ".git/info/exclude",
+    "role": "utils"
+  },
+  {
+    "path": "templates/dark_mode/overview.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/employees/employee_list.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/site/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/pos/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/contracts/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/employee_monitoring/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/document_center/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/theme_manager/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/attendance/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/sales/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/dark_mode/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/qms/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/support/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/mrp/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/recruitment/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/production/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/vendor_portal/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/knowledge_center/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/backup_center/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/plm/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/pattern/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/monitoring/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/warehouse_map/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/departments/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/products/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/survey/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/dashboard_center/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/expenses/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/shipping/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/projects/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/ai_decision/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/notifications/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/employees/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/payroll/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/purchases/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/tracking/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/docs/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/crm/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/themes/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/discipline/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/risk_management/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/api_gateway/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/evaluation/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/work_regulations/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/mobile/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/rfq/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/campaigns/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/accounting/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/client_portal/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/voice_commands/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/legal/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/site/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/communication/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/templates/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/demand_forecasting/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/internal_monitoring/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/bi/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/clients/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/offline_sync/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/inventory/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/maintenance/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/suppliers/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/asset_lifecycle/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/workflow/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/internal_bot/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/audit_out/home.html",
+    "role": "template"
+  },
+  {
+    "path": "templates/apps/whatsapp_bot/home.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pos/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/pos/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/pos/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pos/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pos/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/pos/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/pos/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pos/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pos/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/pos/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pos/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/pos/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/contracts/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/contracts/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/contracts/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/contracts/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/contracts/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/contracts/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/contracts/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/contracts/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/contracts/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/contracts/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/contracts/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/contracts/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/contracts/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/contracts/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/employee_monitoring/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employee_monitoring/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/employee_monitoring/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/employee_monitoring/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employee_monitoring/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employee_monitoring/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/employee_monitoring/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employee_monitoring/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employee_monitoring/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/employee_monitoring/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/employee_monitoring/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employee_monitoring/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/employee_monitoring/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employee_monitoring/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/employee_monitoring/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/employee_monitoring/management/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/document_center/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/document_center/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/document_center/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/document_center/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/document_center/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/document_center/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/document_center/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/document_center/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/document_center/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/document_center/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/theme_manager/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/theme_manager/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/theme_manager/context_processors.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/theme_manager/middleware.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/theme_manager/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/theme_manager/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/attendance/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/attendance/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/attendance_reports.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/attendance/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/attendance/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/attendance/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/attendance/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/attendance/exports/attendance_exports.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/attendance/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/attendance/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/attendance/reports/attendance_reports.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/sales/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/ai_recommender.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/sales/voice_alerts.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/sales/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/sales/analytics.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/ai_predictor.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/sales/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/sales/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/dark_mode/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/dark_mode/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/dark_mode/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/dark_mode/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/qms/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/qms/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/qms/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/qms/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/qms/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/qms/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/support/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/support/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/support/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/support/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/support/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/support/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/support/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/support/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/support/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/support/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/support/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/support/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/support/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/support/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/mrp/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/mrp/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/mrp/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/mrp/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/mrp/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/mrp/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/mrp/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/mrp/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/mrp/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/mrp/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/mrp/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/mrp/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/recruitment/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/recruitment/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/recruitment/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/recruitment/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/recruitment/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/recruitment/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/recruitment/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/recruitment/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/recruitment/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/recruitment/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/production/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/production/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/production/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/production/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/production/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/production/smart_master.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/production/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/production/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/production/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/production/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/production/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/production/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/production/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/production/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/vendor_portal/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/vendor_portal/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/vendor_portal/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/vendor_portal/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/vendor_portal/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/knowledge_center/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/knowledge_center/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/knowledge_center/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/knowledge_center/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/knowledge_center/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/knowledge_center/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/knowledge_center/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/knowledge_center/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/knowledge_center/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/knowledge_center/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/backup_center/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/backup_center/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/backup_center/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/backup_center/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/backup_center/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/backup_center/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/backup_center/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/backup_center/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/backup_center/utils/drive_uploader.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/backup_center/utils/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/backup_center/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/backup_center/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/backup_center/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/plm/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/plm/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/plm/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/plm/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/plm/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/plm/api_urls.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/plm/api_views.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/plm/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/plm/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/plm/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/plm/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/plm/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/plm/migrations/0002_lifecyclestage_product_productlifecycle_and_more.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/plm/migrations/0003_bom_bomline_changerequest_changerequestitem_and_more.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/plm/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/plm/management/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/plm/templates/product_list.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/plm/templates/documents_list.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/plm/templates/document_reviews.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/plm/templates/base.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/plm/templates/product_detail.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/pattern/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pattern/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/pattern/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pattern/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pattern/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/pattern/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pattern/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pattern/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/pattern/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/pattern/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/pattern/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/pattern/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/monitoring/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/monitoring/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/monitoring/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/monitoring/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/monitoring/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/monitoring/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/monitoring/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/monitoring/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/monitoring/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/monitoring/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/monitoring/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/monitoring/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/monitoring/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/warehouse_map/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/warehouse_map/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/warehouse_map/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/warehouse_map/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/warehouse_map/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/warehouse_map/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/warehouse_map/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/warehouse_map/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/departments/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/departments/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/departments/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/departments/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/departments/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/departments/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/departments/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/departments/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/departments/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/departments/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/departments/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/departments/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/departments/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/departments/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/departments/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/departments/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/products/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/products/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/products/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/products/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/products/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/products/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/products/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/products/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/products/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/products/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/products/migrations/0002_alter_product_options_finishedproduct_attributes_and_more.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/products/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/products/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/survey/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/survey/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/survey/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/survey/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/survey/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/survey/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/survey/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/survey/api_urls.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/survey/api_views.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/survey/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/survey/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/survey/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/survey/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/survey/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/survey/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/survey/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/survey/migrations/0002_alter_answer_options_alter_survey_options_and_more.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/survey/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/dashboard_center/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/dashboard_center/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/dashboard_center/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/dashboard_center/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/dashboard_center/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/expenses/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/expenses/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/expenses/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/expenses/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/expenses/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/expenses/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/expenses/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/expenses/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/shipping/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/shipping/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/shipping/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/shipping/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/shipping/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/shipping/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/shipping/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/shipping/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/shipping/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/shipping/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/shipping/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/shipping/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/shipping/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/shipping/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/projects/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/projects/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/projects/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/projects/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/projects/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/projects/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/projects/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/projects/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/projects/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/projects/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/projects/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/projects/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/projects/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/projects/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/ai_decision/views_ocr.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/ai_decision/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/ai_decision/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/ai_recommender.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/ai_decision/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/ai_decision/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/ai_decision/ai_copilot_api.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/ai_decision/views_future.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/ai_decision/views_dashboard.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/learning/adaptive_learning.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/ai_decision/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/ai_decision/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/notifications/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/notifications/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/notifications/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/notifications/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/notifications/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/notifications/utils.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/notifications/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/notifications/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/notifications/wsgi.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/notifications/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/notifications/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/notifications/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/notifications/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/employees/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employees/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/employees/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/employees/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employees/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employees/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/employees/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/employees/api_urls.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/employees/api_views.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/employees/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employees/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/employees/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/employees/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employees/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/employees/utils/logic.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/employees/partials/attendance_table.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/employees/partials/discipline_table.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/employees/partials/production_table.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/employees/partials/payroll_table.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/employees/partials/evaluation_table.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/employees/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/employees/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/employees/templates/employee_list.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/employees/templates/employee_form.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/employees/templates/employee_profile.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/payroll/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/payroll/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/payroll/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/payroll/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/payroll/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/payroll/report_views.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/payroll/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/payroll/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/payroll/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/payroll/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/payroll/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/payroll/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/payroll/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/payroll/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/purchases/views_export.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/purchases/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/purchases/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/purchases/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/purchases/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/purchases/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/purchases/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/purchases/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/purchases/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/purchases/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/purchases/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/purchases/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/purchases/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/purchases/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/purchases/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/tracking/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/tracking/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/tracking/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/tracking/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/tracking/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/tracking/report_views.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/tracking/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/tracking/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/tracking/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/tracking/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/tracking/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/tracking/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/tracking/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/docs/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/docs/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/docs/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/docs/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/crm/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/crm/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/crm/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/crm/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/crm/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/crm/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/crm/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/crm/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/crm/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/crm/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/crm/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/themes/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/themes/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/themes/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/themes/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/discipline/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/discipline/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/discipline/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/discipline/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/discipline/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/discipline/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/discipline/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/discipline/report_views.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/discipline/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/discipline/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/discipline/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/discipline/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/discipline/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/discipline/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/discipline/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/discipline/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/risk_management/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/risk_management/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/risk_management/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/risk_management/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/risk_management/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/risk_management/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/risk_management/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/risk_management/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/risk_management/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/risk_management/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/risk_management/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/api_gateway/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/api_gateway/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/api_gateway/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/api_gateway/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/api_gateway/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/evaluation/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/evaluation/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/evaluation/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/evaluation/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/evaluation/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/evaluation/report_views.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/evaluation/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/evaluation/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/evaluation/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/evaluation/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/evaluation/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/evaluation/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/evaluation/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/evaluation/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/work_regulations/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/work_regulations/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/work_regulations/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/work_regulations/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/work_regulations/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/work_regulations/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/work_regulations/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/mobile/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/mobile/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/mobile/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/mobile/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/mobile/tests/test_mobile.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/mobile/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/rfq/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/rfq/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/rfq/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/rfq/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/rfq/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/rfq/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/rfq/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/rfq/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/campaigns/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/campaigns/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/campaigns/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/campaigns/reports.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/campaigns/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/campaigns/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/campaigns/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/campaigns/integrations.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/campaigns/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/campaigns/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/campaigns/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/campaigns/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/campaigns/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/campaigns/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/campaigns/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/campaigns/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/accounting/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/accounting/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/accounting/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/accounting/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/accounting/ai_accounting_assistant.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/invoice_views.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/report_views.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/accounting/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/accounting/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/accounting/utils/accounting_finalizer.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/accounting/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/accounting/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/client_portal/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/client_portal/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/client_portal/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/client_portal/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/client_portal/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/client_portal/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/client_portal/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/client_portal/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/client_portal/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/client_portal/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/voice_commands/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/voice_commands/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/voice_commands/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/voice_commands/speech_to_text.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/voice_commands/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/voice_commands/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/voice_commands/celery.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/voice_commands/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/voice_commands/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/voice_commands/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/voice_commands/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/voice_commands/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/legal/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/legal/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/legal/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/legal/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/legal/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/legal/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/legal/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/legal/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/legal/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/legal/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/legal/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/legal/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/legal/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/legal/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/site/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/site/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/site/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/communication/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/communication/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/communication/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/communication/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/communication/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/communication/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/communication/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/communication/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/communication/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/communication/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/templates/apps.py",
+    "role": "template"
+  },
+  {
+    "path": "apps/templates/__init__.py",
+    "role": "template"
+  },
+  {
+    "path": "apps/templates/views.py",
+    "role": "template"
+  },
+  {
+    "path": "apps/templates/urls.py",
+    "role": "template"
+  },
+  {
+    "path": "apps/templates/apps/launcher.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/templates/apps/icon_card.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/demand_forecasting/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/demand_forecasting/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/demand_forecasting/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/demand_forecasting/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/demand_forecasting/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/demand_forecasting/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/demand_forecasting/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/demand_forecasting/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/internal_monitoring/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/internal_monitoring/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/context_processors.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/security.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/internal_monitoring/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/alerts.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/internal_monitoring/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_monitoring/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/internal_monitoring/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/internal_monitoring/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/bi/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/bi/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/bi/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/bi/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/bi/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/clients/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/clients/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/clients/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/clients/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/clients/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/clients/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/clients/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/clients/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/clients/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/clients/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/clients/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/clients/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/clients/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/clients/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/clients/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/offline_sync/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/offline_sync/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/offline_sync/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/offline_sync/tests.py",
+    "role": "test"
+  },
+  {
+    "path": "apps/offline_sync/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/offline_sync/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/offline_sync/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/offline_sync/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/offline_sync/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/inventory/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/inventory/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/inventory/tasks.py",
+    "role": "tasks"
+  },
+  {
+    "path": "apps/inventory/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/inventory/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/inventory/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/inventory/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/inventory/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/inventory/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/inventory/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/inventory/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/inventory/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/inventory/migrations/0003_inventory.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/inventory/migrations/0002_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/inventory/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/maintenance/ai.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/maintenance/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/maintenance/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/maintenance/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/maintenance/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/maintenance/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/maintenance/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/maintenance/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/maintenance/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/maintenance/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/maintenance/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/maintenance/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/suppliers/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/suppliers/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/suppliers/filters.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/suppliers/reports.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/suppliers/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/suppliers/serializers.py",
+    "role": "serializer"
+  },
+  {
+    "path": "apps/suppliers/api_views.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/suppliers/api.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/suppliers/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/suppliers/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/suppliers/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/suppliers/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/suppliers/supplier_views.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/suppliers/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/suppliers/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/suppliers/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/suppliers/templates/launcher.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/suppliers/templates/dashboard.html",
+    "role": "template"
+  },
+  {
+    "path": "apps/suppliers/urls/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/suppliers/urls/main.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/suppliers/urls/api.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/asset_lifecycle/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/asset_lifecycle/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/asset_lifecycle/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/asset_lifecycle/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/asset_lifecycle/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/asset_lifecycle/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/asset_lifecycle/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/asset_lifecycle/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/workflow/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/workflow/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/workflow/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/workflow/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/workflow/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/workflow/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/workflow/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/workflow/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/banking/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/banking/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/banking/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/banking/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/banking/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/banking/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/internal_bot/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/internal_bot/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_bot/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/internal_bot/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_bot/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/internal_bot/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_bot/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/internal_bot/docs/README.md",
+    "role": "utils"
+  },
+  {
+    "path": "apps/internal_bot/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/internal_bot/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/audit_out/models.csv",
+    "role": "utils"
+  },
+  {
+    "path": "apps/audit_out/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/audit_out/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/audit_out/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/audit_out/apps.csv",
+    "role": "utils"
+  },
+  {
+    "path": "apps/audit_out/urls.csv",
+    "role": "utils"
+  },
+  {
+    "path": "apps/audit_out/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/whatsapp_bot/server.js",
+    "role": "utils"
+  },
+  {
+    "path": "apps/whatsapp_bot/apps.py",
+    "role": "apps"
+  },
+  {
+    "path": "apps/whatsapp_bot/__init__.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/whatsapp_bot/signals.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/whatsapp_bot/views.py",
+    "role": "view"
+  },
+  {
+    "path": "apps/whatsapp_bot/utils.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/whatsapp_bot/api_views.py",
+    "role": "api"
+  },
+  {
+    "path": "apps/whatsapp_bot/forms.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/whatsapp_bot/permissions.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/whatsapp_bot/models.py",
+    "role": "model"
+  },
+  {
+    "path": "apps/whatsapp_bot/urls.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/whatsapp_bot/ai_reply_engine.py",
+    "role": "utils"
+  },
+  {
+    "path": "apps/whatsapp_bot/admin.py",
+    "role": "admin"
+  },
+  {
+    "path": "apps/whatsapp_bot/migrations/__init__.py",
+    "role": "migration"
+  },
+  {
+    "path": "apps/whatsapp_bot/migrations/0001_initial.py",
+    "role": "migration"
+  },
+  {
+    "path": "tools/ensure_app_home_templates.py",
+    "role": "utils"
+  },
+  {
+    "path": "tools/pytest_ci.ini",
+    "role": "utils"
+  },
+  {
+    "path": "tools/clean_caches.bat",
+    "role": "utils"
+  },
+  {
+    "path": "tools/erp_audit.ps1",
+    "role": "utils"
+  },
+  {
+    "path": "tools/force_make_templates.py",
+    "role": "utils"
+  },
+  {
+    "path": "tools/run_tests.bat",
+    "role": "utils"
+  },
+  {
+    "path": "tools/quick_expose_apps.py",
+    "role": "utils"
+  },
+  {
+    "path": "reports/test_summary.md",
+    "role": "test"
+  },
+  {
+    "path": "reports/test_summary.json",
+    "role": "test"
+  },
+  {
+    "path": "reports/security_report.json",
+    "role": "utils"
+  }
+]
