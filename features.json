@@ -1,0 +1,30 @@
+{
+  "Accounting": {
+    "entities": ["Suppliers", "Customers", "PaymentMethods", "PaymentOrders", "Assets", "Expenses", "Invoices"],
+    "features": ["فواتير متعددة اللغات", "فهرسة قواعد بيانات للأداء"],
+    "status": "Ready"
+  },
+  "Sales": { "features": ["Sales Orders", "Pricing"], "status": "Partial" },
+  "CRM": { "features": ["Leads", "Opportunities"], "status": "Partial" },
+  "POS": { "features": ["نقطة بيع"], "status": "Partial" },
+  "Inventory": { "features": ["حركات مخزون", "مستودعات"], "status": "Partial" },
+  "MRP/Production": { "features": ["أوامر تصنيع"], "status": "Partial" },
+  "Shipping/Logistics": { "features": ["شحن"], "status": "Partial" },
+  "HR": {
+    "features": ["الموظفون", "الحضور", "التوظيف", "الرواتب"],
+    "status": "Partial"
+  },
+  "Quality/Compliance": {
+    "features": ["QMS", "Evaluation", "Discipline"],
+    "status": "Partial"
+  },
+  "Support/Comms": { "features": ["تذاكر", "إشعارات", "اتصال"], "status": "Partial" },
+  "AI Decision": {
+    "features": ["تحليل تنبؤي", "توصيات مبنية قواعد", "لوحة تنبيهات"],
+    "status": "Partial (Mock Data)"
+  },
+  "Integrations": {
+    "features": ["WhatsApp Bot", "Voice Commands", "API Gateway"],
+    "status": "Partial"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "source": "Codex technical report pasted by user",
+  "stack": {
+    "frameworks": ["Django 4.2", "Django REST Framework", "Celery"],
+    "infra": ["Redis"],
+    "notes": "تقارير/وسائط/أدوات جودة كود مذكورة بالتقرير"
+  },
+  "i18n": {
+    "default_locale": "ar",
+    "status": "جزئي (ذُكر دعم متعدد اللغات في المحاسبة)",
+    "todo": ["تفعيل RTL افتراضيًا", "ملفات locale/ar.* شاملة", "إعداد مفاتيح ترجمة موحّدة"]
+  },
+  "apps": [
+    {"name": "accounting", "domain": "finance", "status": "present", "notes": "موردين/عملاء/طرق دفع/فواتير/أصول/مصروفات"},
+    {"name": "banking", "domain": "finance", "status": "present"},
+    {"name": "expenses", "domain": "finance", "status": "present"},
+    {"name": "payroll", "domain": "hr/finance", "status": "present"},
+    {"name": "sales", "domain": "sales", "status": "present"},
+    {"name": "crm", "domain": "sales", "status": "present"},
+    {"name": "campaigns", "domain": "marketing", "status": "present"},
+    {"name": "pos", "domain": "retail", "status": "present"},
+    {"name": "inventory", "domain": "operations", "status": "present"},
+    {"name": "mrp", "domain": "manufacturing", "status": "present"},
+    {"name": "production", "domain": "manufacturing", "status": "present"},
+    {"name": "shipping", "domain": "logistics", "status": "present"},
+    {"name": "employees", "domain": "hr", "status": "present"},
+    {"name": "attendance", "domain": "hr", "status": "present"},
+    {"name": "recruitment", "domain": "hr", "status": "present"},
+    {"name": "qms", "domain": "quality", "status": "present"},
+    {"name": "evaluation", "domain": "quality/hr", "status": "present"},
+    {"name": "discipline", "domain": "compliance/hr", "status": "present"},
+    {"name": "support", "domain": "support", "status": "present"},
+    {"name": "notifications", "domain": "platform", "status": "present"},
+    {"name": "communication", "domain": "platform", "status": "present"},
+    {"name": "ai_decision", "domain": "ai", "status": "present", "notes": "منطق تجريبي/قواعد ثابتة"},
+    {"name": "whatsapp_bot", "domain": "integration", "status": "present"},
+    {"name": "voice_commands", "domain": "integration/ai", "status": "present"},
+    {"name": "api_gateway", "domain": "platform", "status": "present"}
+  ]
+}

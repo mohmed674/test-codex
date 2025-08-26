@@ -1,0 +1,55 @@
+- id: T-ENV-001
+  title: إعداد Docker وبيئة التطوير
+  as_a: DevOps
+  i_want: تشغيل المشروع بأمر واحد
+  so_that: أضمن بيئة موحدة للاختبارات
+  acceptance: ["docker compose up يعمل", "pytest يمر"]
+  estimate: 1d
+
+- id: T-I18N-001
+  title: تمكين Arabic-First + RTL
+  as_a: Admin
+  i_want: واجهة عربية افتراضيًا
+  so_that: يحصل المستخدم العربي على تجربة أصلية
+  acceptance: ["locale/ar.* شامل", "RTL افتراضي", "مبدّل لغة"]
+  estimate: 1d
+
+- id: T-API-001
+  title: توحيد API وتوثيق OpenAPI
+  as_a: Integrator
+  i_want: عقد API واضح
+  so_that: أدمج الأنظمة بسهولة
+  acceptance: ["/schema.json متاح", "حماية CORS/RateLimit"]
+  estimate: 2d
+
+- id: T-CRUD-ACC-001
+  title: إكمال CRUD المحاسبة (Invoices/Expenses/Assets)
+  as_a: Accountant
+  i_want: إدارة عناصر المحاسبة
+  so_that: تتم دورة الفوترة كاملة
+  acceptance: ["Endpoints + Admin + Templates", "اختبارات وحدة وتكامل"]
+  estimate: 3d
+
+- id: T-CRUD-INV-001
+  title: CRUD المخزون وربط POS والمبيعات
+  as_a: Storekeeper
+  i_want: إدارة المخزون وتحديثاته
+  so_that: تتزامن المبيعات مع المخزون
+  acceptance: ["حركات/مستودعات", "اختبارات E2E للربط"]
+  estimate: 3d
+
+- id: T-SEC-001
+  title: RBAC دقيق + Audit Logs
+  as_a: SecurityOfficer
+  i_want: صلاحيات مُحكَمَة
+  so_that: أضمن الامتثال
+  acceptance: ["أدوار", "سجل تدقيق", "اختبارات صلاحيات"]
+  estimate: 2d
+
+- id: T-ML-001
+  title: ML Pilot للطلب والشذوذ المالي
+  as_a: Analyst
+  i_want: تنبؤات دقيقة
+  so_that: نقلل المخزون الراكد والمخاطر
+  acceptance: ["مستودع ميزات", "تتبّع تجارب", "A/B"]
+  estimate: 1-2w

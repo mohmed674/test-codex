@@ -1,0 +1,16 @@
+Module,Feature,Our Status,Evidence,SAP Parity,Odoo Parity,Oracle Parity,Notes
+Accounting,Invoices,Ready,report: Existing Features,TBD,TBD,TBD,يحتاج سيناريوهات ضرائب/تحصيل متقدمة
+Accounting,Suppliers/Customers,Ready,report: Existing Features,TBD,TBD,TBD,تحقق من كيانات CRM/AR/AP
+Sales,Sales Orders,Partial,report summary,TBD,TBD,TBD,أكمل دورة الاقتباس->الطلب->الفاتورة
+CRM,Leads & Opportunities,Partial,report summary,TBD,TBD,TBD,اربط بالتسعير والحملات
+POS,Point of Sale,Partial,report summary,TBD,TBD,TBD,تكامل مع المخزون والدفعات
+Inventory,Stock Moves/Warehouses,Partial,report summary,TBD,TBD,TBD,تحقق من الحجوزات والتتبّع بالدفعات
+MRP,Work Orders,Partial,report summary,TBD,TBD,TBD,تخطيط المواد وبوّابات الاعتماد
+HR,Employees,Partial,report summary,TBD,TBD,TBD,ملفات الموظف والسياسات
+HR,Attendance,Partial,report summary,TBD,TBD,TBD,كشف الانحرافات وربط الرواتب
+Payroll,Payroll Runs,Partial,report summary,TBD,TBD,TBD,لوائح محلية وحسابات مزايا
+Quality,QMS,Partial,report summary,TBD,TBD,TBD,إجراءات/سجلات/اعتمادات
+Support,Ticketing,Partial,report summary,TBD,TBD,TBD,SLA وتكامل البريد/واتساب
+AI,Predictive Analysis,Partial (Mock),report: AI section,TBD,TBD,TBD,استبدال بيانات وهمية بمستودع ميزات حقيقي
+Platform,API Gateway,Partial,report summary,TBD,TBD,TBD,توحيد التوثيق والنسخ
+Localization,Arabic-first UI,Partial,report summary,TBD,TBD,TBD,تفعيل RTL وملفات ترجمة شاملة
