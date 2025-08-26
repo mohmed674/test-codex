@@ -1,6 +1,7 @@
 # config/test_urls.py — URLConf مخصّص للاختبارات فقط
 
 from django.contrib import admin
+from django.contrib import admin
 from django.http import JsonResponse, HttpResponse
 from django.urls import include, path
 import importlib
@@ -18,6 +19,10 @@ def error_view(_request):
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("media/", include("apps.media.urls")),  # مسار مبسّط لتطبيق الوسائط
+    path("employees/", include("apps.employees.urls")),
+    path("employee-monitoring/", include("apps.employee_monitoring.urls")),
+    path("survey/", include("apps.survey.urls")),
     path("__ok__", ok_view),
     path("__error__", error_view),
 ]

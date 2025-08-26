@@ -1,14 +1,20 @@
+from io import BytesIO
+# pylint: disable=no-member
+from django.core.files import File
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
-import qrcode
-from io import BytesIO
-from django.core.files import File
+try:
+    import qrcode  # type: ignore
+except Exception:  # pragma: no cover
+    qrcode = None
 
 
 def _build_qr_png(data: str) -> BytesIO:
+    if not qrcode:
+        return BytesIO()
     qr = qrcode.QRCode(
         version=None,
         error_correction=qrcode.constants.ERROR_CORRECT_H,

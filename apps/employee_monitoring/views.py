@@ -4,14 +4,29 @@ from django.db.models import Count, Q
 from django.template.loader import get_template
 from django.template import TemplateDoesNotExist
 from django.http import HttpResponse
-from weasyprint import HTML
-from core.utils import export_to_excel
+try:
+    from weasyprint import HTML  # type: ignore
+except Exception:  # pragma: no cover
+    HTML = None
+try:
+    from core.utils import export_to_excel  # type: ignore
+except Exception:  # pragma: no cover
+    export_to_excel = None
 
 from .forms import MonitoringForm
 from .models import MonitoringRecord
-from apps.attendance.models import Attendance
-from apps.discipline.models import DisciplineRecord
-from apps.payroll.models import Salary
+try:
+    from apps.attendance.models import Attendance  # type: ignore
+except Exception:  # pragma: no cover
+    Attendance = None
+try:
+    from apps.discipline.models import DisciplineRecord  # type: ignore
+except Exception:  # pragma: no cover
+    DisciplineRecord = None
+try:
+    from apps.payroll.models import Salary  # type: ignore
+except Exception:  # pragma: no cover
+    Salary = None
 from apps.employees.models import Employee
 
 

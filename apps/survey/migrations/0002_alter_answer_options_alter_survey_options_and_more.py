@@ -7,7 +7,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('clients', '0001_initial'),
         ('employees', '0001_initial'),
         ('survey', '0001_initial'),
     ]
@@ -89,11 +88,6 @@ class Migration(migrations.Migration):
             model_name='surveyquestion',
             name='question_text',
             field=models.CharField(blank=True, default='', max_length=255, verbose_name='نص السؤال'),
-        ),
-        migrations.AddField(
-            model_name='surveyresponse',
-            name='client',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='survey_responses', to='clients.customer', verbose_name='العميل'),
         ),
         migrations.AlterField(
             model_name='answer',

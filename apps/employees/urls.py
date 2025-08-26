@@ -8,7 +8,7 @@ from .views import (
 app_name = 'employees'
 
 urlpatterns = [
-    path('', EmployeeListView.as_view(), name='employee_list'),
+    path('', EmployeeListView.as_view(), name='list'),
     path('add/', EmployeeCreateView.as_view(), name='employee_add'),
     path('<int:pk>/edit/', EmployeeUpdateView.as_view(), name='employee_edit'),
     path('profile/<int:pk>/', employee_profile, name='employee_profile'),
