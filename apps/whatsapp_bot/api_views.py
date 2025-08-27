@@ -1,11 +1,13 @@
 # ERP_CORE/whatsapp_bot/api_views.py
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from .models import WhatsAppOrder
 from .ai_reply_engine import generate_auto_reply
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def receive_whatsapp_message(request):
     sender = request.data.get('sender')
     message = request.data.get('message')
