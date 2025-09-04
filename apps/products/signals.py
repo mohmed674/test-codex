@@ -2,10 +2,12 @@
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Product
+from django.utils import timezone
+
 from apps.accounting.models import JournalEntry
 from apps.ai_decision.models import AIDecisionAlert
-from django.utils import timezone
+
+from .models import Product
 
 
 @receiver(post_save, sender=Product)
@@ -16,7 +18,7 @@ def handle_product_change(sender, instance, created, **kwargs):
             section="products",
             alert_type="تحديث سعر المنتج",
             message=f"تم تحديث سعر المنتج {instance.name} إلى {instance.retail_price}",
-            level="info"
+            level="info",
         )
 
     # ✅ تسجيل قيد محاسبي عند إدخال منتج جديد بتكلفة
@@ -26,5 +28,5 @@ def handle_product_change(sender, instance, created, **kwargs):
             debit_account="المخزون",
             credit_account="رأس المال",
             amount=instance.cost,
-            entry_date=timezone.now()
+            entry_date=timezone.now(),
         )

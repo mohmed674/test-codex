@@ -1,8 +1,9 @@
-from django.contrib import admin
-from apps.attendance.models import *
+# apps/attendance/admin.py
+from contextlib import suppress
 
-# ✅ Auto-registered models
-try:
+from django.contrib import admin
+
+from apps.attendance.models import Attendance
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Attendance)
-except admin.sites.AlreadyRegistered:
-    pass

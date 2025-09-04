@@ -1,13 +1,15 @@
 # ERP_CORE/purchases/serializers.py
 
 from rest_framework import serializers
-from .models import PurchaseRequest, PurchaseItem, PurchaseOrder, PurchaseInvoice
+
+from .models import (PurchaseInvoice, PurchaseItem, PurchaseOrder,
+                     PurchaseRequest)
 
 
 class PurchaseItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseItem
-        fields = ['product', 'quantity', 'notes']
+        fields = ["product", "quantity", "notes"]
 
 
 class PurchaseRequestSerializer(serializers.ModelSerializer):
@@ -15,16 +17,24 @@ class PurchaseRequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PurchaseRequest
-        fields = ['id', 'requested_by', 'department', 'purpose', 'status', 'created_at', 'items']
+        fields = [
+            "id",
+            "requested_by",
+            "department",
+            "purpose",
+            "status",
+            "created_at",
+            "items",
+        ]
 
 
 class PurchaseOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseOrder
-        fields = '__all__'
+        fields = "__all__"
 
 
 class PurchaseInvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseInvoice
-        fields = '__all__'
+        fields = "__all__"

@@ -2,6 +2,7 @@
 
 from rest_framework import permissions
 
+
 class IsHRorManager(permissions.BasePermission):
     """
     السماح فقط للمستخدمين من قسم الموارد البشرية أو المديرين بالوصول الكامل،
@@ -13,10 +14,10 @@ class IsHRorManager(permissions.BasePermission):
         if not user.is_authenticated:
             return False
 
-        if user.groups.filter(name__in=['HR', 'مدير عام']).exists():
+        if user.groups.filter(name__in=["HR", "مدير عام"]).exists():
             return True
 
-        if view.action in ['list', 'retrieve']:
-            return user.groups.filter(name__in=['مشرف', 'رئيس قسم']).exists()
+        if view.action in ["list", "retrieve"]:
+            return user.groups.filter(name__in=["مشرف", "رئيس قسم"]).exists()
 
         return False

@@ -1,11 +1,24 @@
+from django.apps import apps as _dj_apps
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.db.models import Q
-from .models import ClientAccess
-from apps.support.models import SupportTicket
-from apps.sales.models import SaleInvoice  # حذف Invoice لأنه غير موجود في sales.models
+from django.shortcuts import redirect, render
+
 from apps.contracts.models import Contract
+from apps.sales.models import SaleInvoice
 from .forms import SupportTicketForm
+from .models import ClientAccess
+
+
+def _get_support_ticket_model():
+    """
+    اجلب نموذج SupportTicket بشكل كسول لتفادي LookupError أثناء إقلاع السيرفر
+    (عند استيراد urls قبل اكتمال جاهزية سجل التطبيقات).
+    """
+    try:
+        # require_ready=False يسمح بالوصول قبل اكتمال populate()
+        return _dj_apps.get_model("support", "SupportTicket", require_ready=False)  # type: ignore[call-arg]
+    except Exception:
+        return None
+
 
 @login_required
 def dashboard(request):
@@ -13,24 +26,29 @@ def dashboard(request):
         access = ClientAccess.objects.get(user=request.user)
         client = access.client
     except ClientAccess.DoesNotExist:
-        client = getattr(request.user, 'client', None)
+        client = getattr(request.user, "client", None)
+
+    SupportTicket = _get_support_ticket_model()
 
     if client:
-        # هنا عدل شرط الفلترة، لأن SaleInvoice يستخدم client وليس customer
         invoices = SaleInvoice.objects.filter(client=client)
-        tickets = SupportTicket.objects.filter(client=client)
+        if SupportTicket is not None:
+            tickets = SupportTicket.objects.filter(client=client)  # type: ignore[attr-defined]
+        else:
+            tickets = []
         contracts = Contract.objects.filter(client=client)
     else:
         invoices = SaleInvoice.objects.none()
-        tickets = SupportTicket.objects.none()
+        tickets = SupportTicket.objects.none() if SupportTicket is not None else []  # type: ignore[attr-defined]
         contracts = Contract.objects.none()
 
     context = {
-        'invoices': invoices,
-        'tickets': tickets,
-        'contracts': contracts,
+        "invoices": invoices,
+        "tickets": tickets,
+        "contracts": contracts,
     }
-    return render(request, 'client_portal/dashboard.html', context)
+    return render(request, "client_portal/dashboard.html", context)
+
 
 @login_required
 def submit_ticket(request):
@@ -38,23 +56,24 @@ def submit_ticket(request):
         access = ClientAccess.objects.get(user=request.user)
         client = access.client
     except ClientAccess.DoesNotExist:
-        client = getattr(request.user, 'client', None)
+        client = getattr(request.user, "client", None)
 
     form = SupportTicketForm(request.POST or None)
     if form.is_valid() and client is not None:
         ticket = form.save(commit=False)
-        ticket.client = client
+        # اربط بالعميل إن كان نموذج التذاكر متاحًا
+        SupportTicket = _get_support_ticket_model()
+        if SupportTicket is not None:
+            ticket.client = client  # type: ignore[attr-defined]
         ticket.save()
-        return redirect('client_portal:dashboard')
+        return redirect("client_portal:dashboard")
 
-    return render(request, 'client_portal/submit_ticket.html', {'form': form})
+    return render(request, "client_portal/submit_ticket.html", {"form": form})
 
-
-from django.shortcuts import render
 
 def index(request):
-    return render(request, 'client_portal/index.html')
+    return render(request, "client_portal/index.html")
 
 
 def app_home(request):
-    return render(request, 'apps/client_portal/home.html', {'app': 'client_portal'})
+    return render(request, "apps/client_portal/home.html", {"app": "client_portal"})

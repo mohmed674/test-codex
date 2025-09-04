@@ -1,11 +1,14 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 
 class Regulation(models.Model):
     title = models.CharField(max_length=255, verbose_name=_("Regulation Title"))
     content_html = models.TextField(verbose_name=_("HTML Content"))
-    pdf_file = models.FileField(upload_to='regulations/', null=True, blank=True, verbose_name=_("PDF File"))
+    pdf_file = models.FileField(
+        upload_to="regulations/", null=True, blank=True, verbose_name=_("PDF File")
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -17,14 +20,18 @@ class Regulation(models.Model):
 
 
 class EmployeeAgreement(models.Model):
-    employee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("Employee"))
-    regulation = models.ForeignKey(Regulation, on_delete=models.CASCADE, verbose_name=_("Regulation"))
+    employee = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("Employee")
+    )
+    regulation = models.ForeignKey(
+        Regulation, on_delete=models.CASCADE, verbose_name=_("Regulation")
+    )
     agreed_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = _("Agreement")
         verbose_name_plural = _("Agreements")
-        unique_together = ('employee', 'regulation')
+        unique_together = ("employee", "regulation")
 
     def __str__(self):
         return f"{self.employee} - {self.regulation}"

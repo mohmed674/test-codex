@@ -4,24 +4,42 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='BackupRecord',
+            name="BackupRecord",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created At')),
-                ('file_path', models.CharField(max_length=500, verbose_name='Backup File Path')),
-                ('file_type', models.CharField(choices=[('database', 'Database'), ('media', 'Media Files')], max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="Created At"),
+                ),
+                (
+                    "file_path",
+                    models.CharField(max_length=500, verbose_name="Backup File Path"),
+                ),
+                (
+                    "file_type",
+                    models.CharField(
+                        choices=[("database", "Database"), ("media", "Media Files")],
+                        max_length=50,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Backup Record',
-                'verbose_name_plural': 'Backup Records',
+                "verbose_name": "Backup Record",
+                "verbose_name_plural": "Backup Records",
             },
         ),
     ]

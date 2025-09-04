@@ -1,12 +1,12 @@
-from django.contrib import admin
-from apps.shipping.models import *
+# apps/shipping/admin.py
+from contextlib import suppress
 
-# ✅ Auto-registered models
-try:
+from django.contrib import admin
+
+from apps.shipping.models import Shipment, ShippingCompany
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ShippingCompany)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Shipment)
-except admin.sites.AlreadyRegistered:
-    pass

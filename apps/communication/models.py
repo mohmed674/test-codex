@@ -1,9 +1,11 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+
 
 class ChatThread(models.Model):
     participants = models.ManyToManyField(User)
     created_at = models.DateTimeField(auto_now_add=True)
+
 
 class Message(models.Model):
     thread = models.ForeignKey(ChatThread, on_delete=models.CASCADE)
@@ -12,4 +14,4 @@ class Message(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['timestamp']
+        ordering = ["timestamp"]

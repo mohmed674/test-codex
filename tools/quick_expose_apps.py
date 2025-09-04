@@ -1,5 +1,5 @@
 # tools/quick_expose_apps.py
-import os, re
+import re
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent  # D:\ERP_CORE
@@ -9,15 +9,19 @@ CONFIG_URLS = BASE / "config" / "urls.py"
 
 SKIP = {"__pycache__", "__init__.py"}
 
+
 def ensure_templates_root():
     TEMPLATES_ROOT.mkdir(parents=True, exist_ok=True)
+
 
 def snake_to_title(s):
     return re.sub(r"_+", " ", s).title()
 
+
 def ensure_app_scaffold(app_dir: Path):
     app = app_dir.name
-    if app in SKIP: return False
+    if app in SKIP:
+        return False
 
     urls_py = app_dir / "urls.py"
     views_py = app_dir / "views.py"
@@ -29,12 +33,15 @@ def ensure_app_scaffold(app_dir: Path):
 
     # views.py -> app_home
     if not views_py.exists():
-        views_py.write_text(f"""from django.http import HttpResponse
+        views_py.write_text(
+            f"""from django.http import HttpResponse
 from django.shortcuts import render
 
 def app_home(request):
     return render(request, 'apps/{app}/home.html', {{'app': '{app}'}})
-""", encoding="utf-8")
+""",
+            encoding="utf-8",
+        )
         created_any = True
     else:
         s = views_py.read_text(encoding="utf-8")
@@ -49,7 +56,8 @@ def app_home(request):
 
     # urls.py -> app_name + '' route
     if not urls_py.exists():
-        urls_py.write_text(f"""from django.urls import path
+        urls_py.write_text(
+            f"""from django.urls import path
 from . import views
 
 app_name = '{app}'
@@ -57,20 +65,26 @@ app_name = '{app}'
 urlpatterns = [
     path('', views.app_home, name='home'),
 ]
-""", encoding="utf-8")
+""",
+            encoding="utf-8",
+        )
         created_any = True
     else:
         s = urls_py.read_text(encoding="utf-8")
         if "app_name" not in s:
             s = f"app_name = '{app}'\n" + s
         if "path(''," not in s:
-            s = s.rstrip() + "\n\nfrom . import views\nurlpatterns = (urlpatterns if 'urlpatterns' in globals() else []) + [\n    path('', views.app_home, name='home'),\n]\n"
+            s = (
+                s.rstrip()
+                + "\n\nfrom . import views\nurlpatterns = (urlpatterns if 'urlpatterns' in globals() else []) + [\n    path('', views.app_home, name='home'),\n]\n"
+            )
         urls_py.write_text(s, encoding="utf-8")
         created_any = True
 
     # template
     if not home_html.exists():
-        home_html.write_text(f"""<!doctype html>
+        home_html.write_text(
+            f"""<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8"/>
@@ -92,10 +106,13 @@ urlpatterns = [
   </div>
 </body>
 </html>
-""", encoding="utf-8")
+""",
+            encoding="utf-8",
+        )
         created_any = True
 
     return created_any
+
 
 def main():
     ensure_templates_root()
@@ -106,7 +123,8 @@ def main():
 
     changed = []
     for app_dir in sorted(p for p in APPS.iterdir() if p.is_dir()):
-        if app_dir.name in SKIP: continue
+        if app_dir.name in SKIP:
+            continue
         if ensure_app_scaffold(app_dir):
             changed.append(app_dir.name)
 
@@ -118,6 +136,7 @@ def main():
         print(" -", a)
     if not changed:
         print("ℹ️ لا تغييرات مطلوبة. كل التطبيقات مكشوفة بالفعل.")
+
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,10 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Shipment
+
 from apps.accounting.models import AccountingEntry
+
+from .models import Shipment
+
 
 @receiver(post_save, sender=Shipment)
 def create_shipping_cost_entry(sender, instance, created, **kwargs):
@@ -9,6 +12,6 @@ def create_shipping_cost_entry(sender, instance, created, **kwargs):
         AccountingEntry.objects.create(
             description=f"تكلفة شحن {instance.tracking_number}",
             amount=instance.cost,
-            entry_type='debit',
-            related_invoice=instance.invoice
+            entry_type="debit",
+            related_invoice=instance.invoice,
         )

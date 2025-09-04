@@ -4,22 +4,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='WhatsAppOrder',
+            name="WhatsAppOrder",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('customer_phone', models.CharField(max_length=20)),
-                ('message', models.TextField()),
-                ('reply', models.TextField(blank=True, null=True)),
-                ('status', models.CharField(default='New', max_length=100)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("customer_phone", models.CharField(max_length=20)),
+                ("message", models.TextField()),
+                ("reply", models.TextField(blank=True, null=True)),
+                ("status", models.CharField(default="New", max_length=100)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]

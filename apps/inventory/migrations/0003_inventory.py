@@ -4,23 +4,21 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('inventory', '0002_initial'),
+        ("inventory", "0002_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Inventory',
-            fields=[
-            ],
+            name="Inventory",
+            fields=[],
             options={
-                'verbose_name': 'Inventory',
-                'verbose_name_plural': 'Inventory',
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "verbose_name": "Inventory",
+                "verbose_name_plural": "Inventory",
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('inventory.inventoryitem',),
+            bases=("inventory.inventoryitem",),
         ),
     ]

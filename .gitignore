@@ -116,3 +116,8 @@ Desktop.ini
 docker-data/
 .envrc
 .direnv/
+
+# ==== Audio temp / DTF artifacts ====
+*.normalized.wav
+voice_tmp/
+dtf_prints/

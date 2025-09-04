@@ -11,9 +11,9 @@ def test_survey_tables_exist_after_migrate():
     """
     existing = set(connection.introspection.table_names())
     expected = {
-        "survey_survey",       # جدول الاستبيانات
-        "survey_question",     # جدول الأسئلة
-        "survey_answer",       # جدول الإجابات
+        "survey_survey",  # جدول الاستبيانات
+        "survey_question",  # جدول الأسئلة
+        "survey_answer",  # جدول الإجابات
     }
     missing = [t for t in expected if t not in existing]
     assert not missing, f"Survey tables missing: {missing}"

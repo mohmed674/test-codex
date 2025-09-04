@@ -1,12 +1,14 @@
-# D:\ERP_CORE\clients\views.py
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+# apps/clients/views.py
+from __future__ import annotations
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.exceptions import TemplateDoesNotExist
 
-from .models import Client
 from .forms import ClientForm
+from .models import Client
 
 # ✅ استيراد كسول/آمن لموديولات اختيارية حتى لا تكسر التحميل
 try:
@@ -37,13 +39,14 @@ def _html(title: str, body: str) -> HttpResponse:
 
 # ==================== CRUD ====================
 
+
 @login_required
 def client_list(request):
     clients = Client.objects.all()
     try:
-        return render(request, 'clients/client_list.html', {'clients': clients})
+        return render(request, "clients/client_list.html", {"clients": clients})
     except TemplateDoesNotExist:
-        rows = "".join(f"<li>{c.name}</li>" for c in clients[:100])
+        rows = "".join(f"<li>{c.partner.name}</li>" for c in clients[:100])
         return _html("قائمة العملاء (عرض بديل)", f"<h1>العملاء</h1><ol>{rows}</ol>")
 
 
@@ -52,12 +55,15 @@ def client_create(request):
     form = ClientForm(request.POST or None)
     if form.is_valid():
         client = form.save()
-        messages.success(request, f"✅ تم إضافة العميل {client.name} بنجاح.")
-        return redirect('client_list')  # سيعمل مع urls الحالية؛ سنوحد التسمية لاحقًا
+        messages.success(request, f"✅ تم إضافة العميل {client.partner.name} بنجاح.")
+        return redirect("client_list")  # سيعمل مع urls الحالية؛ سنوحد التسمية لاحقًا
     try:
-        return render(request, 'clients/client_form.html', {'form': form})
+        return render(request, "clients/client_form.html", {"form": form})
     except TemplateDoesNotExist:
-        return _html("إضافة عميل (بديل)", "<p>القالب غير متوفر. أضف clients/client_form.html لاحقًا.</p>")
+        return _html(
+            "إضافة عميل (بديل)",
+            "<p>القالب غير متوفر. أضف clients/client_form.html لاحقًا.</p>",
+        )
 
 
 @login_required
@@ -66,29 +72,37 @@ def client_update(request, pk):
     form = ClientForm(request.POST or None, instance=client)
     if form.is_valid():
         form.save()
-        messages.success(request, f"✏️ تم تحديث بيانات العميل {client.name} بنجاح.")
-        return redirect('client_list')
+        messages.success(
+            request, f"✏️ تم تحديث بيانات العميل {client.partner.name} بنجاح."
+        )
+        return redirect("client_list")
     try:
-        return render(request, 'clients/client_form.html', {'form': form})
+        return render(request, "clients/client_form.html", {"form": form})
     except TemplateDoesNotExist:
-        return _html("تعديل عميل (بديل)", "<p>القالب غير متوفر. أضف clients/client_form.html لاحقًا.</p>")
+        return _html(
+            "تعديل عميل (بديل)",
+            "<p>القالب غير متوفر. أضف clients/client_form.html لاحقًا.</p>",
+        )
 
 
 @login_required
 def client_delete(request, pk):
     client = get_object_or_404(Client, pk=pk)
-    if request.method == 'POST':
-        name = client.name
+    if request.method == "POST":
+        name = client.partner.name
         client.delete()
         messages.warning(request, f"🗑️ تم حذف العميل {name} بنجاح.")
-        return redirect('client_list')
+        return redirect("client_list")
     try:
-        return render(request, 'clients/client_confirm_delete.html', {'client': client})
+        return render(request, "clients/client_confirm_delete.html", {"client": client})
     except TemplateDoesNotExist:
-        return _html("حذف عميل (بديل)", f"<p>هل أنت متأكد من حذف {client.name}؟</p>")
+        return _html(
+            "حذف عميل (بديل)", f"<p>هل أنت متأكد من حذف {client.partner.name}؟</p>"
+        )
 
 
 # ==================== ذكاء اصطناعي / تقارير ====================
+
 
 @login_required
 def client_ai_insight(request, pk):
@@ -101,13 +115,16 @@ def client_ai_insight(request, pk):
     except Exception:
         insight = None
 
-    ctx = {'client': client, 'insight': insight or {"note": "لم تتوفر تحليلات AI في هذه البيئة."}}
+    ctx = {
+        "client": client,
+        "insight": insight or {"note": "لم تتوفر تحليلات AI في هذه البيئة."},
+    }
     try:
-        return render(request, 'clients/ai_insights.html', ctx)
+        return render(request, "clients/ai_insights.html", ctx)
     except TemplateDoesNotExist:
         return _html(
             "تحليل AI (بديل)",
-            f"<h1>تحليل {client.name}</h1><pre>{ctx['insight']}</pre>"
+            f"<h1>تحليل {client.partner.name}</h1><pre>{ctx['insight']}</pre>",
         )
 
 
@@ -118,33 +135,43 @@ def client_pdf_view(request, pk):
     if _WeasyHTML:
         try:
             from django.template.loader import get_template  # استيراد محلي آمن
-            template = get_template('clients/client_pdf.html')
-            html = template.render({'client': client})
-            pdf_file = _WeasyHTML(string=html).write_pdf()
-            response = HttpResponse(pdf_file, content_type='application/pdf')
-            response['Content-Disposition'] = f'filename="client_{client.id}.pdf"'
+
+            template = get_template("clients/client_pdf.html")
+            html = template.render({"client": client})
+            pdf_file = _WeasyHTML(string=html).write_pdf() or b""
+            response = HttpResponse(pdf_file, content_type="application/pdf")
+            response["Content-Disposition"] = f'filename="client_{client.pk}.pdf"'
             return response
         except TemplateDoesNotExist:
-            return _html("PDF العميل (بديل)", f"<h1>{client.name}</h1><p>أضف القالب clients/client_pdf.html لاحقًا.</p>")
+            return _html(
+                "PDF العميل (بديل)",
+                f"<h1>{client.partner.name}</h1><p>أضف القالب clients/client_pdf.html لاحقًا.</p>",
+            )
         except Exception:
             # أي خطأ في التوليد يرجع HTML بديل
-            return _html("PDF العميل (بديل)", f"<h1>{client.name}</h1><p>تعذر توليد PDF في هذه البيئة.</p>")
+            return _html(
+                "PDF العميل (بديل)",
+                f"<h1>{client.partner.name}</h1><p>تعذر توليد PDF في هذه البيئة.</p>",
+            )
     else:
-        return _html("PDF العميل (بديل)", f"<h1>{client.name}</h1><p>weasyprint غير متاحة.</p>")
+        return _html(
+            "PDF العميل (بديل)",
+            f"<h1>{client.partner.name}</h1><p>weasyprint غير متاحة.</p>",
+        )
 
 
 @login_required
 def client_analysis_dashboard(request):
     clients = Client.objects.all()
-    active_clients = clients.filter(is_active=True).count()
-    inactive_clients = clients.filter(is_active=False).count()
+    active_clients = clients.filter(partner__is_active=True).count()
+    inactive_clients = clients.filter(partner__is_active=False).count()
     ctx = {
-        'clients': clients,
-        'active_clients': active_clients,
-        'inactive_clients': inactive_clients,
+        "clients": clients,
+        "active_clients": active_clients,
+        "inactive_clients": inactive_clients,
     }
     try:
-        return render(request, 'clients/client_analysis_dashboard.html', ctx)
+        return render(request, "clients/client_analysis_dashboard.html", ctx)
     except TemplateDoesNotExist:
         body = f"""
 <h1>لوحة تحليل العملاء (بديل)</h1>
@@ -156,11 +183,9 @@ def client_analysis_dashboard(request):
         return _html("لوحة تحليل العملاء", body)
 
 
-from django.shortcuts import render
-
 def index(request):
-    return render(request, 'clients/index.html')
+    return render(request, "clients/index.html")
 
 
 def app_home(request):
-    return render(request, 'apps/clients/home.html', {'app': 'clients'})
+    return render(request, "apps/clients/home.html", {"app": "clients"})

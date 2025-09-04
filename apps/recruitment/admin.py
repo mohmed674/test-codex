@@ -1,12 +1,12 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.recruitment.models import *
+
+from apps.recruitment.models import Application, JobPosition
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(JobPosition)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Application)
-except admin.sites.AlreadyRegistered:
-    pass

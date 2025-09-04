@@ -3,6 +3,7 @@
 import requests
 from django.conf import settings
 
+
 def send_whatsapp_message(phone: str, message: str):
     """
     ✅ ترسل رسالة واتساب لأي رقم موظف
@@ -14,14 +15,11 @@ def send_whatsapp_message(phone: str, message: str):
         api_url = settings.WHATSAPP_API_URL
         api_token = settings.WHATSAPP_API_TOKEN
 
-        payload = {
-            "phone": phone,
-            "message": message
-        }
+        payload = {"phone": phone, "message": message}
 
         headers = {
             "Authorization": f"Bearer {api_token}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
 
         response = requests.post(api_url, json=payload, headers=headers)

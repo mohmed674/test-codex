@@ -1,17 +1,20 @@
 # ERP_CORE/monitoring/tests.py
 
 from django.test import TestCase
+
 from .models import Client, DistributionOrder, Shipment
 
-class MonitoringModelsTestCase(TestCase):
 
+class MonitoringModelsTestCase(TestCase):
     def setUp(self):
-        self.client_obj = Client.objects.create(name="شركة التجربة", contact="01000000000")
+        self.client_obj = Client.objects.create(
+            name="شركة التجربة", contact="01000000000"
+        )
         self.order = DistributionOrder.objects.create(
             client=self.client_obj,
             product_name="منتج تجريبي",
             quantity=50,
-            status="Pending"
+            status="Pending",
         )
 
     def test_client_creation(self):
@@ -25,9 +28,7 @@ class MonitoringModelsTestCase(TestCase):
 
     def test_shipment_creation(self):
         shipment = Shipment.objects.create(
-            tracking_number="TRK123456",
-            order=self.order,
-            status="In Transit"
+            tracking_number="TRK123456", order=self.order, status="In Transit"
         )
         self.assertEqual(Shipment.objects.count(), 1)
         self.assertEqual(shipment.order.product_name, "منتج تجريبي")

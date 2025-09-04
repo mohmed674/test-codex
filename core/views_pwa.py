@@ -1,10 +1,12 @@
 # core/views_pwa.py
+import json
+
+from django.contrib.staticfiles import finders
 from django.http import HttpResponse
+from django.templatetags.static import static
 from django.utils.translation import get_language
 from django.views.decorators.http import require_GET
-from django.templatetags.static import static
-from django.contrib.staticfiles import finders
-import json
+
 
 @require_GET
 def manifest_json(request):
@@ -24,8 +26,18 @@ def manifest_json(request):
         "theme_color": "#121212",
         "categories": ["business", "productivity"],
         "icons": [
-            {"src": static("icons/icon-192x192.png"), "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
-            {"src": static("icons/icon-512x512.png"), "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+            {
+                "src": static("icons/icon-192x192.png"),
+                "sizes": "192x192",
+                "type": "image/png",
+                "purpose": "any maskable",
+            },
+            {
+                "src": static("icons/icon-512x512.png"),
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "any maskable",
+            },
         ],
         "shortcuts": [
             {"name": ("لوحة التحكم" if is_ar else "Dashboard"), "url": "/dashboard/"},
@@ -33,7 +45,10 @@ def manifest_json(request):
         ],
         "prefer_related_applications": False,
     }
-    resp = HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/manifest+json; charset=utf-8")
+    resp = HttpResponse(
+        json.dumps(data, ensure_ascii=False),
+        content_type="application/manifest+json; charset=utf-8",
+    )
     resp["Cache-Control"] = "no-cache, no-store, must-revalidate"
     resp["Pragma"] = "no-cache"
     resp["Expires"] = "0"
@@ -66,7 +81,9 @@ def service_worker(request):
     """
     content = _read_static_sw_bytes()
     if content:
-        resp = HttpResponse(content, content_type="application/javascript; charset=utf-8")
+        resp = HttpResponse(
+            content, content_type="application/javascript; charset=utf-8"
+        )
         resp["Cache-Control"] = "no-cache, no-store, must-revalidate"
         resp["Pragma"] = "no-cache"
         resp["Expires"] = "0"

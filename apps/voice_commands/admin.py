@@ -1,8 +1,10 @@
+# apps/voice_commands/admin.py
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.voice_commands.models import *
+
+from apps.voice_commands.models import VoiceCommand
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(VoiceCommand)
-except admin.sites.AlreadyRegistered:
-    pass

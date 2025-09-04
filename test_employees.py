@@ -10,8 +10,8 @@ def test_employees_tables_exist_after_migrate():
     """
     existing = set(connection.introspection.table_names())
     expected = {
-        "employees_employee",       # جدول الموظفين
-        "employees_department",     # جدول الأقسام
+        "employees_employee",  # جدول الموظفين
+        "employees_department",  # جدول الأقسام
     }
     missing = [t for t in expected if t not in existing]
     assert not missing, f"Employees tables missing: {missing}"

@@ -1,16 +1,15 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.pos.models import *
+
+from apps.pos.models import POSOrder, POSOrderItem, POSSession
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(POSSession)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(POSOrder)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(POSOrderItem)
-except admin.sites.AlreadyRegistered:
-    pass

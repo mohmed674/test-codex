@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -10,7 +9,7 @@ REQUIRED_FILES = [
     CORE_DIR / "serializers.py",
     CORE_DIR / "urls.py",
     CORE_DIR / "admin.py",
-    CORE_DIR / "views"
+    CORE_DIR / "views",
 ]
 
 missing = []

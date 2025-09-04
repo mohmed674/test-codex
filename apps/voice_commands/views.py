@@ -1,45 +1,170 @@
-from django.shortcuts import redirect, render
-from .forms import VoiceCommandForm
-from .models import VoiceCommand
-from .speech_to_text import transcribe_audio
-from django.contrib import messages
+from __future__ import annotations
 
-# ✅ عرض سجل الأوامر الصوتية
-def voice_logs(request):
-    # إصلاح الحقل غير الموجود: استخدام timestamp بدل created_at
-    logs = VoiceCommand.objects.all().order_by('-timestamp')
-    return render(request, 'voice_commands/logs.html', {'logs': logs})
+import logging
+import os
+import tempfile
+from contextlib import suppress
+from datetime import datetime
+from pathlib import Path
+from typing import Final
 
-# ✅ رفع أمر صوتي وتحويله إلى نص
-def upload_voice(request):
-    if request.method == 'POST':
-        form = VoiceCommandForm(request.POST, request.FILES)
-        if form.is_valid():
-            command = form.save(commit=False)
-            audio = request.FILES['audio_file']
-            try:
-                transcript = transcribe_audio(audio)
-                command.transcript = transcript
-                # إسناد المستخدم الحالي إن كان الحقل موجودًا بالموديل
-                if hasattr(command, 'user_id') and request.user.is_authenticated:
-                    command.user = request.user
-                command.save()
-                messages.success(request, f'✅ تم رفع الأمر الصوتي بنجاح. النص: {transcript[:100]}...')
-                return redirect('voice_commands:voice_logs')
-            except Exception as e:
-                messages.error(request, f'❌ فشل تحويل الصوت لنص: {str(e)}')
-        else:
-            messages.warning(request, '⚠️ يرجى تصحيح الأخطاء في النموذج.')
-    else:
-        form = VoiceCommandForm()
-    return render(request, 'voice_commands/upload.html', {'form': form})
+from django.conf import settings
+from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.utils.translation import gettext as _
+from django.views.decorators.http import require_GET, require_POST
 
+from .speech_to_text import (SpeechEngineUnavailable, TranscriptionError,
+                             stt_available, transcribe_audio)
 
-from django.shortcuts import render
+logger = logging.getLogger(__name__)
 
-def index(request):
-    return render(request, 'voice_commands/index.html')
+# قيود أمان للرفع
+_ALLOWED_CONTENT_TYPES: Final[set[str]] = {
+    "audio/wav",
+    "audio/x-wav",
+    "audio/mpeg",
+    "audio/mp3",
+    "audio/ogg",
+    "audio/x-ogg",
+    "audio/webm",
+    "audio/mp4",
+    "video/mp4",  # أحيانًا الصوت يجي mp4
+    "application/octet-stream",  # بعض المتصفحات
+}
+_MAX_UPLOAD_MB: Final[int] = int(getattr(settings, "VOICE_MAX_UPLOAD_MB", 25))
+_MAX_UPLOAD_BYTES: Final[int] = _MAX_UPLOAD_MB * 1024 * 1024
 
 
-def app_home(request):
-    return render(request, 'apps/voice_commands/home.html', {'app': 'voice_commands'})
+def _safe_media_root() -> Path:
+    """
+    أرجع مسار صالح من نوع Path لا يقبل None — لتفادي خطأ mypy:
+    settings.MEDIA_ROOT ممكن يكون None في بعض البيئات، فنستخدم tmp بديلًا.
+    """
+    media_root = getattr(settings, "MEDIA_ROOT", None)
+    if not media_root:
+        return Path(tempfile.gettempdir())
+    # لو كان str → حوله Path. لو كان Path بالفعل → ارجعه كما هو.
+    return media_root if isinstance(media_root, Path) else Path(str(media_root))
+
+
+# اختيار مسار مؤقّت آمن داخل MEDIA لو متاح
+_TMP_DIR = _safe_media_root() / "voice_tmp"
+_TMP_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _json_error(message: str, status: int = 400) -> JsonResponse:
+    return JsonResponse({"ok": False, "error": message}, status=status)
+
+
+@require_POST
+def upload_voice(request: HttpRequest) -> HttpResponse:
+    """
+    يرفع ملف صوتي (أو فيديو قصير) ويعيد نص مُفرّغ STT.
+    """
+    f = request.FILES.get("file")
+    if not f:
+        return _json_error(_("No file uploaded."), status=400)
+
+    # فحص النوع والحجم
+    ctype = (f.content_type or "").lower()
+    if ctype not in _ALLOWED_CONTENT_TYPES:
+        logger.warning("Blocked content_type=%s name=%s", ctype, f.name)
+        return _json_error(_("Unsupported content type."), status=415)
+
+    if f.size and f.size > _MAX_UPLOAD_BYTES:
+        return _json_error(
+            _(f"File too large. Max allowed is {_MAX_UPLOAD_MB} MB."),
+            status=413,
+        )
+
+    # باراميترات اختيارية
+    language = (request.POST.get("language") or "").strip() or getattr(
+        settings, "STT_DEFAULT_LOCALE", "ar-EG"
+    )
+    prefer_offline = (request.POST.get("prefer_offline") or "").lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+
+    # حفظ مؤقت آمن
+    suffix = Path(f.name).suffix or ".bin"
+    with tempfile.NamedTemporaryFile(dir=_TMP_DIR, suffix=suffix, delete=False) as tmp:
+        for chunk in f.chunks():
+            tmp.write(chunk)
+        tmp_path = Path(tmp.name)
+
+    try:
+        text = transcribe_audio(
+            tmp_path, language=language, prefer_offline=prefer_offline
+        ).strip()
+        logger.info(
+            "voice_upload: lang=%s offline=%s len=%d file=%s",
+            language,
+            prefer_offline,
+            len(text),
+            tmp_path.name,
+        )
+        return JsonResponse(
+            {
+                "ok": True,
+                "text": text,
+                "meta": {
+                    "language": language,
+                    "backend_offline_preferred": prefer_offline,
+                    "timestamp": datetime.utcnow().isoformat() + "Z",
+                },
+            },
+            status=200,
+        )
+    except SpeechEngineUnavailable as e:
+        logger.warning("STT unavailable: %s", e)
+        return _json_error(
+            _(
+                "Speech-to-text backend is unavailable. "
+                "Install/enable online SR or configure offline Vosk model."
+            ),
+            status=503,
+        )
+    except TranscriptionError:
+        logger.exception("Transcription error for %s", tmp_path)
+        return _json_error(_("Failed to process audio."), status=422)
+    except Exception:
+        logger.exception("Unexpected error while transcribing %s", tmp_path)
+        return _json_error(_("Unexpected server error."), status=500)
+    finally:
+        with suppress(Exception):
+            tmp_path.unlink(missing_ok=True)
+
+
+@require_GET
+def stt_status(request: HttpRequest) -> HttpResponse:
+    """
+    فحص سريع لحالة محركات STT (لا يستدعي أي API خارجي).
+    """
+    available = stt_available()
+    has_vosk_dir = bool(os.environ.get("VOSK_MODEL_DIR", "").strip())
+    return JsonResponse(
+        {
+            "ok": True,
+            "available": available,
+            "vosk_model_configured": has_vosk_dir,
+            "default_locale": getattr(settings, "STT_DEFAULT_LOCALE", "ar-EG"),
+        },
+        status=200,
+    )
+
+
+@require_GET
+def voice_logs(request: HttpRequest) -> HttpResponse:
+    """
+    Placeholder لسجلات وحدة الصوت.
+    """
+    return JsonResponse(
+        {
+            "ok": True,
+            "message": _("Voice module is active."),
+            "now": datetime.utcnow().isoformat() + "Z",
+        },
+        status=200,
+    )

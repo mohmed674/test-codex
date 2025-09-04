@@ -1,40 +1,35 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.plm.models import *
+
+from apps.plm.models import (Bom, BomLine, ChangeRequest, ChangeRequestItem,
+                             LifecycleStage, PLMDocument, ProductLifecycle,
+                             ProductTemplate, ProductVersion)
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PLMDocument)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductTemplate)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductVersion)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(LifecycleStage)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductLifecycle)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Bom)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(BomLine)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ChangeRequest)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ChangeRequestItem)
-except admin.sites.AlreadyRegistered:
-    pass

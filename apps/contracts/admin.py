@@ -1,8 +1,9 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.contracts.models import *
+
+from apps.contracts.models import Contract
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Contract)
-except admin.sites.AlreadyRegistered:
-    pass

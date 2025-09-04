@@ -1,18 +1,15 @@
 # apps/inventory/admin.py — Admin registration completed (Sprint 1 / Admin P1)
 
 from django.contrib import admin
-from apps.inventory.models import (
-    RawMaterial,
-    Warehouse,
-    InventoryItem,
-    InventoryMovement,
-    InventoryAudit,
-    InventoryAuditItem,
-    InventoryDiscrepancyInvestigation,
-    Inventory,  # Proxy to InventoryItem
-)
+
+from apps.inventory.models import Inventory  # Proxy to InventoryItem
+from apps.inventory.models import (InventoryAudit, InventoryAuditItem,
+                                   InventoryDiscrepancyInvestigation,
+                                   InventoryItem, InventoryMovement,
+                                   RawMaterial, Warehouse)
 
 # ── Admin classes (professional, production-ready) ─────────────────────────────
+
 
 @admin.register(RawMaterial)
 class RawMaterialAdmin(admin.ModelAdmin):
@@ -30,7 +27,14 @@ class WarehouseAdmin(admin.ModelAdmin):
 
 
 class _BaseInventoryItemAdmin(admin.ModelAdmin):
-    list_display = ("product", "warehouse", "quantity", "unit", "min_threshold", "last_updated")
+    list_display = (
+        "product",
+        "warehouse",
+        "quantity",
+        "unit",
+        "min_threshold",
+        "last_updated",
+    )
     list_filter = ("warehouse", "unit")
     search_fields = ("product__name", "warehouse__name")
     ordering = ("-last_updated",)
@@ -65,7 +69,13 @@ class InventoryAuditAdmin(admin.ModelAdmin):
 
 @admin.register(InventoryAuditItem)
 class InventoryAuditItemAdmin(admin.ModelAdmin):
-    list_display = ("audit", "product", "system_quantity", "physical_quantity", "difference")
+    list_display = (
+        "audit",
+        "product",
+        "system_quantity",
+        "physical_quantity",
+        "difference",
+    )
     list_filter = ("audit__audit_type",)
     search_fields = ("audit__performed_by__username", "product__name")
     ordering = ("audit", "product")

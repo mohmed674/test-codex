@@ -1,5 +1,6 @@
 from rest_framework import permissions
 
+
 class IsOwnerOrManager(permissions.BasePermission):
     """
     صلاحية تسمح بالوصول للمستخدم فقط على الإشعارات الخاصة به.
@@ -14,6 +15,6 @@ class IsOwnerOrManager(permissions.BasePermission):
         # السماح للمديرين بالوصول الكامل
         if request.user.is_staff or request.user.is_superuser:
             return True
-        
+
         # السماح للمستخدم فقط على إشعاراته
         return obj.user == request.user

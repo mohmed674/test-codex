@@ -1,17 +1,21 @@
 from django import forms
-from .models import Lead, Interaction, Opportunity
+
+from .models import Interaction, Lead, Opportunity
+
 
 class LeadForm(forms.ModelForm):
     class Meta:
         model = Lead
-        fields = '__all__'
+        fields = "__all__"
+
 
 class InteractionForm(forms.ModelForm):
     class Meta:
         model = Interaction
-        fields = ['note']
+        fields = ["note"]
+
 
 class OpportunityForm(forms.ModelForm):
     class Meta:
         model = Opportunity
-        fields = '__all__'
+        fields = "__all__"

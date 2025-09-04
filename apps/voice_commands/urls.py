@@ -1,13 +1,13 @@
-app_name = 'voice_commands'
-from django.urls import path
-from .views import upload_voice, voice_logs
+from __future__ import annotations
 
-urlpatterns = [
-    path('upload/', upload_voice, name='upload_voice'),
-    path('logs/', voice_logs, name='voice_logs'),
-]
+from django.urls import path
 
 from . import views
-urlpatterns = (urlpatterns if 'urlpatterns' in globals() else []) + [
-    path('', views.app_home, name='home'),
+
+app_name = "voice_commands"
+
+urlpatterns = [
+    path("upload/", views.upload_voice, name="upload_voice"),
+    path("status/", views.stt_status, name="stt_status"),
+    path("logs/", views.voice_logs, name="voice_logs"),
 ]

@@ -6,10 +6,23 @@ BASE = Path(__file__).resolve().parent.parent
 TPL = BASE / "templates"
 
 APPS = [
-    "api_gateway","attendance","crm","departments","discipline",
-    "employee_monitoring","internal_monitoring","maintenance","monitoring",
-    "pattern","payroll","pos","sales","survey","tracking",
-    "voice_commands","whatsapp_bot",
+    "api_gateway",
+    "attendance",
+    "crm",
+    "departments",
+    "discipline",
+    "employee_monitoring",
+    "internal_monitoring",
+    "maintenance",
+    "monitoring",
+    "pattern",
+    "payroll",
+    "pos",
+    "sales",
+    "survey",
+    "tracking",
+    "voice_commands",
+    "whatsapp_bot",
 ]
 
 EXTRA = {

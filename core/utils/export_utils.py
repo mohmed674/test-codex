@@ -11,19 +11,23 @@ from django.utils.timezone import now
 
 # محاولات اختيارية لمحرّكات PDF
 try:
-    from weasyprint import HTML, CSS  # type: ignore
+    from weasyprint import CSS, HTML  # type: ignore
+
     _HAS_WEASYPRINT = True
 except Exception:
     _HAS_WEASYPRINT = False
 
 try:
     from xhtml2pdf import pisa  # type: ignore
+
     _HAS_PISA = True
 except Exception:
     _HAS_PISA = False
 
 
-def export_to_excel(data, columns=None, filename: str = "report.xlsx", sheet_name: str = "Sheet1") -> HttpResponse:
+def export_to_excel(
+    data, columns=None, filename: str = "report.xlsx", sheet_name: str = "Sheet1"
+) -> HttpResponse:
     """
     يدعم:
     - list[dict] أو DataFrame أو QuerySet.values()
@@ -81,7 +85,12 @@ def _link_callback(uri: str, rel: str) -> str:
     return uri
 
 
-def render_to_pdf(template_src: str, context_dict=None, filename: str | None = None, inline: bool = True) -> HttpResponse:
+def render_to_pdf(
+    template_src: str,
+    context_dict=None,
+    filename: str | None = None,
+    inline: bool = True,
+) -> HttpResponse:
     """
     يولد PDF من قالب Django.
     - يستخدم WeasyPrint إن وُجد، وإلا يسقط إلى xhtml2pdf.
@@ -105,7 +114,9 @@ def render_to_pdf(template_src: str, context_dict=None, filename: str | None = N
     if _HAS_WEASYPRINT:
         try:
             css = CSS(string="@page { size: A4; margin: 18mm 12mm; }")
-            pdf_bytes = HTML(string=html, base_url=base_url).write_pdf(stylesheets=[css])
+            pdf_bytes = HTML(string=html, base_url=base_url).write_pdf(
+                stylesheets=[css]
+            )
             resp = HttpResponse(pdf_bytes, content_type="application/pdf")
             disp = "inline" if inline else "attachment"
             if filename:

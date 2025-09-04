@@ -1,5 +1,7 @@
-from celery import shared_task
 import subprocess
+
+from celery import shared_task
+
 
 @shared_task
 def run_inventory_ai_analysis():

@@ -1,15 +1,20 @@
 # ERP_CORE/departments/models.py
-from django.db import models
-from django.utils.text import slugify
-from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.db import models
+from django.utils import timezone
+from django.utils.text import slugify
+
 
 class Department(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="اسم القسم")
     description = models.TextField(blank=True, null=True, verbose_name="وصف القسم")
     is_active = models.BooleanField(default=True, verbose_name="نشط")
-    slug = models.SlugField(max_length=120, unique=True, blank=True, null=True, verbose_name="رابط مخصص")
-    created_at = models.DateTimeField(default=timezone.now, verbose_name="تاريخ الإنشاء")  # تم تعديل الحقل
+    slug = models.SlugField(
+        max_length=120, unique=True, blank=True, null=True, verbose_name="رابط مخصص"
+    )
+    created_at = models.DateTimeField(
+        default=timezone.now, verbose_name="تاريخ الإنشاء"
+    )  # تم تعديل الحقل
     updated_at = models.DateTimeField(auto_now=True, verbose_name="آخر تعديل")
 
     def __str__(self):
@@ -24,11 +29,13 @@ class Department(models.Model):
     def clean(self):
         # تحقق ذكي من الطول والبيانات
         if len(self.name.strip()) < 2:
-            raise ValidationError({'name': "❌ اسم القسم قصير جدًا، يجب أن لا يقل عن حرفين."})
+            raise ValidationError(
+                {"name": "❌ اسم القسم قصير جدًا، يجب أن لا يقل عن حرفين."}
+            )
         if Department.objects.exclude(pk=self.pk).filter(slug=self.slug).exists():
-            raise ValidationError({'slug': "⚠️ هذا الرابط مستخدم من قبل قسم آخر."})
+            raise ValidationError({"slug": "⚠️ هذا الرابط مستخدم من قبل قسم آخر."})
 
     class Meta:
-        ordering = ['name']
+        ordering = ["name"]
         verbose_name = "قسم"
         verbose_name_plural = "الأقسام"

@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from jsonfield import JSONField  # استيراد مباشر وصحيح
@@ -9,14 +9,14 @@ User = get_user_model()
 
 class Notification(models.Model):
     class NotificationType(models.TextChoices):
-        INFO = 'info', _('معلومات')
-        WARNING = 'warning', _('تحذير')
-        CRITICAL = 'critical', _('هام')
+        INFO = "info", _("معلومات")
+        WARNING = "warning", _("تحذير")
+        CRITICAL = "critical", _("هام")
 
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='notifications',
+        related_name="notifications",
         verbose_name=_("المستخدم"),
     )
     title = models.CharField(max_length=255, verbose_name=_("عنوان الإشعار"))
@@ -32,19 +32,23 @@ class Notification(models.Model):
     # ✅ الحقل بدون تحذير محرر الأكواد
     metadata = JSONField(blank=True, null=True, verbose_name=_("بيانات إضافية"))
 
-    created_at = models.DateTimeField(default=timezone.now, verbose_name=_("تاريخ الإنشاء"))
-    read_at = models.DateTimeField(blank=True, null=True, verbose_name=_("تاريخ القراءة"))
+    created_at = models.DateTimeField(
+        default=timezone.now, verbose_name=_("تاريخ الإنشاء")
+    )
+    read_at = models.DateTimeField(
+        blank=True, null=True, verbose_name=_("تاريخ القراءة")
+    )
     is_active = models.BooleanField(default=True, verbose_name=_("نشط"))
 
     class Meta:
         verbose_name = _("إشعار")
         verbose_name_plural = _("الإشعارات")
-        ordering = ['-created_at']
+        ordering = ["-created_at"]
 
     def mark_as_read(self):
         if not self.read_at:
             self.read_at = timezone.now()
-            self.save(update_fields=['read_at'])
+            self.save(update_fields=["read_at"])
 
     @property
     def is_read(self):

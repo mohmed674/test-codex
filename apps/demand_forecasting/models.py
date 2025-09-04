@@ -1,5 +1,7 @@
 from django.db import models
+
 from apps.products.models import Product
+
 
 class Forecast(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

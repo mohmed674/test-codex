@@ -1,16 +1,15 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.monitoring.models import *
+
+from apps.monitoring.models import Client, DistributionOrder, Shipment
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Client)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(DistributionOrder)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Shipment)
-except admin.sites.AlreadyRegistered:
-    pass

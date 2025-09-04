@@ -1,12 +1,13 @@
+# apps/tracking/admin.py
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.tracking.models import *
+
+from apps.tracking.models import ProductTracking, ProductTrackingMovement
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductTracking)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductTrackingMovement)
-except admin.sites.AlreadyRegistered:
-    pass

@@ -1,12 +1,12 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.communication.models import *
+
+from apps.communication.models import ChatThread, Message
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ChatThread)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Message)
-except admin.sites.AlreadyRegistered:
-    pass

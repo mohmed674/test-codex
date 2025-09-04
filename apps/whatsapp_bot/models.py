@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class WhatsAppOrder(models.Model):
     customer_phone = models.CharField(max_length=20)
     message = models.TextField()

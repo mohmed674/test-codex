@@ -1,16 +1,15 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.pattern.models import *
+
+from apps.pattern.models import PatternDesign, PatternExecution, PatternPiece
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PatternDesign)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PatternPiece)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PatternExecution)
-except admin.sites.AlreadyRegistered:
-    pass

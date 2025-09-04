@@ -1,118 +1,196 @@
-from collections import Counter
-from datetime import timedelta
-from django.utils.timezone import now
-from apps.employees.models import AttendanceRecord, MonthlyIncentive
-from apps.employees.models import Employee  # مكرر ولكن يُترك للوضوح في المشروع
+# apps/employees/utils/logic.py
+"""Business logic for employee rewards and final salary calculations.
 
-def calculate_employee_rewards(employee, month):
-    # تصفية سجلات الشهر
+- Decimal-safe computations for all monetary values.
+- Strict typing to satisfy IDE/mypy (fixes red underlines on hour/minute/callables).
+- Flake8-friendly formatting; no functional changes to thresholds or flow.
+"""
+
+from __future__ import annotations
+
+from collections import Counter
+from datetime import date, datetime, timedelta
+from decimal import ROUND_HALF_UP, Decimal
+from typing import Callable, Optional
+
+from django.utils.timezone import now
+
+from apps.employees.models import AttendanceRecord, Employee, MonthlyIncentive
+
+# ===== Constants (tunable business rules) =====
+START_OF_DAY_MINUTES = 9 * 60  # 9:00 AM
+LATE_GRACE_MINUTES = 15  # minutes allowed beyond start time without penalty
+
+PCT_ABSENCE_PROD = Decimal("0.15")  # 15% of daily production value
+PCT_DELAY_PROD = Decimal("0.05")  # 5% of daily production value
+PCT_RECUR_DELAY_PROD = Decimal("0.10")  # 10% of daily production value
+PCT_RECUR_ABS_PROD = Decimal("0.20")  # 20% of daily production value
+
+COMMITMENT_BONUS_PROD = Decimal("300")
+COMMITMENT_BONUS_SAL = Decimal("500")
+QUARTERLY_BONUS_PROD = Decimal("750")
+QUARTERLY_BONUS_SAL = Decimal("1000")
+
+
+def _to_decimal(value: float | int | Decimal | None) -> Decimal:
+    """Coerce numbers to Decimal safely; None -> 0."""
+    if isinstance(value, Decimal):
+        return value
+    if value is None:
+        return Decimal("0")
+    return Decimal(str(value))
+
+
+def _hourly_rate(emp: Employee) -> Decimal:
+    """Return hourly rate as Decimal."""
+    rate_attr: float | Decimal | Callable[[], float | Decimal] | None = getattr(
+        emp, "hourly_rate", 0
+    )
+    if callable(rate_attr):
+        return _to_decimal(rate_attr())
+    return _to_decimal(rate_attr)
+
+
+def _daily_production_value(emp: Employee) -> Decimal:
+    """Return daily production value as Decimal."""
+    val_attr: float | Decimal | Callable[[], float | Decimal] | None = getattr(
+        emp, "daily_production_value", 0
+    )
+    if callable(val_attr):
+        return _to_decimal(val_attr())
+    return _to_decimal(val_attr)
+
+
+def _total_production_amount(emp: Employee, month: date) -> Decimal:
+    """Return monthly production amount as Decimal."""
+    fn: Optional[Callable[[date], float | Decimal]] = getattr(
+        emp, "total_production_amount", None
+    )
+    if callable(fn):
+        return _to_decimal(fn(month))
+    return Decimal("0")
+
+
+def calculate_employee_rewards(employee: Employee, month: date) -> None:
+    """Compute and persist MonthlyIncentive for a given employee & month."""
+    # سجلات الشهر
     records = AttendanceRecord.objects.filter(
-        employee=employee,
-        date__month=month.month,
-        date__year=month.year
+        employee=employee, date__month=month.month, date__year=month.year
     )
 
-    total_delays = 0
     total_absences = 0
-    delay_days = []
-    penalties = 0
+    delay_days: list[date] = []
+    penalties = Decimal("0")
 
     for record in records:
-        if record.is_absent and not record.is_excused_absence:
+        # غياب غير مُبرّر
+        if getattr(record, "is_absent", False) and not getattr(
+            record, "is_excused_absence", False
+        ):
             total_absences += 1
-            if employee.is_production_based:
-                penalties += 0.15 * employee.daily_production_value()
+            if getattr(employee, "is_production_based", False):
+                penalties += PCT_ABSENCE_PROD * _daily_production_value(employee)
             else:
-                penalties += employee.salary / 30
-        elif record.check_in:
-            check_in_minutes = record.check_in.hour * 60 + record.check_in.minute
-            delay_minutes = max(0, check_in_minutes - 540)  # بعد 9:00 ص
-            if delay_minutes > 15:
-                delay_days.append(record.date)
-                delay_hours = delay_minutes / 60
-                if employee.is_production_based:
-                    penalties += 0.05 * employee.daily_production_value()
-                else:
-                    penalties += delay_hours * 1.5 * employee.hourly_rate()
+                penalties += _to_decimal(getattr(employee, "salary", 0)) / Decimal("30")
 
-    # خصم إضافي بسبب تكرار التأخير أكثر من 3 مرات
+        # تأخير
+        elif getattr(record, "check_in", None):
+            check_in: Optional[datetime] = getattr(record, "check_in", None)
+            if isinstance(check_in, datetime):
+                check_in_minutes = check_in.hour * 60 + check_in.minute
+                delay_minutes = max(0, check_in_minutes - START_OF_DAY_MINUTES)
+                if delay_minutes > LATE_GRACE_MINUTES:
+                    delay_days.append(record.date)
+                    delay_hours = Decimal(delay_minutes) / Decimal("60")
+                    if getattr(employee, "is_production_based", False):
+                        penalties += PCT_DELAY_PROD * _daily_production_value(employee)
+                    else:
+                        penalties += (
+                            delay_hours * Decimal("1.5") * _hourly_rate(employee)
+                        )
+
+    # خصم إضافي بسبب تكرار التأخير >= 3 مرات لليوم نفسه
     delay_counter = Counter(delay_days)
-    for day, count in delay_counter.items():
+    for _day, count in delay_counter.items():
         if count >= 3:
-            if employee.is_production_based:
-                penalties += 0.10 * employee.daily_production_value()
+            if getattr(employee, "is_production_based", False):
+                penalties += PCT_RECUR_DELAY_PROD * _daily_production_value(employee)
             else:
-                penalties += employee.salary / 30
+                penalties += _to_decimal(getattr(employee, "salary", 0)) / Decimal("30")
 
     # خصم بسبب الغياب المتكرر
     if total_absences > 2:
-        if employee.is_production_based:
-            penalties += 0.20 * employee.daily_production_value()
+        if getattr(employee, "is_production_based", False):
+            penalties += PCT_RECUR_ABS_PROD * _daily_production_value(employee)
         else:
-            penalties += 2 * (employee.salary / 30)
+            penalties += Decimal("2") * (
+                _to_decimal(getattr(employee, "salary", 0)) / Decimal("30")
+            )
 
-    # المكافآت: انتظام كامل في الشهر
-    commitment_bonus = 0
-    quarterly_bonus = 0
+    # مكافآت: انتظام كامل
+    commitment_bonus = Decimal("0")
+    quarterly_bonus = Decimal("0")
     if total_absences == 0 and len(delay_days) == 0:
-        commitment_bonus = 300 if employee.is_production_based else 500
+        commitment_bonus = (
+            COMMITMENT_BONUS_PROD
+            if getattr(employee, "is_production_based", False)
+            else COMMITMENT_BONUS_SAL
+        )
 
         # مكافأة ربع سنوية (3 شهور بلا غياب)
         last_3_months_start = now().date().replace(day=1) - timedelta(days=90)
         full_clean = not AttendanceRecord.objects.filter(
-            employee=employee,
-            date__gte=last_3_months_start,
-            is_absent=True
+            employee=employee, date__gte=last_3_months_start, is_absent=True
         ).exists()
         if full_clean:
-            quarterly_bonus = 750 if employee.is_production_based else 1000
+            quarterly_bonus = (
+                QUARTERLY_BONUS_PROD
+                if getattr(employee, "is_production_based", False)
+                else QUARTERLY_BONUS_SAL
+            )
 
     # حفظ أو تحديث سجل الحوافز
     MonthlyIncentive.objects.update_or_create(
         employee=employee,
         month=month,
         defaults={
-            'commitment_bonus': commitment_bonus,
-            'quarterly_bonus': quarterly_bonus,
-            'penalty_total': penalties,
-        }
+            "commitment_bonus": commitment_bonus.quantize(
+                Decimal("1."), rounding=ROUND_HALF_UP
+            ),
+            "quarterly_bonus": quarterly_bonus.quantize(
+                Decimal("1."), rounding=ROUND_HALF_UP
+            ),
+            "penalty_total": penalties.quantize(
+                Decimal("0.01"), rounding=ROUND_HALF_UP
+            ),
+        },
     )
 
 
 # ✅ دالة حساب المرتب النهائي بعد دمج الحوافز والخصومات
-def calculate_final_salary(employee, month):
+def calculate_final_salary(employee: Employee, month: date) -> Decimal:
     """
-    ✅ حساب المرتب النهائي للموظف بعد دمج الحوافز والخصومات
-
-    - المرتب الأساسي:
-        • راتب ثابت إن لم يكن على الإنتاج
-        • أو ناتج الإنتاج الشهري إن كان على الإنتاج
-
-    - الحوافز:
-        • مكافأة الالتزام
-        • المكافأة الربع سنوية
-
-    - الخصومات:
-        • جميع الخصومات المجدولة (مهام / سلوك)
-
-    :param employee: كائن الموظف
-    :param month: الشهر المطلوب بصيغة datetime.date أو datetime.datetime
-    :return: قيمة المرتب النهائي بعد الدمج
+    حساب المرتب النهائي للموظف بعد دمج الحوافز والخصومات (Decimal).
     """
-    base_salary = (
-        employee.salary 
-        if not employee.is_production_based 
-        else employee.total_production_amount(month)
-    )
+    if getattr(employee, "is_production_based", False):
+        base_salary = _total_production_amount(employee, month)
+    else:
+        base_salary = _to_decimal(getattr(employee, "salary", 0))
 
-    incentive = MonthlyIncentive.objects.filter(employee=employee, month=month).first()
+    incentive: Optional[MonthlyIncentive] = MonthlyIncentive.objects.filter(
+        employee=employee, month=month
+    ).first()
 
     if not incentive:
-        bonus = 0
-        penalty = 0
+        bonus = Decimal("0")
+        penalty = Decimal("0")
     else:
-        bonus = (incentive.commitment_bonus or 0) + (incentive.quarterly_bonus or 0)
-        penalty = incentive.penalty_total or 0
+        bonus = _to_decimal(getattr(incentive, "commitment_bonus", 0)) + _to_decimal(
+            getattr(incentive, "quarterly_bonus", 0)
+        )
+        penalty = _to_decimal(getattr(incentive, "penalty_total", 0))
 
-    final_salary = base_salary + bonus - penalty
+    final_salary = (base_salary + bonus - penalty).quantize(
+        Decimal("0.01"), rounding=ROUND_HALF_UP
+    )
     return final_salary

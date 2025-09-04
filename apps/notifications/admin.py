@@ -1,8 +1,9 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.notifications.models import *
+
+from apps.notifications.models import Notification
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Notification)
-except admin.sites.AlreadyRegistered:
-    pass

@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import ProductVersion, ChangeRequest
+
+from .models import ChangeRequest, ProductVersion
 
 
 @receiver(post_save, sender=ProductVersion)
@@ -10,9 +11,9 @@ def activate_new_version(sender, instance, created, **kwargs):
     وتفعيل النسخة الجديدة بشكل تلقائي
     """
     if created and instance.is_active:
-        ProductVersion.objects.filter(
-            product=instance.product
-        ).exclude(id=instance.id).update(is_active=False)
+        ProductVersion.objects.filter(product=instance.product).exclude(
+            id=instance.id
+        ).update(is_active=False)
 
 
 @receiver(post_save, sender=ChangeRequest)

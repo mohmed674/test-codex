@@ -1,5 +1,6 @@
 from rest_framework import permissions
 
+
 class IsSurveyAdminOrReadOnly(permissions.BasePermission):
     """
     يسمح فقط لمشرف الاستبيان بالتعديل، والباقي عرض فقط.

@@ -1,6 +1,6 @@
 import pytest
-from django.urls import reverse
 from django.test import Client
+
 
 @pytest.mark.django_db
 def test_survey_index_or_detail_accessible():

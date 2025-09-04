@@ -1,7 +1,10 @@
 from django.db import models
 
+
 class Attendance(models.Model):
-    evaluation = models.ForeignKey("evaluation.Evaluation", on_delete=models.CASCADE, related_name="attendances")
+    evaluation = models.ForeignKey(
+        "evaluation.Evaluation", on_delete=models.CASCADE, related_name="attendances"
+    )
     date = models.DateField()
     status = models.CharField(max_length=10)
 

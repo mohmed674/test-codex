@@ -1,15 +1,16 @@
 import os
 import sys
-import django
 from importlib import import_module
+
+import django
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 django.setup()
 
-from django.contrib import admin
 from django.apps import apps
+from django.contrib import admin
 
 # استيراد جميع الموديلات المسجلة في التطبيقات
 app_configs = apps.get_app_configs()

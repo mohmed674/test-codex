@@ -1,10 +1,10 @@
 # ERP_CORE/production/smart_master.py
 
 from apps.products.models import Product
-from apps.inventory.models import InventoryItem
 
 # ✅ Smart Master: المواد الخام المطلوبة لكل منتج
 # مفتاح الربط بين المنتج وأوامر التشغيل والمخزون
+
 
 def get_required_materials(product_name):
     """

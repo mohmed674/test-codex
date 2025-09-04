@@ -1,8 +1,9 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.legal.models import *
+
+from apps.legal.models import LegalCase
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(LegalCase)
-except admin.sites.AlreadyRegistered:
-    pass

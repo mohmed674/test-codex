@@ -22,12 +22,14 @@ EXTRA = [
     ("site/home.html", "site"),
 ]
 
+
 def write_if_missing(path: Path, title: str):
     path.parent.mkdir(parents=True, exist_ok=True)
     if not path.exists():
         path.write_text(HTML.format(title=title), encoding="utf-8")
         return True
     return False
+
 
 created = []
 

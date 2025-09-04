@@ -1,16 +1,15 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.crm.models import *
+
+from apps.crm.models import Interaction, Lead, Opportunity
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Lead)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Interaction)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Opportunity)
-except admin.sites.AlreadyRegistered:
-    pass

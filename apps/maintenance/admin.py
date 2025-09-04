@@ -1,16 +1,15 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.maintenance.models import *
+
+from apps.maintenance.models import Machine, MaintenanceLog, MaintenanceRequest
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Machine)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(MaintenanceLog)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(MaintenanceRequest)
-except admin.sites.AlreadyRegistered:
-    pass

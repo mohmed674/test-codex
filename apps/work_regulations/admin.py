@@ -1,12 +1,13 @@
+# apps/work_regulations/admin.py
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.work_regulations.models import *
+
+from apps.work_regulations.models import EmployeeAgreement, Regulation
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Regulation)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(EmployeeAgreement)
-except admin.sites.AlreadyRegistered:
-    pass

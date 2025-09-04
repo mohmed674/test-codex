@@ -1,5 +1,10 @@
-import os, sys, json
+# generate_core_templates.py
+from __future__ import annotations
+
+import json
+from json import JSONDecodeError
 from pathlib import Path
+from typing import Any, Dict, List
 
 BASE_DIR = Path(__file__).resolve().parent
 CORE_TPL_DIR = BASE_DIR / "core" / "templates" / "core"
@@ -8,15 +13,21 @@ STATE_PATH = BASE_DIR / "project_state.json"
 
 CORE_TPL_DIR.mkdir(parents=True, exist_ok=True)
 
-# قراءة نماذج core من تقرير الجرد
-with open(INV_PATH, encoding="utf-8") as f:
-    inv = json.load(f)
+# قراءة نماذج core من تقرير الجرد (آمن)
+inv: Dict[str, Any] = {}
+if INV_PATH.exists():
+    try:
+        inv = json.loads(INV_PATH.read_text(encoding="utf-8"))
+    except (OSError, JSONDecodeError):
+        inv = {}
+else:
+    inv = {}
 
-core_models = inv.get("apps", {}).get("core", {}).get("models", [])
+core_models: List[str] = inv.get("apps", {}).get("core", {}).get("models", [])  # type: ignore[assignment]
 
 # base.html
 (CORE_TPL_DIR / "base.html").write_text(
-"""<!DOCTYPE html>
+    """<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
@@ -36,7 +47,8 @@ a.button{display:inline-block;padding:8px 12px;border:1px solid #888;border-radi
 <header><h1>{% block header %}لوحة Core{% endblock %}</h1></header>
 <main>{% block content %}{% endblock %}</main>
 </body></html>
-""", encoding="utf-8"
+""",
+    encoding="utf-8",
 )
 
 # قوالب عامة بلا {% url %} لتفادي NoReverseMatch
@@ -70,10 +82,10 @@ DETAIL_TMPL = """{% extends "core/base.html" %}
 {% endblock %}
 """
 
-created = []
+created: List[str] = []
 
 for model in core_models:
-    model_lower = model.lower()
+    model_lower = str(model).lower()
     list_path = CORE_TPL_DIR / f"{model_lower}_list.html"
     detail_path = CORE_TPL_DIR / f"{model_lower}_detail.html"
 
@@ -88,7 +100,7 @@ for model in core_models:
 dashboard = CORE_TPL_DIR / "dashboard.html"
 if not dashboard.exists():
     dashboard.write_text(
-"""{% extends "core/base.html" %}
+        """{% extends "core/base.html" %}
 {% block title %}لوحة Core{% endblock %}
 {% block content %}
 <h2>لوحة Core</h2>
@@ -98,21 +110,32 @@ if not dashboard.exists():
 {% endfor %}
 </ul>
 {% endblock %}
-""", encoding="utf-8")
+""",
+        encoding="utf-8",
+    )
 
-# تحديث حالة المشروع
-state = {
+# تحديث حالة المشروع (بدون bare except)
+state_update: Dict[str, Any] = {
     "last_script": "generate_core_templates.py",
     "next_script": None,
     "status": "core_templates_ready",
 }
 try:
-    prev = json.loads(STATE_PATH.read_text(encoding="utf-8")) if STATE_PATH.exists() else {}
-    prev.update(state)
-    state = prev
-except:
+    prev_state: Dict[str, Any] = (
+        json.loads(STATE_PATH.read_text(encoding="utf-8"))
+        if STATE_PATH.exists()
+        else {}
+    )
+    if isinstance(prev_state, dict):
+        prev_state.update(state_update)
+        state_update = prev_state
+except (OSError, JSONDecodeError):
+    # تجاهل فقط مشاكل القراءة/الـ JSON
     pass
-STATE_PATH.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
+
+STATE_PATH.write_text(
+    json.dumps(state_update, indent=2, ensure_ascii=False), encoding="utf-8"
+)
 
 print("✅ generated:")
 for p in created:

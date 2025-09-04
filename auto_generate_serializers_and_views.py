@@ -1,7 +1,9 @@
+import json
 import os
 import sys
-import json
+
 import django
+
 from load_project_context import load_context
 
 context = load_context()
@@ -25,18 +27,21 @@ for app, models in context["apps"].items():
 lines.append("\n# 🔹 Serializers")
 for app, models in context["apps"].items():
     for model in models:
-        lines.append(f"""
+        lines.append(
+            f"""
 class {model}Serializer(serializers.ModelSerializer):
     class Meta:
         model = {model}
         fields = '__all__'
-""")
+"""
+        )
 
 # بناء views
 lines.append("\n# 🔹 Views")
 for app, models in context["apps"].items():
     for model in models:
-        lines.append(f"""
+        lines.append(
+            f"""
 class {model}ListView(generics.ListAPIView):
     queryset = {model}.objects.all()
     serializer_class = {model}Serializer
@@ -44,7 +49,8 @@ class {model}ListView(generics.ListAPIView):
 class {model}DetailView(generics.RetrieveAPIView):
     queryset = {model}.objects.all()
     serializer_class = {model}Serializer
-""")
+"""
+        )
 
 # بناء URLs
 lines.append("\n# 🔹 URL patterns")
@@ -52,12 +58,16 @@ lines.append("urlpatterns = [")
 for app, models in context["apps"].items():
     for model in models:
         name = model.lower()
-        lines.append(f"    path('{name}/', {model}ListView.as_view(), name='{name}-list'),")
-        lines.append(f"    path('{name}/<int:pk>/', {model}DetailView.as_view(), name='{name}-detail'),")
+        lines.append(
+            f"    path('{name}/', {model}ListView.as_view(), name='{name}-list'),"
+        )
+        lines.append(
+            f"    path('{name}/<int:pk>/', {model}DetailView.as_view(), name='{name}-detail'),"
+        )
 lines.append("]\n")
 
 # كتابة الملف
-with open(output_path, 'w', encoding='utf-8') as f:
+with open(output_path, "w", encoding="utf-8") as f:
     f.write("\n".join(lines))
 
 print("✅ تم توليد الكود الخاص بـ DRF (Serializers + Views + URLs)")
@@ -65,5 +75,5 @@ print(f"📄 الملف الناتج: {output_path}")
 
 # تحديث حالة المشروع
 context["last_script"] = "auto_generate_serializers_and_views.py"
-with open(os.path.join(BASE_DIR, 'project_meta.json'), 'w', encoding='utf-8') as f:
+with open(os.path.join(BASE_DIR, "project_meta.json"), "w", encoding="utf-8") as f:
     json.dump(context, f, indent=2, ensure_ascii=False)

@@ -10,7 +10,6 @@ from django.db.migrations.loader import MigrationLoader
 from django.test import Client
 from django.urls import get_resolver, set_urlconf
 
-
 # عدّل القائمة حسب التطبيقات المطلوب التحقق منها مركزياً
 EXPECTED_APPS: Set[str] = {
     "employees",
@@ -91,7 +90,10 @@ def test_root_urlconf_importable_and_resolves():
 def test_admin_url_is_accessible_or_redirects_to_login():
     c = Client()
     resp = c.get("/admin/", follow=False)
-    assert resp.status_code in (200, 302), f"/admin/ unexpected status: {resp.status_code}"
+    assert resp.status_code in (
+        200,
+        302,
+    ), f"/admin/ unexpected status: {resp.status_code}"
 
 
 def test_security_and_auth_middleware_present():
@@ -109,22 +111,39 @@ def test_security_and_auth_middleware_present():
 
 
 def test_static_and_media_settings_are_valid():
-    assert hasattr(settings, "STATIC_URL") and settings.STATIC_URL.startswith("/"), "STATIC_URL must start with '/'"
+    assert hasattr(settings, "STATIC_URL") and settings.STATIC_URL.startswith(
+        "/"
+    ), "STATIC_URL must start with '/'"
     if getattr(settings, "MEDIA_URL", None):
         assert settings.MEDIA_URL.startswith("/"), "MEDIA_URL must start with '/'"
     if hasattr(settings, "STATICFILES_DIRS"):
         for p in settings.STATICFILES_DIRS:
-            assert isinstance(p, (str, os.PathLike)) and os.path.exists(p), f"STATICFILES_DIR not found: {p}"
+            assert isinstance(p, (str, os.PathLike)) and os.path.exists(
+                p
+            ), f"STATICFILES_DIR not found: {p}"
 
 
 @pytest.mark.skipif(
-    not any(str(p).endswith("manifest.json") for p in getattr(settings, "STATICFILES_DIRS", [])) and
-    not os.path.exists(os.path.join(getattr(settings, "BASE_DIR", os.getcwd()), "static", "manifest.json")),
+    not any(
+        str(p).endswith("manifest.json")
+        for p in getattr(settings, "STATICFILES_DIRS", [])
+    )
+    and not os.path.exists(
+        os.path.join(
+            getattr(settings, "BASE_DIR", os.getcwd()), "static", "manifest.json"
+        )
+    ),
     reason="PWA manifest.json not present; skipping optional check.",
 )
 def test_pwa_manifest_exists_when_configured():
     candidates = []
     for p in getattr(settings, "STATICFILES_DIRS", []):
         candidates.append(os.path.join(p, "manifest.json"))
-    candidates.append(os.path.join(getattr(settings, "BASE_DIR", os.getcwd()), "static", "manifest.json"))
-    assert any(os.path.exists(c) for c in candidates), "manifest.json was expected but not found"
+    candidates.append(
+        os.path.join(
+            getattr(settings, "BASE_DIR", os.getcwd()), "static", "manifest.json"
+        )
+    )
+    assert any(
+        os.path.exists(c) for c in candidates
+    ), "manifest.json was expected but not found"

@@ -1,20 +1,28 @@
-# ضع الملف داخل core/templatetags/ (لو المجلد مش موجود اعمله مع __init__.py فارغ)
+# core/templatetags/querystring.py
+from typing import Any
+
 from django import template
+from django.http import HttpRequest
+from django.utils.http import urlencode
 
 register = template.Library()
 
+
 @register.simple_tag(takes_context=True)
-def qs_replace(context, **kwargs):
+def qs_replace(context: dict[str, Any], **kwargs: Any) -> str:
     """
-    يبني querystring جديد مع تبديل/حذف مفاتيح بدون تكرار ?page
-    الاستخدام: ?{% qs_replace page=3 %}
-               ?{% qs_replace page=None %}  # لحذف المفتاح
+    يبني QueryString جديد مع تبديل/حذف مفاتيح بدون تكرار page.
+    الاستخدام:
+        ?{% qs_replace page=3 %}
+        ?{% qs_replace page=None %}  # لحذف المفتاح
     """
-    request = context['request']
+    request: HttpRequest = context["request"]
     query = request.GET.copy()
-    for k, v in kwargs.items():
-        if v is None:
-            query.pop(k, None)
+
+    for key, value in kwargs.items():
+        if value is None:
+            query.pop(key, None)
         else:
-            query[k] = v
-    return query.urlencode()
+            query[key] = value
+
+    return urlencode(query, doseq=True)

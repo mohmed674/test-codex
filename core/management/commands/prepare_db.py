@@ -1,14 +1,19 @@
 # core/management/commands/prepare_db.py
 # -*- coding: utf-8 -*-
-import sys
-from django.core.management.base import BaseCommand, CommandError
+
 from django.core.management import call_command
+from django.core.management.base import BaseCommand, CommandError
+
 
 class Command(BaseCommand):
     help = "تهيئة قاعدة البيانات: makemigrations + migrate بالترتيب الصحيح."
 
     def add_arguments(self, parser):
-        parser.add_argument("--fake-initial", action="store_true", help="تمرير --fake-initial للـ migrate")
+        parser.add_argument(
+            "--fake-initial",
+            action="store_true",
+            help="تمرير --fake-initial للـ migrate",
+        )
 
     def handle(self, *args, **opts):
         try:

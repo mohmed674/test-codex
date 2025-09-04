@@ -1,32 +1,29 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.payroll.models import *
+
+from apps.payroll.models import (Advance, AttendanceRecord, HistoricalPayment,
+                                 MonthlyIncentive, PaymentRecord,
+                                 PolicySetting, Salary)
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Salary)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Advance)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PaymentRecord)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(HistoricalPayment)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(AttendanceRecord)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(MonthlyIncentive)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PolicySetting)
-except admin.sites.AlreadyRegistered:
-    pass

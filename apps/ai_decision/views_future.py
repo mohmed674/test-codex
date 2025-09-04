@@ -1,12 +1,16 @@
-from django.shortcuts import render
+from __future__ import annotations
+
+import json
+import random
+from contextlib import suppress
+from typing import Any, Dict, List
+
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.utils import timezone
+from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.utils import timezone
-from datetime import timedelta
-import random
-import json
-from typing import Dict, Any, List
 
 
 # =========================
@@ -18,20 +22,22 @@ def ai_predictive_analysis(request):
     يدعم اختيار نافذة زمنية عبر ?window_days=30 (اختياري).
     """
     window_days = 14
-    try:
+    with suppress(Exception):
         window_days = int(request.GET.get("window_days", window_days))
-    except Exception:
-        pass
 
     future_risks = [
-        {"type": "مبيعات",   "risk": f"انخفاض الطلب المتوقع خلال {window_days} يوم"},
-        {"type": "إنتاج",    "risk": "زيادة استهلاك المواد الخام بنسبة 22%"},
-        {"type": "عمالة",    "risk": "ارتفاع معدلات الغياب الأسبوع القادم"},
+        {
+            "type": _("مبيعات"),
+            "risk": _("انخفاض الطلب المتوقع خلال {d} يوم").format(d=window_days),
+        },
+        {"type": _("إنتاج"), "risk": _("زيادة استهلاك المواد الخام بنسبة 22%")},
+        {"type": _("عمالة"), "risk": _("ارتفاع معدلات الغياب الأسبوع القادم")},
     ]
-    return render(request, 'ai_decision/predictive_analysis.html', {
-        'risks': future_risks,
-        'window_days': window_days,
-    })
+    return render(
+        request,
+        "ai_decision/predictive_analysis.html",
+        {"risks": future_risks, "window_days": window_days},
+    )
 
 
 # =========================================
@@ -58,19 +64,19 @@ def _classify_and_reply(query: str) -> Dict[str, Any]:
         rules.append("supplier_delay")
 
     if "discount_review" in rules:
-        rec = "⚠️ يُنصح بمراجعة أسباب الخصومات وتحديد حد أدنى للهامش."
+        rec = _("⚠️ يُنصح بمراجعة أسباب الخصومات وتحديد حد أدنى للهامش.")
     elif "expansion" in rules:
-        rec = "📈 خطوة التوسعة موفقة بشرط توافر الموارد وخطة تشغيل واضحة."
+        rec = _("📈 خطوة التوسعة موفقة بشرط توافر الموارد وخطة تشغيل واضحة.")
     elif "price_increase" in rules:
-        rec = "💹 رفع الأسعار ممكن، ادرس حساسية الطلب وحدّث سياسات الخصم."
+        rec = _("💹 رفع الأسعار ممكن، ادرس حساسية الطلب وحدّث سياسات الخصم.")
     elif "stock_risk" in rules:
-        rec = "📦 راقب المخزون وقم بإعادة الطلب مبكرًا لمنع نفاد الصنف."
+        rec = _("📦 راقب المخزون وقم بإعادة الطلب مبكرًا لمنع نفاد الصنف.")
     elif "hiring" in rules:
-        rec = "👥 التوظيف مناسب إذا كان العائد المتوقع يغطي التكلفة خلال 3–6 أشهر."
+        rec = _("👥 التوظيف مناسب إذا كان العائد المتوقع يغطي التكلفة خلال 3–6 أشهر.")
     elif "supplier_delay" in rules:
-        rec = "⏱️ فعّل تقييم المزودين وأضف غرامات تأخير في العقود."
+        rec = _("⏱️ فعّل تقييم المزودين وأضف غرامات تأخير في العقود.")
     else:
-        rec = "✅ القرار يبدو مناسبًا حسب المعطيات المتاحة."
+        rec = _("✅ القرار يبدو مناسبًا حسب المعطيات المتاحة.")
 
     # درجة ثقة تقريبية بناءً على عدد القواعد المتطابقة (للاستخدام المبدئي)
     confidence = min(0.9, 0.5 + 0.1 * len(rules))
@@ -98,11 +104,9 @@ def ai_decision_assistant_api(request):
             query = ""
 
     result = _classify_and_reply(query)
-    return JsonResponse({
-        "timestamp": timezone.now().isoformat(),
-        "query": query,
-        **result
-    })
+    return JsonResponse(
+        {"timestamp": timezone.now().isoformat(), "query": query, **result}
+    )
 
 
 # =========================================
@@ -113,26 +117,26 @@ def ai_visual_dashboard(request):
     يولّد بيانات عشوائية خفيفة لعرض تنبيهات/اقتراحات برسومات.
     يدعم seed اختياري عبر ?seed=123 لتثبيت النتائج أثناء الاختبار.
     """
-    try:
+    with suppress(Exception):
         seed = int(request.GET.get("seed", "0"))
-    except Exception:
-        seed = 0
-    if seed:
-        random.seed(seed)
+    if locals().get("seed"):
+        random.seed(seed)  # type: ignore[arg-type]
 
-    labels = ["مبيعات", "إنتاج", "صيانة", "موارد بشرية"]
+    labels = [_("مبيعات"), _("إنتاج"), _("صيانة"), _("موارد بشرية")]
     chart_data = {
         "labels": labels,
         "alerts": [random.randint(1, 10) for _ in labels],
         "suggestions": [random.randint(0, 5) for _ in labels],
     }
-    return render(request, 'ai_decision/visual_dashboard.html', {
-        "chart_data": chart_data
-    })
+    return render(
+        request,
+        "ai_decision/visual_dashboard.html",
+        {"chart_data": chart_data},
+    )
 
 
 # ================================
 # 4) لوحة التعلم (عرض بسيط حالياً)
 # ================================
 def ai_learning_dashboard(request):
-    return render(request, 'ai_decision/learning_dashboard.html')
+    return render(request, "ai_decision/learning_dashboard.html")

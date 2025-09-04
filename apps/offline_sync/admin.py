@@ -1,8 +1,9 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.offline_sync.models import *
+
+from apps.offline_sync.models import OfflineSyncLog
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(OfflineSyncLog)
-except admin.sites.AlreadyRegistered:
-    pass

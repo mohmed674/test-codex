@@ -1,15 +1,8 @@
 from rest_framework import serializers
-from .models import (
-    PLMDocument,
-    ProductTemplate,
-    ProductVersion,
-    LifecycleStage,
-    ProductLifecycle,
-    Bom,
-    BomLine,
-    ChangeRequest,
-    ChangeRequestItem,
-)
+
+from .models import (Bom, BomLine, ChangeRequest, ChangeRequestItem,
+                     LifecycleStage, PLMDocument, ProductLifecycle,
+                     ProductTemplate, ProductVersion)
 
 
 class PLMDocumentSerializer(serializers.ModelSerializer):
@@ -84,4 +77,3 @@ class ChangeRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChangeRequest
         fields = "__all__"
-

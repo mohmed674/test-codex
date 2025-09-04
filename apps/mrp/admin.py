@@ -1,20 +1,19 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.mrp.models import *
+
+from apps.mrp.models import (MaterialLine, MaterialPlanning, PlanningException,
+                             ProcurementSuggestion)
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(MaterialPlanning)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(MaterialLine)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProcurementSuggestion)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PlanningException)
-except admin.sites.AlreadyRegistered:
-    pass

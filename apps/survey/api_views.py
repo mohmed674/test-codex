@@ -1,11 +1,11 @@
 # survey/api_views.py
 
 from rest_framework import generics, status
-from rest_framework.response import Response
-from .models import Survey, SurveyResponse
-from .serializers import SurveySerializer, SurveyResponseSerializer
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IsSurveyAdminOrReadOnly
+from rest_framework.response import Response
+
+from .models import Survey
+from .serializers import SurveyResponseSerializer, SurveySerializer
 
 
 class SurveyListAPI(generics.ListAPIView):
@@ -22,4 +22,6 @@ class SubmitSurveyAPI(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         survey_response = serializer.save()
-        return Response({"message": "تم تقديم الاستبيان بنجاح."}, status=status.HTTP_201_CREATED)
+        return Response(
+            {"message": "تم تقديم الاستبيان بنجاح."}, status=status.HTTP_201_CREATED
+        )

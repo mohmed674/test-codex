@@ -1,15 +1,9 @@
 # apps/banking/admin.py — Final, professional registration (Sprint 3 / Banking)
 
 from django.contrib import admin
-from .models import (
-    BankProvider,
-    BankAccount,
-    Payment,
-    Transfer,
-    BankTransaction,
-    ReconciliationBatch,
-    WebhookEvent,
-)
+
+from .models import (BankAccount, BankProvider, BankTransaction, Payment,
+                     ReconciliationBatch, Transfer, WebhookEvent)
 
 
 @admin.register(BankProvider)
@@ -23,7 +17,14 @@ class BankProviderAdmin(admin.ModelAdmin):
 
 @admin.register(BankAccount)
 class BankAccountAdmin(admin.ModelAdmin):
-    list_display = ("name", "provider", "account_number", "currency", "is_default", "updated_at")
+    list_display = (
+        "name",
+        "provider",
+        "account_number",
+        "currency",
+        "is_default",
+        "updated_at",
+    )
     list_filter = ("provider", "currency", "is_default")
     search_fields = ("name", "account_number", "provider__name", "provider__code")
     ordering = ("provider", "name")
@@ -32,9 +33,25 @@ class BankAccountAdmin(admin.ModelAdmin):
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ("reference", "provider", "account", "direction", "method", "status", "amount", "currency", "created_at")
+    list_display = (
+        "reference",
+        "provider",
+        "account",
+        "direction",
+        "method",
+        "status",
+        "amount",
+        "currency",
+        "created_at",
+    )
     list_filter = ("status", "direction", "method", "currency", "provider")
-    search_fields = ("reference", "account__name", "provider__name", "provider__code", "external_id")
+    search_fields = (
+        "reference",
+        "account__name",
+        "provider__name",
+        "provider__code",
+        "external_id",
+    )
     ordering = ("-created_at",)
     date_hierarchy = "created_at"
     readonly_fields = ("created_at", "updated_at")
@@ -42,9 +59,24 @@ class PaymentAdmin(admin.ModelAdmin):
 
 @admin.register(Transfer)
 class TransferAdmin(admin.ModelAdmin):
-    list_display = ("reference", "provider", "source_account", "destination_account", "status", "amount", "currency", "scheduled_at", "executed_at")
+    list_display = (
+        "reference",
+        "provider",
+        "source_account",
+        "destination_account",
+        "status",
+        "amount",
+        "currency",
+        "scheduled_at",
+        "executed_at",
+    )
     list_filter = ("status", "currency", "provider")
-    search_fields = ("reference", "source_account__name", "destination_account__name", "provider__code")
+    search_fields = (
+        "reference",
+        "source_account__name",
+        "destination_account__name",
+        "provider__code",
+    )
     ordering = ("-created_at",)
     date_hierarchy = "created_at"
     readonly_fields = ("created_at", "updated_at")
@@ -52,7 +84,16 @@ class TransferAdmin(admin.ModelAdmin):
 
 @admin.register(BankTransaction)
 class BankTransactionAdmin(admin.ModelAdmin):
-    list_display = ("account", "type", "amount", "currency", "booked_at", "value_date", "external_id", "balance_after")
+    list_display = (
+        "account",
+        "type",
+        "amount",
+        "currency",
+        "booked_at",
+        "value_date",
+        "external_id",
+        "balance_after",
+    )
     list_filter = ("type", "currency", "account")
     search_fields = ("account__name", "description", "external_id")
     ordering = ("-booked_at",)
@@ -61,7 +102,15 @@ class BankTransactionAdmin(admin.ModelAdmin):
 
 @admin.register(ReconciliationBatch)
 class ReconciliationBatchAdmin(admin.ModelAdmin):
-    list_display = ("account", "provider", "status", "period_start", "period_end", "matched_count", "unmatched_count")
+    list_display = (
+        "account",
+        "provider",
+        "status",
+        "period_start",
+        "period_end",
+        "matched_count",
+        "unmatched_count",
+    )
     list_filter = ("status", "provider")
     search_fields = ("account__name", "provider__code", "notes")
     ordering = ("-created_at",)

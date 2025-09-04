@@ -1,20 +1,19 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.employees.models import *
+
+from apps.employees.models import (AttendanceRecord, Department, Employee,
+                                   MonthlyIncentive)
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Department)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Employee)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(AttendanceRecord)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(MonthlyIncentive)
-except admin.sites.AlreadyRegistered:
-    pass

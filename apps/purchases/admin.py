@@ -1,20 +1,19 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.purchases.models import *
+
+from apps.purchases.models import (PurchaseInvoice, PurchaseItem,
+                                   PurchaseOrder, PurchaseRequest)
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PurchaseRequest)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PurchaseItem)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PurchaseOrder)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(PurchaseInvoice)
-except admin.sites.AlreadyRegistered:
-    pass

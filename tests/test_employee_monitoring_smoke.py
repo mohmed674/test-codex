@@ -1,6 +1,7 @@
 import pytest
 from django.test import Client
 
+
 @pytest.mark.django_db
 def test_monitoring_dashboard_access():
     client = Client()

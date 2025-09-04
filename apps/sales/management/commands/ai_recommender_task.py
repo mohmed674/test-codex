@@ -1,13 +1,16 @@
 # ERP_CORE/sales/management/commands/ai_recommender_task.py
 
-from django.core.management.base import BaseCommand
-from apps.sales.models import Sale, ProductProfitAnalysis
-from apps.ai_decision.models import AIDecisionAlert
 from datetime import timedelta
+
+from django.core.management.base import BaseCommand
 from django.utils import timezone
 
+from apps.ai_decision.models import AIDecisionAlert
+from apps.sales.models import ProductProfitAnalysis
+
+
 class Command(BaseCommand):
-    help = 'Analyze sales data and recommend AI-based decisions.'
+    help = "Analyze sales data and recommend AI-based decisions."
 
     def handle(self, *args, **kwargs):
         today = timezone.now().date()
@@ -20,10 +23,10 @@ class Command(BaseCommand):
 
         for model in stale_models:
             AIDecisionAlert.objects.get_or_create(
-                section='sales',
-                alert_type='موديل راكد',
+                section="sales",
+                alert_type="موديل راكد",
                 message=f"الموديل {model.product.name} لم يتم بيعه منذ أكثر من {stale_days} يومًا.",
-                level='warning'
+                level="warning",
             )
 
         # ✅ 2. موديلات عالية الربحية → اقتراح بالترويج
@@ -31,10 +34,12 @@ class Command(BaseCommand):
 
         for model in profitable_models:
             AIDecisionAlert.objects.get_or_create(
-                section='sales',
-                alert_type='اقتراح ترويج',
+                section="sales",
+                alert_type="اقتراح ترويج",
                 message=f"الموديل {model.product.name} لديه هامش ربح {model.profit_margin * 100:.1f}%. يُفضل الترويج له.",
-                level='info'
+                level="info",
             )
 
-        self.stdout.write(self.style.SUCCESS("✅ تم تنفيذ تحليل AI للمبيعات وإرسال التنبيهات الذكية."))
+        self.stdout.write(
+            self.style.SUCCESS("✅ تم تنفيذ تحليل AI للمبيعات وإرسال التنبيهات الذكية.")
+        )

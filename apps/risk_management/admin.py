@@ -1,8 +1,9 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.risk_management.models import *
+
+from apps.risk_management.models import Risk
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Risk)
-except admin.sites.AlreadyRegistered:
-    pass

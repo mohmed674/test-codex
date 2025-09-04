@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils import timezone
 
+
 class OfflineSyncLog(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE)
     synced_at = models.DateTimeField(default=timezone.now)
     data_summary = models.TextField(blank=True, null=True)
 

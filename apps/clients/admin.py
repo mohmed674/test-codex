@@ -1,20 +1,18 @@
-from django.contrib import admin
-from apps.clients.models import *
+from contextlib import suppress
 
-# ✅ Auto-registered models
-try:
+from django.contrib import admin
+
+from apps.clients.models import Address, Client, Customer, Partner
+
+# ✅ Auto-registered models with safe context handling
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Partner)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Address)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Customer)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Client)
-except admin.sites.AlreadyRegistered:
-    pass

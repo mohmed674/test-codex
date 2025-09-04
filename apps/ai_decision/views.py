@@ -1,44 +1,53 @@
-# D:\ERP_CORE\ai_decision\views.py
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.utils import timezone
-from django.http import HttpResponse
-from django.template.loader import get_template, TemplateDoesNotExist
-from django.db.models import Sum, Count
-from django.utils.html import escape
+"""AI Decision views: dashboard, reports, exports, and copilot endpoints."""
 
-from datetime import timedelta, datetime
+from __future__ import annotations
+
 import csv
+from datetime import timedelta
 
-from .models import DecisionAnalysis, AIDecisionAlert
-from .forms import DecisionAnalysisForm
+from django.contrib import messages
+from django.db.models import Count, Sum
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template.loader import TemplateDoesNotExist, get_template
+from django.utils import timezone
+from django.utils.html import escape
+from django.utils.translation import gettext as _
 
-from apps.sales.models import SaleInvoice, SaleItem
-from apps.products.models import Product
 from apps.accounting.models import PurchaseInvoice
+from apps.sales.models import SaleInvoice, SaleItem
+
+from .forms import DecisionAnalysisForm
+from .models import DecisionAnalysis
+
+# ---- Helpers ---------------------------------------------------------------
 
 
 def _model_has_field(Model, field_name: str) -> bool:
+    """Return True if Model has a field named `field_name`."""
     try:
         return any(f.name == field_name for f in Model._meta.get_fields())
-    except Exception:
+    except Exception:  # pragma: no cover - very defensive
         return False
 
 
-def _sum(qs, field='total_amount'):
+def _sum(qs, field: str = "total_amount"):
+    """Aggregate sum on queryset field with safe fallback."""
     try:
-        return qs.aggregate(total=Sum(field)).get('total') or 0
-    except Exception:
+        return qs.aggregate(total=Sum(field)).get("total") or 0
+    except Exception:  # pragma: no cover
         return 0
 
 
-def _sales_date_field():
-    if _model_has_field(SaleInvoice, 'date_issued'):
-        return 'date_issued'
-    return 'date'
+def _sales_date_field() -> str:
+    """Prefer `date_issued` if exists, else fallback to `date`."""
+    if _model_has_field(SaleInvoice, "date_issued"):
+        return "date_issued"
+    return "date"
 
 
 def _build_ai_dashboard_context():
+    """Compose dashboard context (recent sales, top products, delays, insights)."""
     today = timezone.now()
     last_30 = today - timedelta(days=30)
 
@@ -48,47 +57,53 @@ def _build_ai_dashboard_context():
     recent_total_sales = (
         SaleInvoice.objects.filter(**date_filter)
         .aggregate(total=Sum("total_amount"))
-        .get("total") or 0
+        .get("total")
+        or 0
     )
 
     top_products = (
-        SaleItem.objects
-        .values("product__name")
+        SaleItem.objects.values("product__name")
         .annotate(qty=Sum("quantity"))
         .order_by("-qty")[:5]
     )
 
-    if _model_has_field(PurchaseInvoice, 'is_delayed'):
+    if _model_has_field(PurchaseInvoice, "is_delayed"):
         delayed_suppliers = (
-            PurchaseInvoice.objects
-            .filter(is_delayed=True)
+            PurchaseInvoice.objects.filter(is_delayed=True)
             .values("supplier__name")
             .annotate(delays=Count("id"))
             .order_by("-delays")[:5]
         )
     else:
         delayed_suppliers = (
-            PurchaseInvoice.objects
-            .values("supplier__name")
+            PurchaseInvoice.objects.values("supplier__name")
             .annotate(delays=Count("id"))
             .order_by("-delays")[:5]
         )
 
-    alerts = []
-    suggestions = []
+    alerts: list[str] = []
+    suggestions: list[str] = []
 
     if recent_total_sales == 0:
-        alerts.append("لا توجد مبيعات آخر 30 يوم.")
-        suggestions.append("تحقق من حالة نقاط البيع وقنوات الطلبات.")
+        alerts.append(_("لا توجد مبيعات آخر 30 يوم."))
+        suggestions.append(_("تحقق من حالة نقاط البيع وقنوات الطلبات."))
 
     if top_products:
         best = top_products[0]
-        suggestions.append(f"ركّز على توفير المخزون للمنتج الأعلى مبيعًا: {best['product__name']}.")
+        suggestions.append(
+            _("ركّز على توفير المخزون للمنتج الأعلى مبيعًا: {name}.").format(
+                name=best["product__name"]
+            )
+        )
 
     if delayed_suppliers:
         worst = delayed_suppliers[0]
-        alerts.append(f"تأخيرات متكررة من المورد: {worst['supplier__name']} ({worst['delays']} مرة).")
-        suggestions.append("راجع شروط التوريد أو أضف موردًا بديلًا.")
+        alerts.append(
+            _("تأخيرات متكررة من المورد: {supplier} ({count} مرة).").format(
+                supplier=worst["supplier__name"], count=worst["delays"]
+            )
+        )
+        suggestions.append(_("راجع شروط التوريد أو أضف موردًا بديلًا."))
 
     return {
         "total_sales": recent_total_sales,
@@ -100,82 +115,97 @@ def _build_ai_dashboard_context():
     }
 
 
+# ---- Views -----------------------------------------------------------------
+
+
 def analyze_decision(request):
     form = DecisionAnalysisForm(request.POST or None)
-    if request.method == 'POST' and form.is_valid():
+    if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, '✅ تم حفظ تحليل القرار بنجاح.')
-        return redirect('analyze_decision')
-    return render(request, 'ai_decision/analyze_decision.html', {'form': form})
+        messages.success(request, _("✅ تم حفظ تحليل القرار بنجاح."))
+        return redirect("analyze_decision")
+    return render(request, "ai_decision/analyze_decision.html", {"form": form})
 
 
 def decision_report(request):
-    decisions = DecisionAnalysis.objects.select_related('employee').order_by('-created_at')
-    return render(request, 'ai_decision/report.html', {'decisions': decisions})
+    decisions = DecisionAnalysis.objects.select_related("employee").order_by(
+        "-created_at"
+    )
+    return render(request, "ai_decision/report.html", {"decisions": decisions})
 
 
 def decision_history_view(request):
-    decisions = DecisionAnalysis.objects.select_related('employee').order_by('-created_at')
-    return render(request, 'ai_decision/decision_history.html', {'decisions': decisions})
+    decisions = DecisionAnalysis.objects.select_related("employee").order_by(
+        "-created_at"
+    )
+    return render(
+        request,
+        "ai_decision/decision_history.html",
+        {"decisions": decisions},
+    )
 
 
 def ai_report_pdf(request):
     ctx = _build_ai_dashboard_context()
     try:
-        html = get_template('ai_decision/ai_report_pdf.html').render(ctx)
+        html = get_template("ai_decision/ai_report_pdf.html").render(ctx)
     except TemplateDoesNotExist:
         alerts_html = "".join(f"<li>{escape(a)}</li>" for a in ctx["alerts"])
         sugg_html = "".join(f"<li>{escape(s)}</li>" for s in ctx["suggestions"])
-        html = f"""
-        <h1>تقرير الذكاء الاصطناعي</h1>
-        <p>تاريخ الإنشاء: {ctx['generated_at']:%Y-%m-%d %H:%M}</p>
-        <h3>ملخص</h3>
-        <ul>
-            <li>إجمالي مبيعات آخر 30 يوم: {ctx['total_sales']}</li>
-        </ul>
-        <h3>تنبيهات</h3><ul>{alerts_html or "<li>لا يوجد</li>"}</ul>
-        <h3>اقتراحات</h3><ul>{sugg_html or "<li>لا يوجد</li>"}</ul>
-        """
+        html = (
+            "<h1>تقرير الذكاء الاصطناعي</h1>"
+            f"<p>تاريخ الإنشاء: {ctx['generated_at']:%Y-%m-%d %H:%M}</p>"
+            "<h3>ملخص</h3>"
+            f"<ul><li>إجمالي مبيعات آخر 30 يوم: {ctx['total_sales']}</li></ul>"
+            f"<h3>تنبيهات</h3><ul>{alerts_html or '<li>لا يوجد</li>'}</ul>"
+            f"<h3>اقتراحات</h3><ul>{sugg_html or '<li>لا يوجد</li>'}</ul>"
+        )
 
     try:
-        from weasyprint import HTML
+        from weasyprint import HTML  # local import to avoid hard dependency
+
         pdf_file = HTML(string=html).write_pdf()
         resp = HttpResponse(pdf_file, content_type="application/pdf")
-        resp['Content-Disposition'] = 'attachment; filename="ai_report.pdf"'
+        resp["Content-Disposition"] = 'attachment; filename="ai_report.pdf"'
         return resp
     except Exception:
+        # Fallback: deliver HTML directly
         return HttpResponse(html)
 
 
 def ai_report_excel(request):
     ctx = _build_ai_dashboard_context()
     rows = []
-    rows += [{'نوع': 'تنبيه', 'النص': a} for a in ctx['alerts']]
-    rows += [{'نوع': 'اقتراح', 'النص': s} for s in ctx['suggestions']]
+    rows += [{"نوع": _("تنبيه"), "النص": a} for a in ctx["alerts"]]
+    rows += [{"نوع": _("اقتراح"), "النص": s} for s in ctx["suggestions"]]
 
     try:
         from core.utils.export_utils import export_to_excel  # type: ignore
-        return export_to_excel(rows, columns=['نوع', 'النص'], filename='ai_report.xlsx')
+
+        return export_to_excel(
+            rows,
+            columns=["نوع", "النص"],
+            filename="ai_report.xlsx",
+        )
     except Exception:
-        output = []
-        output.append("نوع,النص")
-        for r in rows:
-            output.append(f"{r['نوع']},{r['النص']}")
-        resp = HttpResponse("\n".join(output), content_type='text/csv; charset=utf-8')
-        resp['Content-Disposition'] = 'attachment; filename="ai_report.csv"'
+        # CSV fallback if Excel exporter unavailable
+        output = ["نوع,النص"]
+        output.extend(f"{r['نوع']},{r['النص']}" for r in rows)
+        resp = HttpResponse("\n".join(output), content_type="text/csv; charset=utf-8")
+        resp["Content-Disposition"] = 'attachment; filename="ai_report.csv"'
         return resp
 
 
 def ai_report_csv(request):
     ctx = _build_ai_dashboard_context()
-    response = HttpResponse(content_type='text/csv; charset=utf-8')
-    response['Content-Disposition'] = 'attachment; filename="ai_report.csv"'
+    response = HttpResponse(content_type="text/csv; charset=utf-8")
+    response["Content-Disposition"] = 'attachment; filename="ai_report.csv"'
     writer = csv.writer(response)
-    writer.writerow(['النوع', 'النص'])
-    for alert in ctx['alerts']:
-        writer.writerow(['تنبيه', alert])
-    for suggestion in ctx['suggestions']:
-        writer.writerow(['اقتراح', suggestion])
+    writer.writerow(["النوع", "النص"])
+    for alert in ctx["alerts"]:
+        writer.writerow(["تنبيه", alert])
+    for suggestion in ctx["suggestions"]:
+        writer.writerow(["اقتراح", suggestion])
     return response
 
 
@@ -199,7 +229,11 @@ def ai_sales_analysis_report(request):
         .annotate(total=Sum("total_amount"))
         .order_by(f"{date_field}__day")
     )
-    return render(request, "ai_decision/sales_analysis_report.html", {"series": series})
+    return render(
+        request,
+        "ai_decision/sales_analysis_report.html",
+        {"series": series},
+    )
 
 
 def copilot_view(request):
@@ -219,58 +253,66 @@ def copilot_query(request):
         total = (
             SaleInvoice.objects.filter(**filt)
             .aggregate(total=Sum("total_amount"))
-            .get("total") or 0
+            .get("total")
+            or 0
         )
-        reply = f"✅ مبيعات هذا الأسبوع: {total:.2f}"
+        reply = _("✅ مبيعات هذا الأسبوع: {amount}").format(amount=f"{total:.2f}")
 
     elif ("أكثر" in q and "مبيع" in q) or ("top" in q and "products" in q):
         top = (
-            SaleItem.objects
-            .values("product__name")
+            SaleItem.objects.values("product__name")
             .annotate(qty=Sum("quantity"))
             .order_by("-qty")[:5]
         )
         if top:
-            reply = "★ أكثر 5 منتجات مبيعاً:\n" + "\n".join(
-                [f"{p['product__name']} - {p['qty']} وحدة" for p in top]
-            )
+            header = _("★ أكثر 5 منتجات مبيعاً:")
+            lines = [
+                _("{name} - {qty} وحدة").format(
+                    name=p["product__name"],
+                    qty=p["qty"],
+                )
+                for p in top
+            ]
+            reply = f"{header}\n" + "\n".join(lines)
         else:
-            reply = "لا توجد بيانات حالياً."
+            reply = _("لا توجد بيانات حالياً.")
 
     elif ("مورد" in q and "تأخير" in q) or ("supplier" in q and "delay" in q):
-        if _model_has_field(PurchaseInvoice, 'is_delayed'):
+        if _model_has_field(PurchaseInvoice, "is_delayed"):
             delayed = (
-                PurchaseInvoice.objects
-                .filter(is_delayed=True)
+                PurchaseInvoice.objects.filter(is_delayed=True)
                 .values("supplier__name")
                 .annotate(delays=Count("id"))
                 .order_by("-delays")
             )
         else:
             delayed = (
-                PurchaseInvoice.objects
-                .values("supplier__name")
+                PurchaseInvoice.objects.values("supplier__name")
                 .annotate(delays=Count("id"))
                 .order_by("-delays")
             )
         if delayed:
-            reply = "🚤 الموردون المتأخرون:\n" + "\n".join(
-                [f"{s['supplier__name']} - {s['delays']} مرة" for s in delayed[:5]]
-            )
+            header = _("🚤 الموردون المتأخرون:")
+            lines = [
+                _("{name} - {count} مرة").format(
+                    name=s["supplier__name"],
+                    count=s["delays"],
+                )
+                for s in delayed[:5]
+            ]
+            reply = f"{header}\n" + "\n".join(lines)
         else:
-            reply = "لا يوجد تأخير من الموردين حالياً."
+            reply = _("لا يوجد تأخير من الموردين حالياً.")
 
     else:
-        reply = "❌ لم أفهم سؤالك. استخدم الأزرار أو اكتب صيغة واضحة."
+        reply = _("❌ لم أفهم سؤالك. استخدم الأزرار أو اكتب صيغة واضحة.")
 
     return HttpResponse(escape(reply))
 
 
-from django.shortcuts import render
-
 def index(request):
-    return render(request, 'ai_decision/index.html')
+    return render(request, "ai_decision/index.html")
 
 
 def app_home(request):
-    return render(request, 'apps/ai_decision/home.html', {'app': 'ai_decision'})
+    return render(request, "apps/ai_decision/home.html", {"app": "ai_decision"})

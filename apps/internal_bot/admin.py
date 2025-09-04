@@ -1,8 +1,9 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.internal_bot.models import *
+
+from apps.internal_bot.models import BotMessage
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(BotMessage)
-except admin.sites.AlreadyRegistered:
-    pass

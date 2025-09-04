@@ -1,22 +1,26 @@
-# D:\ERP_CORE\bi\views.py
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.core.exceptions import FieldError
-from django.template.exceptions import TemplateDoesNotExist
-from django.apps import apps
-from django.db.models import Sum, Count
-from django.utils import timezone
+# apps/bi/views.py
+import csv
 from datetime import timedelta
 from io import StringIO
-import csv
+from typing import Any, Optional, Tuple
+
+from django.apps import apps
+from django.core.exceptions import FieldError
+from django.db.models import Count, Sum
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.template.exceptions import TemplateDoesNotExist
+from django.utils import timezone
 
 # ==================== Helpers ====================
+
 
 def get_model(app_label: str, model_name: str):
     try:
         return apps.get_model(app_label, model_name)
     except Exception:
         return None
+
 
 def _html(title, body):
     return f"""<!doctype html>
@@ -27,13 +31,17 @@ def _html(title, body):
 {body}
 </body></html>"""
 
-def _safe_sum(qs, field='amount'):
+
+def _safe_sum(qs, field="amount"):
     try:
-        return qs.aggregate(total=Sum(field)).get('total') or 0
+        return qs.aggregate(total=Sum(field)).get("total") or 0
     except Exception:
         return 0
 
-def _first_ok_aggregation(model, date_fields, amount_fields):
+
+def _first_ok_aggregation(
+    model, date_fields, amount_fields
+) -> Tuple[list[dict], Optional[str]]:
     """
     يحاول عمل تجميع شهري باستخدام أول تركيبة حقول صحيحة.
     يرجع (queryset, month_key) أو ([], None) عند الفشل.
@@ -48,32 +56,36 @@ def _first_ok_aggregation(model, date_fields, amount_fields):
                     .annotate(total=Sum(a))
                     .order_by(f"{d}__month")
                 )
-                return qs, f"{d}__month"
+                return list(qs), f"{d}__month"
             except Exception:
                 continue
     return [], None
 
+
 # ==================== Exports ====================
 
+
 def export_bi_pdf(request):
-    SaleInvoice = get_model('sales', 'SaleInvoice') or get_model('sales', 'SaleOrder')
+    SaleInvoice = get_model("sales", "SaleInvoice") or get_model("sales", "SaleOrder")
     data, month_key = _first_ok_aggregation(
         SaleInvoice,
-        date_fields=['date_issued', 'date', 'created_at', 'issued_at'],
-        amount_fields=['total_amount', 'total', 'amount', 'grand_total'],
+        date_fields=["date_issued", "date", "created_at", "issued_at"],
+        amount_fields=["total_amount", "total", "amount", "grand_total"],
     )
-    context = {'data': data, 'date': timezone.now(), 'month_key': month_key or 'month'}
+    key = month_key or "month"
+    context = {"data": data, "date": timezone.now(), "month_key": key}
     try:
         from core.utils.export_utils import render_to_pdf  # type: ignore
-        return render_to_pdf('bi/pdf_template.html', context)
+
+        return render_to_pdf("bi/pdf_template.html", context)
     except Exception:
         try:
-            return render(request, 'bi/pdf_template.html', context)
+            return render(request, "bi/pdf_template.html", context)
         except TemplateDoesNotExist:
             rows = []
             for r in data:
                 rows.append(
-                    f"<tr><td>{r.get(month_key) if month_key else ''}</td><td>{r.get('total') or 0}</td></tr>"
+                    f"<tr><td>{r.get(key) or ''}</td><td>{r.get('total') or 0}</td></tr>"
                 )
             body = [
                 "<h1>تقرير BI (عرض HTML بديل)</h1>",
@@ -84,40 +96,45 @@ def export_bi_pdf(request):
             ]
             return HttpResponse(_html("تقرير BI", "".join(body)))
 
+
 def export_bi_excel(request):
-    SaleInvoice = get_model('sales', 'SaleInvoice') or get_model('sales', 'SaleOrder')
+    SaleInvoice = get_model("sales", "SaleInvoice") or get_model("sales", "SaleOrder")
     data, month_key = _first_ok_aggregation(
         SaleInvoice,
-        date_fields=['date_issued', 'date', 'created_at', 'issued_at'],
-        amount_fields=['total_amount', 'total', 'amount', 'grand_total'],
+        date_fields=["date_issued", "date", "created_at", "issued_at"],
+        amount_fields=["total_amount", "total", "amount", "grand_total"],
     )
+    key = month_key or "month"
     try:
         from core.utils.export_utils import export_to_excel  # type: ignore
-        values = [(r.get(month_key), r.get('total') or 0) for r in data]
-        columns = ['الشهر', 'إجمالي المبيعات']
-        return export_to_excel(values, columns, filename='bi_report.xlsx')
+
+        values = [(r.get(key), r.get("total") or 0) for r in data]
+        columns = ["الشهر", "إجمالي المبيعات"]
+        return export_to_excel(values, columns, filename="bi_report.xlsx")
     except Exception:
         output = StringIO()
         writer = csv.writer(output)
-        writer.writerow(['الشهر', 'إجمالي المبيعات'])
+        writer.writerow(["الشهر", "إجمالي المبيعات"])
         for r in data:
-            writer.writerow([r.get(month_key), r.get('total') or 0])
-        resp = HttpResponse(output.getvalue(), content_type='text/csv; charset=utf-8')
-        resp['Content-Disposition'] = 'attachment; filename="bi_report.csv"'
+            writer.writerow([r.get(key), r.get("total") or 0])
+        resp = HttpResponse(output.getvalue(), content_type="text/csv; charset=utf-8")
+        resp["Content-Disposition"] = 'attachment; filename="bi_report.csv"'
         return resp
+
 
 # ==================== Views ====================
 
+
 def dashboard(request):
-    SaleInvoice = get_model('sales', 'SaleInvoice') or get_model('sales', 'SaleOrder')
-    JournalEntry = get_model('accounting', 'JournalEntry')
-    Client = get_model('clients', 'Client')
+    SaleInvoice = get_model("sales", "SaleInvoice") or get_model("sales", "SaleOrder")
+    JournalEntry = get_model("accounting", "JournalEntry")
+    Client = get_model("clients", "Client")
 
     # مبيعات آخر 30 يوم (حاول مع عدة أسماء حقول) — كسر نظيف للحلقات
     recent_total = 0
     if SaleInvoice:
-        date_fields = ['date_issued', 'date', 'created_at', 'issued_at']
-        amount_fields = ['total_amount', 'total', 'amount', 'grand_total']
+        date_fields = ["date_issued", "date", "created_at", "issued_at"]
+        amount_fields = ["total_amount", "total", "amount", "grand_total"]
         found = False
         for d in date_fields:
             if found:
@@ -125,10 +142,12 @@ def dashboard(request):
             for a in amount_fields:
                 try:
                     recent_total = (
-                        SaleInvoice.objects
-                        .filter(**{f"{d}__gte": timezone.now() - timedelta(days=30)})
+                        SaleInvoice.objects.filter(
+                            **{f"{d}__gte": timezone.now() - timedelta(days=30)}
+                        )
                         .aggregate(total=Sum(a))
-                        .get('total') or 0
+                        .get("total")
+                        or 0
                     )
                     found = True
                     break
@@ -140,20 +159,24 @@ def dashboard(request):
     expense_val = 0
     if JournalEntry:
         try:
-            revenue_val = _safe_sum(JournalEntry.objects.filter(entry_type__iexact='credit'))
-            expense_val = _safe_sum(JournalEntry.objects.filter(entry_type__iexact='debit'))
+            revenue_val = _safe_sum(
+                JournalEntry.objects.filter(entry_type__iexact="credit")
+            )
+            expense_val = _safe_sum(
+                JournalEntry.objects.filter(entry_type__iexact="debit")
+            )
         except Exception:
             revenue_val = _safe_sum(JournalEntry.objects.filter(amount__gt=0))
             expense_val = abs(_safe_sum(JournalEntry.objects.filter(amount__lt=0)))
 
     ctx = {
-        'recent_sales': recent_total,
-        'client_count': Client.objects.count() if Client else 0,
-        'revenue': revenue_val,
-        'expense': expense_val,
+        "recent_sales": recent_total,
+        "client_count": Client.objects.count() if Client else 0,
+        "revenue": revenue_val,
+        "expense": expense_val,
     }
     try:
-        return render(request, 'bi/dashboard.html', ctx)
+        return render(request, "bi/dashboard.html", ctx)
     except TemplateDoesNotExist:
         body = f"""
 <h1 style="margin:0 0 12px">لوحة البيانات (عرض بديل)</h1>
@@ -167,18 +190,22 @@ def dashboard(request):
 """
         return HttpResponse(_html("لوحة BI", body))
 
+
 def sales_analytics(request):
-    SaleInvoice = get_model('sales', 'SaleInvoice') or get_model('sales', 'SaleOrder')
+    SaleInvoice = get_model("sales", "SaleInvoice") or get_model("sales", "SaleOrder")
     data, month_key = _first_ok_aggregation(
         SaleInvoice,
-        date_fields=['date_issued', 'date', 'created_at', 'issued_at'],
-        amount_fields=['total_amount', 'total', 'amount', 'grand_total'],
+        date_fields=["date_issued", "date", "created_at", "issued_at"],
+        amount_fields=["total_amount", "total", "amount", "grand_total"],
     )
+    key = month_key or "month"
     try:
-        return render(request, 'bi/sales_analytics.html', {'data': data, 'month_key': month_key})
+        return render(
+            request, "bi/sales_analytics.html", {"data": data, "month_key": month_key}
+        )
     except TemplateDoesNotExist:
         rows = "".join(
-            f"<tr><td>{r.get(month_key)}</td><td>{r.get('total') or 0}</td></tr>"
+            f"<tr><td>{r.get(key)}</td><td>{r.get('total') or 0}</td></tr>"
             for r in data
         )
         body = f"""
@@ -190,21 +217,21 @@ def sales_analytics(request):
 """
         return HttpResponse(_html("تحليلات المبيعات", body))
 
+
 def client_analytics(request):
-    Client = get_model('clients', 'Client')
+    Client = get_model("clients", "Client")
     data = []
     if Client:
         try:
             data = (
-                Client.objects
-                .values('source')
-                .annotate(count=Count('id'))
-                .order_by('-count')
+                Client.objects.values("source")
+                .annotate(count=Count("id"))
+                .order_by("-count")
             )
         except FieldError:
-            data = [{'source': 'all', 'count': Client.objects.count()}]
+            data = [{"source": "all", "count": Client.objects.count()}]
     try:
-        return render(request, 'bi/client_analytics.html', {'data': data})
+        return render(request, "bi/client_analytics.html", {"data": data})
     except TemplateDoesNotExist:
         rows = "".join(
             f"<tr><td>{(r.get('source') or 'غير محدد')}</td><td>{r.get('count') or 0}</td></tr>"
@@ -219,36 +246,41 @@ def client_analytics(request):
 """
         return HttpResponse(_html("تحليلات العملاء", body))
 
+
 def financial_analytics(request):
-    JournalEntry = get_model('accounting', 'JournalEntry')
+    JournalEntry = get_model("accounting", "JournalEntry")
     revenues = []
     expenses = []
     if JournalEntry:
         try:
             revenues = (
-                JournalEntry.objects.filter(entry_type__iexact='credit')
-                .values('date__month').annotate(total=Sum('amount'))
-                .order_by('date__month')
+                JournalEntry.objects.filter(entry_type__iexact="credit")
+                .values("date__month")
+                .annotate(total=Sum("amount"))
+                .order_by("date__month")
             )
             expenses = (
-                JournalEntry.objects.filter(entry_type__iexact='debit')
-                .values('date__month').annotate(total=Sum('amount'))
-                .order_by('date__month')
+                JournalEntry.objects.filter(entry_type__iexact="debit")
+                .values("date__month")
+                .annotate(total=Sum("amount"))
+                .order_by("date__month")
             )
         except Exception:
             revenues = (
                 JournalEntry.objects.filter(amount__gt=0)
-                .values('date__month').annotate(total=Sum('amount'))
-                .order_by('date__month')
+                .values("date__month")
+                .annotate(total=Sum("amount"))
+                .order_by("date__month")
             )
             expenses = (
                 JournalEntry.objects.filter(amount__lt=0)
-                .values('date__month').annotate(total=Sum('amount'))
-                .order_by('date__month')
+                .values("date__month")
+                .annotate(total=Sum("amount"))
+                .order_by("date__month")
             )
-    ctx = {'revenues': revenues, 'expenses': expenses}
+    ctx = {"revenues": revenues, "expenses": expenses}
     try:
-        return render(request, 'bi/financial_analytics.html', ctx)
+        return render(request, "bi/financial_analytics.html", ctx)
     except TemplateDoesNotExist:
         rev_rows = "".join(
             f"<tr><td>{r['date__month']}</td><td>{r['total'] or 0}</td></tr>"
@@ -273,20 +305,23 @@ def financial_analytics(request):
 """
         return HttpResponse(_html("التحليل المالي", body))
 
+
 def suggest_top_months(request):
-    SaleInvoice = get_model('sales', 'SaleInvoice') or get_model('sales', 'SaleOrder')
+    SaleInvoice = get_model("sales", "SaleInvoice") or get_model("sales", "SaleOrder")
     data, month_key = _first_ok_aggregation(
         SaleInvoice,
-        date_fields=['date_issued', 'date', 'created_at', 'issued_at'],
-        amount_fields=['total_amount', 'total', 'amount', 'grand_total'],
+        date_fields=["date_issued", "date", "created_at", "issued_at"],
+        amount_fields=["total_amount", "total", "amount", "grand_total"],
     )
     data = list(data)[:3] if data else []
+    key = month_key or "month"
     try:
-        return render(request, 'bi/suggestions.html', {'data': data, 'month_key': month_key})
+        return render(
+            request, "bi/suggestions.html", {"data": data, "month_key": month_key}
+        )
     except TemplateDoesNotExist:
         items = "".join(
-            f"<li>الشهر {r.get(month_key)}: {r.get('total') or 0}</li>"
-            for r in data
+            f"<li>الشهر {r.get(key)}: {r.get('total') or 0}</li>" for r in data
         )
         body = f"""
 <h1>أفضل الأشهر (بديل)</h1>
@@ -295,11 +330,9 @@ def suggest_top_months(request):
         return HttpResponse(_html("أفضل الأشهر", body))
 
 
-from django.shortcuts import render
-
 def index(request):
-    return render(request, 'bi/index.html')
+    return render(request, "bi/index.html")
 
 
 def app_home(request):
-    return render(request, 'apps/bi/home.html', {'app': 'bi'})
+    return render(request, "apps/bi/home.html", {"app": "bi"})

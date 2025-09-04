@@ -1,12 +1,15 @@
 from django import forms
-from .models import MonitoringRecord, Evaluation
+
+from .models import Evaluation, MonitoringRecord
+
 
 class MonitoringForm(forms.ModelForm):
     class Meta:
         model = MonitoringRecord
-        fields = ['employee', 'status', 'notes']
+        fields = ["employee", "status", "notes"]
+
 
 class EvaluationForm(forms.ModelForm):
     class Meta:
         model = Evaluation
-        fields = ['employee', 'score', 'date']
+        fields = ["employee", "score", "date"]

@@ -1,5 +1,5 @@
-from pathlib import Path
 import re
+from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
 
@@ -8,7 +8,11 @@ cfg = BASE / "config" / "urls.py"
 src = cfg.read_text(encoding="utf-8")
 
 # استبدل أي include('apps.suppliers.urls') بـ include('apps.suppliers.urls.main')
-src = re.sub(r"include\(\s*['\"]apps\.suppliers\.urls['\"]\s*\)", "include('apps.suppliers.urls.main')", src)
+src = re.sub(
+    r"include\(\s*['\"]apps\.suppliers\.urls['\"]\s*\)",
+    "include('apps.suppliers.urls.main')",
+    src,
+)
 
 # أنماط بديلة محتملة (tuple + namespace)
 src = re.sub(
@@ -51,4 +55,6 @@ main_p.write_text(m, encoding="utf-8")
 init_p = BASE / "apps" / "suppliers" / "urls" / "__init__.py"
 init_p.write_text("# empty to avoid circular imports\n", encoding="utf-8")
 
-print("✅ suppliers routing stabilized (config include → main, main.py has urlpatterns, __init__ empty)")
+print(
+    "✅ suppliers routing stabilized (config include → main, main.py has urlpatterns, __init__ empty)"
+)

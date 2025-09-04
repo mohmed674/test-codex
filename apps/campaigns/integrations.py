@@ -1,11 +1,12 @@
 from django.core.mail import send_mail
 
+
 def send_email(client, campaign):
     try:
         send_mail(
             subject=campaign.name,
             message=campaign.content,
-            from_email='noreply@erp.local',
+            from_email="noreply@erp.local",
             recipient_list=[client.email],
             fail_silently=False,
         )
@@ -13,6 +14,7 @@ def send_email(client, campaign):
     except Exception as e:
         print(f"[EMAIL ERROR] {e}")
         return False
+
 
 def send_sms(client, campaign):
     try:
@@ -22,6 +24,7 @@ def send_sms(client, campaign):
     except Exception as e:
         print(f"[SMS ERROR] {e}")
         return False
+
 
 def send_whatsapp(client, campaign):
     try:

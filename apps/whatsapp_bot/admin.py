@@ -1,8 +1,10 @@
+# apps/whatsapp_bot/admin.py
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.whatsapp_bot.models import *
+
+from apps.whatsapp_bot.models import WhatsAppOrder
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(WhatsAppOrder)
-except admin.sites.AlreadyRegistered:
-    pass

@@ -1,77 +1,122 @@
+# apps/internal_monitoring/models.py
+from __future__ import annotations
+
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
-
-class InventoryDiscrepancy(models.Model):
-    product = models.CharField(max_length=200, verbose_name="المنتج")
-    quantity_missing = models.IntegerField(verbose_name="الكمية المفقودة")
-    reported_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الإبلاغ")
-    resolved = models.BooleanField(default=False, verbose_name="تم الحل؟")
-
-    def __str__(self):
-        return f"عجز في المنتج {self.product} - {self.quantity_missing}"
-
-
-class SuspiciousActivity(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="المستخدم")
-    description = models.TextField(verbose_name="وصف النشاط المشبوه")
-    timestamp = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ النشاط")
-    resolved = models.BooleanField(default=False, verbose_name="تم الحل؟")
-
-    def __str__(self):
-        return f"نشاط مشبوه في {self.timestamp.strftime('%Y-%m-%d %H:%M')}"
-
-
-class RiskIncident(models.Model):
-    EVENT_CATEGORIES = [
-        ('Stock', 'مخزون'),
-        ('Finance', 'مالية'),
-        ('Sales', 'مبيعات'),
-        ('System', 'نظام'),
-    ]
-    RISK_LEVELS = [
-        ('LOW', 'منخفض'),
-        ('MEDIUM', 'متوسط'),
-        ('HIGH', 'مرتفع'),
-    ]
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="المستخدم")
-    category = models.CharField(max_length=50, choices=EVENT_CATEGORIES, verbose_name="فئة الحدث")
-    event_type = models.CharField(max_length=100, verbose_name="نوع الحدث")
-    risk_level = models.CharField(max_length=10, choices=RISK_LEVELS, verbose_name="مستوى المخاطر")
-    notes = models.TextField(blank=True, verbose_name="ملاحظات")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الإنشاء")
-
-    def __str__(self):
-        username = self.user.username if self.user else "غير معروف"
-        return f"[{self.created_at.strftime('%Y-%m-%d %H:%M')}] {username} - {self.event_type} ({self.get_risk_level_display()})"
-
-
-class ReportLog(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="المستخدم")
-    action = models.CharField(max_length=200, verbose_name="الإجراء أو البلاغ")
-    details = models.TextField(blank=True, null=True, verbose_name="تفاصيل")
-    timestamp = models.DateTimeField(auto_now_add=True, verbose_name="التاريخ والوقت")
-    is_resolved = models.BooleanField(default=False, verbose_name="تم الحل؟")
-    resolution_notes = models.TextField(blank=True, null=True, verbose_name="ملاحظات الحل")
-
-    def __str__(self):
-        username = self.user.username if self.user else "غير معروف"
-        return f"{username} - {self.action} - {self.timestamp.strftime('%Y-%m-%d %H:%M')}"
+from django.utils import timezone
 
 
 class DisciplinaryAction(models.Model):
-    ACTION_TYPES = [
-        ('warning', 'إنذار'),
-        ('suspension', 'إيقاف'),
-        ('deduction', 'خصم'),
-        ('termination', 'فصل'),
-    ]
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="المستخدم")
-    action_type = models.CharField(max_length=20, choices=ACTION_TYPES, verbose_name="نوع الإجراء")
-    reason = models.TextField(verbose_name="السبب")
-    taken_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='actions_taken', verbose_name="تم بواسطة")
-    action_date = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ التنفيذ")
-    notes = models.TextField(blank=True, null=True, verbose_name="ملاحظات إضافية")
+    """إجراءات تأديبية مرتبطة بمستخدم."""
 
-    def __str__(self):
-        username = self.user.username if self.user else "غير معروف"
-        return f"{username} - {self.get_action_type_display()} - {self.action_date.strftime('%Y-%m-%d')}"
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="disciplinary_actions",
+        verbose_name="المستخدم",
+    )
+    taken_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="actions_taken_internal_monitoring",
+        verbose_name="تم بواسطة",
+    )
+    reason = models.TextField(verbose_name="السبب")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الإنشاء")
+
+    class Meta:
+        verbose_name = "إجراء تأديبي"
+        verbose_name_plural = "إجراءات تأديبية"
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return f"{self.user} - {self.reason[:30]}"
+
+
+class ReportLog(models.Model):
+    """سجل تقارير مرتبطة بمستخدم."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="internal_report_logs",
+        verbose_name="المستخدم",
+    )
+    message = models.CharField(max_length=255, verbose_name="الرسالة")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الإنشاء")
+
+    class Meta:
+        verbose_name = "سجل تقرير"
+        verbose_name_plural = "سجلات تقارير"
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return f"{self.user} - {self.message}"
+
+
+class RiskIncident(models.Model):
+    """حوادث مرتبطة بالمخاطر."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="risk_incidents",
+        verbose_name="المستخدم",
+    )
+    description = models.TextField(verbose_name="الوصف")
+    severity = models.CharField(
+        max_length=20,
+        choices=[("low", "منخفض"), ("medium", "متوسط"), ("high", "مرتفع")],
+        default="low",
+        verbose_name="الخطورة",
+    )
+    reported_at = models.DateTimeField(default=timezone.now, verbose_name="تاريخ التبليغ")
+
+    class Meta:
+        verbose_name = "حادث مخاطر"
+        verbose_name_plural = "حوادث مخاطر"
+        ordering = ["-reported_at"]
+
+    def __str__(self) -> str:
+        return f"{self.severity.upper()} - {self.description[:30]}"
+
+
+class SuspiciousActivity(models.Model):
+    """نشاط مشبوه مرتبط بمستخدم."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="suspicious_activities",
+        verbose_name="المستخدم",
+    )
+    activity_type = models.CharField(max_length=100, verbose_name="نوع النشاط")
+    details = models.TextField(blank=True, null=True, verbose_name="تفاصيل")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الإنشاء")
+
+    class Meta:
+        verbose_name = "نشاط مشبوه"
+        verbose_name_plural = "أنشطة مشبوهة"
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return f"{self.user} - {self.activity_type}"
+
+
+class InventoryDiscrepancy(models.Model):
+    """الفروقات في المخزون."""
+
+    product_name = models.CharField(max_length=255, verbose_name="اسم المنتج")
+    expected_qty = models.IntegerField(verbose_name="الكمية المتوقعة")
+    actual_qty = models.IntegerField(verbose_name="الكمية الفعلية")
+    detected_at = models.DateTimeField(default=timezone.now, verbose_name="تاريخ الاكتشاف")
+
+    class Meta:
+        verbose_name = "فرق جرد"
+        verbose_name_plural = "فروق جرد"
+        ordering = ["-detected_at"]
+
+    def __str__(self) -> str:
+        return f"{self.product_name}: {self.expected_qty} vs {self.actual_qty}"

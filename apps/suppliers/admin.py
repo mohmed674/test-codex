@@ -1,8 +1,10 @@
+# apps/suppliers/admin.py
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.suppliers.models import *
+
+from apps.suppliers.models import Supplier
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Supplier)
-except admin.sites.AlreadyRegistered:
-    pass

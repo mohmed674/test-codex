@@ -1,104 +1,144 @@
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
-from django.utils.timezone import datetime
-from django.http import HttpResponse
-from weasyprint import HTML
-from django.template.loader import get_template
+# apps/attendance/attendance_reports.py
+# -*- coding: utf-8 -*-
 
-from core.utils import export_to_excel
+from __future__ import annotations
+
+from typing import Any, Dict, List, Tuple, cast
+
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
+from django.template.loader import get_template
+from django.utils import timezone
+from weasyprint import HTML  # type: ignore[import]
+
 from apps.employees.models import Employee
+from core.utils import export_to_excel
+
 from .models import Attendance
 
 
-def attendance_report(request):
-    employees = Employee.objects.all()
-    records = Attendance.objects.select_related('employee', 'employee__department')
+def _apply_filters(request: HttpRequest) -> Tuple[Any, Dict[str, Any]]:
+    qs = Attendance.objects.select_related("employee", "employee__department")
 
-    # 🔍 فلترة حسب الطلب
-    employee_id = request.GET.get('employee')
-    department_id = request.GET.get('department')
-    date_from = request.GET.get('from')
-    date_to = request.GET.get('to')
+    employee_id = (request.GET.get("employee") or "").strip()
+    department_id = (request.GET.get("department") or "").strip()
+    date_from = (request.GET.get("from") or "").strip()
+    date_to = (request.GET.get("to") or "").strip()
 
     if employee_id:
-        records = records.filter(employee_id=employee_id)
+        qs = qs.filter(employee_id=employee_id)
     if department_id:
-        records = records.filter(employee__department_id=department_id)
+        qs = qs.filter(employee__department_id=department_id)
     if date_from and date_to:
-        records = records.filter(date__range=[date_from, date_to])
+        qs = qs.filter(date__range=[date_from, date_to])
 
-    # 📊 حساب إحصائيات
-    stats = {
-        "total": records.count(),
-        "present": records.filter(status='present').count(),
-        "absent": records.filter(status='absent').count(),
-        "late": records.filter(status='late').count(),
+    filters = {
+        "employee": employee_id or None,
+        "department": department_id or None,
+        "from": date_from or None,
+        "to": date_to or None,
     }
+    return qs, filters
+
+
+def _stats(qs: Any) -> Dict[str, int]:
+    return {
+        "total": qs.count() if qs else 0,
+        "present": qs.filter(status="present").count() if qs else 0,
+        "absent": qs.filter(status="absent").count() if qs else 0,
+        "late": qs.filter(status="late").count() if qs else 0,
+    }
+
+
+def _fmt_date(d: Any) -> str:
+    if not d:
+        return "-"
+    try:
+        return d.strftime("%Y-%m-%d")
+    except Exception:
+        try:
+            return timezone.localtime(d).date().strftime("%Y-%m-%d")
+        except Exception:
+            return str(d)
+
+
+def _fmt_time(t: Any) -> str:
+    if not t:
+        return ""
+    try:
+        return t.strftime("%H:%M")
+    except Exception:
+        return ""
+
+
+def _pick_time_field(rec: Attendance) -> Any:
+    for name in ("time", "check_in", "timestamp", "entered_at"):
+        if hasattr(rec, name):
+            return getattr(rec, name)
+    return None
+
+
+def attendance_report(request: HttpRequest) -> HttpResponse:
+    records, filters = _apply_filters(request)
+    records = records.order_by("-date")
 
     context = {
-        'records': records.order_by('-date'),
-        'employees': employees,
-        'stats': stats,
-        'filters': {
-            'employee': employee_id,
-            'department': department_id,
-            'from': date_from,
-            'to': date_to,
-        }
+        "records": records,
+        "employees": Employee.objects.all(),
+        "stats": _stats(records),
+        "filters": filters,
     }
-    return render(request, 'attendance/attendance_report.html', context)
+    return render(request, "attendance/attendance_report.html", context)
 
 
-# ✅ PDF Export
-def attendance_report_pdf(request):
-    employees = Employee.objects.all()
-    records = Attendance.objects.select_related('employee', 'employee__department')
-
-    employee_id = request.GET.get('employee')
-    department_id = request.GET.get('department')
-    date_from = request.GET.get('from')
-    date_to = request.GET.get('to')
-
-    if employee_id:
-        records = records.filter(employee_id=employee_id)
-    if department_id:
-        records = records.filter(employee__department_id=department_id)
-    if date_from and date_to:
-        records = records.filter(date__range=[date_from, date_to])
-
-    template = get_template('attendance/attendance_report_pdf.html')
-    html = template.render({'records': records})
-    pdf_file = HTML(string=html).write_pdf()
-
-    response = HttpResponse(pdf_file, content_type='application/pdf')
-    response['Content-Disposition'] = 'filename="attendance_report.pdf"'
+def attendance_report_pdf(request: HttpRequest) -> HttpResponse:
+    records, filters = _apply_filters(request)
+    template = get_template("attendance/attendance_report_pdf.html")
+    html = template.render(
+        {
+            "records": records,
+            "stats": _stats(records),
+            "filters": filters,
+        }
+    )
+    pdf_bytes: bytes = cast(bytes, HTML(string=html).write_pdf())
+    response = HttpResponse(pdf_bytes, content_type="application/pdf")
+    response["Content-Disposition"] = 'attachment; filename="attendance_report.pdf"'
     return response
 
 
-# ✅ Excel Export
-def attendance_report_excel(request):
-    records = Attendance.objects.select_related('employee', 'employee__department')
+def attendance_report_excel(request: HttpRequest) -> HttpResponse:
+    records, _ = _apply_filters(request)
 
-    employee_id = request.GET.get('employee')
-    department_id = request.GET.get('department')
-    date_from = request.GET.get('from')
-    date_to = request.GET.get('to')
-
-    if employee_id:
-        records = records.filter(employee_id=employee_id)
-    if department_id:
-        records = records.filter(employee__department_id=department_id)
-    if date_from and date_to:
-        records = records.filter(date__range=[date_from, date_to])
-
-    data = []
+    data: List[Dict[str, Any]] = []
     for r in records:
-        data.append({
-            'الموظف': r.employee.name,
-            'القسم': r.employee.department.name,
-            'التاريخ': r.date.strftime('%Y-%m-%d'),
-            'الحالة': r.get_status_display(),
-            'الوقت': r.time.strftime('%H:%M') if r.time else '',
-        })
+        # اسم الموظف
+        employee_name = ""
+        if getattr(r, "employee", None):
+            employee_name = getattr(r.employee, "name", "") or ""
 
-    return export_to_excel(data, filename='attendance_report.xlsx')
+        # اسم القسم
+        dept_name = ""
+        if getattr(r, "employee", None) and getattr(r.employee, "department", None):
+            dept_name = getattr(r.employee.department, "name", "") or ""
+
+        # الحالة
+        status_disp = getattr(r, "status", "-")
+        getter = getattr(r, "get_status_display", None)
+        if callable(getter):
+            try:
+                status_disp = getter()
+            except Exception:
+                status_disp = getattr(r, "status", "-")
+
+        data.append(
+            {
+                "الموظف": employee_name,
+                "القسم": dept_name,
+                "التاريخ": _fmt_date(getattr(r, "date", None)),
+                "الحالة": status_disp,
+                "الوقت": _fmt_time(_pick_time_field(r)),
+            }
+        )
+
+    return export_to_excel(data, filename="attendance_report.xlsx")

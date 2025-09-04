@@ -1,12 +1,13 @@
+# apps/warehouse_map/admin.py
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.warehouse_map.models import *
+
+from apps.warehouse_map.models import Location, Zone
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Zone)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Location)
-except admin.sites.AlreadyRegistered:
-    pass

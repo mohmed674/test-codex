@@ -1,40 +1,37 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.production.models import *
+
+from apps.production.models import (BillOfMaterials, FinalProductOutput,
+                                    MaterialConsumption, ProductionLog,
+                                    ProductionOrder, ProductionScanQR,
+                                    ProductionStage, ProductVersion,
+                                    QualityCheck)
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductionOrder)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductionStage)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(MaterialConsumption)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(FinalProductOutput)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductionScanQR)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(BillOfMaterials)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(QualityCheck)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductVersion)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(ProductionLog)
-except admin.sites.AlreadyRegistered:
-    pass

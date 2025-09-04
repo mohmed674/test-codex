@@ -1,12 +1,12 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.products.models import *
+
+from apps.products.models import FinishedProduct, Product
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Product)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(FinishedProduct)
-except admin.sites.AlreadyRegistered:
-    pass

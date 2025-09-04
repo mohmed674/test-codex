@@ -1,12 +1,12 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.knowledge_center.models import *
+
+from apps.knowledge_center.models import Article, Category
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Category)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Article)
-except admin.sites.AlreadyRegistered:
-    pass

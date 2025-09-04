@@ -57,7 +57,9 @@ def test_user_model_crud():
 
 def test_test_database_naming():
     engine = settings.DATABASES["default"]["ENGINE"]
-    test_name = settings.DATABASES["default"].get("TEST", {}).get("NAME") or settings.DATABASES["default"].get("NAME")
+    test_name = settings.DATABASES["default"].get("TEST", {}).get(
+        "NAME"
+    ) or settings.DATABASES["default"].get("NAME")
     if "sqlite3" not in engine:
         assert str(test_name).startswith("test_")
 

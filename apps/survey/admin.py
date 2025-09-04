@@ -1,24 +1,23 @@
+# apps/survey/admin.py
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.survey.models import *
+
+from apps.survey.models import (Answer, Survey, SurveyChoice, SurveyQuestion,
+                                SurveyResponse)
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Survey)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(SurveyQuestion)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(SurveyChoice)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(SurveyResponse)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Answer)
-except admin.sites.AlreadyRegistered:
-    pass

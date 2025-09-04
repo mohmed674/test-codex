@@ -1,5 +1,7 @@
 from django.db import models
+
 from apps.employees.models import Employee
+
 
 class Evaluation(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
@@ -11,7 +13,10 @@ class Evaluation(models.Model):
     notes = models.TextField(blank=True)
 
     def calculate_final_score(self):
-        self.final_score = round((self.attendance_score + self.productivity_score + self.behavior_score) / 3, 2)
+        self.final_score = round(
+            (self.attendance_score + self.productivity_score + self.behavior_score) / 3,
+            2,
+        )
         return self.final_score
 
     def save(self, *args, **kwargs):

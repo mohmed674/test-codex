@@ -1,0 +1,21 @@
+[flake8]
+exclude =
+    .venv,
+    .venv/*,
+    venv,
+    venv/*,
+    env,
+    env/*,
+    **/site-packages/**,
+    **/Lib/site-packages/**,
+    **/Scripts/**,
+    build,
+    dist,
+    */migrations/*,
+    __pycache__
+max-line-length = 120
+extend-ignore = E203,W503
+per-file-ignores =
+    */__init__.py:F401,W391
+    apps/**/admin.py:F403,F405
+    conftest.py:E402

@@ -1,8 +1,9 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.document_center.models import *
+
+from apps.document_center.models import Document
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Document)
-except admin.sites.AlreadyRegistered:
-    pass

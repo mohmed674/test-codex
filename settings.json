@@ -1,0 +1,14 @@
+// .vscode/settings.json
+{
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.useLibraryCodeForTypes": true,
+    "python.analysis.extraPaths": [
+        "./apps"
+    ],
+    "python.defaultInterpreterPath": ".venv/bin/python", // غيّر المسار حسب نظامك
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.formatting.provider": "black",
+    "python.testing.pytestEnabled": true
+}

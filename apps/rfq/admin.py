@@ -1,20 +1,18 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.rfq.models import *
+
+from apps.rfq.models import RFQ, RFQItem, RFQResponse, RFQResponseItem
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(RFQ)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(RFQItem)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(RFQResponse)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(RFQResponseItem)
-except admin.sites.AlreadyRegistered:
-    pass

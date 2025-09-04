@@ -1,5 +1,5 @@
-from pathlib import Path
 import re
+from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
 pkg_dir = BASE / "apps" / "suppliers" / "urls"
@@ -14,8 +14,16 @@ pkg_dir.mkdir(parents=True, exist_ok=True)
 if file_module.exists():
     src = file_module.read_text(encoding="utf-8")
     # تأمين include إلى المسار الصحيح داخل الحزمة
-    src_fixed = re.sub(r"include\(['\"]suppliers\.api['\"]\)", "include('apps.suppliers.urls.api')", src)
-    src_fixed = re.sub(r"include\(['\"]apps\.suppliers\.urls\.api['\"]\)", "include('apps.suppliers.urls.api')", src_fixed)
+    src_fixed = re.sub(
+        r"include\(['\"]suppliers\.api['\"]\)",
+        "include('apps.suppliers.urls.api')",
+        src,
+    )
+    src_fixed = re.sub(
+        r"include\(['\"]apps\.suppliers\.urls\.api['\"]\)",
+        "include('apps.suppliers.urls.api')",
+        src_fixed,
+    )
     main_py.write_text(src_fixed, encoding="utf-8")
 
 # __init__.py ليصدّر urlpatterns من main.py

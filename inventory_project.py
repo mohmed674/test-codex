@@ -1,17 +1,25 @@
-import os, sys, json, django, datetime
+# inventory_project.py
+import datetime
+import json
+import os
+import sys
 from pathlib import Path
+from typing import Any, Dict, List
 
-BASE_DIR = Path(__file__).resolve().parent
-sys.path.append(str(BASE_DIR))
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
-django.setup()
-
+import django
 from django.apps import apps as dj_apps
 from django.contrib import admin
 from django.urls import get_resolver
 
-def find_local_apps():
-    found = {}
+BASE_DIR = Path(__file__).resolve().parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.append(str(BASE_DIR))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+django.setup()
+
+
+def find_local_apps() -> Dict[str, str]:
+    found: Dict[str, str] = {}
     # core بجانب manage.py
     core_dir = BASE_DIR / "core"
     if (core_dir / "apps.py").exists() and (core_dir / "models.py").exists():
@@ -21,12 +29,17 @@ def find_local_apps():
     apps_root = BASE_DIR / "apps"
     if apps_root.exists():
         for child in apps_root.iterdir():
-            if child.is_dir() and (child / "apps.py").exists() and (child / "models.py").exists():
+            if (
+                child.is_dir()
+                and (child / "apps.py").exists()
+                and (child / "models.py").exists()
+            ):
                 found[child.name] = f"apps.{child.name}"
     return found
 
-def snapshot():
-    data = {
+
+def snapshot() -> Dict[str, Any]:
+    data: Dict[str, Any] = {
         "project_root": str(BASE_DIR),
         "settings_module": "config.settings",
         "scanned_at": datetime.datetime.utcnow().isoformat(),
@@ -42,9 +55,11 @@ def snapshot():
     # التطبيقات + الموديلات
     for app_config in dj_apps.get_app_configs():
         label = app_config.label
-        if label not in local_apps and not app_config.name.startswith(("apps.", "core")):
+        if label not in local_apps and not app_config.name.startswith(
+            ("apps.", "core")
+        ):
             continue
-        models = [m.__name__ for m in app_config.get_models()]
+        models: List[str] = [m.__name__ for m in app_config.get_models()]
         data["apps"][label] = {"module": app_config.name, "models": models}
 
     # المسجل في الأدمن
@@ -63,7 +78,9 @@ def snapshot():
     try:
         for pat in resolver.url_patterns:
             try:
-                data["urls"].append(f"{pat.pattern} -> {pat.name or 'NoName'}")
+                pattern_str = getattr(pat, "pattern", "")
+                name_str = getattr(pat, "name", "NoName")
+                data["urls"].append(f"{pattern_str} -> {name_str}")
             except Exception:
                 pass
     except Exception:
@@ -72,16 +89,16 @@ def snapshot():
     # القوالب
     for label, info in data["apps"].items():
         if info["module"] == "core":
-            # ✅ التصحيح: مسار core الصحيح هو core/templates (بدون /core إضافية)
+            # ✅ التصحيح: مسار core الصحيح هو core/templates
             tdir = BASE_DIR / "core" / "templates"
         else:
-            parts = info["module"].split(".")
+            parts = str(info["module"]).split(".")
             if len(parts) == 2 and parts[0] == "apps":
                 tdir = BASE_DIR / "apps" / parts[1] / "templates" / parts[1]
             else:
                 tdir = BASE_DIR / "templates" / label
         exists = tdir.exists()
-        files = []
+        files: List[str] = []
         if exists:
             for p in tdir.rglob("*.html"):
                 try:
@@ -91,6 +108,7 @@ def snapshot():
         data["templates_presence"][label] = {"dir_exists": exists, "files": files}
 
     return data
+
 
 inventory = snapshot()
 
@@ -112,7 +130,7 @@ with open(BASE_DIR / "project_inventory.json", "w", encoding="utf-8") as f:
 
 # project_state
 state_path = BASE_DIR / "project_state.json"
-state = {
+state: Dict[str, Any] = {
     "last_script": "inventory_project.py",
     "next_script": None,
     "status": "inventory_ready",
@@ -120,7 +138,8 @@ state = {
 }
 if state_path.exists():
     try:
-        prev = json.load(open(state_path, encoding="utf-8"))
+        with open(state_path, encoding="utf-8") as fh:
+            prev = json.load(fh)
         prev.update(state)
         state = prev
     except Exception:
@@ -129,4 +148,6 @@ if state_path.exists():
 with open(state_path, "w", encoding="utf-8") as f:
     json.dump(state, f, indent=2, ensure_ascii=False)
 
-print("✅ inventory_project: snapshots written (project_meta.json, project_inventory.json)")
+print(
+    "✅ inventory_project: snapshots written (project_meta.json, project_inventory.json)"
+)

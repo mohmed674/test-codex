@@ -1,29 +1,45 @@
 # core/utils/launcher.py
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Iterable, List, Optional, Dict, Set, Tuple
 import re
+from contextlib import suppress
+from dataclasses import dataclass
+from typing import Dict, Iterable, List, Optional, Set, Tuple
 
-from django.urls import get_resolver, reverse, NoReverseMatch
-from django.urls.resolvers import URLResolver, URLPattern
+from django.urls import NoReverseMatch, get_resolver, reverse
+from django.urls.resolvers import URLPattern, URLResolver
 from django.utils import translation
 
 # أسماء صفحات البداية المحتملة داخل كل تطبيق
 CANDIDATE_NAMES: Tuple[str, ...] = (
-    "overview", "dashboard", "home", "index",
-    "main", "main_dashboard", "list", "launcher"
+    "overview",
+    "dashboard",
+    "home",
+    "index",
+    "main",
+    "main_dashboard",
+    "list",
+    "launcher",
 )
 
 # مسميات/نيمسبيسات يجب تجاهلها + أنماط URLs غير تطبيقات (favicon/API العامة..)
 SKIP_KEYS: Set[str] = {
-    "admin", "i18n", "static", "media",
+    "admin",
+    "i18n",
+    "static",
+    "media",
     # تطبيقات ليست من منظومتك
-    "auth", "django_celery_beat", "django_celery_results", "suppliers_api",
+    "auth",
+    "django_celery_beat",
+    "django_celery_results",
+    "suppliers_api",
 }
 SKIP_URL_ENDS: Tuple[str, ...] = (".ico",)
 SKIP_URL_PREFIXES: Tuple[str, ...] = (
-    "/api/", "/auth/", "/django_celery_beat/", "/django_celery_results/",
+    "/api/",
+    "/auth/",
+    "/django_celery_beat/",
+    "/django_celery_results/",
 )
 
 # أيقونات افتراضية (Font Awesome)
@@ -89,7 +105,6 @@ ICON_MAP: Dict[str, str] = {
     "theme_manager": "fas fa-palette",
     "dark_mode": "fas fa-moon",
     "colorfield": "fas fa-fill-drip",
-
     # مفاتيح أساسية
     "hr": "fas fa-user-group",
     "plm": "fas fa-diagram-project",
@@ -98,57 +113,128 @@ ICON_MAP: Dict[str, str] = {
 # تسميات ثابتة باللغتين
 LABELS: Dict[str, Dict[str, str]] = {
     "en": {
-        "ai": "AI", "ai_decision": "Copilot", "api_gateway": "API Gateway",
-        "asset_lifecycle": "Asset Lifecycle", "attendance": "Attendance",
-        "backup_center": "Backup Center", "bi": "BI", "campaigns": "Campaigns",
-        "client_portal": "Client Portal", "clients": "Customers",
-        "communication": "Communications", "contracts": "Contracts",
-        "core": "Core", "crm": "CRM", "dashboard_center": "Dashboards",
-        "departments": "Departments", "discipline": "Discipline",
-        "document_center": "Document Center", "employees": "HR",
-        "employee_monitoring": "Employee Monitoring", "evaluation": "Evaluation",
-        "expenses": "Expenses", "internal_bot": "Internal Bot",
-        "internal_monitoring": "Internal Monitoring", "inventory": "Inventory",
-        "knowledge_center": "Knowledge Center", "legal": "Legal",
-        "maintenance": "Maintenance", "mobile": "Mobile App",
-        "monitoring": "Monitoring", "mrp": "MRP", "notifications": "Notifications",
-        "offline_sync": "Offline Sync", "pattern": "Pattern", "payroll": "Payroll",
-        "pos": "POS", "products": "Products", "production": "Production",
-        "projects": "Projects", "purchases": "Purchases", "recruitment": "Recruitment",
-        "rfq": "RFQs", "risk_management": "Risk Management", "sales": "Sales",
-        "shipping": "Shipping", "suppliers": "Suppliers", "support": "Support",
-        "survey": "Survey", "tracking": "Tracking", "vendor_portal": "Vendor Portal",
-        "voice_commands": "Voice", "warehouse_map": "Warehouse Map",
-        "whatsapp_bot": "WhatsApp", "work_regulations": "Work Regulations",
-        "workflow": "Workflow", "accounting": "Accounting",
-        "demand_forecasting": "Demand Forecasting", "media": "Media",
+        "ai": "AI",
+        "ai_decision": "Copilot",
+        "api_gateway": "API Gateway",
+        "asset_lifecycle": "Asset Lifecycle",
+        "attendance": "Attendance",
+        "backup_center": "Backup Center",
+        "bi": "BI",
+        "campaigns": "Campaigns",
+        "client_portal": "Client Portal",
+        "clients": "Customers",
+        "communication": "Communications",
+        "contracts": "Contracts",
+        "core": "Core",
+        "crm": "CRM",
+        "dashboard_center": "Dashboards",
+        "departments": "Departments",
+        "discipline": "Discipline",
+        "document_center": "Document Center",
+        "employees": "HR",
+        "employee_monitoring": "Employee Monitoring",
+        "evaluation": "Evaluation",
+        "expenses": "Expenses",
+        "internal_bot": "Internal Bot",
+        "internal_monitoring": "Internal Monitoring",
+        "inventory": "Inventory",
+        "knowledge_center": "Knowledge Center",
+        "legal": "Legal",
+        "maintenance": "Maintenance",
+        "mobile": "Mobile App",
+        "monitoring": "Monitoring",
+        "mrp": "MRP",
+        "notifications": "Notifications",
+        "offline_sync": "Offline Sync",
+        "pattern": "Pattern",
+        "payroll": "Payroll",
+        "pos": "POS",
+        "products": "Products",
+        "production": "Production",
+        "projects": "Projects",
+        "purchases": "Purchases",
+        "recruitment": "Recruitment",
+        "rfq": "RFQs",
+        "risk_management": "Risk Management",
+        "sales": "Sales",
+        "shipping": "Shipping",
+        "suppliers": "Suppliers",
+        "support": "Support",
+        "survey": "Survey",
+        "tracking": "Tracking",
+        "vendor_portal": "Vendor Portal",
+        "voice_commands": "Voice",
+        "warehouse_map": "Warehouse Map",
+        "whatsapp_bot": "WhatsApp",
+        "work_regulations": "Work Regulations",
+        "workflow": "Workflow",
+        "accounting": "Accounting",
+        "demand_forecasting": "Demand Forecasting",
+        "media": "Media",
         "departments_roles": "Department Roles",
-        "hr": "HR", "plm": "PLM",
+        "hr": "HR",
+        "plm": "PLM",
     },
     "ar": {
-        "ai": "الذكاء الاصطناعي", "ai_decision": "المساعد الذكي", "api_gateway": "بوابة API",
-        "asset_lifecycle": "دورة حياة الأصول", "attendance": "الحضور والانصراف",
-        "backup_center": "مركز النسخ الاحتياطي", "bi": "ذكاء الأعمال", "campaigns": "الحملات",
-        "client_portal": "بوابة العميل", "clients": "العملاء", "communication": "الاتصالات",
-        "contracts": "العقود", "core": "النواة", "crm": "إدارة العلاقات",
-        "dashboard_center": "لوحات التحكم", "departments": "الأقسام",
-        "discipline": "الجزاءات", "document_center": "مركز المستندات",
-        "employees": "الموارد البشرية", "employee_monitoring": "مراقبة الموظفين",
-        "evaluation": "التقييم", "expenses": "المصروفات", "internal_bot": "البوت الداخلي",
-        "internal_monitoring": "المراقبة الداخلية", "inventory": "المخزون",
-        "knowledge_center": "مركز المعرفة", "legal": "الشؤون القانونية",
-        "maintenance": "الصيانة", "mobile": "تطبيق الجوال", "monitoring": "المراقبة",
-        "mrp": "التصنيع", "notifications": "الإشعارات", "offline_sync": "المزامنة دون اتصال",
-        "pattern": "الباترون", "payroll": "الرواتب", "pos": "نقطة البيع",
-        "products": "المنتجات", "production": "الإنتاج", "projects": "المشاريع",
-        "purchases": "المشتريات", "recruitment": "التوظيف", "rfq": "طلبات عروض الأسعار",
-        "risk_management": "إدارة المخاطر", "sales": "المبيعات", "shipping": "الشحن",
-        "suppliers": "الموردون", "support": "الدعم الفني", "survey": "الاستبيانات",
-        "tracking": "التتبع", "vendor_portal": "بوابة المورد", "voice_commands": "الأوامر الصوتية",
-        "warehouse_map": "خريطة المخازن", "whatsapp_bot": "واتساب",
-        "work_regulations": "لوائح العمل", "workflow": "سير العمل",
-        "accounting": "المحاسبة", "demand_forecasting": "التنبؤ بالطلب",
-        "media": "الوسائط", "departments_roles": "أدوار الأقسام",
+        "ai": "الذكاء الاصطناعي",
+        "ai_decision": "المساعد الذكي",
+        "api_gateway": "بوابة API",
+        "asset_lifecycle": "دورة حياة الأصول",
+        "attendance": "الحضور والانصراف",
+        "backup_center": "مركز النسخ الاحتياطي",
+        "bi": "ذكاء الأعمال",
+        "campaigns": "الحملات",
+        "client_portal": "بوابة العميل",
+        "clients": "العملاء",
+        "communication": "الاتصالات",
+        "contracts": "العقود",
+        "core": "النواة",
+        "crm": "إدارة العلاقات",
+        "dashboard_center": "لوحات التحكم",
+        "departments": "الأقسام",
+        "discipline": "الجزاءات",
+        "document_center": "مركز المستندات",
+        "employees": "الموارد البشرية",
+        "employee_monitoring": "مراقبة الموظفين",
+        "evaluation": "التقييم",
+        "expenses": "المصروفات",
+        "internal_bot": "البوت الداخلي",
+        "internal_monitoring": "المراقبة الداخلية",
+        "inventory": "المخزون",
+        "knowledge_center": "مركز المعرفة",
+        "legal": "الشؤون القانونية",
+        "maintenance": "الصيانة",
+        "mobile": "تطبيق الجوال",
+        "monitoring": "المراقبة",
+        "mrp": "التصنيع",
+        "notifications": "الإشعارات",
+        "offline_sync": "المزامنة دون اتصال",
+        "pattern": "الباترون",
+        "payroll": "الرواتب",
+        "pos": "نقطة البيع",
+        "products": "المنتجات",
+        "production": "الإنتاج",
+        "projects": "المشاريع",
+        "purchases": "المشتريات",
+        "recruitment": "التوظيف",
+        "rfq": "طلبات عروض الأسعار",
+        "risk_management": "إدارة المخاطر",
+        "sales": "المبيعات",
+        "shipping": "الشحن",
+        "suppliers": "الموردون",
+        "support": "الدعم الفني",
+        "survey": "الاستبيانات",
+        "tracking": "التتبع",
+        "vendor_portal": "بوابة المورد",
+        "voice_commands": "الأوامر الصوتية",
+        "warehouse_map": "خريطة المخازن",
+        "whatsapp_bot": "واتساب",
+        "work_regulations": "لوائح العمل",
+        "workflow": "سير العمل",
+        "accounting": "المحاسبة",
+        "demand_forecasting": "التنبؤ بالطلب",
+        "media": "الوسائط",
+        "departments_roles": "أدوار الأقسام",
         # المطلوب: PLM بالعربية
         "hr": "الموارد البشرية",
         "plm": "إدارة دورة حياة المنتج",
@@ -157,28 +243,49 @@ LABELS: Dict[str, Dict[str, str]] = {
 
 # تطبيع أسماء المفاتيح
 NORMALIZE_MAP: Dict[str, str] = {
-    "customer": "clients", "customers": "clients", "client": "clients",
-    "vendor": "suppliers", "vendors": "suppliers",
-    "ai-decision": "ai_decision", "ai_decisions": "ai_decision", "ai": "ai_decision",
+    "customer": "clients",
+    "customers": "clients",
+    "client": "clients",
+    "vendor": "suppliers",
+    "vendors": "suppliers",
+    "ai-decision": "ai_decision",
+    "ai_decisions": "ai_decision",
+    "ai": "ai_decision",
     "copilot": "ai_decision",
     "whatsapp": "whatsapp_bot",
-    "dashboards": "dashboard_center", "dashboard": "dashboard_center",
-    "docs": "document_center", "documents": "document_center",
+    "dashboards": "dashboard_center",
+    "dashboard": "dashboard_center",
+    "docs": "document_center",
+    "documents": "document_center",
     "knowledge": "knowledge_center",
-    "voice": "voice_commands", "voice-commands": "voice_commands",
-    "warehouse": "warehouse_map", "workregulations": "work_regulations",
-    "client-portal": "client_portal", "api-gateway": "api_gateway",
-    "asset-lifecycle": "asset_lifecycle", "backup-center": "backup_center",
-    "document-center": "document_center", "internal-bot": "internal_bot",
-    "internal-bot ": "internal_bot", "internal-monitoring": "internal_monitoring",
-    "offline-sync": "offline_sync", "risk-management": "risk_management",
-    "vendor-portal": "vendor_portal", "warehouse-map": "warehouse_map",
+    "voice": "voice_commands",
+    "voice-commands": "voice_commands",
+    "warehouse": "warehouse_map",
+    "workregulations": "work_regulations",
+    "client-portal": "client_portal",
+    "api-gateway": "api_gateway",
+    "asset-lifecycle": "asset_lifecycle",
+    "backup-center": "backup_center",
+    "document-center": "document_center",
+    "internal-bot": "internal_bot",
+    "internal-bot ": "internal_bot",
+    "internal-monitoring": "internal_monitoring",
+    "offline-sync": "offline_sync",
+    "risk-management": "risk_management",
+    "vendor-portal": "vendor_portal",
+    "warehouse-map": "warehouse_map",
     "work-regulations": "work_regulations",
     # شائعة
-    "employees": "hr", "hr-app": "hr", "product": "products", "communications": "communication",
+    "employees": "hr",
+    "hr-app": "hr",
+    "product": "products",
+    "communications": "communication",
     "notifactions": "notifications",
-    "product-lifecycle": "plm", "product_lifecycle": "plm", "product_lifecycle_management": "plm",
+    "product-lifecycle": "plm",
+    "product_lifecycle": "plm",
+    "product_lifecycle_management": "plm",
 }
+
 
 @dataclass(frozen=True)
 class DiscoveredTile:
@@ -187,35 +294,38 @@ class DiscoveredTile:
     icon_class: str
     name: str
 
+
 def _current_lang() -> str:
     lang = translation.get_language() or "ar"
     return "ar" if str(lang).lower().startswith("ar") else "en"
+
 
 def _normalize_key(key: str) -> str:
     k = (key or "").strip().lower().strip("/").replace("-", "_")
     return NORMALIZE_MAP.get(k, k)
 
+
 _alnum_re = re.compile(r"^[a-z0-9_]{2,}$")  # مفاتيح مقبولة فقط
+
 
 def _allowed_key(key: str) -> bool:
     """السماح فقط بالمفاتيح المعرفة لدينا لمنع ظهور عناصر ليست من التطبيقات."""
-    return (
-        bool(_alnum_re.match(key)) and
-        (key in ICON_MAP or key in LABELS["en"] or key in LABELS["ar"])
+    return bool(_alnum_re.match(key)) and (
+        key in ICON_MAP or key in LABELS["en"] or key in LABELS["ar"]
     )
 
-def _first_working_url(namespace: Optional[str], candidate_names: Iterable[str]) -> Optional[str]:
+
+def _first_working_url(
+    namespace: Optional[str], candidate_names: Iterable[str]
+) -> Optional[str]:
     for name in candidate_names:
         if namespace:
-            try:
+            with suppress(NoReverseMatch):
                 return reverse(f"{namespace}:{name}")
-            except NoReverseMatch:
-                pass
-        try:
+        with suppress(NoReverseMatch):
             return reverse(name)
-        except NoReverseMatch:
-            pass
     return None
+
 
 def _label_for(raw_key: str) -> str:
     lang = _current_lang()
@@ -226,12 +336,14 @@ def _label_for(raw_key: str) -> str:
         or key.replace("_", " ").title()
     )
 
+
 def _collect_named_patterns(resolver: URLResolver) -> Set[str]:
     names: Set[str] = set()
     for ip in getattr(resolver, "url_patterns", []):
         if isinstance(ip, URLPattern) and ip.name:
             names.add(ip.name)
     return names
+
 
 def _walk_resolvers(resolver: URLResolver) -> List[URLResolver]:
     out: List[URLResolver] = []
@@ -248,12 +360,17 @@ def _walk_resolvers(resolver: URLResolver) -> List[URLResolver]:
                 stack.append(p)
     return out
 
+
 def _scan_all() -> List[DiscoveredTile]:
     root = get_resolver()
     tiles: List[DiscoveredTile] = []
 
     for resolver in _walk_resolvers(root):
-        ns = resolver.namespace or getattr(resolver, "namespace", None) or getattr(resolver.urlconf_module, "app_name", None)
+        ns = (
+            resolver.namespace
+            or getattr(resolver, "namespace", None)
+            or getattr(resolver.urlconf_module, "app_name", None)
+        )
         prefix = str(getattr(resolver, "pattern", ""))
 
         key_seed = ns or (prefix.strip("/").split("/")[0] if prefix.strip("/") else "")
@@ -264,7 +381,9 @@ def _scan_all() -> List[DiscoveredTile]:
             continue
 
         inner_names = _collect_named_patterns(resolver)
-        ordered_candidates = [n for n in CANDIDATE_NAMES if n in inner_names] + list(inner_names)
+        ordered_candidates = [n for n in CANDIDATE_NAMES if n in inner_names] + list(
+            inner_names
+        )
 
         url = _first_working_url(ns, ordered_candidates) or ("/" + prefix.lstrip("/"))
         if not url:
@@ -274,18 +393,16 @@ def _scan_all() -> List[DiscoveredTile]:
             continue
         if url == "/" or url in {"/api", "/api/"}:
             continue
-        if any(url.startswith(p) for p in SKIP_URL_PREFIXES) and key_guess != "api_gateway":
+        if (
+            any(url.startswith(p) for p in SKIP_URL_PREFIXES)
+            and key_guess != "api_gateway"
+        ):
             continue
 
         name = _label_for(key_guess)
         icon = ICON_MAP.get(key_guess, "fas fa-cube")
 
-        tiles.append(DiscoveredTile(
-            key=key_guess,
-            url=url,
-            icon_class=icon,
-            name=name
-        ))
+        tiles.append(DiscoveredTile(key=key_guess, url=url, icon_class=icon, name=name))
 
     # إزالة التكرارات بنفس المفتاح/الرابط
     uniq_by_key: Dict[str, DiscoveredTile] = {}
@@ -300,19 +417,20 @@ def _scan_all() -> List[DiscoveredTile]:
     final.sort(key=lambda x: str(x.name).lower())
     return final
 
+
 def discover_apps() -> List[Dict[str, str]]:
     tiles = _scan_all()
-    return [{
-        "key": t.key,
-        "name": t.name,
-        "url": t.url,
-        "icon_class": t.icon_class,
-    } for t in tiles]
+    return [
+        {"key": t.key, "name": t.name, "url": t.url, "icon_class": t.icon_class}
+        for t in tiles
+    ]
+
 
 def debug_urls() -> None:
     tiles = discover_apps()
     print("=== DISCOVERED APPS ===")
     for a in tiles:
         print(f"- {a['key']:<20} {a['name']:<22} -> {a['url']:<30} ({a['icon_class']})")
+
 
 __all__ = ["discover_apps", "debug_urls", "LABELS"]

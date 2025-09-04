@@ -1,7 +1,7 @@
-import os
 import json
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
+
 from load_project_context import load_context
 
 # تحميل السياق
@@ -11,10 +11,10 @@ issues = []
 
 # 1. فحص الملفات الأساسية
 required_files = [
-    BASE_DIR / 'project_meta.json',
-    BASE_DIR / 'project_state.json',
-    BASE_DIR / 'deploy_ready_report.json',
-    BASE_DIR / 'security_report.json'
+    BASE_DIR / "project_meta.json",
+    BASE_DIR / "project_state.json",
+    BASE_DIR / "deploy_ready_report.json",
+    BASE_DIR / "security_report.json",
 ]
 
 for f in required_files:
@@ -24,7 +24,7 @@ for f in required_files:
         issues.append(f"✅ موجود: {f.name}")
 
 # 2. فحص مجلدات المشروع
-required_dirs = ['static', 'media', 'templates']
+required_dirs = ["static", "media", "templates"]
 for d in required_dirs:
     path = BASE_DIR / d
     if not path.exists():
@@ -46,7 +46,7 @@ required_scripts = [
     "sync_admin_with_fixed_models_and_urls.py",
     "generate_auth_roles_and_permissions.py",
     "prepare_for_deploy.py",
-    "security_scan_project.py"
+    "security_scan_project.py",
 ]
 for script in required_scripts:
     if script == state.get("last_script") or script in state.get("last_script", ""):
@@ -55,23 +55,20 @@ for script in required_scripts:
         issues.append(f"ℹ️ تأكد من تنفيذ السكربت: {script}")
 
 # 5. تقرير نهائي
-report = {
-    "check_time": datetime.utcnow().isoformat(),
-    "result": issues
-}
+report = {"check_time": datetime.utcnow().isoformat(), "result": issues}
 
-report_path = BASE_DIR / 'final_integrity_report.json'
-with open(report_path, 'w', encoding='utf-8') as f:
+report_path = BASE_DIR / "final_integrity_report.json"
+with open(report_path, "w", encoding="utf-8") as f:
     json.dump(report, f, indent=2, ensure_ascii=False)
 
 print("✅ تم تنفيذ فحص التكامل النهائي.")
 print(f"📄 التقرير: {report_path}")
 
 # تحديث الحالة
-state['last_script'] = 'final_integrity_check.py'
-state['status'] = 'integrity_verified'
-state['next_script'] = None
-state['last_updated'] = datetime.utcnow().isoformat()
+state["last_script"] = "final_integrity_check.py"
+state["status"] = "integrity_verified"
+state["next_script"] = None
+state["last_updated"] = datetime.utcnow().isoformat()
 
-with open(BASE_DIR / 'project_state.json', 'w', encoding='utf-8') as f:
+with open(BASE_DIR / "project_state.json", "w", encoding="utf-8") as f:
     json.dump(state, f, indent=2, ensure_ascii=False)

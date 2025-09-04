@@ -1,12 +1,13 @@
 from django.db import models
 
 EXPENSE_CATEGORY = [
-    ('operational', 'تشغيلية'),
-    ('marketing', 'تسويق'),
-    ('salary', 'رواتب'),
-    ('maintenance', 'صيانة'),
-    ('other', 'أخرى'),
+    ("operational", "تشغيلية"),
+    ("marketing", "تسويق"),
+    ("salary", "رواتب"),
+    ("maintenance", "صيانة"),
+    ("other", "أخرى"),
 ]
+
 
 class Expense(models.Model):
     title = models.CharField(max_length=255)

@@ -1,31 +1,38 @@
-import os
+# launch_project_manager.py
 import json
-from datetime import datetime
 from pathlib import Path
+from typing import Any, Dict, Union
 
 BASE_DIR = Path(__file__).resolve().parent
 META_PATH = BASE_DIR / "project_meta.json"
 STATE_PATH = BASE_DIR / "project_state.json"
 SECURITY_REPORT_PATH = BASE_DIR / "security_report.json"
 
-def load_file(path, name):
+
+def load_file(path: Path, name: str) -> Union[Dict[str, Any], str]:
     if not path.exists():
         return f"❌ الملف '{name}' غير موجود"
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with path.open("r", encoding="utf-8") as f:
             return json.load(f)
-    except:
+    except (OSError, json.JSONDecodeError):
         return f"❌ فشل في قراءة '{name}'"
 
-def show_header(title):
-    print("\n" + "="*60)
-    print(f"🔷 {title}")
-    print("="*60)
 
-def main():
+def show_header(title: str) -> None:
+    print("\n" + "=" * 60)
+    print(f"🔷 {title}")
+    print("=" * 60)
+
+
+def main() -> None:
     meta = load_file(META_PATH, "project_meta.json")
     state = load_file(STATE_PATH, "project_state.json")
-    security = load_file(SECURITY_REPORT_PATH, "security_report.json") if SECURITY_REPORT_PATH.exists() else None
+    security = (
+        load_file(SECURITY_REPORT_PATH, "security_report.json")
+        if SECURITY_REPORT_PATH.exists()
+        else None
+    )
 
     # ✅ 1. معلومات المشروع
     show_header("معلومات المشروع")
@@ -42,7 +49,9 @@ def main():
     show_header("حالة المشروع الحالية")
     if isinstance(state, dict):
         print(f"✅ آخر سكربت: {state.get('last_script')}")
-        print(f"➡️ السكربت التالي: {state.get('next_script') or '🚩 لا يوجد - المشروع مكتمل'}")
+        print(
+            f"➡️ السكربت التالي: {state.get('next_script') or '🚩 لا يوجد - المشروع مكتمل'}"
+        )
         print(f"🕓 آخر تحديث: {state.get('last_updated')}")
         print(f"📌 الحالة: {state.get('status')}")
     else:
@@ -70,6 +79,7 @@ def main():
             print("🎉 لا يوجد سكربت قادم محدد — المشروع مكتمل أو بانتظار إجراء جديد.")
 
     print("\n✅ جاهز دايمًا نخدمك يا معلم المعلمين.")
+
 
 if __name__ == "__main__":
     main()

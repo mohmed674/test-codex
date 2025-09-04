@@ -1,12 +1,12 @@
+from contextlib import suppress
+
 from django.contrib import admin
-from apps.projects.models import *
+
+from apps.projects.models import Project, Task
 
 # ✅ Auto-registered models
-try:
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Project)
-except admin.sites.AlreadyRegistered:
-    pass
-try:
+
+with suppress(admin.sites.AlreadyRegistered):
     admin.site.register(Task)
-except admin.sites.AlreadyRegistered:
-    pass

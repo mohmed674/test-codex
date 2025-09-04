@@ -1,17 +1,18 @@
-from rest_framework import viewsets, permissions
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from django.shortcuts import get_object_or_404, render, redirect
+import csv
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from weasyprint import HTML
-import datetime
-import csv
 
 from .models import Notification
-from .serializers import NotificationSerializer
 from .permissions import IsOwnerOrManager
+from .serializers import NotificationSerializer
 
 
 # DRF ViewSet للـ API
@@ -22,16 +23,16 @@ class NotificationViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.is_staff or user.is_superuser:
-            return Notification.objects.all().order_by('-created_at')
-        return Notification.objects.filter(user=user).order_by('-created_at')
+            return Notification.objects.all().order_by("-created_at")
+        return Notification.objects.filter(user=user).order_by("-created_at")
 
     # علامة قراءة على إشعار محدد
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=["post"])
     def mark_read(self, request, pk=None):
         notification = get_object_or_404(self.get_queryset(), pk=pk)
         notification.read = True
         notification.save()
-        return Response({'status': 'marked as read'})
+        return Response({"status": "marked as read"})
 
 
 # الواجهات العادية للويب
@@ -39,10 +40,10 @@ class NotificationViewSet(viewsets.ModelViewSet):
 def notification_list(request):
     user = request.user
     if user.is_staff or user.is_superuser:
-        notifications = Notification.objects.all().order_by('-created_at')
+        notifications = Notification.objects.all().order_by("-created_at")
     else:
-        notifications = Notification.objects.filter(user=user).order_by('-created_at')
-    return render(request, 'notifications/list.html', {'notifications': notifications})
+        notifications = Notification.objects.filter(user=user).order_by("-created_at")
+    return render(request, "notifications/list.html", {"notifications": notifications})
 
 
 @login_required
@@ -52,7 +53,7 @@ def mark_as_read(request, pk):
         return HttpResponse("غير مصرح", status=403)
     notification.read = True
     notification.save()
-    return redirect('notifications:list')
+    return redirect("notifications:list")
 
 
 # تصدير PDF
@@ -60,15 +61,17 @@ def mark_as_read(request, pk):
 def export_notifications_pdf(request):
     user = request.user
     if user.is_staff or user.is_superuser:
-        notifications = Notification.objects.all().order_by('-created_at')
+        notifications = Notification.objects.all().order_by("-created_at")
     else:
-        notifications = Notification.objects.filter(user=user).order_by('-created_at')
+        notifications = Notification.objects.filter(user=user).order_by("-created_at")
 
-    html_string = render_to_string('notifications/pdf_list.html', {'notifications': notifications})
+    html_string = render_to_string(
+        "notifications/pdf_list.html", {"notifications": notifications}
+    )
     pdf = HTML(string=html_string).write_pdf()
-    response = HttpResponse(pdf, content_type='application/pdf')
+    response = HttpResponse(pdf, content_type="application/pdf")
     filename = f"notifications_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
-    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
     return response
 
 
@@ -77,27 +80,33 @@ def export_notifications_pdf(request):
 def export_notifications_excel(request):
     user = request.user
     if user.is_staff or user.is_superuser:
-        notifications = Notification.objects.all().order_by('-created_at')
+        notifications = Notification.objects.all().order_by("-created_at")
     else:
-        notifications = Notification.objects.filter(user=user).order_by('-created_at')
+        notifications = Notification.objects.filter(user=user).order_by("-created_at")
 
-    response = HttpResponse(content_type='text/csv')
+    response = HttpResponse(content_type="text/csv")
     filename = f"notifications_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
-    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
 
     writer = csv.writer(response)
-    writer.writerow(['ID', 'User', 'Message', 'Created At', 'Read'])
+    writer.writerow(["ID", "User", "Message", "Created At", "Read"])
     for n in notifications:
-        writer.writerow([n.id, n.user.username, n.message, n.created_at.strftime('%Y-%m-%d %H:%M'), n.read])
+        writer.writerow(
+            [
+                n.id,
+                n.user.username,
+                n.message,
+                n.created_at.strftime("%Y-%m-%d %H:%M"),
+                n.read,
+            ]
+        )
 
     return response
 
 
-from django.shortcuts import render
-
 def index(request):
-    return render(request, 'notifications/index.html')
+    return render(request, "notifications/index.html")
 
 
 def app_home(request):
-    return render(request, 'apps/notifications/home.html', {'app': 'notifications'})
+    return render(request, "apps/notifications/home.html", {"app": "notifications"})

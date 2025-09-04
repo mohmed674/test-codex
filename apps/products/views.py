@@ -1,164 +1,201 @@
-# ERP_CORE/products/views.py
+from __future__ import annotations
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods, require_GET
-from django.contrib import messages
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
-from django.http import JsonResponse, HttpResponse
-from django.utils import timezone
-from django.core.exceptions import FieldError
 import csv
+import importlib
+from contextlib import suppress
+from io import BytesIO
+from typing import Any, Callable, Dict, Optional, Tuple, cast
 
-from .models import FinishedProduct
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import FieldError
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Q
+from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_GET, require_http_methods
+
 from .forms import FinishedProductForm
+from .models import FinishedProduct
 
-# ===== استيراد أدوات التصدير/الطباعة (تصحيح المسارات + إسكات التحذيرات) =====
-try:
-    from export_utils import export_to_excel, render_to_pdf  # type: ignore[import]
-except Exception:
-    try:
-        from core.export_utils import export_to_excel, render_to_pdf  # type: ignore[import]
-    except Exception:
-        try:
-            from common.export_utils import export_to_excel, render_to_pdf  # type: ignore[import]
-        except Exception:
-            # بديل محلي نهائي
-            from io import BytesIO
-            from django.template.loader import get_template
-            from django.utils.timezone import now
-            import pandas as pd
+# ====== تصدير/طباعة: حلّ مرن لمسارات متعددة + إزالة تحذيرات mypy (no-redef) ======
+ExportCallable = Callable[..., HttpResponse]
 
-            def export_to_excel(data, columns=None, filename="report.xlsx", sheet_name="Sheet1") -> HttpResponse:
-                # تطبيع البيانات
-                if isinstance(data, pd.DataFrame):
-                    df = data.copy()
-                elif hasattr(data, "values") and callable(getattr(data, "values", None)):
-                    try:
-                        df = pd.DataFrame(list(data.values()))
-                    except Exception:
-                        df = pd.DataFrame(list(data))
-                elif isinstance(data, (list, tuple)):
-                    df = pd.DataFrame(data)
-                else:
-                    try:
-                        df = pd.DataFrame(list(data))
-                    except Exception:
-                        df = pd.DataFrame()
+def _load_export_utils() -> Tuple[Optional[ExportCallable], Optional[ExportCallable]]:
+  """يحاول جلب export_to_excel / render_to_pdf من عدة مسارات بدون إعادة تعريفات."""
+  candidates = (
+      "export_utils",
+      "core.export_utils",
+      "common.export_utils",
+  )
+  export_to_excel: Optional[ExportCallable] = None
+  render_to_pdf: Optional[ExportCallable] = None
 
-                # ترتيب/استكمال الأعمدة
-                if columns:
-                    for c in columns:
-                        if c not in df.columns:
-                            df[c] = ""
-                    df = df.loc[:, columns]
+  for mod_path in candidates:
+      with suppress(Exception):
+          mod = importlib.import_module(mod_path)  # type: ignore[import]
+          # getattr داخل suppress لتفادي AttributeError
+          with suppress(Exception):
+              export_to_excel = cast(ExportCallable, getattr(mod, "export_to_excel"))
+          with suppress(Exception):
+              render_to_pdf = cast(ExportCallable, getattr(mod, "render_to_pdf"))
+          if export_to_excel and render_to_pdf:
+              break
+  return export_to_excel, render_to_pdf
 
-                buf = BytesIO()
-                with pd.ExcelWriter(buf, engine="openpyxl") as writer:
-                    df.to_excel(writer, index=False, sheet_name=sheet_name)
-                buf.seek(0)
+_ext_export_to_excel, _ext_render_to_pdf = _load_export_utils()
 
-                resp = HttpResponse(
-                    buf.getvalue(),
-                    content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                )
-                resp["Content-Disposition"] = f'attachment; filename="{filename}"'
-                return resp
+if not _ext_export_to_excel or not _ext_render_to_pdf:
+    # Fallbacks محلية إذا لم تتوفر util خارجي
+    import pandas as pd
+    from django.template.loader import get_template
+    from django.utils.timezone import now
 
-            def render_to_pdf(template_src, context_dict=None, filename=None, inline=True) -> HttpResponse:
-                context = dict(context_dict or {})
-                context.setdefault("generated_at", now())
-                html = get_template(template_src).render(context)
+    def _fallback_export_to_excel(
+        data: Any,
+        columns: Optional[list[str]] = None,
+        filename: str = "report.xlsx",
+        sheet_name: str = "Sheet1",
+    ) -> HttpResponse:
+        # تطبيع البيانات إلى DataFrame
+        if isinstance(data, pd.DataFrame):
+            df = data.copy()
+        elif hasattr(data, "values") and callable(getattr(data, "values", None)):
+            # QuerySet.values()
+            with suppress(Exception):
+                df = pd.DataFrame(list(data.values()))
+            if "df" not in locals():
+                df = pd.DataFrame(list(data))  # type: ignore[arg-type]
+        elif isinstance(data, (list, tuple)):
+            df = pd.DataFrame(data)
+        else:
+            with suppress(Exception):
+                df = pd.DataFrame(list(data))  # type: ignore[arg-type]
+            if "df" not in locals():
+                df = pd.DataFrame()
 
-                # WeasyPrint أولاً
-                try:
-                    from weasyprint import HTML, CSS  # type: ignore
-                    pdf_bytes = HTML(string=html).write_pdf(
-                        stylesheets=[CSS(string="@page { size: A4; margin: 18mm 12mm; }")]
-                    )
-                    resp = HttpResponse(pdf_bytes, content_type="application/pdf")
-                    disp = "inline" if inline else "attachment"
-                    if filename:
-                        resp["Content-Disposition"] = f'{disp}; filename="{filename}"'
-                    return resp
-                except Exception:
-                    pass
+        # ترتيب/استكمال الأعمدة
+        if columns:
+            for c in columns:
+                if c not in df.columns:
+                    df[c] = ""
+            df = df.loc[:, columns]
 
-                # xhtml2pdf ثانيًا
-                try:
-                    from xhtml2pdf import pisa  # type: ignore
-                    buf = BytesIO()
-                    status = pisa.CreatePDF(html, dest=buf)
-                    if status.err:
-                        return HttpResponse("PDF generation error", status=500)
-                    buf.seek(0)
-                    resp = HttpResponse(buf.getvalue(), content_type="application/pdf")
-                    disp = "inline" if inline else "attachment"
-                    if filename:
-                        resp["Content-Disposition"] = f'{disp}; filename="{filename}"'
-                    return resp
-                except Exception:
-                    # أخيرًا HTML خام
-                    return HttpResponse(html, content_type="text/html; charset=utf-8")
+        buf = BytesIO()
+        with pd.ExcelWriter(buf, engine="openpyxl") as writer:
+            df.to_excel(writer, index=False, sheet_name=sheet_name)
+        buf.seek(0)
 
+        resp = HttpResponse(
+            buf.getvalue(),
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+        resp["Content-Disposition"] = f'attachment; filename="{filename}"'
+        return resp
+
+    def _fallback_render_to_pdf(
+        template_src: str,
+        context_dict: Optional[Dict[str, Any]] = None,
+        filename: Optional[str] = None,
+        inline: bool = True,
+    ) -> HttpResponse:
+        context = dict(context_dict or {})
+        context.setdefault("generated_at", now())
+        html = get_template(template_src).render(context)
+
+        # WeasyPrint أولاً
+        with suppress(Exception):
+            from weasyprint import CSS, HTML  # type: ignore
+
+            pdf_bytes = HTML(string=html).write_pdf(
+                stylesheets=[CSS(string="@page { size: A4; margin: 18mm 12mm; }")]
+            )
+            resp = HttpResponse(pdf_bytes, content_type="application/pdf")
+            disp = "inline" if inline else "attachment"
+            if filename:
+                resp["Content-Disposition"] = f'{disp}; filename="{filename}"'
+            return resp
+
+        # xhtml2pdf ثانيًا
+        with suppress(Exception):
+            from xhtml2pdf import pisa  # type: ignore
+
+            buf = BytesIO()
+            status = pisa.CreatePDF(html, dest=buf)
+            if getattr(status, "err", 1):
+                return HttpResponse("PDF generation error", status=500)
+            buf.seek(0)
+            resp = HttpResponse(buf.getvalue(), content_type="application/pdf")
+            disp = "inline" if inline else "attachment"
+            if filename:
+                resp["Content-Disposition"] = f'{disp}; filename="{filename}"'
+            return resp
+
+        # أخيرًا HTML خام
+        return HttpResponse(html, content_type="text/html; charset=utf-8")
+
+    export_to_excel: ExportCallable = _fallback_export_to_excel
+    render_to_pdf: ExportCallable = _fallback_render_to_pdf
+else:
+    export_to_excel = _ext_export_to_excel
+    render_to_pdf = _ext_render_to_pdf
 
 # ===== مساعدات محلية =====
-# توحيد أسماء الحقول بين "expiration_date" و"expiry_date" وبين "quality_status" و"status"
 ALLOWED_ORDERING = {
     "product_code",
     "name",
     "quantity",
     "date_produced",
     "expiration_date",
-    "expiry_date",       # دعم قديم
+    "expiry_date",  # دعم قديم
     "quality_status",
     "created_at",
     "updated_at",
 }
 
-def _fmt_date(d):
+def t(msg: str) -> str:
+    """ترجمة كسلسلة نصية صريحة (لتجنّب _StrPromise في typing)."""
+    return str(_(msg))
+
+def _fmt_date(d: Any) -> str:
     if not d:
         return "-"
-    # دعم Date أو DateTime
-    try:
+    with suppress(Exception):
         return d.strftime("%Y-%m-%d")
-    except Exception:
-        try:
-            return timezone.localtime(d).date().strftime("%Y-%m-%d")
-        except Exception:
-            return str(d)
+    with suppress(Exception):
+        return timezone.localtime(d).date().strftime("%Y-%m-%d")
+    return str(d)
 
-def _coalesce_attr(obj, *names, default=None):
+def _coalesce_attr(obj: Any, *names: str, default: Any = None) -> Any:
     for n in names:
-        try:
+        with suppress(Exception):
             val = getattr(obj, n)
-            # نعتبر None كعدم توفر ونستمر
             if val is not None:
                 return val
-        except Exception:
-            continue
     return default
 
-def _safe_days_to_expiry(expiry):
-    try:
+def _safe_days_to_expiry(expiry: Any) -> Optional[int]:
+    with suppress(Exception):
         if not expiry:
             return None
         today = timezone.localdate()
-        # دعم Date أو DateTime
-        try:
-            exp_date = expiry if hasattr(expiry, "year") and not hasattr(expiry, "hour") else timezone.localtime(expiry).date()
-        except Exception:
-            exp_date = getattr(expiry, "date", lambda: None)() or expiry
+        with suppress(Exception):
+            exp_date = (
+                expiry
+                if hasattr(expiry, "year") and not hasattr(expiry, "hour")
+                else timezone.localtime(expiry).date()
+            )
+            return (exp_date - today).days
+        exp_date = getattr(expiry, "date", lambda: None)() or expiry
         return (exp_date - today).days
-    except Exception:
-        return None
+    return None
 
-def _model_has_field(model, field_name: str) -> bool:
-    try:
-        return any(f.name == field_name for f in model._meta.get_fields())
-    except Exception:
-        return False
+def _model_has_field(model: Any, field_name: str) -> bool:
+    with suppress(Exception):
+        return any(f.name == field_name for f in model._meta.get_fields())  # type: ignore[attr-defined]
+    return False
 
 def _try_filter(qs, **kwargs):
     try:
@@ -168,18 +205,16 @@ def _try_filter(qs, **kwargs):
     except Exception:
         return qs
 
-
 # 📦 قائمة المنتجات (فلترة/ترتيب/تصدير/طباعة/JSON)
 @require_GET
 @login_required
-def product_list(request):
-    # تحسين الأداء: اختيار علاقات محتملة
+def product_list(request: HttpRequest) -> HttpResponse:
     qs = FinishedProduct.objects.all().select_related()
 
     # فلاتر
     q = (request.GET.get("q") or "").strip()
-    status = (request.GET.get("status") or "").strip()  # متوافق مع الواجهات القديمة
-    qstatus = (request.GET.get("quality_status") or "").strip()  # الاسم الصحيح في الموديل
+    status = (request.GET.get("status") or "").strip()
+    qstatus = (request.GET.get("quality_status") or "").strip()
     date_from = (request.GET.get("date_from") or "").strip()
     date_to = (request.GET.get("date_to") or "").strip()
     ordering = (request.GET.get("ordering") or "").strip()
@@ -200,37 +235,31 @@ def product_list(request):
     def _apply_date_filter(queryset, field, gte=None, lte=None):
         qset = queryset
         if gte:
-            try:
-                qset = qset.filter(**{f"{field}__date__gte": gte})
-            except Exception:
-                qset = qset.filter(**{f"{field}__gte": gte})
+            with suppress(Exception):
+                return qset.filter(**{f"{field}__date__gte": gte})
+            qset = qset.filter(**{f"{field}__gte": gte})
         if lte:
-            try:
-                qset = qset.filter(**{f"{field}__date__lte": lte})
-            except Exception:
-                qset = qset.filter(**{f"{field}__lte": lte})
+            with suppress(Exception):
+                return qset.filter(**{f"{field}__date__lte": lte})
+            qset = qset.filter(**{f"{field}__lte": lte})
         return qset
 
-    try:
+    with suppress(Exception):
         if date_from:
             qs = _apply_date_filter(qs, "date_produced", gte=date_from)
         if date_to:
             qs = _apply_date_filter(qs, "date_produced", lte=date_to)
-    except Exception:
-        pass
 
     # ترتيب آمن
     if ordering:
         base = ordering.lstrip("-")
         if base in ALLOWED_ORDERING:
-            try:
+            with suppress(Exception):
                 qs = qs.order_by(ordering)
-            except Exception:
-                # fallback: لو طُلب expiry_date نرتّب على expiration_date
-                if base == "expiry_date":
-                    qs = qs.order_by(ordering.replace("expiry_date", "expiration_date"))
+            if base == "expiry_date":
+                qs = qs.order_by(ordering.replace("expiry_date", "expiration_date"))
 
-    # تصدير/طباعة قبل التقسيم لصفحات (على المجموعة المُفلترة كاملة)
+    # تصدير/طباعة قبل التقسيم لصفحات
     if "download_pdf" in request.GET:
         return render_to_pdf(
             "products/products_pdf.html",
@@ -241,37 +270,51 @@ def product_list(request):
 
     export = (request.GET.get("export") or "").lower()
     if export in {"excel", "xlsx", "csv", "json"} or fmt == "json":
-        rows = []
+        rows: list[Dict[str, Any]] = []
         for p in qs:
             expiry = _coalesce_attr(p, "expiration_date", "expiry_date")
-            status_disp = "-"
-            # عرض الحالة المتوافقة
-            if hasattr(p, "get_quality_status_display"):
-                try:
-                    status_disp = p.get_quality_status_display()
-                except Exception:
-                    pass
-            elif hasattr(p, "get_status_display"):
-                try:
-                    status_disp = p.get_status_display()
-                except Exception:
-                    pass
 
-            rows.append({
-                "كود المنتج": getattr(p, "product_code", ""),
-                "الاسم": getattr(p, "name", ""),
-                "الكمية": getattr(p, "quantity", 0),
-                "الحالة": status_disp,
-                "تاريخ الإنتاج": _fmt_date(getattr(p, "date_produced", None)),
-                "تاريخ الانتهاء": _fmt_date(expiry),
-                "الأيام حتى الانتهاء": _safe_days_to_expiry(expiry),
-            })
+            # عرض الحالة المتوافقة بدون أخطاء typing
+            status_disp = "-"
+            method = getattr(p, "get_quality_status_display", None)
+            if callable(method):
+                with suppress(Exception):
+                    status_disp = method()
+            else:
+                method2 = getattr(p, "get_status_display", None)
+                if callable(method2):
+                    with suppress(Exception):
+                        status_disp = method2()
+
+            rows.append(
+                {
+                    t("كود المنتج"): getattr(p, "product_code", ""),
+                    t("الاسم"): getattr(p, "name", ""),
+                    t("الكمية"): getattr(p, "quantity", 0),
+                    t("الحالة"): status_disp,
+                    t("تاريخ الإنتاج"): _fmt_date(getattr(p, "date_produced", None)),
+                    t("تاريخ الانتهاء"): _fmt_date(expiry),
+                    t("الأيام حتى الانتهاء"): _safe_days_to_expiry(expiry),
+                }
+            )
 
         if export in {"excel", "xlsx"}:
-            columns = ["كود المنتج", "الاسم", "الكمية", "الحالة", "تاريخ الإنتاج", "تاريخ الانتهاء", "الأيام حتى الانتهاء"]
-            return export_to_excel(rows, columns=columns, filename="finished_products.xlsx")
+            columns: list[str] = [
+                t("كود المنتج"),
+                t("الاسم"),
+                t("الكمية"),
+                t("الحالة"),
+                t("تاريخ الإنتاج"),
+                t("تاريخ الانتهاء"),
+                t("الأيام حتى الانتهاء"),
+            ]
+            return export_to_excel(
+                rows, columns=columns, filename="finished_products.xlsx"
+            )
         if export == "json" or fmt == "json":
-            return JsonResponse(rows, safe=False, json_dumps_params={"ensure_ascii": False})
+            return JsonResponse(
+                rows, safe=False, json_dumps_params={"ensure_ascii": False}
+            )
         if export == "csv":
             resp = HttpResponse(content_type="text/csv; charset=utf-8")
             resp["Content-Disposition"] = 'attachment; filename="finished_products.csv"'
@@ -281,7 +324,7 @@ def product_list(request):
                 for r in rows:
                     w.writerow(r.values())
             else:
-                w.writerow(["لا توجد بيانات"])
+                w.writerow([t("لا توجد بيانات")])
             return resp
 
     # تقسيم صفحات
@@ -295,7 +338,7 @@ def product_list(request):
         page_obj = paginator.page(paginator.num_pages)
 
     ctx = {
-        "products": page_obj,  # Page قابل للتكرار
+        "products": page_obj,
         "page_obj": page_obj,
         "paginator": paginator,
         "filters": {
@@ -308,65 +351,53 @@ def product_list(request):
     }
     return render(request, "products/product_list.html", ctx)
 
-
 # ➕ إنشاء منتج نهائي
 @require_http_methods(["GET", "POST"])
 @login_required
-def product_create(request):
+def product_create(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = FinishedProductForm(request.POST, request.FILES)
         if form.is_valid():
-            obj = form.save()
-            try:
-                messages.success(request, "تم إنشاء المنتج بنجاح.")
-            except Exception:
-                pass
-            # إعادة التوجيه للقائمة الموحّدة
+            form.save()
+            with suppress(Exception):
+                messages.success(request, _("تم إنشاء المنتج بنجاح."))
             return redirect("products:product_list")
     else:
         form = FinishedProductForm()
     return render(request, "products/product_form.html", {"form": form})
 
-
 # ✏️ تعديل منتج
 @require_http_methods(["GET", "POST"])
 @login_required
-def product_edit(request, pk):
+def product_edit(request: HttpRequest, pk: int) -> HttpResponse:
     product = get_object_or_404(FinishedProduct, pk=pk)
     if request.method == "POST":
         form = FinishedProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            try:
-                messages.success(request, "تم تعديل المنتج بنجاح.")
-            except Exception:
-                pass
+            with suppress(Exception):
+                messages.success(request, _("تم تعديل المنتج بنجاح."))
             return redirect("products:product_list")
     else:
         form = FinishedProductForm(instance=product)
-    return render(request, "products/product_form.html", {"form": form, "edit_mode": True})
-
+    return render(
+        request, "products/product_form.html", {"form": form, "edit_mode": True}
+    )
 
 # ❌ حذف منتج
 @require_http_methods(["GET", "POST"])
 @login_required
-def product_delete(request, pk):
+def product_delete(request: HttpRequest, pk: int) -> HttpResponse:
     product = get_object_or_404(FinishedProduct, pk=pk)
     if request.method == "POST":
         product.delete()
-        try:
-            messages.success(request, "تم حذف المنتج بنجاح.")
-        except Exception:
-            pass
+        with suppress(Exception):
+            messages.success(request, _("تم حذف المنتج بنجاح."))
         return redirect("products:product_list")
     return render(request, "products/product_confirm_delete.html", {"product": product})
 
+def index(request: HttpRequest) -> HttpResponse:
+    return render(request, "products/index.html")
 
-from django.shortcuts import render
-
-def index(request):
-    return render(request, 'products/index.html')
-
-
-def app_home(request):
-    return render(request, 'apps/products/home.html', {'app': 'products'})
+def app_home(request: HttpRequest) -> HttpResponse:
+    return render(request, "apps/products/home.html", {"app": "products"})

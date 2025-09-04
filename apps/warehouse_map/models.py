@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Zone(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=20, unique=True)
@@ -7,6 +8,7 @@ class Zone(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Location(models.Model):
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
